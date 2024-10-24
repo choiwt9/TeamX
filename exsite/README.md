@@ -1,2 +1,0 @@
-# TeamX
-TeamX Project
