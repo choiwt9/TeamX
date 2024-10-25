@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/user/enrollForm.css">
+<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+<script src="/js/enrollForm.js"></script>
+</head>
+<body>
+	<div id="main">
+		<img id="ex-site-logo" src="\img\common\ex-site-logo.png" />
+		<h5>회원가입</h5>
+		<!-- 회원가입 폼 -->
+		<form action="/normallogin" method="post">
+			<div id="enroll-form">
+				<table id="form-table">
+					<tr>
+						<td>아이디<input id="id" type="text" maxlength="20" placeholder="6~20자 영문, 숫자">
+							<button type="button" class="check-button">중복확인</button>
+							<div id="id-error" class="error-message"></div>
+						</td>
+							
+					</tr>
+					<tr>
+						<td>
+						비밀번호<input id="password" type="password" maxlength="12" placeholder="8~12자 영문, 숫자, 특수문자">
+						<div id="password-error" class="error-message"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+						비밀번호 확인<input id="check-password" type="password" maxlength="12" placeholder="8~12자 영문, 숫자, 특수문자">
+						<div id="check-password-result" class="error-message"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>이름<input type="text" maxlength="5"></td>
+					</tr>
+					<tr>
+						<td>이메일<input id="email-prefix" name="email-prefix">
+						<select id="email-suffix" name="email-suffix">
+							<option value="@naver.com">@naver.com</option>
+							<option value="@google.com">@google.com</option>
+							<option value="other">기타(직접 입력)</option>
+						</select>
+						<input type="text" id="custom-input" placeholder="직접 입력">
+							<button type="button" id="authentication-email" class="check-button">인증받기</button></td>
+					</tr>
+					<tr>
+						<td>연락처<input maxlength="11" type="text" placeholder="01012345678">
+							<button type="button" id="authentication-phone" class="check-button">인증받기</button></td>
+					</tr>
+					<tr>
+						<td>주소<input type="text">
+							<button type="button" id="search-address" class="check-button">검색</button></td>
+					</tr>
+				</table>
+				<!-- 예시 폼 -->
+			</div>
+			<div id="terms-and-conditions-div">
+				<label>
+					<input type="checkbox" id="terms-and-conditions" style="display: none;">
+					<span class="custom-checkbox"></span> <span id="terms-and-condition-content">이용 약관 동의</span>
+			</label>
+			</div>
+			<button type="submit" id="enroll-btn">가입 완료</button>
+			<div id="sosical-signup-btn-area">
+				<img id="naver-signup-btn-img"
+					src="img/user/naver-signup-btn-img.png" /> 
+				<img id="google-signup-btn-img"
+					src="img/user/google-signup-btn-img.png" />
+			</div>
+		</form>
+
+	</div>
+</body>
+</html>

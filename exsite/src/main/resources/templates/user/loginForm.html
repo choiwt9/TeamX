@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/user/loginForm.css">
+</head>
+<body>
+<div id="main">
+  <img id="ex-site-logo" src="/img/common/ex-site-logo.png" alt="ex-site-logo">
+  <form action="/normal-login" method="post">
+    <div id="login-form">
+      <table id="login-form-table">
+        <tr>
+          <td>
+            ID
+            <input type="text" placeholder="아이디" name="userId" maxlength="20">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            PW
+            <input type="password" placeholder="비밀번호" name="userPw" maxlength="12">
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div id="id-error" class="error-message">존재하지 않는 아이디입니다. 다시 입력해주세요. // 비밀번호가 맞지 않습니다. 다시 입력해주세요.</div>
+    <div id="login-form-under-link">
+      <a>아이디 찾기</a> | <a>비밀번호 찾기</a> | <a>회원가입</a>
+    </div>
+    <button id="login-btn">로그인</button>
+  </form>
+  <img id="naver-login-btn-img" src="/img/user/naver-login-btn-img.png" alt="네이버 로그인">
+  <img id="google-login-btn-img" src="/img/user/google-login-btn-img.png" alt="구글 로그인">
+</div>
+</body>
+</html>

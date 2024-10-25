@@ -1,0 +1,230 @@
+html {
+	font-size: 62.5%;
+}
+
+#main {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+}
+
+#ex-site-logo {
+	height: 9rem;
+	width: 10.5rem;
+}
+
+h5 {
+	margin: 2rem 0rem;
+	font-size: 2.49rem;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#enroll-form {
+	box-sizing: border-box;
+	width: 45.3rem;
+	height: 60rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: solid 0.2rem #9DD7D7;
+	border-radius: 2rem;
+	padding: 0rem;
+}
+
+#enroll-form input {
+	border: none;
+}
+
+#form-table {
+	position: relative;
+	width: 100%; /* 테이블 너비를 부모 요소의 80%로 설정 */
+	height: 100%; /* 테이블 높이를 200px로 설정 */
+	table-layout: fixed; /* 고정된 레이아웃으로 설정하여 셀 크기 제어 */
+	padding: 0px;
+	font-size: 2rem;
+	font-weight: 900;
+	width: 100%;
+}
+
+td {
+	border-bottom: 0.2rem solid #9DD7D7;
+	padding: 0rem 1rem;
+	align-items: center;
+}
+
+tr:last-child td {
+	border-bottom: none; /* 마지막 행의 셀에는 구분선을 추가하지 않음 */
+}
+
+input {
+	margin-left: 1.5rem;
+	padding: 1.5rem 0rem 1.5rem 0rem;
+	font-size: 1.5rem;
+	width: 16rem;
+}
+
+input:focus {
+	outline: none;
+	border-color: #9DD7D7; /* 포커스 시 테두리 색상을 변경하는 것도 가능 */
+}
+
+#email-prefix {
+	margin-left: 1.5rem;
+	padding: 1.5rem 0rem 1.5rem 0rem;
+	width: 7rem;
+}
+
+#email-suffix {
+	font-size: 1.5rem;
+	outline: none;
+	border: none;
+}
+
+#custom-input {
+	display: none;
+}
+
+.check-button {
+	position: absolute;
+	right: 2rem;
+	padding: 1rem;
+	border-radius: 0.9rem;
+	color: #ffffff;
+	font-size: 1.2rem;
+	font-weight: 700;
+	background-color: #0b9b9b;
+	width: 7.5rem;
+	height: 3.6rem;
+	border: none;
+}
+
+.check-button:hover {
+	background-color: #9DD7D7; /* 마우스 올렸을 때 배경색 변경 */
+	color: #ffffff; /* 글자색 변경 */
+}
+
+#enroll-btn {
+	right: 2rem;
+	padding: 1rem;
+	border-radius: 0.9rem;
+	color: #ffffff;
+	font-size: 1.5rem;
+	font-weight: 700;
+	background-color: #0b9b9b;
+	width: 16.2rem;
+	height: 4.59rem;
+	border: none;
+	margin: 2rem;
+}
+
+#enroll-btn:hover {
+	background-color: #9DD7D7; /* 마우스 올렸을 때 배경색 변경 */
+	color: #ffffff; /* 글자색 변경 */
+}
+
+#sosical-signup-btn-area {
+	display: flex;
+	align-items: center;
+	align-content: center;
+	gap: 4.5rem;
+}
+
+#naver-signup-btn-img {
+	width: 15.51rem;
+	height: 3.99rem;
+	
+}
+
+#naver-login-btn-img:hover {
+	cursor: pointer;
+}
+
+#google-signup-btn-img {
+	width: 15.51rem;
+	height: 3.99rem;
+	
+}
+
+#google-signup-btn-img:hover {
+	cursor: pointer;
+}
+
+span {
+	font-size: 1.2rem;
+}
+
+.error-message {
+	color: red; /* 오류 메시지를 빨간색으로 표시 */
+	font-size: 1.29rem; /* 작은 폰트 크기 */
+	content: 1.29rem; /* 위 요소와 간격 */
+	align-self: flex-start; /* 부모 flex 컨테이너에서 왼쪽으로 정렬 */
+	height: 0px;
+}
+
+#terms-and-conditions-div {
+	margin-left: 3rem;
+	padding: 0rem;
+	display: flex;
+	width: 40rem;
+	justify-content: left;
+	align-items: center;
+}
+
+#terms-and-conditions {
+	visibility: hidden;
+}
+
+#terms-and-conditions-span {
+	
+	align-content:center;
+	margin-left: 1.5rem;
+	padding: 0;
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 0.1rem solid #9DD7D7;
+	border-radius: 100%; /* 원형으로 변경 */
+}
+
+/* 커스텀 체크박스 스타일 */
+.custom-checkbox {
+	display: inline-block;
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 0.2rem solid #9DD7D7;
+	border-radius: 100%;
+	position: relative;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+/* 체크박스 체크 상태일 때 스타일 */
+input[type="checkbox"]:checked + .custom-checkbox {
+	background-color: white;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox::after {
+	content: '';
+	position: absolute;
+	top: 40%;
+	left: 57%;
+	width: 0.7rem;
+	height: 0.7rem;
+	border: solid 0.2rem #0b9b9b;
+	border-width: 0 0.2rem 0.2rem 0;
+	transform: translate(-60%, -60%) rotate(45deg);
+
+}
+
+#terms-and-condition-content {
+	font-size: 1.2rem;
+}

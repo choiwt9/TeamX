@@ -1,0 +1,121 @@
+html {
+	font-size: 62.5%;
+}
+
+#main {
+  height: 100vh; /* 높이를 키워 자식 요소들이 더 많은 공간을 사용하도록 설정 */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#ex-site-logo {
+  width: 17.1rem;
+  height: 14.49rem;
+  margin: 0;
+  padding: 0;
+}
+
+#title {
+  margin: 0rem;
+  padding: 0rem;
+  margin-top: 3.3rem;
+  margin-bottom: 1.8rem;
+  border-bottom: 0.3rem solid black;
+}
+
+#title>h5 {
+  margin: 0rem;
+  padding: 0rem;
+  font-size: 2.5rem;
+}
+
+small {
+  width: 35.7rem;
+  height: 3.99rem;
+  font-size: 1.5rem;
+  color: #5B5B5B;
+  text-align: center;
+  line-height: 3.99rem; /* 라인 높이를 요소 높이와 동일하게 설정 */
+  display: inline-block; 
+}
+
+#select-id {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 3rem;
+  margin: 0rem;
+  padding: 0rem;
+  margin-top: 1.8rem;
+  width: 38.4rem;
+  height: 29.7rem;
+  border: 0.2rem solid #9DD7D7;
+  border-radius: 3rem;
+}
+
+#select-id .custom-radio {
+  appearance: none; /* 기본 브라우저 스타일 제거 */
+  width: 2rem;
+  height: 2rem;
+  border: 0.2rem solid #0b9b9b;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  vertical-align: middle;
+}
+
+#select-id .custom-radio:checked {
+  background-color: #ffffff; /* 라디오 버튼 색상 변경 */
+}
+
+#select-id .custom-radio:checked::before {
+  content: '';
+  position: absolute;
+  top: 0.2rem; /* 중심: 수직 기준 1/10이 가운데 */
+  left: 0.2rem; /* 중심: 수평 기준 1/10이 가운데 */
+  width: 1.2rem;
+  height: 1.2rem;
+  border-radius: 50%;
+  background-color: #0b9b9b; /* 내부 원 색상 */
+}
+
+#select-id label {
+  vertical-align: middle;
+  display: inline-block;
+  width: 8.7rem;
+  height: 1.71rem;
+  font-size: 1.5rem;
+}
+
+#button-area {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 4.9rem;
+  margin-top: 3.3rem;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  width: 17rem;
+  height: 4.6rem;
+  font-size: 2rem;
+  border-radius: 1.5rem;
+}
+
+#login-btn {
+  color: #ffffff;
+  background-color: #0B9B9B;
+  border: none;
+}
+
+#reset-password-btn {
+  color: #000000;
+  background-color: #ffffff;
+}
