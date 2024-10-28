@@ -16,11 +16,10 @@
 		color: #0B9B9B;
 	}
 
-
 	/* 슬라이드 섹션 */
 	.slide-section{
 		width: 100%;
-		border-bottom: 2px solid #EDF8F8;
+		border-bottom: 0.2rem solid #EDF8F8; /* 2px */
 		display: flex;
 		overflow: hidden;
 		position: relative;
@@ -34,26 +33,35 @@
 	}
 
 	.exhibition-item {
-		min-width: 20%; /* 5개가 한 화면에 보여질 크기 */
+		min-width: 2rem; /* 20px */
 		flex: 0 0 auto;
-		
 		transition: transform 0.5s ease-in-out;
     }
 
+	.item-image-wrapper{
+		width: 23rem;
+		height: 34rem;
+		background-color: #C9C0C0;
+		border-radius: 1rem;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
 	.item-image {
 		width: 100%;
-		height: 300px;
+		height: 30rem; /* 300px */
 		object-fit: cover;
 	}
 
 	.exhibition-item ul{
-		padding: 0px;
-		margin: 0px;
+		padding: 0rem; /* 0px */
+		margin: 0rem; /* 0px */
 	}
 
 	.exhibition-item li{
 		list-style: none;
-		font-size: 1.5rem;
+		font-size: 1.5rem; /* 15px */
 	}
 
 	.item-title{
@@ -63,7 +71,6 @@
 	.item-date{
 		color: #C9C0C0;
 	}
-
 
     .slide-buttons {
 		position: absolute;
@@ -75,29 +82,28 @@
     }
 
     .slide-button {
-    	width: 47px;
-		height: 47px;
+    	width: 4.7rem; /* 47px */
+		height: 4.7rem; /* 47px */
 		background-color: rgba(0, 0, 0, 0.1);
-    	color: rgba(0, 0, 0, 0.7);;
+    	color: rgba(0, 0, 0, 0.7);
 		border: none;
 		border-radius: 50%;
 		cursor: pointer;
-		padding: 0 0 5px 0;
+		padding: 0 0 0.5rem 0; /* 5px */
     }
-
 
 	/* TOP10 섹션 */
 	.top10-section{
 		width: 100%;
-		height: 1200px;
-		border-bottom: 2px solid #EDF8F8;
+		height: 120rem; /* 1200px */
+		border-bottom: 0.2rem solid #EDF8F8; /* 2px */
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 	}
 
 	.top10-textarea{
-		font-size: 3rem;
+		font-size: 3rem; /* 30px */
 		font-weight: 900;
 		text-align: center;
 	}
@@ -105,7 +111,7 @@
 	/* EX-MAP 소개 섹션 */
 	.intro-exmap-section{
 		width: 100%;
-		height: 1024px;	
+		height: 102.4rem; /* 1024px */	
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -122,15 +128,14 @@
 	}
 
 	.intro-exmap-textarea{
-		font-size: 5.5rem;
+		font-size: 5.5rem; /* 55px */
 		font-weight: 900;
 	}
-
 
 	/* 커뮤니티 소개 섹션 */
 	.intro-community-section{
 		width: 100%;
-		height: 1024px;
+		height: 102.4rem; /* 1024px */
 		background-color: #EDF8F8;
 		display: flex;
 		justify-content: center;
@@ -148,19 +153,18 @@
 	}
 
 	.intro-community-textarea{
-		font-size: 4.75rem;
+		font-size: 4.75rem; /* 47.5px */
 		font-weight: 900;
 	}
 
 	.intro-community-textarea * {
-		margin: 40px 0px;
+		margin: 4rem 0rem; /* 40px 0px */
 	}
 
-	
 	/* 포워딩 페이지 섹션 */
 	.intro-fowarding-section{
 		width: 100%;
-		height: 1024px;
+		height: 102.4rem; /* 1024px */
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -173,35 +177,36 @@
 	}
 
 	.intro-forwarding-textarea{
-		font-size: 7.18rem;
+		font-size: 7.18rem; /* 71.8px */
 		font-weight: 900;
 		text-align: center;
-		margin-bottom: 70px;
+		margin-bottom: 7rem; /* 70px */
 	}
 
 	.intro-forwarding-textarea * {
-		margin: 30px 0px;
+		margin: 3rem 0rem; /* 30px 0px */
 	}
 
 	button{
-		width: 180px;
-		height: 83px;
-		font-size: 2.5rem;
+		width: 18rem; /* 180px */
+		height: 8.3rem; /* 83px */
+		font-size: 2.5rem; /* 25px */
 		font-weight: 900;
-		border-radius: 2rem;
-		margin: 0px 30px;
+		border-radius: 2rem; /* 20px */
+		margin: 0rem 3rem; /* 30px */
+		cursor: pointer;
 	}
 
 	#forwarding-exhibition-btn{
 		background-color: #0B9B9B;
 		color: #fff;
-		border: 2px solid #0B9B9B;
+		border: 0.2rem solid #0B9B9B; /* 2px */
 	}
 
 	#forwarding-enroll-btn{
 		background-color: #fff;
 		color: #000;
-		border: 2px solid #000;
+		border: 0.2rem solid #000; /* 2px */
 	}
 
 </style>
@@ -212,45 +217,16 @@
 	<div class="slide-section">
 		<div class="slide-container">
 			<div class="exhibition-item">
-				<img class="item-image" src="" alt="전시썸네일">
+				<div class="item-image-wrapper">
+					<img class="item-image" src="" alt="전시썸네일">
+				</div>
 				<ul class="item-textarea">
 					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
 					<li class="item-place">예술의 전당 한가람미술관 1층</li>
 					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
 				</ul>
 			</div>
-			<div class="exhibition-item">
-				<img class="item-image" src="" alt="전시썸네일">
-				<ul class="item-textarea">
-					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
-					<li class="item-place">예술의 전당 한가람미술관 1층</li>
-					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
-				</ul>
-			</div>
-			<div class="exhibition-item">
-				<img class="item-image" src="" alt="전시썸네일">
-				<ul class="item-textarea">
-					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
-					<li class="item-place">예술의 전당 한가람미술관 1층</li>
-					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
-				</ul>
-			</div>
-			<div class="exhibition-item">
-				<img class="item-image" src="" alt="전시썸네일">
-				<ul class="item-textarea">
-					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
-					<li class="item-place">예술의 전당 한가람미술관 1층</li>
-					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
-				</ul>
-			</div>
-			<div class="exhibition-item">
-				<img class="item-image" src="" alt="전시썸네일">
-				<ul class="item-textarea">
-					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
-					<li class="item-place">예술의 전당 한가람미술관 1층</li>
-					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
-				</ul>
-			</div>
+			
 		</div>
 		<div class="slide-buttons">
 			<button class="slide-button" id="prev-button">&#9664;</button>
@@ -265,12 +241,14 @@
 			<span>전시 / 행사 </span><span class="main-textcolor-0B9B9B">TOP 10</span>
 		</div>
 		<div class="top10-info-area">
-			<div class="exhibition-item">
-				<img class="item-image" src="" alt="전시썸네일">
+			<div th:each="exhibition : ${exhibitionList}" class="exhibition-item">
+				<div class="item-image-wrapper">
+					<img class="item-image" th:src="${exhibition.thumbnail}" alt="전시썸네일">
+				</div>
 				<ul class="item-textarea">
-					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
-					<li class="item-place">예술의 전당 한가람미술관 1층</li>
-					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
+					<li class="item-title" th:text="${exhibition.title}">전시 제목</li>
+					<li class="item-place" th:text="${exhibition.place}">전시 장소</li>
+					<li class="item-date" th:text="${exhibition.date}">전시 날짜</li>
 				</ul>
 			</div>
 		</div>
