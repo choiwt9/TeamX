@@ -3,11 +3,328 @@
 <head>
 <meta charset="UTF-8">
 <title>MAIN</title>
+<link rel="stylesheet" href="/css/common/main.css">
+
+<style>
+
+	html{
+		font-size: 62.5%;
+	}
+
+	/* 메인페이지 글자색 0B9B9B 공통적용 */
+	.main-textcolor-0B9B9B{
+		color: #0B9B9B;
+	}
+
+
+	/* 슬라이드 섹션 */
+	.slide-section{
+		width: 100%;
+		border-bottom: 2px solid #EDF8F8;
+		display: flex;
+		overflow: hidden;
+		position: relative;
+		margin: auto;
+		justify-content: center;
+	}
+
+	.slide-container{
+		width: 80%;
+		display: flex;
+	}
+
+	.exhibition-item {
+		min-width: 20%; /* 5개가 한 화면에 보여질 크기 */
+		flex: 0 0 auto;
+		
+		transition: transform 0.5s ease-in-out;
+    }
+
+	.item-image {
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+	}
+
+	.exhibition-item ul{
+		padding: 0px;
+		margin: 0px;
+	}
+
+	.exhibition-item li{
+		list-style: none;
+		font-size: 1.5rem;
+	}
+
+	.item-title{
+		font-weight: 900;
+	}
+
+	.item-date{
+		color: #C9C0C0;
+	}
+
+
+    .slide-buttons {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+    }
+
+    .slide-button {
+    	width: 47px;
+		height: 47px;
+		background-color: rgba(0, 0, 0, 0.1);
+    	color: rgba(0, 0, 0, 0.7);;
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		padding: 0 0 5px 0;
+    }
+
+
+	/* TOP10 섹션 */
+	.top10-section{
+		width: 100%;
+		height: 1200px;
+		border-bottom: 2px solid #EDF8F8;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.top10-textarea{
+		font-size: 3rem;
+		font-weight: 900;
+		text-align: center;
+	}
+
+	/* EX-MAP 소개 섹션 */
+	.intro-exmap-section{
+		width: 100%;
+		height: 1024px;	
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.intro-exmap-container{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.intro-exmap-top-area{
+		display: flex;
+	}
+
+	.intro-exmap-textarea{
+		font-size: 5.5rem;
+		font-weight: 900;
+	}
+
+
+	/* 커뮤니티 소개 섹션 */
+	.intro-community-section{
+		width: 100%;
+		height: 1024px;
+		background-color: #EDF8F8;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.intro-community-container{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.intro-community-top-area{
+		display: flex;
+	}
+
+	.intro-community-textarea{
+		font-size: 4.75rem;
+		font-weight: 900;
+	}
+
+	.intro-community-textarea * {
+		margin: 40px 0px;
+	}
+
+	
+	/* 포워딩 페이지 섹션 */
+	.intro-fowarding-section{
+		width: 100%;
+		height: 1024px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	
+	.intro-fowarding-container{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.intro-forwarding-textarea{
+		font-size: 7.18rem;
+		font-weight: 900;
+		text-align: center;
+		margin-bottom: 70px;
+	}
+
+	.intro-forwarding-textarea * {
+		margin: 30px 0px;
+	}
+
+	button{
+		width: 180px;
+		height: 83px;
+		font-size: 2.5rem;
+		font-weight: 900;
+		border-radius: 2rem;
+		margin: 0px 30px;
+	}
+
+	#forwarding-exhibition-btn{
+		background-color: #0B9B9B;
+		color: #fff;
+		border: 2px solid #0B9B9B;
+	}
+
+	#forwarding-enroll-btn{
+		background-color: #fff;
+		color: #000;
+		border: 2px solid #000;
+	}
+
+</style>
 </head>
 <body>
 	<div th:insert="~{header}"></div>
 	
-	<div style="text-align:center; height:600px;">메인 페이지 내용</div>
+	<div class="slide-section">
+		<div class="slide-container">
+			<div class="exhibition-item">
+				<img class="item-image" src="" alt="전시썸네일">
+				<ul class="item-textarea">
+					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
+					<li class="item-place">예술의 전당 한가람미술관 1층</li>
+					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
+				</ul>
+			</div>
+			<div class="exhibition-item">
+				<img class="item-image" src="" alt="전시썸네일">
+				<ul class="item-textarea">
+					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
+					<li class="item-place">예술의 전당 한가람미술관 1층</li>
+					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
+				</ul>
+			</div>
+			<div class="exhibition-item">
+				<img class="item-image" src="" alt="전시썸네일">
+				<ul class="item-textarea">
+					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
+					<li class="item-place">예술의 전당 한가람미술관 1층</li>
+					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
+				</ul>
+			</div>
+			<div class="exhibition-item">
+				<img class="item-image" src="" alt="전시썸네일">
+				<ul class="item-textarea">
+					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
+					<li class="item-place">예술의 전당 한가람미술관 1층</li>
+					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
+				</ul>
+			</div>
+			<div class="exhibition-item">
+				<img class="item-image" src="" alt="전시썸네일">
+				<ul class="item-textarea">
+					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
+					<li class="item-place">예술의 전당 한가람미술관 1층</li>
+					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
+				</ul>
+			</div>
+		</div>
+		<div class="slide-buttons">
+			<button class="slide-button" id="prev-button">&#9664;</button>
+			<button class="slide-button" id="next-button">&#9654;</button>
+		</div>
+		
+	</div>
+
+	<div class="top10-section">
+		<div class="top10-textarea">
+			<p>BEST</p>
+			<span>전시 / 행사 </span><span class="main-textcolor-0B9B9B">TOP 10</span>
+		</div>
+		<div class="top10-info-area">
+			<div class="exhibition-item">
+				<img class="item-image" src="" alt="전시썸네일">
+				<ul class="item-textarea">
+					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
+					<li class="item-place">예술의 전당 한가람미술관 1층</li>
+					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="intro-exmap-section">
+		<div class="intro-exmap-container">
+			<div class="intro-exmap-top-area">
+				<div class="intro-exmap-textarea">
+					<p>핫한 전시 스팟을</p>
+					<p class="main-textcolor-0B9B9B">한눈에</p>
+					<p>지도로 확인하세요!</p>
+				</div>
+				<div class="intro-exmap-img-marker">
+					<img id="exmap-marker-image" src="/img/main/exmap-marker-image.png" alt="마커이미지">
+				</div>
+			</div>
+			<div class="intro-exmap-bottom-area">
+				<img id="exmap-example" src="/img/main/exmap-example-image.png" alt="지도예시이미지">
+			</div>
+		</div>
+	</div>
+
+	<div class="intro-community-section">
+		<div class="intro-community-container">
+			<div class="intro-community-top-area">
+				<div class="intro-community-textarea">
+					<span>전시 / 행사 </span><span class="main-textcolor-0B9B9B">전용 커뮤니티</span>
+					<p >동행 구인부터</p>
+					<span>정보 공유까지</span><span class="main-textcolor-0B9B9B">.</span>
+				</div>
+				<div class="intro-community-img">
+					<img id="intro-community-img" src="/img/main/community-image.png" alt="커뮤니티이미지">
+				</div>
+			</div>
+			<div class="exmap-bottom-area">
+				<img id="community-example" src="/img/main/community-example-image.png" alt="커뮤니티예시이미지">
+			</div>
+		</div>
+	</div>
+
+	<div class="intro-fowarding-section">
+		<div class="intro-fowarding-container">
+			<div class="intro-forwarding-textarea">
+				<p class="main-textcolor-0B9B9B">국내 최초</p>
+				<p>전시 / 행사 전용</p>
+				<span>예매 플랫폼 </span><span class="main-textcolor-0B9B9B">EX-SITE</span>
+			</div>
+			<div class="intro-forwarding-buttonarea">
+				<button id="forwarding-exhibition-btn">전시 보러가기</button>
+				<button id="forwarding-enroll-btn">회원가입</button>
+			</div>
+		</div>
+	</div>
 	
 	
 	<div th:insert="~{footer}"></div>
