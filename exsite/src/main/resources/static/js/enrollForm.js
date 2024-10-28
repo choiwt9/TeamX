@@ -1,9 +1,12 @@
-let idCheckResult = false;
-let passwordCheckResult = false;
-let emailCheckResult = false;
-let phoneCheckResult= false;
-let addressCheckResult= false;
+var idCheckResult = false;
+var passwordCheckResult = false;
+var emailCheckResult = false;
+var phoneCheckResult= false; 
+var addressCheckResult= false;
 
+/* 
+  문자 인증, 네이버로 회원가입, 구글로 회원가입 기능 구현 필요
+*/
 
 // 아이디 중복검사
 $(function() {
@@ -19,6 +22,8 @@ $(function() {
           alert("사용 가능한 아이디입니다.");
           $('#id-check').prop('disabled', true);
           $('#id-check').text('확인완료');
+        } else {
+          alert('이미 사용중인 아이디입니다.');
         }
       },
       error: function() {
@@ -229,7 +234,7 @@ $(function() {
     $('#authentication-phone').text('제출');
     $('#authentication-phone').attr('id', 'authentication-phone-confirm');
     phone = $('#phone').val();
-    $('#phone').remove();
+    $('#phone').attr('type', 'hidden');
     $('<input>', {
       id: 'phone-auth-no',
       type: 'text',
@@ -244,6 +249,7 @@ $(function() {
   const sendCertificationPhoneNoToServer=()=> {
     if($('#phone-auth-no').val() != '') {
       alert(phone + $('#phone-auth-no').val());
+      phoneCheckResult = true;
     } else {
       alert('입력된 인증번호 없음');
     }
@@ -257,6 +263,7 @@ $(function() {
     new daum.Postcode({
       oncomplete: function(data) {
           document.getElementById("address-input").value = data['address'];
+          addressCheckResult = true;
       },
       theme: {
         bgColor: "", //바탕 배경색
@@ -278,21 +285,22 @@ $(function() {
 
 $(function() {
   $('#enroll-btn').click(function() {
-    const checkResults = [
-      'idCheckResult',
-      'passwordCheckResult',
-      'emailCheckResult',
-      'phoneCheckResult',
-      'addressCheckResult'
+    let checkResults = [
+      idCheckResult,
+      passwordCheckResult,
+      emailCheckResult,
+      phoneCheckResult,
+      addressCheckResult
     ];
-    for(let i of checkResults) {
-      if(i === false) {
+    for(let i in checkResults) {
+      console.log(checkResults[i]);
+      if(checkResults[i] === false) {
         isPossible = i;
         break;
       }
     }
-    alert('인증되지 않은 항목이 있습니다.');
-    return false;
+    
+    return isPossible;
   });
 });
 

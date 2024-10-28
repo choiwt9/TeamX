@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang=ko xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/user/findIdResultForm.css">
 </head>
 <body>
+  <div th:insert="~{common/header}"></div>
   <div id="main">
     <img id="ex-site-logo" src="/img/common/ex-site-logo.png" alt="ex-site-logo">
     <sapn id="title"> <h5> 아이디 찾기 </h5> </sapn>
@@ -28,5 +29,6 @@
         </div>    
       </form>
   </div>
+  <div th:insert="~{common/footer}"></div>
 </body>
 </html>

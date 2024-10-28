@@ -20,4 +20,16 @@
   <select id="idCheck">
   	SELECT COUNT(*) FROM USER_INFO WHERE USER_ID = #{id}
   </select>
+  
+  
+  <resultMap id="userInfo" type="UserDTO">
+  	<result column="USER_ID" property="userId"/>
+  	<result column="USER_PW" property="userPw"/>
+  </resultMap>
+  
+  <select id="searchUserId" resultMap="userInfo">
+  	SELECT USER_ID, USER_PW
+  	FROM USER_INFO
+  	WHERE USER_ID = #{userId}
+  </select>
 </mapper>

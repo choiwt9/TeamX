@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang=ko xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -10,8 +10,8 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
+	<div th:insert="~{common/header}"></div>
 	<div id="main">
-		<img id="ex-site-logo" src="\img\common\ex-site-logo.png" />
 		<h5>회원가입</h5>
 		<form action="/user/register" method="post">
 			<div id="enroll-form">
@@ -75,7 +75,7 @@
 					src="img/user/google-signup-btn-img.png" />
 			</div>
 		</form>
-
 	</div>
+	<div th:insert="~{common/footer}"></div>
 </body>
 </html>

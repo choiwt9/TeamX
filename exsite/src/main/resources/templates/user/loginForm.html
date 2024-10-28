@@ -1,38 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang=ko xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/user/loginForm.css">
+<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-<div id="main">
-  <img id="ex-site-logo" src="/img/common/ex-site-logo.png" alt="ex-site-logo">
-  <form action="/normal-login" method="post">
-    <div id="login-form">
-      <table id="login-form-table">
-        <tr>
-          <td>
-            ID
-            <input type="text" placeholder="아이디" name="userId" maxlength="20">
-          </td>
-        </tr>
-        <tr>
-          <td>
-            PW
-            <input type="password" placeholder="비밀번호" name="userPw" maxlength="12">
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div id="id-error" class="error-message">존재하지 않는 아이디입니다. 다시 입력해주세요. // 비밀번호가 맞지 않습니다. 다시 입력해주세요.</div>
-    <div id="login-form-under-link">
-      <a href="/id/recover">아이디 찾기</a> | <a href="/password/recover/first">비밀번호 찾기</a> | <a href="/signup">회원가입</a>
-    </div>
-    <button id="login-btn">로그인</button>
-  </form>
-  <img id="naver-login-btn-img" src="/img/user/naver-login-btn-img.png" alt="네이버 로그인">
-  <img id="google-login-btn-img" src="/img/user/google-login-btn-img.png" alt="구글 로그인">
-</div>
+  <div th:insert="~{common/header}"></div>
+  <div id="main">
+    <form action="/login/normal" method="post">
+      <div id="login-form">
+        <table id="login-form-table">
+          <tr>
+            <td>
+              ID
+              <input type="text" placeholder="아이디" id="userId" maxlength="20">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              PW
+              <input type="password" placeholder="비밀번호" id="userPw" maxlength="12">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div id="id-error" class="error-message"></div>
+      <div id="login-form-under-link">
+        <a href="/id/recover">아이디 찾기</a> | <a href="/password/recover/first">비밀번호 찾기</a> | <a href="/signup">회원가입</a>
+      </div>
+      <button type="button" id="login-btn">로그인</button>
+    </form>
+    <img id="naver-login-btn-img" src="/img/user/naver-login-btn-img.png" alt="네이버 로그인">
+    <img id="google-login-btn-img" src="/img/user/google-login-btn-img.png" alt="구글 로그인">
+  </div>
+  <div th:insert="~{common/footer}"></div>
 </body>
+
+<script>
+  $(function() {
+    $('#login-btn').click(() => {
+      $.ajax({
+        url: '/login/normal',
+        type: 'post',
+        data: {
+          userId: $('#userId').val(),
+          userPw: $('#userPw').val()
+        },
+        success: (result) => {
+          console.log(result.response);
+          if(result.response == 'success') {
+            window.location.href='/';
+          } else {
+            $('#id-error').text(result.response);
+          }
+          
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      });
+    });
+  });
+  
+</script>
 </html>

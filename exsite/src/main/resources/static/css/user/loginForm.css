@@ -4,16 +4,11 @@ html {
 }
 
 #main {
-	height: 100vh;
+	height: 102.4rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-}
-
-#ex-site-logo {
-  width: 17rem;
-  height: 14.5rem;
 }
 
 form {
@@ -39,6 +34,10 @@ form {
 
 #login-form input {
 	border: none;
+	margin-left: 1.5rem;
+	padding: 1.5rem 0rem 1.5rem 0rem;
+	font-size: 2.5rem;
+	width: 30rem;
 }
 
 #login-form-table {
@@ -51,7 +50,7 @@ form {
 	width: 100%;
 }
 
-td {
+#login-form-table td {
 	border-bottom: 0.2rem solid #9DD7D7;
 	padding: 1rem 2rem;
 	align-items: center;
@@ -59,15 +58,8 @@ td {
 	color: #C9C0C0;
 }
 
-tr:last-child td {
+#login-form-table tr:last-child td {
 	border-bottom: none; /* 마지막 행의 셀에는 구분선을 추가하지 않음 */
-}
-
-input {
-	margin-left: 1.5rem;
-	padding: 1.5rem 0rem 1.5rem 0rem;
-	font-size: 2.5rem;
-	width: 30rem;
 }
 
 input::placeholder {

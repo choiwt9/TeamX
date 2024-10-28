@@ -11,4 +11,6 @@ public interface UserMapper {
 
 	public int idCheck(String id);
 
+	public UserDTO searchUserId(UserDTO userInfo);
+
 }

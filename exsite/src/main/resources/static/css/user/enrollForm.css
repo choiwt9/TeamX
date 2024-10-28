@@ -3,7 +3,7 @@ html {
 }
 
 #main {
-	height: 100vh;
+	height: 102.4rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -16,9 +16,9 @@ html {
 	width: 10.5rem;
 }
 
-h5 {
+#main h5 {
 	margin: 2rem 0rem;
-	font-size: 2.49rem;
+	font-size: 2.5rem;
 }
 
 form {
@@ -43,6 +43,10 @@ form {
 
 #enroll-form input {
 	border: none;
+	margin-left: 1.5rem;
+	padding: 1.5rem 0rem 1.5rem 0rem;
+	font-size: 1.5rem;
+	width: 16rem;
 }
 
 #form-table {
@@ -56,21 +60,14 @@ form {
 	width: 100%;
 }
 
-td {
+#form-table td {
 	border-bottom: 0.2rem solid #9DD7D7;
 	padding: 0rem 1rem;
 	align-items: center;
 }
 
-tr:last-child td {
+#form-table tr:last-child td {
 	border-bottom: none; /* 마지막 행의 셀에는 구분선을 추가하지 않음 */
-}
-
-input {
-	margin-left: 1.5rem;
-	padding: 1.5rem 0rem 1.5rem 0rem;
-	font-size: 1.5rem;
-	width: 16rem;
 }
 
 #address-input {

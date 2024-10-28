@@ -1,45 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang=ko xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/user/findIdForm.css">
 </head>
 <body>
-<div id="main">
-  <img id="ex-site-logo" src="/img/common/ex-site-logo.png" alt="ex-site-logo">
-  <sapn id="title"> <h5> 아이디 찾기 </h5> </sapn>
-  <div id="sub-section">
-    <div class="sub">
-      <form>
-        <div class="sub-inner">
-          <img id="authentication-phone-img" src="/img/user/authentication-phone-img.png">
-        </div>
-    </form>
-    </div>
-    <div class="sub"> 
-      <form action="#" method="post">
-        <div class="sub-inner">
-          <span class="title-authentication">휴대폰 번호로 찾기</span>
-          <small>회원가입 시 입력한 휴대폰 번호와 일치할 경우 인증 번호가 발송됩니다.</small>
-          <input type="text" maxlength="5" placeholder="이름">
-          <input type="text" maxlength="11" placeholder="휴대폰 번호(-없이 입력)">
-          <button class="submit-authentication-info" type="submit">인증번호 받기</button>
-        </div>
+  <div th:insert="~{common/header}"></div>
+  <div id="main">
+    <sapn id="title"> <h5> 아이디 찾기 </h5> </sapn>
+    <div id="sub-section">
+      <div class="sub">
+        <form>
+          <div class="sub-inner">
+            <img id="authentication-phone-img" src="/img/user/authentication-phone-img.png">
+          </div>
       </form>
-    </div>
-    <div class="sub">
-      <form action="#" method="post">
-        <div class="sub-inner">
-          <span class="title-authentication">이메일로 찾기</span>
-          <small>회원가입 시 이메일 주소와 일치할 경우 인증 번호가 발송됩니다.</small>
-          <input type="text" maxlength="5" placeholder="이름">
-          <input type="email" maxlength="40" placeholder="이메일 주소">
-          <button class="submit-authentication-info" type="submit">인증번호 받기</button>
-        </div>
-      </form>
+      </div>
+      <div class="sub"> 
+        <form action="#" method="post">
+          <div class="sub-inner">
+            <span class="title-authentication">휴대폰 번호로 찾기</span>
+            <small>회원가입 시 입력한 휴대폰 번호와 일치할 경우 인증 번호가 발송됩니다.</small>
+            <input type="text" maxlength="5" placeholder="이름">
+            <input type="text" maxlength="11" placeholder="휴대폰 번호(-없이 입력)">
+            <button class="submit-authentication-info" type="submit">인증번호 받기</button>
+          </div>
+        </form>
+      </div>
+      <div class="sub">
+        <form action="#" method="post">
+          <div class="sub-inner">
+            <span class="title-authentication">이메일로 찾기</span>
+            <small>회원가입 시 이메일 주소와 일치할 경우 인증 번호가 발송됩니다.</small>
+            <input type="text" maxlength="5" placeholder="이름">
+            <input type="email" maxlength="40" placeholder="이메일 주소">
+            <button class="submit-authentication-info" type="submit">인증번호 받기</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
+  <div th:insert="~{common/footer}"></div>
 </body>
 </html>
