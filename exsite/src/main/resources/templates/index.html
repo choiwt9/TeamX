@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>INDEX</title>
 
 </head>
 <body>
-	<a href="/login">로그인</a>
-	<a href="/signup">회원가입</a>
+	<div th:include="~{common/main}"></div>
+
+<!-- 	<div th:include="~{common/header}"></div>
+	
+	<div th:include="~{common/footer}"></div> -->
+
 </body>
 </html>
