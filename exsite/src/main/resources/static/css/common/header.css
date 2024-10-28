@@ -1,0 +1,110 @@
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    width: 100%;
+    height: 100%;
+    font-family: "Noto Sans", sans-serif;
+    font-size: 62.5%; /* 1rem = 10px */
+}
+/* body { border-bottom: 0.2rem solid #EDF8F8; } */
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    border-bottom: solid 0.2rem #EDF8F8;
+    /* border: solid 0.1rem red; */
+}
+
+.header-container a:hover { color: #000; }
+
+/* header 내 왼쪽 로고 영역 */
+.header-left-area {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    /* border: solid 0.1rem red; */
+}
+.header-left-area a { display: flex; justify-content: center; }
+#header-logo { width: 40%; }
+#header-logo:hover { cursor: pointer; }
+
+/* header 내 중앙 검색창, 내비게이션 영역 */
+.header-center-area {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: solid 0.1rem red; */
+}
+.header-center-area > div { margin: 2rem 0 2rem 0; }
+
+/* header 내 중앙 검색창 영역 */
+.header-center-top-area {
+    border: solid 0.2rem #0b9b9b;
+    border-radius: 1rem;
+    width: 70%;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+}
+#header-search-input {
+    width: 90%;
+    box-sizing: border-box;
+    padding-left: 0.3rem;
+    border: none;
+    border-radius: 1rem;
+    outline: none;
+    font-size: 1.4rem;
+}
+#header-search-input:focus { border: none; outline: none; }
+#header-search-icon {
+    width: 2.0rem;
+    /* height: 2.4rem; */
+    object-fit: contain;
+    cursor: pointer;
+}
+
+/* header 내 중앙 내비게이션 영역 */
+.header-center-bottom-area {
+    display: flex;
+    /* border: solid 0.1rem red; */
+}
+.header-center-bottom-area div {
+    margin: 0 4.5rem;
+    font-size: 2rem;
+    font-weight: 700;
+}
+.header-center-bottom-area a {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+    white-space: nowrap; /* 텍스트를 한 줄로 나타냄 */
+}
+.header-nav.active {
+    color: #0b9b9b; /* 원하는 색상으로 변경 */
+}
+
+/* header 내 오른쪽 로그인 영역 */
+.header-right-area {
+    display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    width: 25%;
+    /* border: solid 0.1rem red; */
+}
+.header-right-area div {
+    margin: 0 3rem 8rem 0; /* 오른쪽에만 여백 추가 */
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.header-right-area a { text-decoration: none; color: #000; }
+
+.header-common-style {
+    display: flex;
+    justify-content: center;
+}
