@@ -96,6 +96,11 @@ input:focus {
   font-size: 1.5rem;
 }
 
+#login-form-under-link a {
+	color: black;
+	text-decoration: none;
+}
+
 #login-form-under-link a:hover {
 	color: #0b9b9b;
 	font-weight: 900;
