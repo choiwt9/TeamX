@@ -94,6 +94,9 @@ html {
 .header-nav.active {
     color: #0b9b9b; /* 원하는 색상으로 변경 */
 }
+.header-nav.active:hover {
+    color: #0b9b9b; /* active 상태인 경우 hover에도 색상이 유지되도록 설정 */
+}
 
 /* header 내 오른쪽 로그인 영역 */
 .header-right-area {
