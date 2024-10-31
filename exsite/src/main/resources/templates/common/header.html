@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HEADER</title>
+
+<!-- 웹폰트 적용-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/css/common/header.css">
+</head>
+<body>
+    <div class="header-container">
+        <div class="header-left-area">
+            <a href="/">
+                <img src="/img/common/exsite-logo.png" id="header-logo" alt="로고 이미지">
+            </a>
+        </div>
+    
+    
+        <div class="header-center-area">
+            <div class="header-center-top-area header-common-style">
+                <input type="text" id="header-search-input">
+                <img src="img/common/header-search-icon.png" alt="로고 이미지" id="header-search-icon" href="#">
+            </div>
+    
+            <div class="header-center-bottom-area header-common-style">
+                <div><a href="#" class="header-nav">전시</a></div>
+                <div><a href="#" class="header-nav">행사</a></div>
+                <div><a href="/community/list" class="header-nav">커뮤니티</a></div>
+                <div><a href="#" class="header-nav">EX-MAP</a></div>
+            </div>
+        </div>
+    
+        <div class="header-right-area header-common-style">
+            <div><a href="/login">로그인</a></div>
+            <div><a href="/user/register">회원가입</a></div>
+        </div>
+
+        <!-- 관리자용 로그인 후
+        <div class="header-right-area header-common-style">
+            <div><a href="#">관리자 콘솔</a></div>
+            <div><a href="#">로그아웃</a></div>
+        </div>
+        -->
+
+        <!-- 일반유저 로그인 후
+        <div class="header-right-area header-common-style">
+            <div><a href="#">ㅇㅇㅇ님 환영합니다.</a></div>
+            <div><a href="#">로그아웃</a></div>
+        </div>
+        -->
+    </div>
+    
+    <script src="/js/common/header.js"></script>
+</body>
+</html>
