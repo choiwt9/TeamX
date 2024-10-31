@@ -5,11 +5,14 @@
 <title>MAIN</title>
 </head>
 <body>
-	<div th:insert="~{common/header}"></div>
+	<!-- <div th:insert="~{common/header}"></div> -->
 	
-	<div style="text-align:center; height:600px;">메인 페이지 내용</div>
-	
-	
-	<div th:insert="~{common/footer}"></div>
+	<!-- <div style="text-align:center; height:600px;">메인 페이지 내용</div> -->
+	<!-- <div th:include="~{exhibition/exhibitionListSearch}"></div> -->
+	<!-- <div th:include="~{exhibition/exhibitionDetail}"></div> -->
+	<!-- <div th:include="~{customercenter/customerService}"></div> -->
+	<!-- <div th:include="~{customercenter/inquiry}"></div> -->
+	<div th:include="~{customercenter/inquiryAnswer}"></div>
+	<!-- <div th:insert="~{common/footer}"></div> -->
 </body>
 </html>

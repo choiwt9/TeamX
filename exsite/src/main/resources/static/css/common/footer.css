@@ -1,20 +1,20 @@
 /* 기본 폰트 사이즈 설정 */
 html {
-    font-size: 16px; /* 1rem = 16px */
+    font-size: 62.5%;
 }
 
 .footer-area {
     background-color: #EDF8F8;
-    padding: 2rem;
+    padding: 3.2rem;
 }
 
 .footer-info-area {
     /* font-size: 0.75rem; 12px */
-    font-size: 0.875rem; /* 14px */
+    font-size: 1.4rem; /* 14px */
 }
 
 .footer-nav-area {
-    font-size: 0.875rem; /* 14px */
+    font-size: 1.4rem; /* 14px */
 }
 
 .footer-nav-text {
@@ -27,4 +27,18 @@ html {
 
 .footer-nav-text *:hover {
     cursor: pointer;
+}
+
+:root {
+    --bs-font-sans-serif: "Noto Sans", sans-serif;
+}
+
+.page-link{
+    border: #9DD7D7 1px solid;
+    color: #000;
+    font-size: 1.4rem;
+}
+
+.page-item.disabled .page-link {
+    border: #9DD7D7 1px solid;;
 }
