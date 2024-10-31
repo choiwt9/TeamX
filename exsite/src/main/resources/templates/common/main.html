@@ -1,310 +1,318 @@
 <!DOCTYPE html>
-<html lang=ko xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>MAIN</title>
+
 <link rel="stylesheet" href="/css/common/main.css">
 
-<style>
+<!-- 웹폰트 적용 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-	html{
-		font-size: 62.5%;
-	}
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-	/* 메인페이지 글자색 0B9B9B 공통적용 */
-	.main-textcolor-0B9B9B{
-		color: #0B9B9B;
-	}
+<!-- 슬라이드 라이브러리 -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-	/* 슬라이드 섹션 */
-	.slide-section{
-		width: 100%;
-		border-bottom: 0.2rem solid #EDF8F8; /* 2px */
-		display: flex;
-		overflow: hidden;
-		position: relative;
-		margin: auto;
-		justify-content: center;
-	}
-
-	.slide-container{
-		width: 80%;
-		display: flex;
-	}
-
-	.exhibition-item {
-		min-width: 2rem; /* 20px */
-		flex: 0 0 auto;
-		transition: transform 0.5s ease-in-out;
-    }
-
-	.item-image-wrapper{
-		width: 23rem;
-		height: 34rem;
-		background-color: #C9C0C0;
-		border-radius: 1rem;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.item-image {
-		width: 100%;
-		height: 30rem; /* 300px */
-		object-fit: cover;
-	}
-
-	.exhibition-item ul{
-		padding: 0rem; /* 0px */
-		margin: 0rem; /* 0px */
-	}
-
-	.exhibition-item li{
-		list-style: none;
-		font-size: 1.5rem; /* 15px */
-	}
-
-	.item-title{
-		font-weight: 900;
-	}
-
-	.item-date{
-		color: #C9C0C0;
-	}
-
-    .slide-buttons {
-		position: absolute;
-		top: 50%;
-		transform: translateY(-50%);
-		width: 100%;
-		display: flex;
-		justify-content: space-between;
-    }
-
-    .slide-button {
-    	width: 4.7rem; /* 47px */
-		height: 4.7rem; /* 47px */
-		background-color: rgba(0, 0, 0, 0.1);
-    	color: rgba(0, 0, 0, 0.7);
-		border: none;
-		border-radius: 50%;
-		cursor: pointer;
-		padding: 0 0 0.5rem 0; /* 5px */
-    }
-
-	/* TOP10 섹션 */
-	.top10-section{
-		width: 100%;
-		height: 120rem; /* 1200px */
-		border-bottom: 0.2rem solid #EDF8F8; /* 2px */
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.top10-textarea{
-		font-size: 3rem; /* 30px */
-		font-weight: 900;
-		text-align: center;
-	}
-
-	/* EX-MAP 소개 섹션 */
-	.intro-exmap-section{
-		width: 100%;
-		height: 102.4rem; /* 1024px */	
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.intro-exmap-container{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.intro-exmap-top-area{
-		display: flex;
-	}
-
-	.intro-exmap-textarea{
-		font-size: 5.5rem; /* 55px */
-		font-weight: 900;
-	}
-
-	/* 커뮤니티 소개 섹션 */
-	.intro-community-section{
-		width: 100%;
-		height: 102.4rem; /* 1024px */
-		background-color: #EDF8F8;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-
-	.intro-community-container{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.intro-community-top-area{
-		display: flex;
-	}
-
-	.intro-community-textarea{
-		font-size: 4.75rem; /* 47.5px */
-		font-weight: 900;
-	}
-
-	.intro-community-textarea * {
-		margin: 4rem 0rem; /* 40px 0px */
-	}
-
-	/* 포워딩 페이지 섹션 */
-	.intro-fowarding-section{
-		width: 100%;
-		height: 102.4rem; /* 1024px */
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	
-	.intro-fowarding-container{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-
-	.intro-forwarding-textarea{
-		font-size: 7.18rem; /* 71.8px */
-		font-weight: 900;
-		text-align: center;
-		margin-bottom: 7rem; /* 70px */
-	}
-
-	.intro-forwarding-textarea * {
-		margin: 3rem 0rem; /* 30px 0px */
-	}
-
-	button{
-		width: 18rem; /* 180px */
-		height: 8.3rem; /* 83px */
-		font-size: 2.5rem; /* 25px */
-		font-weight: 900;
-		border-radius: 2rem; /* 20px */
-		margin: 0rem 3rem; /* 30px */
-		cursor: pointer;
-	}
-
-	#forwarding-exhibition-btn{
-		background-color: #0B9B9B;
-		color: #fff;
-		border: 0.2rem solid #0B9B9B; /* 2px */
-	}
-
-	#forwarding-enroll-btn{
-		background-color: #fff;
-		color: #000;
-		border: 0.2rem solid #000; /* 2px */
-	}
-
-</style>
 </head>
 <body>
 	<div th:insert="~{common/header}"></div>
+	<div class="mainpage">
+
+		<!-- 슬라이드 섹션 -->
+		<div class="slide-section">
+			<div class="swiper slide-container">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=d86ee210bd054f49b41441fb5a59e6f7&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">서울일러스트레이션페어 V.18</li>
+							<li class="slide-item-place">코엑스 B홀</li>
+							<li class="slide-item-date">2024-12-26~2024-12-29</li>
+						</ul>
+					</div>
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=8e23ffb88353475ea776fa58459e7699&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">[종로문화재단] 음악동화 [행복의 파랑새]</li>
+							<li class="slide-item-place">종로 아이들극장</li>
+							<li class="slide-item-date">2024-12-12~2024-12-13</li>
+						</ul>
+					</div>
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=7c48ddce0b54406a9c83b8ae36fe3eb2&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">[강동문화재단] 계간 생활문화 프로그램 : 커스텀 펫 패션 소품 만들기</li>
+							<li class="slide-item-place">모두랑 대연습실#2</li>
+							<li class="slide-item-date">2024-12-06~2024-12-13</li>
+						</ul>
+					</div>
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=59da975904c94facbf6989987c187525&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">2024 서울 일러스트코리아 winter</li>
+							<li class="slide-item-place">양재 aT센터</li>
+							<li class="slide-item-date">2024-11-29~2024-12-01</li>
+						</ul>
+					</div>
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=f8acc7434d564c9ba6acc57c97dfbea5&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">[강동문화재단] 11월 한밤의 공연 산책 [서커스 올림픽+특별한 순간들]</li>
+							<li class="slide-item-place">소극장 드림</li>
+							<li class="slide-item-date">2024-11-29~2024-11-29</li>
+						</ul>
+					</div>
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=3b2f4b7f8349411f83b04d0e6fb083c3&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">[마포문화재단] [음악공간 : PLAYLIST]＇보헤미아의 숲＇브람스가 드보르자크를 만난 날</li>
+							<li class="slide-item-place">마포아트센터 플레이맥</li>
+							<li class="slide-item-date">2024-11-27~2024-11-27</li>
+						</ul>
+					</div>
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=888f8996e4be404193206ca08ffa248e&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">[세종예술아카데미] 퇴근길 미술 한잔 : 냉정과 열정사이</li>
+							<li class="slide-item-place">서클홀</li>
+							<li class="slide-item-date">2024-11-21~2024-12-19</li>
+						</ul>
+					</div>
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=e1e775d4b6f2473ba50d2830e07d84c2&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">[한성백제박물관] [아이콤 이크마] 2024 ICOM ICMAH 국제학술회의</li>
+							<li class="slide-item-place">서울 한성백제박물관 대강당</li>
+							<li class="slide-item-date">2024-11-20~2024-11-22</li>
+						</ul>
+					</div>
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=4961b97b7fdb4194967b8d5117556f3b&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">[서울역사박물관] 2024 온라인 교육프로그램 [경교장은 어떻게?!]</li>
+							<li class="slide-item-place">온라인 시청각 영상</li>
+							<li class="slide-item-date">2024-11-19~2024-12-06</li>
+						</ul>
+					</div>
+					<div class="swiper-slide slide-exhibition-item">
+						<div class="slide-item-image-wrapper">
+							<img class="slide-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=105644d2c06341c7b14d5132dadd0d08&thumb=Y" alt="전시썸네일">
+						</div>
+						<ul class="item-textarea">
+							<li class="slide-item-title">[서울아트책보고] 2024 서울아트북위크</li>
+							<li class="slide-item-place">서울아트책보고 중정광장</li>
+							<li class="slide-item-date">2024-11-15~2024-11-17</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 네비게이션 버튼 -->
+				<div class="swiper-button-next" id="next-button"></div>
+				<div class="swiper-button-prev" id="prev-button"></div>
+			</div>
+		</div>
 	
-	<div class="slide-section">
-		<div class="slide-container">
-			<div class="exhibition-item">
-				<div class="item-image-wrapper">
-					<img class="item-image" src="" alt="전시썸네일">
+		<!-- TOP10 섹션 -->
+		<div class="top10-section">
+			<div class="top10-textarea">
+				<p>BEST</p>
+				<span>전시 / 행사 </span><span class="main-textcolor-0B9B9B">TOP 10</span>
+			</div>
+			<div class="top10-info-area">
+				<!-- 추후 타임리프 적용한 조회 구문 -->
+				<!-- <div th:each="exhibition : ${exhibitionList}" class="exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" th:src="${exhibition.thumbnail}" alt="전시썸네일">
+					</div>
+					<ul class="item-textarea">
+						<li class="top10-item-title" th:text="${exhibition.title}">전시 제목</li>
+						<li class="top10-item-place" th:text="${exhibition.place}">전시 장소</li>
+						<li class="top10-item-date" th:text="${exhibition.date}">전시 날짜</li>
+					</ul>
+				</div> -->
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=d86ee210bd054f49b41441fb5a59e6f7&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">서울일러스트레이션페어 V.18</li>
+						<li class="top10-item-place">코엑스 B홀</li>
+						<li class="top10-item-date">2024-12-26~2024-12-29</li>
+					</ul>
 				</div>
-				<ul class="item-textarea">
-					<li class="item-title">[라스트얼리버드] 불멸의 화가 반 고흐</li>
-					<li class="item-place">예술의 전당 한가람미술관 1층</li>
-					<li class="item-date">2024.11.28 ~ 2025.2.9</li>
-				</ul>
-			</div>
-			
-		</div>
-		<div class="slide-buttons">
-			<button class="slide-button" id="prev-button">&#9664;</button>
-			<button class="slide-button" id="next-button">&#9654;</button>
-		</div>
-		
-	</div>
-
-	<div class="top10-section">
-		<div class="top10-textarea">
-			<p>BEST</p>
-			<span>전시 / 행사 </span><span class="main-textcolor-0B9B9B">TOP 10</span>
-		</div>
-		<div class="top10-info-area">
-			<div th:each="exhibition : ${exhibitionList}" class="exhibition-item">
-				<div class="item-image-wrapper">
-					<img class="item-image" th:src="${exhibition.thumbnail}" alt="전시썸네일">
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=8e23ffb88353475ea776fa58459e7699&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">[종로문화재단] 음악동화 [행복의 파랑새]</li>
+						<li class="top10-item-place">종로 아이들극장</li>
+						<li class="top10-item-date">2024-12-12~2024-12-13</li>
+					</ul>
 				</div>
-				<ul class="item-textarea">
-					<li class="item-title" th:text="${exhibition.title}">전시 제목</li>
-					<li class="item-place" th:text="${exhibition.place}">전시 장소</li>
-					<li class="item-date" th:text="${exhibition.date}">전시 날짜</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-
-	<div class="intro-exmap-section">
-		<div class="intro-exmap-container">
-			<div class="intro-exmap-top-area">
-				<div class="intro-exmap-textarea">
-					<p>핫한 전시 스팟을</p>
-					<p class="main-textcolor-0B9B9B">한눈에</p>
-					<p>지도로 확인하세요!</p>
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=7c48ddce0b54406a9c83b8ae36fe3eb2&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">[강동문화재단] 계간 생활문화 프로그램 : 커스텀 펫 패션 소품 만들기</li>
+						<li class="top10-item-place">모두랑 대연습실#2</li>
+						<li class="top10-item-date">2024-12-06~2024-12-13</li>
+					</ul>
 				</div>
-				<div class="intro-exmap-img-marker">
-					<img id="exmap-marker-image" src="/img/main/exmap-marker-image.png" alt="마커이미지">
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=59da975904c94facbf6989987c187525&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">2024 서울 일러스트코리아 winter</li>
+						<li class="top10-item-place">양재 aT센터</li>
+						<li class="top10-item-date">2024-11-29~2024-12-01</li>
+					</ul>
 				</div>
-			</div>
-			<div class="intro-exmap-bottom-area">
-				<img id="exmap-example" src="/img/main/exmap-example-image.png" alt="지도예시이미지">
-			</div>
-		</div>
-	</div>
-
-	<div class="intro-community-section">
-		<div class="intro-community-container">
-			<div class="intro-community-top-area">
-				<div class="intro-community-textarea">
-					<span>전시 / 행사 </span><span class="main-textcolor-0B9B9B">전용 커뮤니티</span>
-					<p >동행 구인부터</p>
-					<span>정보 공유까지</span><span class="main-textcolor-0B9B9B">.</span>
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=f8acc7434d564c9ba6acc57c97dfbea5&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">[강동문화재단] 11월 한밤의 공연 산책 [서커스 올림픽+특별한 순간들]</li>
+						<li class="top10-item-place">소극장 드림</li>
+						<li class="top10-item-date">2024-11-29~2024-11-29</li>
+					</ul>
 				</div>
-				<div class="intro-community-img">
-					<img id="intro-community-img" src="/img/main/community-image.png" alt="커뮤니티이미지">
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=3b2f4b7f8349411f83b04d0e6fb083c3&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">[마포문화재단] [음악공간 : PLAYLIST]＇보헤미아의 숲＇브람스가 드보르자크를 만난 날</li>
+						<li class="top10-item-place">마포아트센터 플레이맥</li>
+						<li class="top10-item-date">2024-11-27~2024-11-27</li>
+					</ul>
 				</div>
-			</div>
-			<div class="exmap-bottom-area">
-				<img id="community-example" src="/img/main/community-example-image.png" alt="커뮤니티예시이미지">
-			</div>
-		</div>
-	</div>
-
-	<div class="intro-fowarding-section">
-		<div class="intro-fowarding-container">
-			<div class="intro-forwarding-textarea">
-				<p class="main-textcolor-0B9B9B">국내 최초</p>
-				<p>전시 / 행사 전용</p>
-				<span>예매 플랫폼 </span><span class="main-textcolor-0B9B9B">EX-SITE</span>
-			</div>
-			<div class="intro-forwarding-buttonarea">
-				<button id="forwarding-exhibition-btn">전시 보러가기</button>
-				<button id="forwarding-enroll-btn">회원가입</button>
-			</div>
-		</div>
-	</div>
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=888f8996e4be404193206ca08ffa248e&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">[세종예술아카데미] 퇴근길 미술 한잔 : 냉정과 열정사이</li>
+						<li class="top10-item-place">서클홀</li>
+						<li class="top10-item-date">2024-11-21~2024-12-19</li>
+					</ul>
+				</div>
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=e1e775d4b6f2473ba50d2830e07d84c2&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">[한성백제박물관] [아이콤 이크마] 2024 ICOM ICMAH 국제학술회의</li>
+						<li class="top10-item-place">서울 한성백제박물관 대강당</li>
+						<li class="top10-item-date">2024-11-20~2024-11-22</li>
+					</ul>
+				</div>
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=4961b97b7fdb4194967b8d5117556f3b&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">[서울역사박물관] 2024 온라인 교육프로그램 [경교장은 어떻게?!]</li>
+						<li class="top10-item-place">온라인 시청각 영상</li>
+						<li class="top10-item-date">2024-11-19~2024-12-06</li>
+					</ul>
+				</div>
+				<div class="top10-exhibition-item">
+					<div class="top10-item-image-wrapper">
+						<img class="top10-item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=105644d2c06341c7b14d5132dadd0d08&thumb=Y" alt="전시썸네일">
+					</div>
+					<ul class="top10-item-textarea">
+						<li class="top10-item-title">[서울아트책보고] 2024 서울아트북위크</li>
+						<li class="top10-item-place">서울아트책보고 중정광장</li>
+						<li class="top10-item-date">2024-11-15~2024-11-17</li>
+					</ul>
+				</div>
 	
+			</div>
+		</div>
+	
+		 <!-- EX-MAP 소개 섹션 -->
+		<div class="intro-exmap-section">
+			<div class="intro-exmap-container">
+				<div class="intro-exmap-top-area">
+					<div class="intro-exmap-textarea">
+							<p> 핫한 전시 스팟을</p>
+							<p class="main-textcolor-0B9B9B"> 한눈에</p>
+							<span id="text-background-color">지도로</span><span> 확인하세요!</span>
+					</div>
+					<div class="intro-exmap-img-marker">
+						<img id="exmap-marker-image" src="/img/main/exmap-marker-image.png" alt="마커이미지">
+					</div>
+				</div>
+				<div class="intro-exmap-bottom-area">
+					<img id="exmap-example" src="/img/main/exmap-example-image.png" alt="지도예시이미지">
+				</div>
+			</div>
+		</div>
+	
+		<!-- 커뮤니티 소개 섹션 -->
+		<div class="intro-community-section">
+			<div class="intro-community-container">
+				<div class="intro-community-top-area">
+					<div class="intro-community-textarea">
+						<span>전시 / 행사 </span><span class="main-textcolor-0B9B9B">전용 커뮤니티</span>
+						<p >동행 구인부터</p>
+						<span>정보 공유까지</span><span class="main-textcolor-0B9B9B">.</span>
+					</div>
+					<div class="intro-community-img">
+						<img id="intro-community-img" src="/img/main/community-image.png" alt="커뮤니티이미지">
+					</div>
+				</div>
+				<div class="exmap-bottom-area">
+					<img id="community-example" src="/img/main/community-example-image.png" alt="커뮤니티예시이미지">
+				</div>
+			</div>
+		</div>
+	
+		<!-- 포워딩 페이지 섹션 -->
+		<div class="intro-fowarding-section">
+			<div class="intro-fowarding-container">
+				<div class="intro-forwarding-textarea">
+					<p class="main-textcolor-0B9B9B">국내 최초</p>
+					<p>전시 / 행사 전용</p>
+					<span>예매 플랫폼 </span><span class="main-textcolor-0B9B9B">EX-SITE</span>
+				</div>
+				<div class="intro-forwarding-buttonarea">
+						<button class="main-button" id="forwarding-exhibition-btn"><a href="#">전시 보러가기</a></button>
+						<button class="main-button" id="forwarding-enroll-btn"><a href="#">회원가입</a></button>
+				</div>
+			</div>
+		</div>
+	</div>
+    
 	
 	<div th:insert="~{common/footer}"></div>
+
+	<script src="/js/common/main.js"></script>
 </body>
 </html>
