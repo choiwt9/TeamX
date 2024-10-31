@@ -28,8 +28,8 @@
   	<result column="USER_PW" property="userPw"/>
   </resultMap>
   
-  <select id="searchUserId" resultMap="userInfo">
-  	SELECT USER_ID, USER_PW
+  <select id="basicLogin" resultMap="userInfo">
+  	SELECT USER_NO, NAME, USER_ID, USER_PW, EMAIL, PHONE, ADDRESS, CREATE_DATE, UPDATE_DATE, USER_STATUS, METHOD, GRADE
   	FROM USER_INFO
   	WHERE USER_ID = #{userId}
   </select>
@@ -52,7 +52,7 @@
   	WHERE NAME = #{name}
   </select>
   
-  <update id="passwordReset">
+  <update id="passwordChange">
   	UPDATE USER_INFO
   	SET USER_PW = #{encodedPassword}
   	WHERE USER_ID = #{userId} AND NAME = #{name} AND EMAIL = #{email}

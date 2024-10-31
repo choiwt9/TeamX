@@ -11,14 +11,14 @@ public interface UserMapper {
 
 	public int idCheck(String id);
 
-	public UserDTO searchUserId(UserDTO userInfo);
-
 	public int mailCheck(String email);
 
 	public int searchUserName(String name);
 
 	public String idSearch(String email);
 
-	public int passwordReset(String userId, String name, String email, String encodedPassword);
+	public int passwordChange(String userId, String name, String email, String encodedPassword);
+
+	public UserDTO basicLogin(UserDTO loginInfo);
 
 }

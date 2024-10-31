@@ -7,7 +7,9 @@ import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.mapper.user.UserMapper;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -25,15 +27,13 @@ public class UserService {
 		return userMapper.idCheck(id);
 	}
 	
-	public int basicLogin(UserDTO loginInfo) {
-		UserDTO idSelectResult = userMapper.searchUserId(loginInfo);
-		if(idSelectResult == null) {
-			return 0;
-		}
+	public UserDTO basicLogin(UserDTO loginInfo) {
+		UserDTO idSelectResult = userMapper.basicLogin(loginInfo);
+		
 		if(passwordEncoder.matches(loginInfo.getUserPw(), idSelectResult.getUserPw())) {
-			return 1;
+			return idSelectResult;
 		}
-		return 0;
+		return null;
 	}
 
 	public int nameCheck(String name) {
@@ -45,8 +45,8 @@ public class UserService {
 		return userMapper.idSearch(email);
 	}
 
-	public int passwordReset(String userId, String name, String email, String resetPassword) {
-		String encodedPassword = passwordEncoder.encode(resetPassword);
-		return userMapper.passwordReset(userId, name, email, encodedPassword);
+	public int passwordChange(String userId, String name, String email, String changePassword) {
+		String encodedPassword = passwordEncoder.encode(changePassword);
+		return userMapper.passwordChange(userId, name, email, encodedPassword);
 	}
 }

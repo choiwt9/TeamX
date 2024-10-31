@@ -28,7 +28,7 @@ $(function() {
   });
 
   const form = $('<form>', {
-    action: "/password/reset/form",
+    action: "/password/change/form",
     method: "POST"
   });
 
@@ -42,7 +42,7 @@ $(function() {
       type: 'text',
       maxlength: 6,
       placeholder: '인증번호를 입력하세요'
-    }).insertAfter('#reset-with-email-userId');
+    }).insertAfter('#change-with-email-userId');
     $('#submit-email-btn').on('click', () => {
       sendCertificationEmailNoToServer();
     });
@@ -65,8 +65,8 @@ $(function() {
             
             form.append($('#email-submit-name'));
             form.append($('#submit-email'));
-            form.append($('#reset-with-email-userId'));
-            form.append($('#reset-with-email-code'));
+            form.append($('#change-with-email-userId'));
+            form.append($('#change-with-email-code'));
 
             form.appendTo('body').submit();
 

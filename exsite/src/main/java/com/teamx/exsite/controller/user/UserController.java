@@ -51,7 +51,7 @@ public class UserController {
 
 		Map<String, String> result = new HashMap();
 
-		if (userService.basicLogin(loginInfo) > 0) {
+		if ((loginInfo = userService.basicLogin(loginInfo)) != null) {
 			session.setAttribute("loginUser", loginInfo);
 			result.put("response", "success");
 			return result;
@@ -158,19 +158,19 @@ public class UserController {
 		return "/user/findPasswordSecondForm";
 	}
 
-	@PostMapping("/password/reset/form")
-	public String passwordResetForm(String userId, String name, String email, Model model) {
+	@PostMapping("/password/change/form")
+	public String passwordchangeForm(String userId, String name, String email, Model model) {
 		model.addAttribute("userId", userId);
 		model.addAttribute("name", name);
 		model.addAttribute("email", email);
 		String code = authService.generateAuthCode();
 		authService.generateAuthInfo(email + name + userId, code);
 		model.addAttribute("code", code);
-		return "/user/resetPasswordForm";
+		return "/user/changePasswordForm";
 	}
 
-	@PostMapping("/password/reset")
-	public String passwordReset(String userId, String name, String email, String code, String resetPassword,
+	@PostMapping("/password/change")
+	public String passwordchange(String userId, String name, String email, String code, String changePassword,
 			Model model) {
 		String result = authService.verifyCode(email + name + userId, code).get("status");
 
@@ -178,8 +178,8 @@ public class UserController {
 			model.addAttribute("alertMsg", "인증 유효시간이 초과되었습니다.");
 			return "redirect:/";
 		} else if (result.equals("success")) {
-			int passwordResetResult = userService.passwordReset(userId, name, email, resetPassword);
-			if (passwordResetResult == 1) {
+			int passwordchangeResult = userService.passwordChange(userId, name, email, changePassword);
+			if (passwordchangeResult == 1) {
 				model.addAttribute("alertMsg", "비밀번호가 초기화되었습니다.");
 			} else {
 				model.addAttribute("alertMsg", "오류가 발생했습니다. 관리자에게 문의 바랍니다.");
