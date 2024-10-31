@@ -5,17 +5,18 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/user/loginForm.css">
 <script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+<script src="/js/user/loginForm.js"></script>
 </head>
 <body>
   <div th:insert="~{common/header}"></div>
-  <div id="main">
+  <div id="login-form-main">
     <form action="/login/normal" method="post">
       <div id="login-form">
         <table id="login-form-table">
           <tr>
             <td>
               ID
-              <input type="text" placeholder="아이디" id="userId" maxlength="20">
+              <input type="text" placeholder="아이디" id="userId"  maxlength="20" th:value="${userId != null ? userId : ''}">
             </td>
           </tr>
           <tr>
@@ -37,32 +38,4 @@
   </div>
   <div th:insert="~{common/footer}"></div>
 </body>
-
-<script>
-  $(function() {
-    $('#login-btn').click(() => {
-      $.ajax({
-        url: '/login/normal',
-        type: 'post',
-        data: {
-          userId: $('#userId').val(),
-          userPw: $('#userPw').val()
-        },
-        success: (result) => {
-          console.log(result.response);
-          if(result.response == 'success') {
-            window.location.href='/';
-          } else {
-            $('#id-error').text(result.response);
-          }
-          
-        },
-        error: (err) => {
-          console.log(err);
-        }
-      });
-    });
-  });
-  
-</script>
 </html>

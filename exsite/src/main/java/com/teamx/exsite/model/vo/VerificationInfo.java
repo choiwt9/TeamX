@@ -10,5 +10,4 @@ import lombok.Data;
 public class VerificationInfo {
 	private String code;
 	private LocalDateTime timeStamp;
-
 }

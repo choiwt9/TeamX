@@ -5,59 +5,69 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/user/enrollForm.css">
 <script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
-<script src="/js/enrollForm.js"></script>
+<script src="/js/user/enrollForm.js"></script>
 <script src="/lib/bootstrap-5.3.3/js/bootstrap.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 	<div th:insert="~{common/header}"></div>
-	<div id="main">
+	<div id="enroll-form-main">
 		<h5>회원가입</h5>
 		<form action="/user/register" method="post">
 			<div id="enroll-form">
 				<table id="form-table">
 					<tr>
-						<td>아이디<input name="userId" id="id" type="text" maxlength="20" placeholder="6~20자 영문, 숫자" required>
+						<td>아이디<sapn class="required">*</sapn><input name="userId" id="id" type="text" maxlength="20" placeholder="6~20자 영문, 숫자" required>
 							<button id="id-check" type="button" class="check-button">
 								중복확인
 							</button>
-							<div id="id-error" class="error-message"></div>
+							<div id="id-check-result-alert"></div>
 						</td>
 							
 					</tr>
 					<tr>
 						<td>
-						비밀번호<input name="userPw" id="password" type="password" maxlength="12" placeholder="8~12자 영문, 숫자, 특수문자" required>
+						비밀번호<sapn class="required">*</sapn><input name="userPw" id="password" type="password" maxlength="12" placeholder="8~12자 영문, 숫자, 특수문자" required>
 						<div id="password-error" class="error-message"></div>
 						</td>
 					</tr>
 					<tr>
 						<td>
-						비밀번호 확인<input id="check-password" type="password" maxlength="12" placeholder="8~12자 영문, 숫자, 특수문자" required>
+						비밀번호 확인<sapn class="required">*</sapn><input id="check-password" type="password" maxlength="12" placeholder="8~12자 영문, 숫자, 특수문자" required>
 						<div id="check-password-result" class="error-message"></div>
 						</td>
 					</tr>
 					<tr>
-						<td>이름<input name="userName" type="text" maxlength="5" required></td>
-					</tr>
-					<tr>
-						<td>이메일<input id="email-prefix" name="email-prefix">
-						<select id="email-suffix">
-							<option value="@naver.com">@naver.com</option>
-							<option value="@google.com">@google.com</option>
-							<option value="other">기타(직접 입력)</option>
-						</select>
-						<input name="email" type="text" id="custom-input" required>
-							<button type="button" id="authentication-email" class="check-button">인증받기</button>
+						<td>이름<sapn class="required">*</sapn><input id="user_name" name="name" type="text" maxlength="5" required>
+							<div id="name-check"></div>
 						</td>
 					</tr>
 					<tr>
-						<td>연락처<input name="phone" id="phone" maxlength="11" type="text" placeholder="01012345678" required>
-							<button type="button" id="authentication-phone" class="check-button">인증받기</button></td>
+						<td>이메일<sapn class="required">*</sapn><input id="email-prefix" name="email-prefix">
+						<sapn id="at">@</sapn><select id="email-suffix">
+							<option value="naver.com">naver.com</option>
+							<option value="gmail.com">gmail.com</option>
+							<option value="other">기타(직접 입력)</option>
+						</select>
+							<button type="button" id="authentication-email" class="check-button">인증받기</button>
+							<div id="registered-email-alert" class="success-message"></div>
+							<input type="hidden" id="email" name="email">
+						</td>
 					</tr>
 					<tr>
-						<td>주소<input name="address" id="address-input" type="text" required>
-							<button type="button" id="search-address" class="check-button">검색</button></td>
+						<td>연락처<sapn class="required">*</sapn><input name="phone" id="phone" maxlength="11" type="text" placeholder="01012345678" required>
+							<button type="button" id="authentication-phone" class="check-button">인증받기</button>
+							<div id="registered-phone-alert" class="success-message"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							주소<sapn class="required">*</sapn>
+							<input name="address" id="address-input" type="text" required>
+							<button type="button" id="search-address" class="check-button">검색</button>
+							<div id="address-alert" class="success-message"></div>
+							<span id="detail-address-span">상세주소</span><input name="addressDetail" id="detail-address-input" type="text" required>
+						</td>
 					</tr>
 				</table>
 			</div>
