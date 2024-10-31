@@ -13,6 +13,7 @@ target/
 !**/src/test/**/target/
 *.iml
 *.jar
+bin/
 
 # STS
 .apt_generated
