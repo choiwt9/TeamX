@@ -5,7 +5,7 @@ import java.net.URLEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.teamx.exsite.model.dto.user.UserDTO;
+import com.teamx.exsite.model.user.dto.UserDTO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

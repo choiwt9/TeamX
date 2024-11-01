@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/user/loginForm.css">
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
 <script src="/js/user/loginForm.js"></script>
 </head>
@@ -34,6 +35,8 @@
       <button type="button" id="login-btn">로그인</button>
     </form>
     <img id="naver-login-btn-img" src="/img/user/naver-login-btn-img.png" alt="네이버 로그인">
+    <div id="naver_id_login"></div>
+    <script src="/js/user/naverLogin.js"></script>
     <img id="google-login-btn-img" src="/img/user/google-login-btn-img.png" alt="구글 로그인">
   </div>
   <div th:insert="~{common/footer}"></div>

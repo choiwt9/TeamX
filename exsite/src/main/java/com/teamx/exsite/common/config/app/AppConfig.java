@@ -27,8 +27,8 @@ public class AppConfig implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 	
 		//메소드의 인자로 전달되는 InterceptorRegistry 객체를 이용해서 Interceptor 를 등록하면 된다. 
-//		registry.addInterceptor(loginInterceptor)
-//			.addPathPatterns("")
-//			.excludePathPatterns("/login");
+		registry.addInterceptor(loginInterceptor)
+			.addPathPatterns("/mypageMain")
+			.excludePathPatterns("/login");
 	}
 }

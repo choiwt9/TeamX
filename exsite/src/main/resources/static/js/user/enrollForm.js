@@ -443,12 +443,8 @@ $(function() {
   $('#address-input').on('input', function() {
     $('#address-alert').text('');
     addressCheckResult = false;
-
   })
   $('#user_name').on('input', function() {
     $('#name-check').text('');
   })
-
-
 });
-

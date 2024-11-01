@@ -2,7 +2,7 @@ package com.teamx.exsite.model.mapper.user;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.teamx.exsite.model.dto.user.UserDTO;
+import com.teamx.exsite.model.user.dto.UserDTO;
 
 @Mapper
 public interface UserMapper {

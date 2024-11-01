@@ -3,7 +3,6 @@ package com.teamx.exsite.service.user;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -11,7 +10,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import com.teamx.exsite.model.mapper.user.UserMapper;
-import com.teamx.exsite.model.vo.VerificationInfo;
+import com.teamx.exsite.model.user.vo.VerificationInfo;
 
 import jakarta.mail.internet.MimeMessage;
 import lombok.Data;

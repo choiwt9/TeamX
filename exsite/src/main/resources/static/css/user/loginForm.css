@@ -132,3 +132,7 @@ input:focus {
 	height: 3.73rem;
   margin: 0.6rem;
 }
+
+#naver_id_login {
+	display: none;
+}

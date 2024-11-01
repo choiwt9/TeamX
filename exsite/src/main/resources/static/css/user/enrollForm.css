@@ -263,3 +263,7 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 	line-height: 2.22rem;
 	font-size: 0.9rem;
 }
+
+#naver_id_login {
+	display: none;
+}

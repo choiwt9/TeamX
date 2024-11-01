@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/user/enrollForm.css">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
 <script src="/js/user/enrollForm.js"></script>
-<script src="/lib/bootstrap-5.3.3/js/bootstrap.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
 	<div th:insert="~{common/header}"></div>
@@ -80,7 +81,9 @@
 			<button type="submit" id="enroll-btn">가입 완료</button>
 			<div id="sosical-signup-btn-area">
 				<img id="naver-signup-btn-img"
-					src="img/user/naver-signup-btn-img.png" /> 
+					src="img/user/naver-signup-btn-img.png" />
+				<div id="naver_id_login"></div>
+				<script src="/js/user/naverLogin.js"></script>
 				<img id="google-signup-btn-img"
 					src="img/user/google-signup-btn-img.png" />
 			</div>

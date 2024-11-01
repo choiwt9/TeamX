@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.teamx.exsite.model.dto.user.UserDTO;
+import com.teamx.exsite.model.user.dto.UserDTO;
 import com.teamx.exsite.service.user.AuthService;
 import com.teamx.exsite.service.user.UserService;
 
@@ -49,7 +49,7 @@ public class UserController {
 	@PostMapping(value = "/login/normal", produces = "application/json; charset=utf-8")
 	public Map<String, String> basicLogin(HttpSession session, UserDTO loginInfo) {
 
-		Map<String, String> result = new HashMap();
+		Map<String, String> result = new HashMap<>();
 
 		if ((loginInfo = userService.basicLogin(loginInfo)) != null) {
 			session.setAttribute("loginUser", loginInfo);
@@ -58,6 +58,12 @@ public class UserController {
 		}
 		result.put("response", "false");
 		return result;
+	}
+	
+	@GetMapping("/login/naver")
+	public String naverLogin() {
+
+		return "/user/naverCallbackPage";
 	}
 
 	@ResponseBody

@@ -3,13 +3,11 @@ package com.teamx.exsite.service.user;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.mapper.user.UserMapper;
+import com.teamx.exsite.model.user.dto.UserDTO;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
