@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고객센터 페이지</title>
+    
+    <!-- noto sans 글씨체 다운로드 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <!-- css 사용 -->
+    <link rel="stylesheet" href="/css/customercenter/customerService.css">
+    
+    <!-- 자바스크립트 -->
+    <script src="js/customercenter/customerService.js"></script>
+</head>
+<body>
+	<div th:insert="~{common/header}"></div>
+    <div class="costomer-service-container">
+        <div class="costomer-service">고객센터</div>
+    </div>
+    <div class="inquiry">
+        <button id="faq-button">FAQ</button>
+        <button id="contact-button">1:1문의</button>
+    </div>
+    <div class="faq-section" id="faq-section">
+        <div class="faq-item" id="faq-item">
+            <div class="faq-question">Q. 예매를 취소하고 싶어요 어떻게 해야 하나요? 
+                <div class="faq-answer">A. 마이페이지에서 예매 확인/취소 내역에서 예매 번호로 티켓을 선택한 후 상세 페이지에서 티켓 취소를 진행해 주세요. </div>
+            </div>
+        </div>
+        <div class="faq-item" id="faq-item">
+            <div class="faq-question">Q. 예매를 취소하고 싶어요 어떻게 해야 하나요? 
+                <div class="faq-answer">A. 마이페이지에서 예매 확인/취소 내역에서 예매 번호로 티켓을 선택한 후 상세 페이지에서 티켓 취소를 진행해 주세요. </div>
+            </div>
+        </div>
+        <div class="faq-item" id="faq-item">
+            <div class="faq-question">Q. 예매를 취소하고 싶어요 어떻게 해야 하나요? 
+                <div class="faq-answer">A. 마이페이지에서 예매 확인/취소 내역에서 예매 번호로 티켓을 선택한 후 상세 페이지에서 티켓 취소를 진행해 주세요. </div>
+            </div>
+        </div>
+    </div>
+    <div class="contact-section" id="contact-section">
+        <table class="contact-section-table">
+            <thead>
+                <tr class="contact-section-tr">
+                    <th class="contact-section-title">문의 제목</th>
+                    <th class="contact-section-title">작성일</th>
+                    <th class="contact-section-title">답변여부</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="inquiry-row">
+                    <td class="inquiry-title">예매했는데 부분취소가 언제까지 가능한가요?</td>
+                    <td class="inquiry-date">2024.09.22</td>
+                    <td class="inquiry-answer">Y</td>
+                </tr>
+                <tr class="inquiry-row">
+                    <td class="inquiry-title">예매 변경하려는데 취소하지 않고 매수 변경 가능 한가요?</td>
+                    <td class="inquiry-date">2024.05.11</td>
+                    <td class="inquiry-answer">Y</td>
+                </tr>
+                <tr class="inquiry-row">
+                    <td class="inquiry-title">티켓이 택배수령으로 되어있는데 현장수령으로 변경가능한가요?</td>
+                    <td class="inquiry-date">2024.03.04</td>
+                    <td class="inquiry-answer">Y</td>
+                </tr>
+                <tr class="inquiry-row">
+                    <td class="inquiry-title">카드취소를 했는데 환불처리는 며칠 걸리나요?</td>
+                    <td class="inquiry-date">2024.01.30</td>
+                    <td class="inquiry-answer">Y</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="inquiry-button">
+            <button id="inquiry-button">문의하기</button>
+        </div>
+    </div>
+    <div th:insert="~{common/footer}"></div>
+</body>
+</html>
