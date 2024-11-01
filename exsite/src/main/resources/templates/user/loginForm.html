@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang=ko xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/user/loginForm.css">
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+<script src="/js/user/loginForm.js"></script>
+</head>
+<body>
+  <div th:insert="~{common/header}"></div>
+  <div id="login-form-main">
+    <form action="/login/normal" method="post">
+      <div id="login-form">
+        <table id="login-form-table">
+          <tr>
+            <td>
+              ID
+              <input type="text" placeholder="아이디" id="userId"  maxlength="20" th:value="${userId != null ? userId : ''}">
+            </td>
+          </tr>
+          <tr>
+            <td>
+              PW
+              <input type="password" placeholder="비밀번호" id="userPw" maxlength="12">
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div id="id-error" class="error-message"></div>
+      <div id="login-form-under-link">
+        <a href="/id/recover">아이디 찾기</a> | <a href="/password/recover/first">비밀번호 찾기</a> | <a href="/signup">회원가입</a>
+      </div>
+      <button type="button" id="login-btn">로그인</button>
+    </form>
+    <img id="naver-login-btn-img" src="/img/user/naver-login-btn-img.png" alt="네이버 로그인">
+    <div id="naver_id_login"></div>
+    <script src="/js/user/naverLogin.js"></script>
+    <img id="google-login-btn-img" src="/img/user/google-login-btn-img.png" alt="구글 로그인">
+  </div>
+  <div th:insert="~{common/footer}"></div>
+</body>
+</html>
