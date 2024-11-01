@@ -1,5 +1,5 @@
 // 네이버 로그인 api 호출
-  let APP_NAVER_CLIENT_ID = 'BbN1tc0kQb4qVkbYKctJ';
+  let APP_NAVER_CLIENT_ID = '..';
   let APP_NAVER_REDIRECT_URL = 'http://localhost:7777/login/naver';
   let APP_NAVER_SERVICE_URL = 'http://localhost:7777';
   var naver_id_login = new naver_id_login(APP_NAVER_CLIENT_ID, APP_NAVER_REDIRECT_URL);
