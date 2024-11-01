@@ -29,7 +29,9 @@ html {
     cursor: pointer;
 }
 
+
 /* 부트스트랩 폰트 */
+
 :root {
     --bs-font-sans-serif: "Noto Sans", sans-serif;
 }

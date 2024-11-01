@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+        html {
+            font-size: 62.5%;
+            font-family: "Noto Sans", sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            margin: 0;
+        }
+
+        .exhibition-container {
+            /* border: 3rem solid blue; */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .exhibition-array {
+            margin-top: 10rem;
+            /* border: 0.3rem solid red; */
+        }
+
+        .exhibition-array1 {
+            display: flex;
+            justify-content: center;
+            /* border: 0.3rem solid blue; */
+        }
+
+        .exhibition-array2, .exhibition-array3, .exhibition-array4, .exhibition-array5 {
+            margin: 0rem 4rem;
+            border: 0.1rem solid #9DD7D7;
+            border-radius: 1rem;
+            padding : 0.3rem 0.9rem;
+            font-weight: 900;
+            font-family:sans-serif;
+            font-size: 2rem;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        button.active {
+            background-color: #EDF8F8;
+            border: none;
+        }
+
+        .exhibition-cards {
+            /* border: 0.1rem solid red; */
+            margin: 10rem 0rem;
+            width: 80%;
+        }
+
+        .exhibition-card {
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 5rem; 
+        }
+
+        .exhibition-card-list {
+            flex: 0 0 calc(20% - 5rem);
+            max-width: calc(20% - 5rem);
+            list-style-type: none;
+            /* border: 0.1rem solid red; */
+        }
+
+        .exhibition-cards .exhibition-card-list a {
+            text-decoration: none;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .exhibition-card-image {
+            /* border: 0.1px solid black; */
+            border-radius: 2rem;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        .exhibition-card-image img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .exhibition-card-content {
+            width: 80%;
+            /* border: 0.1rem solid red; */
+        }
+
+        .exhibition-card-title {
+            /* border: 0.1rem solid yellow; */
+            font-weight: 900;
+            color: black;
+            font-size: 1.5rem;
+            padding: 0.2rem;
+            margin-top: 1rem;
+        }
+
+        .exhibition-card-location {
+            /* border: 0.1rem solid yellow; */
+            font-size: 1.5rem;
+            padding: 0.2rem;
+        }
+
+        .exhibition-card-date {
+            /* border: 0.1rem solid yellow; */
+            color: hsla(0, 0%, 0%, 0.3);
+            font-size: 1.5rem;
+            padding: 0.2rem;
+        }
+
+        .exhibition-card-title, .exhibition-card-location, .exhibition-card-date {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 18rem;
+        }
+        
+        @media (max-width: 1200px) {
+            .exhibition-card-list {
+                flex: 0 0 calc(25% - 5rem); 
+                max-width: calc(25% - 5rem);
+            }
+        }
+
+        @media (max-width: 800px) {
+            .exhibition-card-list {
+                flex: 0 0 calc(33.33% - 5rem);
+                max-width: calc(33.33% - 5rem);
+            }
+        }

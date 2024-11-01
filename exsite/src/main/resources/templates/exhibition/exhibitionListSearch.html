@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전시/행사 목록 조회 페이지</title>
+    
+    <!-- noto sans 글씨체 다운로드 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+	
+	<!-- css 사용 -->
+	<link rel="stylesheet" href="/css/exhibition/exhibitionListSearch.css">
+</head>
+<body>
+    <div th:insert="~{common/header}"></div>
+    <div class="exhibition-container">
+	    <div class="exhibition-array">
+	        <div class="exhibition-array1">
+	            <button class="exhibition-array2" onclick="changeColor(this)">종료 임박 순</button>
+	            <button class="exhibition-array3" onclick="changeColor(this)">리뷰 많은 순</button>
+	            <button class="exhibition-array4" onclick="changeColor(this)">무료</button>
+	            <button class="exhibition-array5" onclick="changeColor(this)">유료</button>
+	        </div>
+	    </div>
+	    <div class="exhibition-cards">
+	        <ul class="exhibition-card">
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	            <li class="exhibition-card-list">
+	                <a href="">
+	                    <div class="exhibition-card-image">
+	                        <img src="/img/exhibition/BestExhibition1.png">
+	                    </div>
+	                    <div class="exhibition-card-content">
+	                        <div class="exhibition-card-title">[라스트얼리버드] 불멸의 화가 반 고흐</div>
+	                        <div class="exhibition-card-location">예술의 전당 한가람미술관 1층</div>
+	                        <div class="exhibition-card-date">2024.11.28 ~ 2025.2.9</div>
+	                    </div>
+	                </a>
+	            </li>
+	        </ul>
+	    </div>
+	</div>
+	<!-- 자바스크립트 -->
+	<script src="/js/exhibition/exhibitionListSearch.js"></script>
+    <div th:insert="~{common/footer}"></div>
+</body>
+</html>

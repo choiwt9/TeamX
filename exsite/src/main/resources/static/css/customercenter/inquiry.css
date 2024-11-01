@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+        html {
+            font-size: 62.5%;
+            font-family: "Noto Sans", sans-serif;
+        }
+
+        body {
+            width: 100vw;
+            margin: 0;
+        }
+
+        .support-container {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10rem;
+            /* border: 0.3rem solid black; */  
+        }
+
+        .support {
+            border-bottom: 0.3rem solid black;
+            max-width: 14rem;
+            text-align: center;
+            font-size: 2.3rem;
+            font-weight: bolder;
+            margin: 0 auto;
+            margin-top: 10rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .support-group {
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            width: 30%;
+            /* border: 1rem solid pink; */
+        }
+
+        .support-label-title {
+            font-size: 1.6rem;
+            font-weight: bolder;
+            margin: 7rem 0rem 2rem 0rem;
+            /* border: 1rem solid green; */
+        }
+
+        .support-star {
+            color: red;
+        }
+
+        .subject-content {
+            border: 0.2rem solid #9DD7D7;
+            border-radius: 2rem; 
+            padding: 1rem 2rem;
+            line-height: 2;
+            font-size: 1.4rem;
+            resize: none;
+            font-family: "Noto Sans", sans-serif;
+        }
+
+        .support-label-title2 {
+            font-size: 1.6rem;
+            font-weight: bolder;
+            margin: 3rem 0rem 2rem 0rem;
+        }
+
+        .support-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 4rem;
+            gap: 4rem;            
+        }
+
+        #submit-button {
+            border: none;
+            border-radius: 2rem;
+            background-color: #0B9B9B;
+            color: white;
+            font-size: 1.5rem;
+            padding: 1rem 2rem;
+            font-weight: bolder;
+        }
+
+        #cancel-button {
+            border: 0.1rem solid black;
+            border-radius: 2rem;
+            background-color: white;
+            color: black;
+            font-size: 1.5rem;
+            padding: 1rem 2rem;
+            font-weight: bolder;
+        }
