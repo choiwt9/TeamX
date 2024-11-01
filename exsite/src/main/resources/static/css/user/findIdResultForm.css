@@ -1,0 +1,82 @@
+html {
+	font-size: 62.5%;
+}
+
+#main {
+  height: 100%;
+  margin: 10rem 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+#title {
+  margin: 0rem;
+  padding: 0rem;
+  margin-top: 3.3rem;
+  margin-bottom: 1.8rem;
+  border-bottom: 0.3rem solid black;
+}
+
+#title>h5 {
+  margin: 0rem;
+  padding: 0rem;
+  font-size: 2.5rem;
+}
+
+#title+small {
+  width: 35.7rem;
+  height: 3.99rem;
+  font-size: 1.5rem;
+  color: #5B5B5B;
+  text-align: center;
+  line-height: 3.99rem; /* 라인 높이를 요소 높이와 동일하게 설정 */
+  display: inline-block; 
+}
+
+#select-id {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 3rem;
+  margin: 0rem;
+  padding: 0rem;
+  margin-top: 1.8rem;
+  width: 38.4rem;
+  height: 29.7rem;
+  border: 0.2rem solid #9DD7D7;
+  border-radius: 3rem;
+  font-size: 2rem;
+}
+
+#button-area {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 4.9rem;
+  margin-top: 3.3rem;
+}
+
+#button-area button {
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+  width: 17rem;
+  height: 4.6rem;
+  font-size: 2rem;
+  border-radius: 1.5rem;
+}
+
+#login-btn {
+  color: #ffffff;
+  background-color: #0B9B9B;
+  border: none;
+}
+
+#change-password-btn {
+  color: #000000;
+  background-color: #ffffff;
+}

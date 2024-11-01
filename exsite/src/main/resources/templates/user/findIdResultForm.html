@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang=ko xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/user/findIdResultForm.css">
+<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+<script src="/js/user/findIdResultForm.js"></script>
+</head>
+<body>
+  <div th:insert="~{common/header}"></div>
+  <div id="main">
+    <sapn id="title"> <h5> 아이디 찾기 </h5> </sapn>
+    <small>고객님의 정보와 일치하는 아이디 목록입니다.</small>
+        <div id="select-id">
+          
+        </div>
+        
+        <div id="button-area">
+          <form action="/login">
+            <input name="userId" id="login-input" type="hidden">
+            <button id="login-btn">로그인</button>
+          </form>
+          <form action="/password/recover/first" method="get">
+            <input name="userId" id="change-password-id-input" type="hidden">
+            <button id="change-password-btn">비밀번호 재설정</button>
+          </form>
+        </div>    
+  </div>
+  <div th:insert="~{common/footer}"></div>
+  <script>
+
+    // 이메일 인증 후 페이지 로딩 시 받아온 id를 html에 선택요소로 추가
+
+  </script>
+</body>
+</html>

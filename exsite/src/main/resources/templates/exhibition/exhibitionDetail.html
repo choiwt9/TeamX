@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전시/행사 정보 상세 조회 페이지</title>
+    
+    <!-- noto sans 글씨체 다운로드 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+    <!-- css 사용 -->
+    <link rel="stylesheet" href="/css/exhibition/exhibitionDetail.css">
+</head>
+<body>
+    <div th:insert="~{common/header}"></div>
+    <div class="exhibition-detail-container">
+        <div class="exhibition-detail-info">
+            <div class="exhibition-detail-explain">
+                <div class="exhibition-detail-image">
+                    <img src="/img/exhibition/gh1.png" alt="고흐포스터">
+                </div>
+                <div class="exhibition-like-button" id="exhibition-like-button">
+                    <button class="exhibition-heart" id="exhibition-heart">
+                        <svg width="3rem" height="3rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="red" stroke-width="2" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="detail-info">
+                <div class="exhibition-detail-title">
+                    <div class="exhibition-detail-title1">
+                        [라스트얼리버드］불멸의 화가 반 고흐
+                    </div>
+                </div>
+                <div class="exhibition-detail-location">
+                    <div class="exhibition-detail-location1">장소</div>
+                    <div class="exhibition-detail-location2">예술의전당 한가람미술관 1층</div>
+                </div>
+                <div class="exhibition-detail-date">
+                    <div class="exhibition-detail-date1">기간</div>
+                    <div class="exhibition-detail-date2">2024.11.29 ~2025.02.09</div>
+                </div>
+                <div class="exhibition-detail-price">
+                    <div class="exhibition-detail-price1">가격</div>                
+                    <div class="exhibition-detail-price2">16,800원</div>
+                </div>
+                <div class="reservation-info">
+                    <div class="reservation-info1">예매하기 버튼을 누르고 <br> 날짜를 선택하세요.</div>
+                </div>
+                <div class="reservation-button">
+                    <button class="reservation-button1">예매하기</button>
+                </div>
+            </div>
+        </div>
+        <div class="exhibition-detail-page">
+            <div class="exhibition-detail-navigation">
+                <button id="exhibition-details-button">상세 정보</button>
+                <button id="exhibition-reviews-button">구매자 리뷰</button>
+            </div>
+            <div class="exhibition-detail-content" id="detail-content">
+                <div id="exhibition-details" class="content-section">
+                    <div class="details-container">
+                        <img src="/img/exhibition/ghdetail.jpg" alt="고흐상세">
+                    </div>
+                </div>
+                <div id="exhibition-reviews" class="content-section">
+                    <div class="review-write">
+                        <button class="review-write-button">리뷰 작성하기</button>
+                        <div class="review-post">
+                            <div class="review-post-info">
+                                <div class="review-post-user">user***</div>|
+                                <div class="review-post-date">2024.10.28</div>
+                            </div>
+                            <div class="review-post-title">리뷰제목</div>
+                            <div class="review-post-content">리뷰내용</div>
+                            <div class="review-post-see"><button class="review-see-more">더보기</button></div>
+                        </div>
+                        <div class="review-button"><button class="review-correct">수정</button><button class="review-delete">삭제</button></div>
+                        <div class="review-post">
+                            <div class="review-post-info">
+                                <div class="review-post-user">user***</div>|
+                                <div class="review-post-date">2024.10.28</div>
+                            </div>
+                            <div class="review-post-title">리뷰제목</div>
+                            <div class="review-post-content">리뷰내용</div>
+                            <div class="review-post-see"><button class="review-see-more">더보기</button></div>
+                        </div>
+                        <div class="review-button"><button class="review-correct">수정</button><button class="review-delete">삭제</button></div>
+                        <div class="review-post">
+                            <div class="review-post-info">
+                                <div class="review-post-user">user***</div>|
+                                <div class="review-post-date">2024.10.28</div>
+                            </div>
+                            <div class="review-post-title">리뷰제목</div>
+                            <div class="review-post-content">리뷰내용</div>
+                            <div class="review-post-see"><button class="review-see-more">더보기</button></div>
+                        </div>
+                        <div class="review-button"><button class="review-correct">수정</button><button class="review-delete">삭제</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <!-- 자바스크립트 -->
+        <script src="/js/exhibition/exhibitionDetail.js"></script>
+        <div th:insert="~{common/footer}"></div>
+        
+        
+</body>
+</html>

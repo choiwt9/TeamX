@@ -1,0 +1,413 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    font-size: 62.5%; /* 1rem = 10px */
+    font-family: "Noto Sans", sans-serif;
+    /* transform: scale(0.1); 전체 크기 일괄조정 */
+    /* transform: top; 변환 기준을 상단으로 설정 */
+}
+
+
+/* 메인페이지 글자색 0B9B9B 공통적용 */
+.main-textcolor-0B9B9B{
+    color: #0B9B9B;
+}
+
+/* 슬라이드 섹션 */
+.slide-section{
+    width: 80%;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    justify-content: center;
+    padding: 3rem;
+    /* border: 1px blue solid; */
+}
+
+.swiper-slide {
+    display: flex !important; /* 기존 block 스타일을 덮어씌워야 슬라이드 아이템들 가운데 정렬이 가능함 */
+    justify-content: center; /* 슬라이드의 콘텐츠를 가운데 정렬 */
+    align-items: center;
+}
+
+.slide-container{
+    position: relative;
+    width: calc(22rem * 10 + 16px * 9);
+    display: flex;
+    left: 0;
+    position: relative;
+    /* border: 1px red solid; */
+}
+
+
+.slide-exhibition-item {
+    border-radius: 1.6rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.6rem;
+    box-sizing: border-box;
+    flex: 0 0 auto; /* 슬라이드들이 한 줄로 나란히 배치되도록 설정 */
+    margin-right: 2.56rem; /* 슬라이드 간 간격 */
+    /* border: 1px red solid; */
+}
+
+.slide-item-image-wrapper {
+    width: 100%;
+    max-width: 24rem; /* 최대 너비 설정 */
+    height: auto; /* 높이는 자동으로 조정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1.6rem;
+    overflow: hidden; /* 이미지가 컨테이너의 모서리를 넘지 않도록 */
+}
+
+.slide-item-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* 이미지 비율을 유지하며 전체 표시 */
+
+}
+
+.slide-exhibition-item ul{
+    padding: 0rem;
+    margin-top: 1.6rem; 
+    width: 75%;
+    /* border: 1px greenyellow solid; */
+}
+
+.slide-exhibition-item li{
+    list-style: none;
+    font-size: 1.5rem;
+    /* border: 1px green solid; */
+    white-space: nowrap; /* 텍스트를 한 줄로 제한 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 '...'으로 표시 */
+    max-width: 18rem; /* 최대 너비 지정 (필요에 따라 조정) */
+}
+
+.slide-item-title{
+    font-weight: 900;
+}
+
+.slide-item-date{
+    color: #C9C0C0;
+}
+
+/* 화살표 위치를 이미지 기준 가운데로 조정하는 CSS */
+#next-button, #prev-button {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: rgba(0, 0, 0, 0.7);
+    border: none;
+    border-radius: 50%;
+    width: 10rem;
+    height: 10rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    margin-top: -6.4rem; /* 버튼 높이의 절반을 빼기 위한 설정 */
+}
+
+
+/* TOP10 섹션 */
+.top10-section{
+    width: 100%;
+    border-top: 0.2rem solid #EDF8F8;
+    border-bottom: 0.2rem solid #EDF8F8; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3rem;
+    /* border: 1px red solid; */
+    
+}
+
+.top10-textarea{
+    font-size: 3.2rem; 
+    font-weight: 900;
+    text-align: center;
+    /* border: 1px red solid; */
+}
+
+.top10-textarea p{
+    margin-bottom: 0.5rem;
+    /* border: 1px red solid; */
+}
+
+.top10-info-area {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+    width: 80%;
+    padding: 2rem;
+    box-sizing: border-box;
+    /* border: solid 1px red; */
+}
+
+/* 화면 크기가 1200px 이하일 때는 한 줄에 3개의 아이템을 표시 */
+@media (max-width: 1200px) {
+    .top10-info-area {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* 화면 크기가 768px 이하일 때는 한 줄에 2개의 아이템을 표시 */
+@media (max-width: 768px) {
+    .top10-info-area {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 화면 크기가 480px 이하일 때는 한 줄에 1개의 아이템을 표시 */
+@media (max-width: 480px) {
+    .top10-info-area {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.top10-exhibition-item {
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    flex: 0 0 auto; /* 슬라이드들이 한 줄로 나란히 배치되도록 설정 */
+    margin-right: 16px; /* 슬라이드 간 간격 */
+    /* border: 1px red solid; */
+}
+
+.top10-item-image-wrapper {
+    width: 100%;
+    max-width: 24rem; /* 최대 너비 설정 */
+    height: auto; /* 높이는 자동으로 조정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    overflow: hidden; /* 이미지가 컨테이너의 모서리를 넘지 않도록 */
+    /* border: 1px red solid; */
+}
+
+.top10-item-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* 이미지 비율을 유지하며 전체 표시 */
+
+}
+
+.top10-item-textarea{
+    padding: 0rem;
+    margin-top: 1rem; 
+    width: 90%;
+    /* border: 1px greenyellow solid; */
+}
+
+.top10-item-textarea li{
+    list-style: none;
+    font-size: 1.5rem;
+    /* border: 1px green solid; */
+    white-space: nowrap; /* 텍스트를 한 줄로 제한 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 '...'으로 표시 */
+    max-width: 18rem; /* 최대 너비 지정 (필요에 따라 조정) */
+}
+
+.top10-item-title{
+    font-weight: 900;
+}
+
+.top10-item-date{
+    color: #C9C0C0;
+}
+
+
+/* EX-MAP 소개 섹션 */
+.intro-exmap-section{
+    width: 100%;
+    padding: 10rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-exmap-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.intro-exmap-top-area{
+    display: flex;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+
+.intro-exmap-textarea{
+    font-size: 4.8rem;
+    font-weight: 900;
+    margin-right: 3rem;
+    /* border: 1px solid red; */
+}
+
+#text-background-color {
+    background-color: #EDF8F8;
+    border-radius: 1rem; /* 둥근 모서리 */
+    padding: 0.5rem 1rem; /* 텍스트와 배경 사이 여백 */
+    display: inline-block; /* 내용에 맞게 박스 크기 조정 */
+    margin: 0.2rem; /* 약간의 외부 여백 */
+}
+
+.intro-exmap-img-marker{
+    width: 24rem;
+    height: 24rem;
+    /* border: 1px solid red; */
+}
+
+.intro-exmap-img-marker img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    object-position: center; 
+}
+
+.intro-exmap-bottom-area{
+    width: 80rem;
+    height: 24rem;
+    margin-top: 4.8rem; 
+    /* border: 1px solid red; */
+}
+
+.intro-exmap-bottom-area img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* 커뮤니티 소개 섹션 */
+.intro-community-section{
+    width: 100%;
+    padding: 16rem 0;
+    background-color: #EDF8F8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-community-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.intro-community-top-area{
+    display: flex;
+    align-items: end;
+}
+
+.intro-community-textarea{
+    font-size: 4.8rem;
+    font-weight: 900;
+}
+
+.intro-community-textarea * {
+    margin: 3.2rem 0rem; /* 40px 0px */
+}
+
+.intro-community-img{
+    width: 19.2rem;
+    height: 19.2rem;
+    /* border: 1px solid red; */
+}
+
+.intro-community-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.exmap-bottom-area{
+    width: 80rem;
+    height: 28.8rem;
+    margin-top: 3rem;
+    /* border: 1px solid red; */
+}
+
+.exmap-bottom-area img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* 포워딩 페이지 섹션 */
+.intro-fowarding-section{
+    width: 100%;
+    padding: 10rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.intro-fowarding-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.intro-forwarding-textarea{
+    font-size: 10.24rem; 
+    font-weight: 900;
+    text-align: center;
+    margin-bottom: 11.2rem;
+}
+
+.intro-forwarding-textarea * {
+    margin: 2.4rem 0rem;
+
+}
+
+.main-button{
+    width: 17.6rem;
+    height: 8rem;
+    font-size: 2.4rem;
+    font-weight: 900;
+    border-radius: 1.92rem; 
+    margin: 0rem 2.4rem;
+    cursor: pointer;
+}
+
+#forwarding-exhibition-btn{
+    background-color: #0B9B9B;
+    border: 0.32rem solid #0B9B9B; /* 2px */
+}
+
+#forwarding-enroll-btn{
+    background-color: #fff;
+    border: 0.32rem solid #000; /* 2px */
+}
+
+.intro-forwarding-buttonarea a{
+    text-decoration: none;
+
+}
+
+#forwarding-exhibition-btn a{
+    color: #fff;
+}
+
+#forwarding-enroll-btn a{
+    color: #000;
+}
