@@ -2,69 +2,75 @@ html {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
-    width: 100%;
-    height: 100%;
     font-family: "Noto Sans", sans-serif;
     font-size: 62.5%; /* 1rem = 10px */
 }
-/* body { border-bottom: 0.2rem solid #EDF8F8; } */
+/* body { border-bottom: 0.32rem solid #EDF8F8; } */
 
 .header-container {
+    margin: auto;
+    position: relative;
     display: flex;
     flex-direction: row;
     width: 100%;
     align-items: center;
-    border-bottom: solid 0.2rem #EDF8F8;
-    /* border: solid 0.1rem red; */
+    align-content: center;
+    justify-content: space-around;
+    border-bottom: solid 0.32rem #EDF8F8;
+    overflow: hidden;
+    min-width: 163.84rem;
+    max-width: 2880px;
+    /* border: solid 0.16rem red; */
 }
 
 .header-container a:hover { color: #000; }
 
 /* header 내 왼쪽 로고 영역 */
 .header-left-area {
-    width: 25%;
+    width: 40em;
     display: flex;
     justify-content: center;
-    /* border: solid 0.1rem red; */
+    /* border: solid 0.16rem red; */
 }
-.header-left-area a { display: flex; justify-content: center; }
-#header-logo { width: 40%; }
+.header-left-area a {
+    display: flex; justify-content: center; 
+}
+#header-logo { width: 16rem; height: 12.8rem; position: absolute; left: 12.8rem; top: 4.8rem; }
 #header-logo:hover { cursor: pointer; }
 
 /* header 내 중앙 검색창, 내비게이션 영역 */
 .header-center-area {
-    width: 50%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* border: solid 0.1rem red; */
+    /* border: solid 0.16rem red; */
 }
-.header-center-area > div { margin: 2rem 0 2rem 0; }
+.header-center-area > div { margin: 3.2rem 0 3.2rem 0; }
 
 /* header 내 중앙 검색창 영역 */
 .header-center-top-area {
-    border: solid 0.2rem #0b9b9b;
-    border-radius: 1rem;
-    width: 70%;
-    height: 4rem;
+    border: solid 0.32rem #0b9b9b;
+    border-radius: 1.6rem;
+    width: 75rem;
+    height: 6.4rem;
     display: flex;
     align-items: center;
 }
 #header-search-input {
     width: 90%;
     box-sizing: border-box;
-    padding-left: 0.3rem;
+    padding-left: 0.48rem;
     border: none;
-    border-radius: 1rem;
+    border-radius: 1.6rem;
     outline: none;
-    font-size: 1.4rem;
+    font-size: 2.24rem;
 }
 #header-search-input:focus { border: none; outline: none; }
 #header-search-icon {
-    width: 2.0rem;
-    /* height: 2.4rem; */
+    width: 3.2rem;
+    /* height: 3.84rem; */
     object-fit: contain;
     cursor: pointer;
 }
@@ -72,11 +78,11 @@ html {
 /* header 내 중앙 내비게이션 영역 */
 .header-center-bottom-area {
     display: flex;
-    /* border: solid 0.1rem red; */
+    /* border: solid 0.16rem red; */
 }
 .header-center-bottom-area div {
-    margin: 0 4.5rem;
-    font-size: 2rem;
+    margin: 0 7.2rem;
+    font-size: 3.2rem;
     font-weight: 700;
 }
 .header-center-bottom-area a {
@@ -94,15 +100,18 @@ html {
     display: flex;
     justify-content: flex-start; /* 왼쪽 정렬 */
     align-items: center; /* 수직 가운데 정렬 */
-    width: 25%;
-    /* border: solid 0.1rem red; */
+    width: 40.96rem;
+    /* border: solid 0.16rem red; */
 }
 .header-right-area div {
-    margin: 0 3rem 8rem 0; /* 오른쪽에만 여백 추가 */
-    font-size: 1.2rem;
+    margin: 0 4.8rem 12.8rem 0; /* 오른쪽에만 여백 추가 */
+    font-size: 1.92rem;
     font-weight: 500;
 }
-.header-right-area a { text-decoration: none; color: #000; }
+.header-right-area a {
+    text-decoration: none; color: #000; 
+    font-size: 1.92rem;
+}
 
 .header-common-style {
     display: flex;

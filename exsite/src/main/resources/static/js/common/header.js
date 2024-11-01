@@ -15,3 +15,4 @@ document.querySelectorAll(".header-nav").forEach(function(navItem) {
         navItem.classList.add("active");
     });
 });
+
