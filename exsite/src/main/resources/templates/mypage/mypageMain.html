@@ -1,24 +1,67 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>EX-SITE</title>
 <link rel="stylesheet" href="/css/mypage/mypageMain.css">
 </head>
 <body>
-
+    <div th:insert="~{common/header}"></div>
     <div class="mypage-container">
 
-            <div class="mypage-head-section">
-                <span id="mypage-head-title">마이페이지</span>
-            </div>
+        <!-- 마이페이지 헤드타이틀 -->
+        <div class="mypage-head-section">
+            <span class="mypage-head-title">마이페이지</span>
+        </div>
 
-            <div class="mypage-main-nav">
-                
-
+        <!-- 마이페이지 메인섹션 -->
+        <div class="mypage-main-section">
+            <div class="mypage-nav-wrapper">
+                <a class="mypage-modify-user-info" href="#">
+                    <p>회원 정보 수정</p>
+                    <img src="/img/mypage/mypage-modify-user-info.png" alt="회원정보수정이미지">
+                </a>
             </div>
+            <div class="mypage-nav-wrapper">
+                <a class="mypage-modify-user-info" href="#">
+                    <p>비밀번호 변경</p>
+                    <img src="/img/mypage/mypage-password-change.png" alt="회원정보수정이미지">
+                </a>
+            </div>
+            <div class="mypage-nav-wrapper">
+                <a class="mypage-ticket-info" href="#">
+                    <p>예매 확인/취소</p>
+                    <img src="/img/mypage/mypage-ticket-info.png" alt="회원정보수정이미지">
+                </a>
+            </div>
+            <div class="mypage-nav-wrapper">
+                <a class="mypage-like-list" href="#">
+                    <p>나의 관심 목록</p>
+                    <img src="/img/mypage/mypage-like-list.png" alt="회원정보수정이미지">
+                </a>
+            </div>
+            <div class="mypage-nav-wrapper">
+                <a class="mypage-review-list" href="#">
+                    <p>나의 후기</p>
+                    <img src="/img/mypage/mypage-review-list.png" alt="회원정보수정이미지">
+                </a>
+            </div>
+            <div class="mypage-nav-wrapper">
+                <a class="mypage-inquiry-list" href="#">
+                    <p>1:1 문의 내역</p>
+                    <img src="/img/mypage/mypage-inquiry-list.png" alt="회원정보수정이미지">
+                </a>
+            </div>
+            <div class="mypage-nav-wrapper">
+                <a class="mypage-withdrow" href="#">
+                    <p>회원 탈퇴</p>
+                    <img src="/img/mypage/mypage-withdrow.png" alt="회원정보수정이미지">
+                </a>
+            </div>
+        </div>
 
     </div>
 
+    <div th:insert="~{common/footer}"></div>
 </body>
 </html>
