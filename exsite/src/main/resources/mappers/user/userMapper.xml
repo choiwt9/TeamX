@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamx.exsite.model.mapper.user.UserMapper">
+  
+  <insert id="registerUser">
+    INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, USER_PW, EMAIL, PHONE, ADDRESS, METHOD)
+    	VALUES (
+    		SEQ_USER_NO.NEXTVAL,
+    		#{name},
+    		#{userId},
+    		#{userPw},
+    		#{email},
+    		#{phone},
+    		#{address},
+    		'NORMAL'
+    	)
+  </insert>
+  
+  <select id="idCheck">
+  	SELECT COUNT(*) FROM USER_INFO WHERE USER_ID = #{id}
+  </select>
+  
+  
+  <resultMap id="userInfo" type="UserDTO">
+  	<result column="USER_ID" property="userId"/>
+  	<result column="USER_PW" property="userPw"/>
+  </resultMap>
+  
+  <select id="basicLogin" resultMap="userInfo">
+  	SELECT USER_NO, NAME, USER_ID, USER_PW, EMAIL, PHONE, ADDRESS, CREATE_DATE, UPDATE_DATE, USER_STATUS, METHOD, GRADE
+  	FROM USER_INFO
+  	WHERE USER_ID = #{userId}
+  </select>
+  
+  <select id="mailCheck">
+  	SELECT COUNT(*)
+  	FROM USER_INFO
+  	WHERE EMAIL = #{email}
+  </select>
+  
+  <select id="idSearch">
+  	SELECT USER_ID
+  	FROM USER_INFO
+  	WHERE EMAIL = #{email}
+  </select>
+  
+  <select id="searchUserName">
+  	SELECT COUNT(*)
+  	FROM USER_INFO
+  	WHERE NAME = #{name}
+  </select>
+  
+  <update id="passwordChange">
+  	UPDATE USER_INFO
+  	SET USER_PW = #{encodedPassword}
+  	WHERE USER_ID = #{userId} AND NAME = #{name} AND EMAIL = #{email}
+  </update>
+</mapper>

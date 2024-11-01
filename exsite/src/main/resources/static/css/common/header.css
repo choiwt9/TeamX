@@ -90,6 +90,7 @@ html {
     color: #000;
     cursor: pointer;
     white-space: nowrap; /* 텍스트를 한 줄로 나타냄 */
+    text-align: center; 
 }
 .header-nav.active {
     color: #0b9b9b; /* 원하는 색상으로 변경 */
@@ -114,6 +115,10 @@ html {
 .header-right-area a {
     text-decoration: none; color: #000; 
     font-size: 1.92rem;
+}
+
+#login-user-name {
+    color: #0b9b9b;
 }
 
 .header-common-style {
