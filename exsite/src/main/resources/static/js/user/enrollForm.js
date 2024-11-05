@@ -12,7 +12,7 @@ let emailAlert;
 let phoneAlert;
 let addressAlert;
 /* 
-  문자 인증, 네이버로 회원가입, 구글로 회원가입 기능 구현 필요
+구글로 회원가입 기능 구현 필요
 */
 
 // 아이디 중복검사
@@ -29,8 +29,8 @@ $(function() {
     }
     $.ajax({
       url: '/id/check',
-      type: 'get',
-      data: {id: $('#id').val()},
+      type: 'post',
+      data: {userId: $('#id').val()},
       success: function(result) {
         if(result == 0) {
           idCheckResult=true;
@@ -182,10 +182,10 @@ $(function() {
   $('#authentication-email').on('click', () => {
     if($('#email-suffix').val() != '' && $('#email-prefix').val().length > 2) {
       email = $('#email-prefix').val() + '@' + $('#email-suffix').val();
-      $('#authentication-email').text('인증 중...');
+      $('#authentication-email').text('발송 중...');
       //setTimeout(changeEmailInputForm, 3000);
       $.ajax({
-        url: '/mail/signup/authnumber',
+        url: '/signup/authcode',
         type: 'post',
         data: {email: email},
         success: function(result) {
@@ -194,7 +194,7 @@ $(function() {
             changeEmailInputForm();
             emailAlert.removeClass('error-message');
             emailAlert.addClass('success-message');
-            emailAlert.text('입력하신 이메일로 인증번호가 발송되었습니다.');
+            emailAlert.text('인증번호가 발송되었습니다.');
             $('#email').val(email);
           } else if(result.status == 'exist') {
             $('#authentication-email').text('인증받기');
@@ -237,28 +237,28 @@ $(function() {
   const sendCertificationEmailNoToServer=()=> {
     if($('#email-auth-no').val() != '') {
       $.ajax({
-        url: '/mail/signup/verification',
+        url: '/signup/authcode/verify',
         type: 'post',
         data: {
           email: email,
           code: $('#email-auth-no').val()
         },
         success: function(result) {
-          if(result.status = '이메일 인증 성공') {
+          if(result.status === 'success') {
             $('#email-auth-no').prop('readonly', true);
             $('#authentication-email-confirm').prop('disabled', true);
             emailCheckResult = true;
             $('#authentication-email-confirm').text('인증 완료');
             emailAlert.removeClass('error-message');
             emailAlert.addClass('success-message');
-            emailAlert.text('이메일이 인증되었습니다.');
+            emailAlert.text('인증되었습니다.');
             
-          } else if(result.status = '인증 유효시간 초과') {
-            alert('이메인 인증번호 유효시간이 초과되었습니다.');
+          } else if(result.status === 'timeout') {
+            alert('인증번호 유효시간이 초과되었습니다.');
           } else {
             emailAlert.removeClass('success-message');
             emailAlert.addClass('error-message');
-            emailAlert.text('이메일 인증번호가 다릅니다. 다시 입력해주세요.');
+            emailAlert.text('인증번호가 다릅니다. 다시 입력해주세요.');
           }
         }
       });
@@ -273,13 +273,34 @@ $(function() {
 
 // 휴대폰 인증 부분
 $(function() {
-  let phone = '';
+  
   phoneAlert = $('#registered-phone-alert');
   // 입력된 전화번호를 인증번호 생성 controller로 전달
   $('#authentication-phone').on('click', () => {
     if($('#phone').val().length == 11) {
-      $('#authentication-phone').text('인증 중...');
-    setTimeout(changePhoneInputForm, 3000);
+      let phone = $('#phone').val();
+      $('#authentication-phone').text('발송 중...');
+      $.ajax({
+        url: '/signup/authcode',
+        type: 'post',
+        data: {phone: phone},
+        success: function(result) {
+          if(result.status == 'ok') {
+            changePhoneInputForm();
+            phoneAlert.removeClass('error-message');
+            phoneAlert.addClass('success-message');
+            phoneAlert.text('인증번호가 발송되었습니다.');
+          } else if(result.status == 'exist') {
+            $('#authentication-phone').text('인증받기');
+            phoneAlert.removeClass('success-message');
+            phoneAlert.addClass('error-message');
+            phoneAlert.text('이미 사용중인 휴대번 번호입니다.');
+          }
+        },
+        error: function() {
+          console.log('데이터가 전달되지 않음');
+        }
+      });
     } else {
       phoneAlert.removeClass('success-message');
       phoneAlert.addClass('error-message')
@@ -292,7 +313,6 @@ $(function() {
     $('#authentication-phone').off('click');
     $('#authentication-phone').text('제출');
     $('#authentication-phone').attr('id', 'authentication-phone-confirm');
-    phone = $('#phone').val();
     $('#phone').attr('type', 'hidden');
     $('<input>', {
       id: 'phone-auth-no',
@@ -306,20 +326,38 @@ $(function() {
   }
   // 사용자가 입력한 인증번호와 미리 입력한 휴대폰 번호를 인증번호 검증 controller로 전달
   const sendCertificationPhoneNoToServer=()=> {
+    let phone = $('#phone').val();
     if($('#phone-auth-no').val().length == 6) {
-      // 여기서 사용자가 입력한 인증번호와 서버에서 발송한 인증번호 비교
-      phoneAlert.removeClass('error-message');
-      phoneAlert.addClass('success-message');
-      phoneAlert.text('휴대폰 인증되었습니다.');
-      $('#phone-auth-no').prop('readonly', true);
-      $('#authentication-phone-confirm').text('인증 완료');
-      $('#authentication-phone-confirm').prop('disabled', true);
-      alert(phone + $('#phone-auth-no').val());
-      phoneCheckResult = true;
+      $.ajax({
+        url: '/signup/authcode/verify',
+        type: 'post',
+        data: {
+          phone: phone,
+          code: $('#phone-auth-no').val()
+        },
+        success: function(result) {
+          if(result.status === 'success') {
+            $('#phone-auth-no').prop('readonly', true);
+            $('#authentication-phone-confirm').prop('disabled', true);
+            phoneCheckResult = true;
+            $('#authentication-phone-confirm').text('인증 완료');
+            phoneAlert.removeClass('error-message');
+            phoneAlert.addClass('success-message');
+            phoneAlert.text('인증되었습니다.');
+            
+          } else if(result.status === 'timeout') {
+            alert('인증번호 유효시간이 초과되었습니다.');
+          } else {
+            phoneAlert.removeClass('success-message');
+            phoneAlert.addClass('error-message');
+            phoneAlert.text('인증번호가 다릅니다. 다시 입력해주세요.');
+          }
+        }
+      });
     } else {
       phoneAlert.removeClass('success-message');
       phoneAlert.addClass('error-message');
-      phoneAlert.text('휴대폰 번호를 다시 확인해주세요.');
+      phoneAlert.text('인증번호가 입력되지 않았습니다.');
     }
   }
 });
@@ -447,4 +485,14 @@ $(function() {
   $('#user_name').on('input', function() {
     $('#name-check').text('');
   })
+});
+
+
+
+// 네이버로 회원가입
+$(function() {
+  $(document).on("click", "#naver-signup-btn-img", function(){ 
+    var btnNaverLogin = $("#naver_id_login").children().first();
+    btnNaverLogin.trigger("click");
+  });
 });
