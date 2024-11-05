@@ -70,6 +70,7 @@ public class UserController {
 			// 로그인 성공 시 "success"를 반환
 			session.setAttribute("loginUser", loginInfo);
 			result.put("response", "success");
+			return result;
 		}
 		// 실패 시 "false"를 반환
 		result.put("response", "false");
@@ -237,12 +238,16 @@ public class UserController {
 			if (mailCheckResult == 1 && nameCheckResult == 1) {
 				authService.javaMailSender(name, email);
 				response.put("status", "success");
+			} else {
+				response.put("status", "notfound");
 			}
 		} else if(email == null) {
 			int phoneCheckResult = authService.phoneCheck(phone.trim());
 			if (phoneCheckResult == 1 && nameCheckResult == 1) {
 				authService.sendSMS(name, phone);
 				response.put("status", "success");
+			} else {
+				response.put("status", "notfound");
 			}
 		} else {
 			response.put("status", "notfound");
@@ -342,6 +347,7 @@ public class UserController {
 		authService.generateAuthInfo(authMethod + name + userId, code);
 		// code를 비밀번호 재설정 페이지로 같이 넘김
 		model.addAttribute("code", code);
+		System.out.println(code);
 		return "/user/changePasswordForm";
 	}
 	
@@ -362,7 +368,7 @@ public class UserController {
 							   , String changePassword
 							   , Model model) {
 		String result = authService.verifyCode(authMethod + name + userId, code).get("status");
-
+		System.out.println(code);
 		if (result.equals("timeout")) {
 			model.addAttribute("alertMsg", "인증 유효시간이 초과되었습니다.");
 			return "redirect:/";
