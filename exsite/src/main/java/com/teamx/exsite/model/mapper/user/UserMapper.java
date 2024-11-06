@@ -15,10 +15,18 @@ public interface UserMapper {
 
 	public int searchUserName(String name);
 
-	public String idSearch(String email);
+	public String idSearch(String authMethod);
 
-	public int passwordChange(String userId, String name, String email, String encodedPassword);
+	public int passwordChange(String userId, String name, String authMethod, String encodedPassword);
 
 	public UserDTO basicLogin(UserDTO loginInfo);
+
+	public int phoneCheck(String phone);
+
+	public int registerWithNaver(UserDTO signupWithUser);
+
+	public int accountCheck(String signupMethod, String email);
+
+	public int registerWithGoogle(UserDTO user);
 
 }

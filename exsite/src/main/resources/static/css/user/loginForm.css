@@ -10,7 +10,7 @@ html {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 20rem 0;
+	margin: 30rem 0;
 }
 
 form {
@@ -122,15 +122,25 @@ input:focus {
 }
 
 #naver-login-btn-img {
-  width: 27.85rem;
-	height: 3.73rem;
+  width: 27.78rem;
+	height: 4.2rem;
   margin: 0.6rem;
+	border-radius: 0.9rem;
+}
+
+#naver-login-btn-img:hover {
+	cursor: pointer;
 }
 
 #google-login-btn-img {
-  width: 27.85rem;
-	height: 3.73rem;
+  width: 27.78rem;
+	height: 4.2rem;
   margin: 0.6rem;
+	border-radius: 0.9rem;
+}
+
+#google-login-btn-img:hover {
+	cursor: pointer;
 }
 
 #naver_id_login {

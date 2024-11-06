@@ -18,8 +18,33 @@
     	)
   </insert>
   
+  <insert id="registerWithNaver">
+  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, PHONE, METHOD)
+  		VALUES (
+  			SEQ_USER_NO.NEXTVAL,
+  			#{name},
+  			#{userId},
+  			#{email},
+  			#{phone},
+  			#{method}
+  		)
+  </insert>
+  
+  <insert id="registerWithGoogle">
+  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, METHOD)
+  		VALUES (
+  			SEQ_USER_NO.NEXTVAL,
+  			#{name},
+  			#{userId},
+  			#{email},
+  			#{method}
+  		)
+  </insert>
+  
   <select id="idCheck">
-  	SELECT COUNT(*) FROM USER_INFO WHERE USER_ID = #{id}
+  	SELECT COUNT(*) 
+  	FROM USER_INFO 
+  	WHERE USER_ID = #{id} AND USER_STATUS = 'N'
   </select>
   
   
@@ -31,7 +56,7 @@
   <select id="basicLogin" resultMap="userInfo">
   	SELECT USER_NO, NAME, USER_ID, USER_PW, EMAIL, PHONE, ADDRESS, CREATE_DATE, UPDATE_DATE, USER_STATUS, METHOD, GRADE
   	FROM USER_INFO
-  	WHERE USER_ID = #{userId}
+  	WHERE USER_ID = #{userId} AND METHOD = 'NORMAL' AND USER_STATUS = 'N'
   </select>
   
   <select id="mailCheck">
@@ -40,10 +65,16 @@
   	WHERE EMAIL = #{email}
   </select>
   
+  <select id="phoneCheck">
+  	SELECT COUNT(*)
+  	FROM USER_INFO
+  	WHERE PHONE = #{phone}
+  </select>
+  
   <select id="idSearch">
   	SELECT USER_ID
   	FROM USER_INFO
-  	WHERE EMAIL = #{email}
+  	WHERE (EMAIL = #{authMethod} OR PHONE = #{authMethod}) AND METHOD = 'NORMAL'
   </select>
   
   <select id="searchUserName">
@@ -55,6 +86,12 @@
   <update id="passwordChange">
   	UPDATE USER_INFO
   	SET USER_PW = #{encodedPassword}
-  	WHERE USER_ID = #{userId} AND NAME = #{name} AND EMAIL = #{email}
+  	WHERE USER_ID = #{userId} AND NAME = #{name} AND USER_STATUS = 'N' AND (EMAIL = #{authMethod} OR PHONE = #{authMethod})
   </update>
+  
+  <select id="accountCheck">
+  	SELECT COUNT(*)
+  	FROM USER_INFO
+  	WHERE METHOD = #{signupMethod} AND EMAIL = #{email}
+  </select>
 </mapper>
