@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.teamx.exsite.model.mapper.exmap.ExmapMapper">
+    <select id="selectAllExmapCoordinates" resultType="ExmapCoordinate">
+        SELECT DISTINCT LOT, LAT 
+        FROM EX_MAP WHERE 
+        GUNAME = #{guname}
+    </select>
+    
+    <select id="selectDistinctGuname" resultType="string">
+    	SELECT DISTINCT GUNAME 
+   		FROM EX_MAP
+   		ORDER BY GUNAME
+	</select>
+	
+    <select id="selectLatestExhibitionByCoordinates" resultType="ExmapExhibition">
+        SELECT *
+        FROM (
+              SELECT E.TITLE AS TITLE,
+        	         E.PLACE AS PLACE,
+                   	 E.EX_DATE AS DATE,
+                   	 E.MAIN_IMG AS IMAGEURL
+            	FROM EX_MAP EM
+            	JOIN EXHIBITION E ON EM.EXHIBITION_NO = E.EXHIBITION_NO
+            	WHERE EM.LAT = #{lat} AND EM.LOT = #{lot}
+            	ORDER BY E.EX_DATE DESC
+        	  )
+        WHERE ROWNUM = 1
+    </select>
+	
+</mapper>

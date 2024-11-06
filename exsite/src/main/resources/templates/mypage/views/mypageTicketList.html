@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/mypage/views/mypageTicketList.css">
+</head>
+<body>
+    <div class="mypage-view-ticket-info">
+        <div class="mypage-head-section">
+            <div class="mypage-view-head-title">
+                예매 확인/취소
+             </div>
+        </div>
+        <div class="mypage-view-ticket-container">
+            <!-- 예매확인/취소 네비게이션 영역 -->
+            <div class="mypage-view-ticket-category-nav-section">
+                <div><button class="mypage-view-ticket-category-nav" type="button" data-category="1개월">1개월</button></div>
+                <div><button class="mypage-view-ticket-category-nav" type="button" data-category="3개월">3개월</button></div>
+                <div><button class="mypage-view-ticket-category-nav" type="button" data-category="6개월">6개월</button></div>
+                <div><button class="mypage-view-ticket-category-nav" type="button" data-category="12개월">12개월</button></div>
+                <div><button class="mypage-view-ticket-category-nav" type="button" data-category="전체기간">전체 기간</button></div>
+            </div>
+    
+            <!-- 예매 목록 테이블 영역 -->
+            <div class="mypage-view-ticket-list-section">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>예매 일자</th>
+                            <th>예매 번호</th>
+                            <th>전시명</th>
+                            <th>관람일</th>
+                            <th>예매 상태</th>
+                        </tr>
+                    </thead>
+                    <tbody class="mypage-view-ticket-content-list">
+                        <tr>
+                            <td>2024.10.15</td>
+                            <td>
+                                <a href="/mypage-view-ticket/post">0052018062204015183</a>
+                            </td>
+                            <td>[라스트얼리버드] 불멸의 화가 반 고흐</td>
+                            <td>상시 상품</td>
+                            <td>예매</td>
+                        </tr>
+                        <tr>
+                            <td>2024.10.15</td>
+                            <td>
+                                <a href="/mypage-view-ticket/post">0052018062204015183</a>
+                            </td>
+                            <td>[라스트얼리버드] 불멸의 화가 반 고흐</td>
+                            <td>상시 상품</td>
+                            <td>예매</td>
+                        </tr>
+                        <tr>
+                            <td>2024.10.15</td>
+                            <td>
+                                <a href="/mypage-view-ticket/post">0052018062204015183</a>
+                            </td>
+                            <td>[라스트얼리버드] 불멸의 화가 반 고흐</td>
+                            <td>상시 상품</td>
+                            <td>취소</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                  <li class="page-item disabled">
+                    <a id="page-prev" class="page-link" href="#" tabindex="-1" aria-disabled="true"><img src="/img/common/pagenation_arrow_left.png" alt=""></a>
+                  </li>
+                  <li class="page-item"><a class="page-link" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link" href="#">4</a></li>
+                  <li class="page-item"><a class="page-link" href="#">5</a></li>
+                  <li class="page-item"><a class="page-link" href="#">6</a></li>
+                  <li class="page-item"><a class="page-link" href="#">7</a></li>
+                  <li class="page-item"><a class="page-link" href="#">8</a></li>
+                  <li class="page-item"><a class="page-link" href="#">9</a></li>
+                  <li class="page-item"><a class="page-link" href="#">10</a></li>
+                  <li class="page-item">
+                    <a id="page-next" class="page-link" href="#"><img src="/img/common/pagenation_arrow_right.png" alt=""></a>
+                  </li>
+                </ul>
+            </nav>
+        </div>
+     </div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+/* 예매 확인/취소 스타일 */
+.mypage-view-ticket-info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid red; */
+  }
+  
+  .mypage-view-ticket-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 4rem 0 30rem 0;
+    /* border: 1px solid rgb(55, 0, 255); */
+    
+  }
+  
+  .mypage-view-ticket-category-nav-section{
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    /* border: 1px solid red; */
+  }
+  
+  .mypage-view-ticket-category-nav{
+    background-color: #fff;
+    padding: 0.8rem 1.6rem;
+    margin: 0;
+    border: 0.1rem solid #9DD7D7;
+    border-radius: 1.2rem;
+    font-size: 1.6rem;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  
+  .mypage-view-ticket-category-nav.mypage-view-ticket-active{
+    background-color: #EDF8F8;
+    border: 0.1rem solid #EDF8F8;
+  }
+  
+  /* 예매 목록 테이블 스타일 */
+  .mypage-view-ticket-list-section{
+    width: 80%;
+    max-width: 120rem;
+    min-width: 90rem;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid red; */
+  }
+  
+
+  
+  /* 예매 목록 관련 스타일 */
+
+  
+  .mypage-view-ticket-list-section th, .mypage-view-ticket-list-section td {
+    padding: 1rem;
+    border: none;
+  }
+  
+ 
+  
+  .mypage-view-ticket-content-list tr td a {
+    font-weight: 900;
+    color: #0B9B9B;
+  }
+  
+  tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  
