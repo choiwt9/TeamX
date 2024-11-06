@@ -11,34 +11,34 @@ html {
 
 }
 
-#write-review-page-title {
+#all-area #write-review-page-title {
     font-size: 2rem;
     font-weight: 700;
 }
 
-.festa-review div {
+#all-area .festa-review div {
     margin: auto;
 }
 
-.dropdown-container {
+#all-area .dropdown-container {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#festa-title{
+#all-area #festa-title{
     font-weight: bold;
 }
 
-#festa-title:hover, 
-#festa-title:focus{
+#all-area #festa-title:hover, 
+#all-area #festa-title:focus{
     background-color: #ffffff; /* hover 시 배경색 유지 */
     color: #000000; /* hover 시 글자 색상 유지 */
     box-shadow: none; /* 불필요한 그림자 제거 */
     outline: none; /* 불필요한 아웃라인 제거 */
 }
 
-#review-title {
+#all-area #review-title {
     border: 0.2rem solid #9DD7D7;
     padding-left: 1.12rem;
     width: 50rem;
@@ -49,7 +49,7 @@ html {
     font-weight: bold;
 }
 
-#review-content {
+#all-area #review-content {
     border: 0.2rem solid #9DD7D7;
     position: relative;
     margin-bottom: 1.5rem;
@@ -63,13 +63,13 @@ html {
     font-size: 1.2rem;
     font-weight: bold;
 }
-#review-title:focus,
-#review-content:focus {
+#all-area #review-title:focus,
+#all-area #review-content:focus {
     outline: none;
     box-shadow: none;
 }
 
-.review-button {
+#all-area .review-button {
     margin-top: 1rem;
     font-weight: bold;
     border-radius: 1.5rem;
@@ -78,7 +78,7 @@ html {
     font-size: 1.3rem;
 }
 
-#resist {
+#all-area #resist {
     border-style: solid;
     border-color: #0B9B9B;
     background-color: #0B9B9B;
@@ -87,14 +87,14 @@ html {
 
 
 
-#cancel {
+#all-area #cancel {
     background-color: #ffffff;
     border-width: 0.06rem;
 }
 
 
 
-.btn-area {
+#all-area .btn-area {
     width: 50rem;
     margin: auto;
     text-align: right;

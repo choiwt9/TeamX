@@ -53,7 +53,7 @@
                 </div>
             </div>
         </div>
-
+    </div>
         <div id="write-review-area">
             <hr>
             <div id="review">
@@ -62,7 +62,7 @@
                 <a id="client-review">구매자 리뷰</a>
             </div>
 
-            <button id="write-review">리뷰 작성하기</button>
+            <button id="write-review" onclick="window.location.href='/review'">리뷰 작성하기</button>
             <div class="review-content-area">
                 <div class="review-header">
                 <span id="client-info">user</span>
@@ -71,25 +71,13 @@
                 </div>
                  <p id="review-title">리뷰 제목</p>
                 <div class="text" id="review-content">
-                    친구는 세월의 도둑이다.
-                    봄부터 흐르는 물은 겨울이 되어도 얼지 않듯이
-                    마음에서 우러나오는 우적은 역경이 닥친다고 해서 식지 않는다.
-                    불행했을 때 만난 친구는 가장 소중히 여겨야 한다.
-                    행복했을 때 함께 기쁨을 누리는 친구보다
-                    힘들 떄 슬픔을 덜어지는 친구를 더 많이 신뢰할 수 있다.
-                    부유했을 때는 친구를 사귀기 쉽지만,
-                    어려울 때는 눈을 씻고 찾아봐도 친구를 찾기 어렵다.
-                    누군가 진정한 우정을 나누고 있다 할지라도 그 우정을 지키려면 오랜 시간이 걸린다.
-                    짧은 시간 안에 많은 친구를 얻기란 불가능하다. 왜냐하면
-                    그들은 진정한 친구가 아니기 때문이다.
-                    친구란 말하자면 또 하나의 자신이다.
-                    친구를 보면 그 사람을 알 수 있다.
+                    
                 </div>
                 <br>
                 <button class="review-buttons" id="more">더보기</button>
             </div>
             <div class="review-action-buttons">
-                <button class="review-buttons" id="replace">수정</button>
+                <button class="review-buttons" id="replace" onclick="window.location.href='/replaceReview'">수정</button>
                 <button class="review-buttons" id="delete">삭제</button>
             </div>
             <script src="\js\reviewPage\reviewCheck.js">

@@ -8,19 +8,19 @@ html {
     margin-bottom: 5%;
 }
 
-#replace-review {
+#all-area #replace-review {
     text-align: center;
     font-size: 1.8rem;
     font-weight: bold;
 }
 
-.review-replace-page {
+#all-area .review-replace-page {
     width: 64rem;
     margin: auto;
 
 }
 
-#review-title {
+#all-area #review-title {
     border: solid #9DD7D7;
     width: 100%;
     height: 4rem;
@@ -35,8 +35,8 @@ html {
 }
 
 
-#review-content {
-    
+#all-area #review-content {
+
     border-style: solid;
     border-color: #9DD7D7;
     border-width: 0.3rem;
@@ -46,39 +46,40 @@ html {
     height: 32rem;
     padding-top: 0.8rem;
     padding-left: 1.12rem;
-    resize:none;
+    resize: none;
     font-size: 1.3rem;
     font-weight: bold;
 }
 
-    #review-title:focus,
-    #review-content:focus {
-        outline: none;
-        box-shadow: none;
-    }
+#all-area #review-title:focus,
+#all-area #review-content:focus {
+    outline: none;
+    box-shadow: none;
+}
 
-.buttons {
+#all-area .buttons {
     display: flex;
     justify-content: end;
     margin-top: 3.2rem;
 }
 
-#replace, #cancel {
+#all-area #replace,
+#cancel {
     border-radius: 1.5rem;
     width: 4.8rem;
-    height:2.8rem;
+    height: 2.8rem;
     font-size: 1.3rem;
     font-weight: bold;
 }
 
-#replace {
+#all-area #replace {
     background-color: #0B9B9B;
     border: none;
     margin-right: 0.8rem;
     color: #FFFFFF;
 }
 
-#cancel{
+#all-area #cancel {
     background-color: #FFFFFF;
     border-width: 0.06rem;
 }
