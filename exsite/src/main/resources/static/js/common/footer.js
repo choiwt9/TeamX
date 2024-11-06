@@ -1,7 +1,7 @@
 /**
  * 
  */
- 
+
  // "이용약관" 텍스트 클릭 시 모달을 표시
 document.getElementById("termsText").addEventListener("click", function() {
     var termsModal = new bootstrap.Modal(document.getElementById("termsModal"));
