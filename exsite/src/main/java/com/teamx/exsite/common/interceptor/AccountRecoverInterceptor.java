@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class AccountRecoverInterceptor implements HandlerInterceptor {
 
 	private final AuthService authService;
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
