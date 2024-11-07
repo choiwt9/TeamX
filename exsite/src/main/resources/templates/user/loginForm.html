@@ -4,11 +4,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/user/loginForm.css">
-<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/user/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
 <script src="/js/user/loginForm.js"></script>
+<script src="/js/user/googleLogin.js"></script>
 </head>
 <body>
+  <input type="hidden" id="alertMsg" th:value="${alertMsg}">
   <div th:insert="~{common/header}"></div>
   <div id="login-form-main">
     <form action="/login/normal" method="post">
