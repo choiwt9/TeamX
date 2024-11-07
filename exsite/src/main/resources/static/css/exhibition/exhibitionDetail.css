@@ -223,91 +223,108 @@
         	max-width : 70rem;
         }
 
-        .review-write {
-            border: 0.1rem solid pink;
-            margin: 3rem;
-        }
+#exhibition-reviews {
+	width: 80rem;
+	margin: auto;
+}
+#exhibition-reviews #review {
+	display: flex;
+}
 
-        .review-write-button {
-            border: none;
-            border-radius: 2rem;
-            background-color: #EDF8F8;
-            font-size: 1.4rem;
-            font-weight: bolder;
-            padding: 1rem 1rem;
-            cursor: pointer;
-        }
-        
-        .review-post {
-            border: 0.2rem solid #9DD7D7;
-            margin-top: 3rem;
-            border-radius: 2rem;
-            padding: 2rem 3rem;
-        }
+#exhibition-reviews #client-review {
+	margin-left: 3.2rem;
+	color: #0B9B9B;
+	font-weight: bold;
+}
 
-        .review-post-info {
-            font-size: 1.2rem;
-            color: #C9C0C0;
-            display: flex;
-            border: 0.1rem solid blue;
-            padding: 0.5rem 0.5rem 2rem 0.5rem;
-        }
 
-        .review-post-user {
-            padding-right: 1rem;
-        }
 
-        .review-post-date {
-            padding-left: 1rem;
-        }
+#exhibition-reviews #write-review {
+	border: 0.16rem solid #EDF8F8;
+	width: 12rem;
+	height: 3rem;
+	border-radius: 1.5rem;
+	background-color: #EDF8F8;
+	margin-top: 3rem;
+	font-size: 1.4rem;
+	font-weight: bold;
+}
 
-        .review-post-title {
-            padding: 0.5rem;
-            font-size: 1.4rem;
-            font-weight: bolder;
-        }
+#exhibition-reviews .review-content-area {
+	border: 0.16rem solid #9DD7D7;
+	border-radius: 1.5rem;
+	padding: 0.96rem;
+	margin-top: 1.5rem;
+	background-color: #ffffff;
+}
 
-        .review-post-content {
-            padding: 0.5rem;
-            font-size: 1.2rem;
-        }
+#exhibition-reviews .review-header {
+	opacity: 0.5;
+	padding-left: 1rem;
+}
 
-        .review-post-see {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+#exhibition-reviews #review-title {
+	font-size: 1.4rem;
+	font-weight: bold;
+	padding-left: 1rem;
+	margin-top: 1rem;
+}
 
-        .review-see-more {
-            border: 0.1rem solid #9DD7D7;
-            border-radius: 2rem;
-            width: 7rem;
-            background-color: white;
-            cursor: pointer;
-        }
+#exhibition-reviews #review-content {
+	padding-left: 1.5rem;
+	font-size: 1.2rem;
+}
 
-        .review-button {
-            display: flex;
-            justify-content: end;
-            align-items: end;
-        }
+#exhibition-reviews .review-action-buttons {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.96rem;
+	border-color: #9DD7D7;
+	border-radius: 1.5rem;
+}
 
-        .review-correct {
-            background-color: #0B9B9B;
-            border: none;
-            border-radius: 2rem;
-            padding: 0.5rem 1rem;
-            margin: 1rem;
-            color: white;
-            font-size: 1.2rem;
-        }
+#exhibition-reviews #more {
+	display: block;
+	margin: auto;
+	background-color: #ffffff;
+	border-style: solid;
+	border-color: #9DD7D7;
+	border-radius: 1.5rem;
+	width: 5.8rem;
+	height: 2.8rem;
+}
 
-        .review-delete {
-            border: 0.1rem solid black;
-            border-radius: 2rem;
-            background-color: white;
-            padding: 0.5rem 1rem;
-            margin: 1rem;
-            color: black;
-            font-size: 1.2rem;
-        }
+#exhibition-reviews .review-buttons {
+	margin-top: 1rem;
+	font-weight: bold;
+	border-radius: 1.5rem;
+	width: 4.8rem;
+	height: 2.8rem;
+	font-size: 1.3rem;
+}
+
+#exhibition-reviews #replace {
+	border-style: solid;
+	border-color: #0B9B9B;
+	background-color: #0B9B9B;
+	color: #ffffff;
+}
+
+#exhibition-reviews #delete {
+	border-style: solid;
+	border-color: #000000;
+	border-width: 0.06rem;
+	background-color: #ffffff;
+}
+
+#exhibition-reviews .text {
+	overflow: hidden;
+	display: block;
+	max-height: 1.2em;
+	transition: max-height 0.3s ease;
+}
+
+#exhibition-reviews .text.expanded {
+	max-height: none;
+
+}
