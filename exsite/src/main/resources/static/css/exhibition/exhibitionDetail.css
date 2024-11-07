@@ -218,6 +218,10 @@
             margin-top: 3rem;
             /* border: 0.1rem solid pink;  */
         }
+        
+        .exhibition-detail-explain-image {
+        	max-width : 70rem;
+        }
 
         .review-write {
             border: 0.1rem solid pink;

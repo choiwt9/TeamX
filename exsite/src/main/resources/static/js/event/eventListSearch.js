@@ -11,12 +11,15 @@
             selectedButton.classList.add('active');
         }
 
-        function loadExhibitions(sortType) {
+        function loadExhibitions(sortType, codename = 'event') {
 
             $.ajax ({
                 url: '/exhibition/list/sort',
                 type: 'GET',
-                data: {sortType: sortType},
+                data: {
+                    sortType: sortType,
+                    codename: codename
+                },
                 success: (data) => {
                     displayExhibitions(data);
                 },

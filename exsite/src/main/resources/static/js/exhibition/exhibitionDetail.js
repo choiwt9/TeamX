@@ -1,53 +1,93 @@
-        document.getElementById('exhibition-details-button').style.color='#0B9B9B';
+window.onload = () => {
 
-        const heart = document.getElementById('exhibition-heart');
-        let count = 0; 
-        let liked = false; 
+    document.getElementById('exhibition-details-button').style.color = '#0B9B9B';
 
-        heart.addEventListener('click', () => {
-            liked = !liked; 
-            const path = heart.querySelector('path');
+    const heart = document.getElementById('exhibition-heart');
+    let count = 0;
+    let liked = false;
 
-            if (liked) {
-                count++; 
-                path.setAttribute('fill', 'red'); 
-                path.setAttribute('stroke', 'red'); 
-            } else {
-                count--; 
-                path.setAttribute('fill', 'none'); 
-                path.setAttribute('stroke', 'red'); 
-            }
-            /*
-            // 데이터베이스에 좋아요 수 업데이트 요청 (API 호출)
-            try {
-                const response = await fetch('/like', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ count, liked }),
-                });
+    heart.addEventListener('click', () => {
 
-                const data = await response.json();
-                console.log(data); // 서버에서 받은 데이터 확인
-            } catch (error) {
-                console.error('Error:', error);
-            }
-            */
-        });
+        // 로그인 상태 확인
+        if (!isUserLoggedIn()) {
+            alert("로그인이 필요합니다.");
+            // 로그인 페이지로 리디렉션
+            window.location.href = "/login";
+            return; // 로그인하지 않은 경우 함수 종료
+        }
+        
+        liked = !liked;
+        const path = heart.querySelector('path');
 
-        document.getElementById('exhibition-details-button').addEventListener('click', function() {
-            document.getElementById('exhibition-details').style.display = 'block'; 
-            document.getElementById('exhibition-reviews').style.display = 'none'; 
+        const userNo = getCurrentUserNo();/* 현재 로그인한 사용자의 번호 */;
+        const exhibitionNo = getCurrentExhibitionNo();/* 현재 전시회의 번호 */;
 
-            this.style.color = '#0B9B9B'; 
-            document.getElementById('exhibition-reviews-button').style.color = ''; 
-        });
+        if (liked) {
+            count++;
+            path.setAttribute('fill', 'red');
+            path.setAttribute('stroke', 'red');
 
-        document.getElementById('exhibition-reviews-button').addEventListener('click', function() {
-            document.getElementById('exhibition-reviews').style.display = 'block';
-            document.getElementById('exhibition-details').style.display = 'none';
+            // AJAX 요청: 좋아요 추가
+            $.ajax({
+                url: `/exhibition/likes/status?userNo=${userNo}&exhibitionNo=${exhibitionNo}`,
+                type: 'GET',
+                success: (data) => {
+                    if (data.liked) {
+                        liked = true;
+                        heart.querySelector('path').setAttribute('fill', 'red');
+                        heart.querySelector('path').setAttribute('stroke', 'red');
+                    }
+                },
+                error: (err) => {
+                    console.error('좋아요 상태 확인 중 오류 발생:', err);
+                }
+            });
+        
+            //     contentType: 'application/json',
+            //     data: JSON.stringify({ userNo: userNo, exhibitionNo: exhibitionNo }),
+            //     success: (data) => {
+            //         console.log('좋아요 추가됨');
+            //     },
+            //     error: (err) => {
+            //         console.error('좋아요 추가 중 오류 발생:', err);
+            //         alert('좋아요 추가에 실패했습니다. 다시 시도해주세요.');
+            //     }
+            // });
 
-            this.style.color = '#0B9B9B'; 
-            document.getElementById('exhibition-details-button').style.color = ''; 
-        });
+        } else {
+            count--;
+            path.setAttribute('fill', 'none');
+            path.setAttribute('stroke', 'red');
+
+            // AJAX 요청: 좋아요 제거
+            $.ajax({
+                url: `/exhibition/likes/${userNo}/${exhibitionNo}`,
+                type: 'DELETE',
+                success: (data) => {
+                    console.log('좋아요 제거됨');
+                },
+                error: (err) => {
+                    console.error('좋아요 제거 중 오류 발생:', err);
+                    alert('좋아요 제거에 실패했습니다. 다시 시도해주세요.');
+                }
+            });
+        }
+    });
+
+    document.getElementById('exhibition-details-button').addEventListener('click', function () {
+        document.getElementById('exhibition-details').style.display = 'block';
+        document.getElementById('exhibition-reviews').style.display = 'none';
+
+        this.style.color = '#0B9B9B';
+        document.getElementById('exhibition-reviews-button').style.color = '';
+    });
+
+    document.getElementById('exhibition-reviews-button').addEventListener('click', function () {
+        document.getElementById('exhibition-reviews').style.display = 'block';
+        document.getElementById('exhibition-details').style.display = 'none';
+
+        this.style.color = '#0B9B9B';
+        document.getElementById('exhibition-details-button').style.color = '';
+    });
+
+}
