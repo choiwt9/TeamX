@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="review-title">
-					<input type="text" class="" id="review-title" placeholder="리뷰 제목">
+					<input type="text" class="" id="review-title" placeholder="리뷰 제목"></input>
 				</div>
 				<div class="festa-review">
 					<textarea name="" class="" id="review-content" value="${ loginUser.reviewContent }"
@@ -49,6 +49,29 @@
 			function updateCategory(element) {
 				document.getElementById("festa-title").textContent = element.textContent;
 			}
+			
+			$('#resist').click(function() {
+			    var reviewData = {
+			        title: $('#reviewTitle').val(),
+			        content: $('#reviewContent').val  
+			    };
+
+			    $.ajax({
+			        url: '/review/add',
+			        type: 'POST',
+			        contentType: 'application/json',
+			        data: JSON.stringify(reviewData),
+			        success: function(response) {
+			            alert('리뷰가 성공적으로 등록되었습니다!');
+			         
+			            $('#reviewTitle').val('');
+			            $('#reviewContent').val('');
+			        },
+			        error: function() {
+			            alert('리뷰 등록에 실패했습니다.');
+			        }
+			    });
+			});
 		</script>
 	</div>
 

@@ -1,6 +1,5 @@
 package com.teamx.exsite.controller.review;
 
-
 import java.util.List;
 
 import org.apache.catalina.User;
@@ -19,30 +18,31 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/review")
 public class ReviewController {
 
-private final ReviewService Rservice;
-	
+	private final ReviewService Rservice;
+
 	@GetMapping("/review")
 	public String review() {
-		
-		return "reviewPage/review"; 
+
+		return "reviewPage/review";
 	}
+
 	@GetMapping("/reviewCheck")
 	public String reviewCheck(Model model, HttpSession session) {
-		
-		 UserDTO loginUser = (UserDTO) session.getAttribute("user");
-		
-		 if (loginUser != null) {
-	            List<UserDTO> reviews = Rservice.addReview(loginUser.getUserId());
-	            model.addAttribute("reviews", reviews);
-	        }
-	        
-	        return "reviewPage/reviewCheck"; 
-	    }
+
+		UserDTO loginUser = (UserDTO) session.getAttribute("user");
+
+		if (loginUser != null) {
+			List<UserDTO> reviews = Rservice.addReview(loginUser.getUserId());
+			model.addAttribute("reviews", reviews);
+		}
+
+		return "reviewPage/reviewCheck";
+	}
+
 	@GetMapping("/replaceReview")
 	public String replaceReview() {
-		return "reviewPage/replaceReview"; 
+		return "reviewPage/replaceReview";
 	}
 }
