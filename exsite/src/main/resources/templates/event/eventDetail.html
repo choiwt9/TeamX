@@ -13,11 +13,6 @@
     <!-- css 사용 -->
     <link rel="stylesheet" href="/css/exhibition/exhibitionDetail.css">
     
-    <!-- jQuery 사용-->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	
-	<script src="/js/exhibition/exhibitionDetail.js"></script>
-	
 </head>
 <body>
     <div th:insert="~{common/header}"></div>
@@ -25,7 +20,7 @@
         <div class="exhibition-detail-info">
             <div class="exhibition-detail-explain">
                 <div class="exhibition-detail-image">
-                    <img th:src="${exhibition.mainImg}" alt="전시이미지">
+                    <img th:src="@{${exhibition.mainImg}}" alt="전시이미지">
                 </div>
                 <div class="exhibition-like-button" id="exhibition-like-button">
                     <button class="exhibition-heart" id="exhibition-heart">
@@ -67,8 +62,8 @@
             <div class="exhibition-detail-content" id="detail-content">
                 <div id="exhibition-details" class="content-section">
                     <div class="details-container" th:each="imgUrl : ${detailImgUrlList}">
-					    <img th:src="${imgUrl}" alt="이미지 상세" class="exhibition-detail-explain-image">
-					</div>
+                        <img th:src="${imgUrl}" alt="이미지 상세" class="exhibition-detail-explain-image">
+                    </div>
                 </div>
                 <!-- <div id="exhibition-reviews" class="content-section">
                     <div class="review-write">
@@ -109,7 +104,7 @@
         </div>
     </div>
         <!-- 자바스크립트 -->
-        
+        <script src="/js/event/eventDetail.js"></script>
         <div th:insert="~{common/footer}"></div>
         
         

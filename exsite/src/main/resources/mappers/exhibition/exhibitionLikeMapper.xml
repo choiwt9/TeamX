@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamx.exsite.model.mapper.exhibition.ExhibitionLikeMapper">
+
+	<insert id="insertLike" parameterType="ExhibitionLike">
+	    INSERT INTO exhibition_like (user_no, exhibition_no) VALUES (#{userNo}, #{exhibitionNo});
+	</insert>
+	
+	<delete id="deleteLike">
+	    DELETE FROM exhibition_like WHERE user_no = #{userNo} AND exhibition_no = #{exhibitionNo};
+	</delete>
+	
+	<select id="selectLikesByUser" parameterType="int" resultType="int">
+	    SELECT exhibition_no FROM exhibition_like WHERE user_no = #{userNo};
+	</select>
+	
+	<!-- ExhibitionLikeMapper.xml에 추가 -->
+	<update id="incrementLikeCount">
+	    UPDATE exhibition
+	    SET like_count = like_count + 1
+	    WHERE exhibition_no = #{exhibitionNo}
+	</update>
+	
+	<!-- ExhibitionLikeMapper.xml에 추가 -->
+	<update id="decrementLikeCount">
+	    UPDATE exhibition
+	    SET like_count = like_count - 1
+	    WHERE exhibition_no = #{exhibitionNo}
+	</update>
+
+</mapper>
