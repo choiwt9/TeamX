@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamx.exsite.model.vo.exmap.ExmapCoordinate;
+import com.teamx.exsite.model.vo.exmap.ExmapExhibition;
 import com.teamx.exsite.service.exmap.ExmapService;
 
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,14 @@ public class ExmapController {
 	public List<ExmapCoordinate> selectAllCoordinates(@RequestParam String guname) {
 		System.out.println(guname);
 		return exmapService.selectAllExmapCoordinates(guname);  
+	}
+	
+	
+	@GetMapping("/exmap/exhibition-info")
+	@ResponseBody
+	public ExmapExhibition getExhibitionInfo(@RequestParam("lat") String lat, 
+	                                        @RequestParam("lot") String lot) {
+	    return exmapService.getRecentExhibitionInfo(lat, lot);
 	}
 	
 	

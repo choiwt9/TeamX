@@ -1,6 +1,8 @@
 package com.teamx.exsite.service.exmap;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,9 @@ public class ExmapService {
 	}
 
 	public ExmapExhibition getRecentExhibitionInfo(String lat, String lot) {
+        Map<String, String> params = new HashMap<>();
+        params.put("lat", lat);
+        params.put("lot", lot);
 		return exmapMapper.findRecentExhibitionByCoordinates(lat, lot);
 	}
 	

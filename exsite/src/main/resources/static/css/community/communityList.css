@@ -35,7 +35,7 @@ html, body {
     background-color: #fff;
     padding: 0.8rem 1.6rem;
     margin: 0;
-    border: 0.1rem solid #9DD7D7;
+    border: 0.1rem solid #0B9B9B;
     border-radius: 1.2rem;
     font-size: 1.6rem;
     font-weight: 900;
@@ -60,7 +60,7 @@ html, body {
 .community-write-botton{
     text-decoration: none;
     font-weight: 900;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: #000;
     background-color: #9DD7D7;
     border: 1px solid #9DD7D7;
@@ -100,7 +100,7 @@ th, td {
 }
 
 tbody{
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 
 .community-content-list tr td:nth-child(2) span{
@@ -163,3 +163,4 @@ tbody tr:hover {
     object-fit: contain; 
     object-position: center; 
 }
+

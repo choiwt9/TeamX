@@ -6,6 +6,6 @@ import lombok.Data;
 public class ExmapExhibition {
     private String title;
     private String place;
-    private String date;
-    private String imageUrl;
+    private String exDate;
+    private String mainImg;
 }
