@@ -1,0 +1,87 @@
+package com.teamx.exsite.service.exhibition;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.model.mapper.exhibition.ExhibitionMapper;
+
+@Service
+public class ExhibitionService {
+
+	private final ExhibitionMapper exhibitionMapper;
+	
+	@Autowired
+	public ExhibitionService(ExhibitionMapper exhibitionMapper) {
+		
+		this.exhibitionMapper = exhibitionMapper;
+	
+	}
+	
+	public List<ExhibitionEvent> findAllExhibition(){
+	
+		return exhibitionMapper.getAllExhibitions();
+	
+	}
+
+	public List<ExhibitionEvent> findExhibitionSortedByEndDate() {
+
+		return exhibitionMapper.getExhibitionsSortedByEndDate();
+		
+	}
+
+	public List<ExhibitionEvent> findExhibitionSortedByReviews() {
+
+		return exhibitionMapper.getExhibitionSortedByReviews();
+		
+	}
+
+	public List<ExhibitionEvent> findFreeExhibitions() {
+		
+		return exhibitionMapper.getFreeExhibitions();
+		
+	}
+
+	public List<ExhibitionEvent> findPaidExhibitions() {
+		
+		return exhibitionMapper.getPaidExhibitions();
+		
+	}
+
+	public ExhibitionEvent findExhibitionById(int exhibitionNo) {
+		
+		return exhibitionMapper.getExhibitionById(exhibitionNo);
+	
+	}
+	
+	public List<ExhibitionEvent> findAllEvents() {
+		
+		return exhibitionMapper.getAllEvents();
+		
+	}
+
+	public List<ExhibitionEvent> findEventSortedByEndDate() {
+
+		return exhibitionMapper.getEventsSortedByEndDate();
+		
+	}
+
+	public List<ExhibitionEvent> findEventSortedByReviews() {
+		
+		return exhibitionMapper.getEventSortedByReviews();
+		
+	}
+
+	public List<ExhibitionEvent> findFreeEvents() {
+		
+		return exhibitionMapper.getFreeEvents();
+	}
+
+	public List<ExhibitionEvent> findPaidEvents() {
+		
+		return exhibitionMapper.getPaidEvents();
+	}
+	
+}

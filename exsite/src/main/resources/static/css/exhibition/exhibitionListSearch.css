@@ -77,13 +77,17 @@
             /* border: 0.1px solid black; */
             border-radius: 2rem;
             overflow: hidden;
+            flex:1;
             display: flex;
             justify-content: center;
         }
 
-        .exhibition-card-image img {
-            max-width: 100%;
+        .exhibition-card-image-url {
+            max-width: 24rem;
             height: auto;
+            /* height: 32rem; */
+            /* width: s24rem; */
+            object-fit: contain;
         }
 
         .exhibition-card-content {

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamx.exsite.model.mapper.exhibition.ExhibitionMapper">
+
+	<select id="getAllExhibitions" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME = '전시/미술' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+    </select>
+    
+     <select id="getExhibitionsSortedByEndDate" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME = '전시/미술' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+        ORDER BY TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') ASC
+    </select>
+
+    <select id="getExhibitionsSortedByReviews" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME = '전시/미술' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+        ORDER BY REVIEW_COUNT DESC
+    </select>
+
+    <select id="getFreeExhibitions" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME = '전시/미술' AND IS_FREE = '무료' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+    </select>
+
+    <select id="getPaidExhibitions" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME = '전시/미술' AND IS_FREE = '유료' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+    </select>
+    
+    <select id="getExhibitionById" parameterType="int" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+   		SELECT * FROM exhibition
+		    JOIN EXHIBITION_DETAIL USING (EXHIBITION_NO)
+		WHERE exhibition_no = #{exhibitionNo}
+	</select>
+    
+    <select id="getAllEvents" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME LIKE '축제%' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+    </select>
+    
+     <select id="getEventsSortedByEndDate" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME LIKE '축제%' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+        ORDER BY TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') ASC
+    </select>
+
+    <select id="getEventsSortedByReviews" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME LIKE '축제%' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+        ORDER BY REVIEW_COUNT DESC
+    </select>
+
+    <select id="getFreeEvents" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME LIKE '축제%' AND IS_FREE = '무료' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+    </select>
+
+    <select id="getPaidEvents" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME, 
+            IS_FREE 
+        FROM EXHIBITION
+        WHERE CODENAME LIKE '축제%' AND IS_FREE = '유료' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+    </select>    
+	
+</mapper>
