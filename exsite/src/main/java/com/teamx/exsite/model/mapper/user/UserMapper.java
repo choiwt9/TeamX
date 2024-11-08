@@ -16,6 +16,8 @@ public interface UserMapper {
 	public int searchUserName(String name);
 
 	public String idSearch(String authMethod);
+	
+	public String idSearch(String authMethod, String loginMethod);
 
 	public int passwordChange(String userId, String name, String authMethod, String encodedPassword);
 
@@ -28,5 +30,7 @@ public interface UserMapper {
 	public int accountCheck(String signupMethod, String email);
 
 	public int registerWithGoogle(UserDTO user);
+
+	public int identifierCheck(String socialUserIdentifier);
 
 }

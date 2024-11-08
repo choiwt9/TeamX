@@ -16,5 +16,6 @@ public class UserDTO {
 	private String updateDate;
 	private char userStatus;
 	private String method;
+	private String socialUserIdentifier;
 	private char grade;
 }

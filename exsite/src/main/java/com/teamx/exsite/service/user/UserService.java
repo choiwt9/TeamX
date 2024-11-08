@@ -12,10 +12,8 @@ import com.teamx.exsite.model.user.dto.UserDTO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class UserService {
 	
@@ -57,6 +55,10 @@ public class UserService {
 	public String idSearch(String authMethod) {
 		return userMapper.idSearch(authMethod);
 	}
+	
+	public String idSearch(String authMethod, String loginMethod) {
+		return userMapper.idSearch(authMethod, loginMethod);
+	}
 
 	public int passwordChange(String userId, String name, String authMethod, String changePassword) {
 		String encodedPassword = passwordEncoder.encode(changePassword);
@@ -65,7 +67,7 @@ public class UserService {
 
 	public Map<String, String> naverUserRegistration(UserDTO user, HttpSession session) {
 	    Map<String, String> result = new HashMap<>();
-	    if (accountCheck("NAVER", user.getEmail()) == 0 && idCheck(user.getUserId()) == 0) {
+	    if (accountCheck("NAVER", user.getEmail()) == 0 && identifierCheck(user.getSocialUserIdentifier()) == 0) {
 	        int signupResult = userMapper.registerWithNaver(user);
 	        if (signupResult > 0) {
 	            result.put("status", "success");
@@ -77,14 +79,18 @@ public class UserService {
 	    return result;
 	}
 
+	private int identifierCheck(String socialUserIdentifier) {
+		return userMapper.identifierCheck(socialUserIdentifier);
+	}
+
 	public Map<String, String> naverUserLogin(UserDTO user, HttpSession session) {
 	    Map<String, String> result = new HashMap<>();
 	    // 네이버로 가입한 이메일인지 확인, 맞으면 로그인 유저 객체 session에 담아 로그인 성공 응답
-	    if (accountCheck("NAVER", user.getEmail()) == 1 && idCheck(user.getUserId()) == 1) {
+	    if (accountCheck("NAVER", user.getEmail()) == 1 && identifierCheck(user.getSocialUserIdentifier()) == 1) {
 	        result.put("status", "success");
 	        session.setAttribute("loginUser", user);
 	    // 네이버로 가입한 이메일이 아닐 때, 이미 사용중인 이메일인지 확인, 존재하는 이메일이면 exist 응답
-	    } else if(authService.mailCheck(user.getEmail()) == 1) {
+	    } else if(authService.mailCheck(user.getEmail()) == 1 || authService.phoneCheck(user.getPhone()) == 1) {
 	    	result.put("status", "exist");
 	    // 둘 다 아니면 false, -> 사용자 응답 확인 후 naverUserRegistration 실행여부 결정
 	    } else {
@@ -97,7 +103,7 @@ public class UserService {
 	
 	public Map<String, String> googleUserRegistration(UserDTO user, HttpSession session) {
 	    Map<String, String> result = new HashMap<>();
-	    if (accountCheck("NAVER", user.getEmail()) == 0 && idCheck(user.getUserId()) == 0) {
+	    if (accountCheck("GOOGLE", user.getEmail()) == 0 && identifierCheck(user.getSocialUserIdentifier()) == 0) {
 	        int signupResult = userMapper.registerWithGoogle(user);
 	        if (signupResult > 0) {
 	            result.put("status", "success");
@@ -114,13 +120,14 @@ public class UserService {
 		
 		JSONObject userInfo = apiService.googleUserInfoGetProcess(code);
 		int accountCheck = accountCheck("GOOGLE", userInfo.getString("email"));
-		int idCheck = idCheck(userInfo.getString("sub"));
+		int identifierCheck = identifierCheck(userInfo.getString("sub"));
 		int mailCheck = authService.mailCheck(userInfo.getString("email"));
-		if(accountCheck == 1 && idCheck == 1) {
+		if(accountCheck == 1 && identifierCheck == 1) {
 			UserDTO loginUser = new UserDTO();
-			loginUser.setUserId(userInfo.getString("sub"));
+			loginUser.setUserId(idSearch(userInfo.getString("email"), "GOOGLE"));
 			loginUser.setName(userInfo.getString("name"));
 			loginUser.setEmail(userInfo.getString("email"));
+			loginUser.setSocialUserIdentifier(userInfo.getString("sub"));
 			session.setAttribute("loginUser", loginUser);
 			result.put("status", "success");
 		} else if(mailCheck == 1) {
@@ -128,7 +135,7 @@ public class UserService {
 		} else {
 			JSONObject registrationInfo = new JSONObject();
 			registrationInfo.put("name", userInfo.getString("name"));
-			registrationInfo.put("id", userInfo.getString("sub"));
+			registrationInfo.put("socialUserIdentifier", userInfo.getString("sub"));
 			registrationInfo.put("email", userInfo.getString("email"));
 			result.put("registrationInfo", registrationInfo.toString());
 			result.put("status", "false");

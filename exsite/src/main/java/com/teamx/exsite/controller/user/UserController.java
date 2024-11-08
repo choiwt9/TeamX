@@ -128,7 +128,7 @@ public class UserController {
 		JSONObject userInfo = new JSONObject(userInfoCache.get(registerKey));
 		UserDTO registerationInfo = new UserDTO();
 		registerationInfo.setName(userInfo.getString("name"));
-		registerationInfo.setUserId(userInfo.getString("id"));
+		registerationInfo.setSocialUserIdentifier(userInfo.getString("socialUserIdentifier"));
 		registerationInfo.setEmail(userInfo.getString("email"));
 		registerationInfo.setMethod("GOOGLE");
 		userService.googleUserRegistration(registerationInfo, session);

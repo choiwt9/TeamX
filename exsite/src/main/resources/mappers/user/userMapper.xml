@@ -19,25 +19,27 @@
   </insert>
   
   <insert id="registerWithNaver">
-  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, PHONE, METHOD)
+  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, PHONE, METHOD, SOCIAL_USER_IDENTIFIER)
   		VALUES (
   			SEQ_USER_NO.NEXTVAL,
   			#{name},
-  			#{userId},
+  			'N_' || SEQ_NAVER_USER_NO.NEXTVAL,
   			#{email},
   			#{phone},
-  			#{method}
+  			#{method},
+  			#{socialUserIdentifier}
   		)
   </insert>
   
   <insert id="registerWithGoogle">
-  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, METHOD)
+  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, METHOD, SOCIAL_USER_IDENTIFIER)
   		VALUES (
   			SEQ_USER_NO.NEXTVAL,
   			#{name},
-  			#{userId},
+  			'G_' || SEQ_GOOGLE_USER_NO.NEXTVAL,
   			#{email},
-  			#{method}
+  			#{method},
+  			#{socialUserIdentifier}
   		)
   </insert>
   
@@ -77,6 +79,12 @@
   	WHERE (EMAIL = #{authMethod} OR PHONE = #{authMethod}) AND METHOD = 'NORMAL'
   </select>
   
+  <select id="socialUserIdSearch">
+  	SELECT USER_ID
+  	FROM USER_INFO
+  	WHERE (EMAIL = #{authMethod} OR PHONE = #{authMethod}) AND METHOD = #{loginMethod}
+  </select>
+  
   <select id="searchUserName">
   	SELECT COUNT(*)
   	FROM USER_INFO
@@ -93,5 +101,11 @@
   	SELECT COUNT(*)
   	FROM USER_INFO
   	WHERE METHOD = #{signupMethod} AND EMAIL = #{email}
+  </select>
+  
+  <select id="identifierCheck">
+  	SELECT COUNT(*)
+  	FROM USER_INFO
+  	WHERE SOCIAL_USER_IDENTIFIER = #{email}
   </select>
 </mapper>

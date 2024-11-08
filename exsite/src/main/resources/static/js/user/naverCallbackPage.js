@@ -17,7 +17,7 @@
       $.ajax({
       url: '/login/naver',
       type: 'post',
-      data: {userId: userId, name: name, email: email, mobile: mobile},
+      data: {socialUserIdentifier: userId, name: name, email: email, mobile: mobile},
       success: function(result) {
         console.log(result);
         if(result.status === "success") {
@@ -45,7 +45,7 @@
           $.ajax({
               url: '/user/register/naver',
               type: 'post',
-              data: { userId : userId
+              data: { socialUserIdentifier: userId
                     , name: name
                     , email: email
                     , mobile: mobile
