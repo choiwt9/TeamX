@@ -48,7 +48,7 @@
 
         <!-- 일반유저 로그인 후 -->
         <div th:if="${session.loginUser != null}" class="header-right-area header-common-style">
-            <div><a href="#"><sapn id="login-user-name">[[${session.loginUser.name}]]</sapn>님<br>환영합니다.</a></div>
+            <div><a href="/mypage/main"><sapn id="login-user-name">[[${session.loginUser.name}]]</sapn>님<br>환영합니다.</a></div>
             <div><a href="/logout">로그아웃</a></div>
         </div>
         

@@ -121,3 +121,30 @@ html {
 .card-header{
     background-color: #9DD7D7;
 }
+
+/* 글쓰기 영역의 크기와 스크롤 설정 */
+.note-editor .note-editable {
+    min-height: 40rem; /* 최소 높이 설정 */
+    max-height: 50rem; /* 최대 높이 설정 (선택 사항) */
+    overflow-y: auto;  /* 내용이 많을 경우 스크롤 가능하게 설정 */
+    position: relative; /* 위치 지정 */
+}
+
+/* 리사이즈 바를 하단에 위치하게 설정 */
+.note-editor .note-resizebar {
+    position: absolute; /* 고정된 위치 */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1; /* 에디터 내용 위로 레벨을 올리기 */
+}
+
+/* 텍스트 영역 리사이즈가 가능하도록 하기 */
+.note-editor .note-editable,
+.note-editor .note-resizebar {
+    overflow: hidden;  /* 리사이즈할 때 스크롤바 숨기기 */
+}
+
+a:hover{
+    color: #000;
+}

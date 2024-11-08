@@ -43,8 +43,8 @@ html, body {
 }
 
 .community-category-nav.community-active{
-    background-color: #EDF8F8;
-    border: 0.1rem solid #EDF8F8;
+    background-color: #9DD7D7;
+    border: 0.1rem solid #9DD7D7;
 }
 
 /* 커뮤니티 글쓰기버튼 스타일 */
@@ -164,3 +164,6 @@ tbody tr:hover {
     object-position: center; 
 }
 
+.pagenation-active{
+    background-color: #9DD7D7;
+}

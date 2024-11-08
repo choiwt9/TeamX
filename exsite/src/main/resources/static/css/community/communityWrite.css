@@ -13,6 +13,7 @@ html, body {
     width: 100%;
     height: 80vh;
     margin-top: 10rem;
+    margin-bottom: 30rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -125,3 +126,8 @@ html, body {
     background-color: #fff;
 }
 
+#summernote img{
+    
+    max-width: 90%;
+    object-fit: contain;
+}

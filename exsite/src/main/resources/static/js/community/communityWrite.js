@@ -1,23 +1,16 @@
-// 선택된 카테고리를 버튼 텍스트에 표시하는 함수
 function updateCategory(element) {
-    document.getElementById("dropdownMenuButton").textContent = element.textContent;
+    const selectedCategory = $(element).text();
+    $('#dropdownMenuButton').text(selectedCategory); // 버튼 텍스트를 선택한 카테고리로 변경
+    $('#dropdownMenuButton').attr("data-value", selectedCategory); // 선택된 카테고리를 data-value에 저장
 }
 
 
 // summernote, 파일업로드
 $(document).ready(function(){
-
+    
     // imgList: file 객체 리스트(배열)
     const imageUpload = (imgList) => {
       console.log(imgList);
-      
-      // 텍스트 에디터에 이미지가 추가되었을 때
-      // summernote 에서는 이미지 파일을 전달해준다. --> callbacks.onImageUpload
-
-      // 이미지가 추가되면 우리 서버에 따로 업로드 후 해당 이미지 경로를 세팅해줘야 함.
-      
-      // form 태그에서는 enctype을 multipart/form-data 로 설정하여 전송했으며
-      // 스크립트 상으로는 FormData 객체를 사용하여 ajax 요청을 할 것임.
 
       const formData = new FormData();
       for(let file of imgList){
@@ -25,13 +18,13 @@ $(document).ready(function(){
       }
 
       $.ajax({
-        url: 'upload',
+        url: '/upload',
         type: 'post',
         data: formData,
         processData: false,
-        contentType: false, // application/x-www-form-... (default) -> multipart/form-data
+        contentType: false, 
         success: (result) => {
-          console.log(result);  // ["xxx.xx, "xx.xx", ...]
+          console.log(result);  
           for(let imgSrc of result){
             $("#summernote").summernote("editor.insertImage", imgSrc);
           }
@@ -46,7 +39,7 @@ $(document).ready(function(){
 
   // 1) 텍스트 에디터 표시
   $('#summernote').summernote({
-    placeholder: 'Hello stand alone ui',
+    placeholder: '내용을 입력하세요',
     tabsize: 2,
     height: 120,
     toolbar: [
@@ -65,22 +58,27 @@ $(document).ready(function(){
 
 
   $('.community-submit-btn').click(()=>{
-    
-    const title = $('.form-control').val();  // 제목 가져오기
+    console.log($('#dropdownMenuButton').attr("data-value"));
+    const category = $('#dropdownMenuButton').attr("data-value");
+    const title = $('#title').val();  // 제목 가져오기
     const content = $('#summernote').summernote('code');  // Summernote의 HTML 콘텐츠 가져오기
+    
 
     $.ajax({
-      url: "/community/write",
+      url: "/community/board/write",
       type: "POST",
       contentType: "application/json",
       data: JSON.stringify({
-          title: title,
-          content: content
+          postCategory: category,
+          postTitle: title,
+          postContent: content,
+          userNo: userNo
       }),
       success: function(result) {
         if(result ==='ok'){
           alert("게시글 작성 성공");
           initBoard();
+          window.location.href = '/community/list'; // 목록 페이지로 이동
         } else {
           alert("게시글 작성 실패");
         }
@@ -97,4 +95,6 @@ $(document).ready(function(){
     $('#summernote').summernote('reset');
     $('.form-control').val('');
   }
-})
+});
+
+
