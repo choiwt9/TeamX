@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.teamx.exsite.model.mapper.community.BoardMapper">
+	
+	<!-- 게시글작성 쿼리문 -->
+	<insert id="insertBoard">
+		INSERT INTO COMMUNITY (POST_NO, POST_TITLE, POST_CONTENT, POST_CATEGORY, POST_DATETIME, POST_VIEW_COUNT, POST_STATUS, USER_NO)
+					   VALUES (SEQ_POST_NO.NEXTVAL,
+					   			#{postTitle},
+							    #{postContent},
+							    #{postCategory},
+							    SYSDATE,
+							    0,
+							    'N',
+							    #{userNo}
+							  )
+	</insert>
+	
+	<!-- 게시글 총 갯수 조회 쿼리문 -->
+	<select id="selectListCount" resultType="_int">
+		SELECT COUNT (*)
+		FROM COMMUNITY
+		WHERE POST_STATUS = 'N'
+	</select>
+	
+	<!-- 게시글 조회 쿼리문 -->
+	<select id="selectList">
+		SELECT POST_NO
+	   	     , POST_TITLE
+		 	 , POST_CONTENT
+		 	 , POST_CATEGORY
+		 	 , POST_DATETIME
+		 	 , POST_VIEW_COUNT
+	     	 , USER_ID
+			FROM COMMUNITY
+	        JOIN USER_INFO USING (USER_NO)
+			WHERE POST_STATUS = 'N'
+			ORDER BY POST_NO DESC
+	</select>
+	
+	<!-- 조회수 증가 쿼리문 -->
+	<update id="increaseCount">
+		UPDATE COMMUNITY
+		   SET POST_VIEW_COUNT = POST_VIEW_COUNT+1
+		 WHERE POST_NO = #{ postNo } AND POST_STATUS='N'
+	</update>
+	
+	<!-- 게시글 상세조회 쿼리문 -->
+	<select id="selectDetail">
+		SELECT POST_NO
+		     , POST_TITLE
+			 , POST_CONTENT
+			 , POST_DATETIME
+			 , POST_VIEW_COUNT
+    		 , USER_ID
+  			FROM COMMUNITY
+       	 	JOIN USER_INFO USING (USER_NO)
+  			WHERE POST_NO = #{ postNo } AND POST_STATUS = 'N'
+	</select>
+	
+	<!-- 댓글 작성 쿼리문 -->
+	<insert id="insertParentReply">
+        INSERT INTO PARENT_REPLY(PARENT_REPLY_NO
+  			      , PARENT_REPLY_CONTENT
+  			  	  , PARENT_REPLY_DATETIME
+  				  , PARENT_REPLY_STATUS
+                  , USER_NO
+                  , POST_NO)
+  				VALUES(SEQ_PARENT_REPLY_NO.NEXTVAL
+  					, #{ parentReplyContent }
+  					, SYSDATE
+  					, 'N'
+                    , #{ userNo }
+                    , #{ postNo }
+                )		
+	</insert>
+	
+	
+</mapper>

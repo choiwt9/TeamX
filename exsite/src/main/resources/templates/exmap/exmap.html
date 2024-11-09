@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<!-- jQuery CDN -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- bootstrap CDN -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- kakao js 인증키 선언 -->
+<!-- // 이라는 상대 프로토콜을 사용하면, 사용자의 http, https 환경에 따라 자동으로 해당 프로토콜을 따라감 -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=42affacf90497d7cfc30982ef2aadf39"></script>
+
+<!-- exmap javascript -->
+<script src="/js/exmap/exmap.js" defer></script>
+
+
+
+</head>
+<body>
+    <div th:insert="~{common/header}"></div>
+    <div class="exmap-main-section">
+        <!-- 카테고리 선택 -->
+        <div class="dropdown-container mt-5">
+            <div class="dropdown">
+                <button class="btn custom-dropdown-toggle dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    지역을 선택하세요.
+                </button>
+                <!-- gunameList를 이용해 드롭다운을 동적으로 생성 -->
+                <div class="dropdown-menu custom-dropdown-menu">
+                    <th:block th:each="guname : ${gunameList}">
+                        <a class="dropdown-item" href="#" th:text="${guname}" onclick="getCoordinates(this)"></a>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        
+    
+        <div class="exmap-container">
+            <div id="map"></div>
+        </div>
+        <!-- 모달 요소 -->
+        <form action="정현님이 만든 콘트롤러 url /exhibition~" id="detailExhibitionPage">
+            <div id="markerModal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <!-- 전시정보 -->
+                        <div class="exhibition-item">
+                            <input type="hidden" th:value="${exhibitionNo}">
+                            <div class="item-image-wrapper">
+                                <img class="item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=d86ee210bd054f49b41441fb5a59e6f7&thumb=Y" alt="전시썸네일">
+                            </div>
+                            <ul class="item-textarea">
+                                <li class="item-title"></li>
+                                <li class="item-place"></li>
+                                <li class="item-date"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+            
+    <div th:insert="~{common/footer}"></div>
+    <!-- footer 부트스트랩을 덮어씌우려면 css import를 더 아래에 해줘야함 -->
+    <link rel="stylesheet" href="/css/exmap/exmap.css">
+</body>
+</html>

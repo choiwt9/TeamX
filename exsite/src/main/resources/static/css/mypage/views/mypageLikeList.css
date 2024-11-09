@@ -1,0 +1,117 @@
+/* 나의관심목록 스타일 */
+.mypage-view-like-list{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid red; */
+  }
+  
+  .like-list-section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3rem;
+    /* border: 1px red solid; */
+    
+  }
+  
+  .like-list-textarea{
+    font-size: 3.2rem; 
+    font-weight: 900;
+    text-align: center;
+    /* border: 1px red solid; */
+  }
+  
+  .like-list-textarea p{
+    margin-bottom: 0.5rem;
+    /* border: 1px red solid; */
+  }
+  
+  .like-list-info-area {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+    width: 80%;
+    padding: 2rem;
+    box-sizing: border-box;
+    /* border: solid 1px red; */
+  }
+  
+  /* 화면 크기가 1920px 이하일 때는 한 줄에 3개의 아이템을 표시 */
+  @media (max-width: 1920px) {
+    .like-list-info-area {
+        grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* 화면 크기가 1440px 이하일 때는 한 줄에 2개의 아이템을 표시 */
+  @media (max-width: 1440px) {
+    .like-list-info-area {
+        grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* 화면 크기가 800px 이하일 때는 한 줄에 1개의 아이템을 표시 */
+  @media (max-width: 800px) {
+    .like-list-info-area {
+        grid-template-columns: repeat(1, 1fr);
+    }
+  }
+  
+  .like-list-exhibition-item {
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    flex: 0 0 auto; /* 슬라이드들이 한 줄로 나란히 배치되도록 설정 */
+    margin-right: 16px; /* 슬라이드 간 간격 */
+    /* border: 1px red solid; */
+  }
+  
+  .like-list-item-image-wrapper {
+    width: 100%;
+    max-width: 24rem; /* 최대 너비 설정 */
+    height: auto; /* 높이는 자동으로 조정 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    overflow: hidden; /* 이미지가 컨테이너의 모서리를 넘지 않도록 */
+    /* border: 1px red solid; */
+  }
+  
+  .like-list-item-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* 이미지 비율을 유지하며 전체 표시 */
+  
+  }
+  
+  .like-list-item-textarea{
+    padding: 0rem;
+    margin-top: 1rem; 
+    width: 90%;
+    /* border: 1px greenyellow solid; */
+  }
+  
+  .like-list-item-textarea li{
+    list-style: none;
+    font-size: 1.5rem;
+    /* border: 1px green solid; */
+    white-space: nowrap; /* 텍스트를 한 줄로 제한 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 '...'으로 표시 */
+    max-width: 18rem; /* 최대 너비 지정 (필요에 따라 조정) */
+  }
+  
+  .like-list-item-title{
+    font-weight: 900;
+  }
+  
+  .like-list-item-date{
+    color: #C9C0C0;
+  }
