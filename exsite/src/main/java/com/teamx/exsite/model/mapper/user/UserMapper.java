@@ -33,4 +33,6 @@ public interface UserMapper {
 
 	public int identifierCheck(String socialUserIdentifier);
 
+	public UserDTO socialUserLogin(String socialUserIdentifier);
+
 }

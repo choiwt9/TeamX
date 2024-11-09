@@ -164,6 +164,7 @@ public class UserController {
 				String registerKey = authService.generateAuthCode();
 				model.addAttribute("registerKey", registerKey);
 				userInfoCache.put(registerKey, result.get("registrationInfo"));
+				result.remove("registrationInfo");
 				
 				model.addAttribute("alertMsg", "가입하지 않은 회원입니다. 가입하시겠습니까?");
 				return "/user/googleCallbackPage";

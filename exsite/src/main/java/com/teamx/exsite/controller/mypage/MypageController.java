@@ -59,4 +59,7 @@ public class MypageController {
 
         return "mypage/mypageView";
     }
+	
+	
+	
 }

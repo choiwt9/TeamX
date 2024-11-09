@@ -56,7 +56,7 @@
   </resultMap>
   
   <select id="basicLogin" resultMap="userInfo">
-  	SELECT USER_NO, NAME, USER_ID, USER_PW, EMAIL, PHONE, ADDRESS, CREATE_DATE, UPDATE_DATE, USER_STATUS, METHOD, GRADE
+  	SELECT *
   	FROM USER_INFO
   	WHERE USER_ID = #{userId} AND METHOD = 'NORMAL' AND USER_STATUS = 'N'
   </select>
@@ -108,4 +108,11 @@
   	FROM USER_INFO
   	WHERE SOCIAL_USER_IDENTIFIER = #{email}
   </select>
+  
+  <select id="socialUserLogin">
+  	SELECT *
+  	FROM USER_INFO
+  	WHERE SOCIAL_USER_IDENTIFIER = #{socialUserIdentifier}
+  </select>
+  
 </mapper>

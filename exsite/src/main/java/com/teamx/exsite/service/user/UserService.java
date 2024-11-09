@@ -12,7 +12,6 @@ import com.teamx.exsite.model.user.dto.UserDTO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -70,8 +69,9 @@ public class UserService {
 	    if (accountCheck("NAVER", user.getEmail()) == 0 && identifierCheck(user.getSocialUserIdentifier()) == 0) {
 	        int signupResult = userMapper.registerWithNaver(user);
 	        if (signupResult > 0) {
-	            result.put("status", "success");
+	            user = userMapper.socialUserLogin(user.getSocialUserIdentifier());
 	            session.setAttribute("loginUser", user);
+	            result.put("status", "success");
 	        } else {
 	        	result.put("status", "false");
 	        }
@@ -87,8 +87,9 @@ public class UserService {
 	    Map<String, String> result = new HashMap<>();
 	    // 네이버로 가입한 이메일인지 확인, 맞으면 로그인 유저 객체 session에 담아 로그인 성공 응답
 	    if (accountCheck("NAVER", user.getEmail()) == 1 && identifierCheck(user.getSocialUserIdentifier()) == 1) {
-	        result.put("status", "success");
-	        session.setAttribute("loginUser", user);
+	        user = userMapper.socialUserLogin(user.getSocialUserIdentifier());
+            session.setAttribute("loginUser", user);
+            result.put("status", "success");
 	    // 네이버로 가입한 이메일이 아닐 때, 이미 사용중인 이메일인지 확인, 존재하는 이메일이면 exist 응답
 	    } else if(authService.mailCheck(user.getEmail()) == 1 || authService.phoneCheck(user.getPhone()) == 1) {
 	    	result.put("status", "exist");
@@ -106,8 +107,9 @@ public class UserService {
 	    if (accountCheck("GOOGLE", user.getEmail()) == 0 && identifierCheck(user.getSocialUserIdentifier()) == 0) {
 	        int signupResult = userMapper.registerWithGoogle(user);
 	        if (signupResult > 0) {
-	            result.put("status", "success");
+	            user = userMapper.socialUserLogin(user.getSocialUserIdentifier());
 	            session.setAttribute("loginUser", user);
+	            result.put("status", "success");
 	        } else {
 	        	result.put("status", "false");
 	        }
@@ -123,12 +125,8 @@ public class UserService {
 		int identifierCheck = identifierCheck(userInfo.getString("sub"));
 		int mailCheck = authService.mailCheck(userInfo.getString("email"));
 		if(accountCheck == 1 && identifierCheck == 1) {
-			UserDTO loginUser = new UserDTO();
-			loginUser.setUserId(idSearch(userInfo.getString("email"), "GOOGLE"));
-			loginUser.setName(userInfo.getString("name"));
-			loginUser.setEmail(userInfo.getString("email"));
-			loginUser.setSocialUserIdentifier(userInfo.getString("sub"));
-			session.setAttribute("loginUser", loginUser);
+			UserDTO user = userMapper.socialUserLogin(userInfo.getString("sub"));
+			session.setAttribute("loginUser", user);
 			result.put("status", "success");
 		} else if(mailCheck == 1) {
 			result.put("status", "exist");
