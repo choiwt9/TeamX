@@ -7,7 +7,7 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<link rel="stylesheet" href="/css/community/communityList.css">
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 
@@ -28,12 +28,12 @@
 
         <!-- 글쓰기버튼 영역 -->
         <div class="community-write-area">
-            <a class="community-write-botton" href="/community/write">글쓰기</a>
+            <a class="community-write-botton" th:if="${session.loginUser != null}" href="/community/write">글쓰기</a>
         </div>
 
         <!-- 게시판 목록 테이블 영역 -->
         <div class="community-list-section">
-            <table border="1">
+            <table>
                 <thead>
                     <tr>
                         <th>글번호</th>
@@ -57,155 +57,15 @@
                     </tr>
                 </tbody>
                 <tbody class="community-content-list">
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
+                    <tr th:each="board : ${boardList}">
+                        <td th:text="${board.postNo}">게시글 번호</td>
+                        <td><span th:text="${board.postCategory}">카테고리</span></td>
                         <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
+                            <a th:href="'/community/post/' + ${board.postNo}" th:text="${board.postTitle}">제목</a>
                         </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><span>정보 공유</span></td>
-                        <td>
-                            <a href="/community/post">17일부터 티켓예매 오픈런입니다 12시부터니까 까먹지들 마셈</a>
-                        </td>
-                        <td>TEST123</td>
-                        <td>2024-10-29</td>
-                        <td>1</td>
+                        <td th:text="${board.userId}">작성자</td>
+                        <td th:text="${board.postDate}">작성일</td>
+                        <td th:text="${board.postViewCount}">조회수</td>
                     </tr>
                 </tbody>
             </table>
@@ -213,22 +73,29 @@
     
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center">
-              <li class="page-item disabled">
-                <a id="page-prev" class="page-link" href="#" tabindex="-1" aria-disabled="true"><img src="/img/common/pagenation_arrow_left.png" alt=""></a>
-              </li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">4</a></li>
-              <li class="page-item"><a class="page-link" href="#">5</a></li>
-              <li class="page-item"><a class="page-link" href="#">6</a></li>
-              <li class="page-item"><a class="page-link" href="#">7</a></li>
-              <li class="page-item"><a class="page-link" href="#">8</a></li>
-              <li class="page-item"><a class="page-link" href="#">9</a></li>
-              <li class="page-item"><a class="page-link" href="#">10</a></li>
-              <li class="page-item">
-                <a id="page-next" class="page-link" href="#"><img src="/img/common/pagenation_arrow_right.png" alt=""></a>
-              </li>
+                <li th:classappend="${pageInfo.currentPage == 1} ? 'disabled'" class="page-item">
+                    <a id="page-prev" class="page-link" 
+                       th:href="${pageInfo.currentPage > 1} ? 'list?cpage=' + ${pageInfo.currentPage - 1} : '#'" 
+                       >
+                        <img src="/img/common/pagenation_arrow_left.png" alt="">
+                    </a>
+                </li>
+                <!-- 페이지 링크 반복 -->
+                <span th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+                     <!-- 페이징 바 클릭 시 cpage 값으로 i 전달 -->
+                    <a th:href="'list?cpage=' + ${i}" 
+                       class="page-link page-number" 
+                       th:text="${i}" 
+                       th:classappend="${i == pageInfo.currentPage} ? 'pagenation-active'"></a>
+                       <!-- append로 active 클래스 추가-->
+                </span>
+                <li th:classappend="${pageInfo.currentPage == pageInfo.maxPage} ? 'disabled'" class="page-item">
+                    <a id="page-next" class="page-link"
+                        th:href="${pageInfo.currentPage lt pageInfo.maxPage} ? 'list?cpage=' + ${pageInfo.currentPage + 1} : '#'" 
+                        >
+                        <img src="/img/common/pagenation_arrow_right.png" alt="">
+                    </a>
+                </li>
             </ul>
         </nav>
 
@@ -237,5 +104,6 @@
     <div th:insert="~{common/footer}"></div>
 
     <script src="/js/community/communityList.js"></script>
+    <link rel="stylesheet" href="/css/community/communityList.css">
 </body>
 </html>

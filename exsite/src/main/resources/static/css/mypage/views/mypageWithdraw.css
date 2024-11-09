@@ -1,0 +1,121 @@
+/* 회원 탈퇴 스타일 */
+.mypage-view-withdraw{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#withdraw-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+#withdraw-main li{
+  font-size: 1.2rem;
+}
+
+#submit-password {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  margin: 0rem;
+  padding: 0rem;
+  margin-top: 5.1rem;
+  width: 38.4rem;
+  height: 35.2rem;
+}
+
+.check-password-input {
+  box-sizing: border-box;
+  width: 32rem;
+  height: 4.6rem;
+  margin: 0rem;
+  padding: 0rem;
+  border-radius: 2rem;
+  border: 0.2rem solid #9dd7d7;
+  font-size: 1.5rem;
+  padding-left: 2.3rem;
+}
+
+.error-message {
+	color: red; /* 오류 메시지를 빨간색으로 표시 */
+	font-size: 1.29rem; /* 작은 폰트 크기 */
+	height: 2.7rem;
+  width: 30rem;
+  line-height: 2.7rem;
+}
+
+#button-area {
+  margin: 0rem;
+  padding: 0rem;
+  display: flex;
+  gap: 4.9rem;
+  margin-top: 5.1rem;
+}
+
+#button-area>button {
+  margin: 0rem;
+  padding: 0rem;
+  font-weight: 700;
+  width: 11.6rem;
+  height: 4.6rem;
+  font-size: 2rem;
+  border-radius: 1.5rem;
+}
+
+#submit-check-password {
+  color: #ffffff;
+  background-color: #0B9B9B;
+  border: none;
+}
+
+#terms-and-conditions-div {
+	margin-left: 0.9rem;
+	margin-top: 1rem;
+	padding: 0rem;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+}
+
+#terms-and-conditions {
+	visibility: hidden;
+}
+
+#terms-and-condition-content {
+	font-size: 1.2rem;
+  line-height: 2.22rem;
+}
+
+/* 커스텀 체크박스 스타일 */
+.custom-checkbox {
+	display: inline-block;
+	width: 0.9rem;
+	height: 0.9rem;
+	border: 0.14rem solid #9DD7D7;
+	border-radius: 100%;
+	position: relative;
+	cursor: pointer;
+	vertical-align: middle;
+	margin-bottom: 0.6rem;
+}
+
+/* 체크박스 체크 상태일 때 스타일 */
+input[type="checkbox"]:checked + .custom-checkbox {
+	background-color: white;
+}
+
+input[type="checkbox"]:checked + .custom-checkbox::after {
+	content: '';
+	position: absolute;
+	top: 40%;
+	left: 57%;
+	width: 0.42rem;
+	height: 0.42rem;
+	border: solid 0.14rem #0b9b9b;
+	border-width: 0 0.14rem 0.14rem 0;
+	transform: translate(-60%, -60%) rotate(45deg);
+}

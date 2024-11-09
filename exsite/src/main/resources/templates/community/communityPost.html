@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>EX-SITE</title>
 <link rel="stylesheet" href="/css/community/communityPost.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
     <div th:insert="~{common/header}"></div>
@@ -12,16 +13,16 @@
         
         <!-- 게시글 제목 및 정보 영역 -->
         <div class="communityPost-title-section">
-            <div class="post-title">전시회 소개_베스트 작품 목록</div>
+            <div class="post-title" th:text="${boardDetail.postTitle}">제목</div>
             <div class="post-info">
-                <div>user1 | 2024.10.17 14:00</div>
+                <div><span th:text="${boardDetail.userId}">유저ID</span> | <span th:text="${boardDetail.postDatetime}">날짜시간</span></div>
                 <div>조회수 2</div>
             </div>
         </div>
 
         <!-- 게시글 내용 영역 -->
-        <div class="communityPost-content-section">
-            <p>전시를 좋아해서 자주 가는 편인데 요즘 새로운 작품을 찾아서 다니려니 재미있기도 하고 돈이 들어가서 부담되더라고요 ㅠㅠ<br>같이 가실 분 있나 궁금하기도 하고요 :)</p>
+        <div class="communityPost-content-section" th:utext="${boardDetail.postContent}">
+            <p>안된거라고</p>
         </div>
 
         <!-- 버튼 영역: rightarea는 작성자일경우 보이도록 -->
@@ -85,12 +86,17 @@
             </div>
         </div>
 
+        
+
         <!-- 댓글 작성 영역 -->
         <div class="communityPost-addComment-section">
+            <input type="hidden" th:value="${boardDetail.postNo}" id="postNo">
             <input type="text" class="community-btn community-comment-input" placeholder="댓글 등록">
-            <button type="button" class="community-btn community-submit-btn">등록</button>
+            <button type="button" class="community-btn community-submit-btn" onclick="insertParentReply();">등록</button>
         </div>
     </div>
+
+    <script src="/js/community/communityPost.js"></script>
 
     <div th:insert="~{common/footer}"></div>
 </body>
