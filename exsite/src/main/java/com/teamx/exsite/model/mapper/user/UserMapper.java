@@ -2,7 +2,7 @@ package com.teamx.exsite.model.mapper.user;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.teamx.exsite.model.user.dto.UserDTO;
+import com.teamx.exsite.model.dto.user.UserDTO;
 
 @Mapper
 public interface UserMapper {
@@ -15,9 +15,9 @@ public interface UserMapper {
 
 	public int searchUserName(String name);
 
-	public String idSearch(String authMethod);
+	public UserDTO idSearch(String authMethod);
 	
-	public String idSearch(String authMethod, String loginMethod);
+	public String socialUserIdSearch(String authMethod, String loginMethod);
 
 	public int passwordChange(String userId, String name, String authMethod, String encodedPassword);
 
@@ -34,5 +34,17 @@ public interface UserMapper {
 	public int identifierCheck(String socialUserIdentifier);
 
 	public UserDTO socialUserLogin(String socialUserIdentifier);
+
+	public String getPassword(int userNo);
+
+	public int normalUserModifyInfo(UserDTO modifyInfo);
+
+	public UserDTO selectUserInfo(UserDTO modifyInfo);
+
+	public int socialUserModifyInfo(UserDTO modifyInfo);
+
+	public int loginUserPasswordChange(int userNo, String encodedPassword);
+
+	public int withDrawUser(int userNo);
 
 }

@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/mypage/views/mypageWithdraw.css">
+<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+<script src="/js/mypage/mypageWithdraw.js"></script>
 </head>
 <body>
 	<div class="mypage-view-withdraw">
@@ -23,14 +25,9 @@
 				<span id="terms-and-condition-content">위 내용을 인지하였으며, 아이디 재사용
 					불가함에 동의합니다.</span>
 			</div>
-			<form id="submit-password" action="/password/change" method="post">
-				<input name="userId" type="hidden" th:value="${userId}"> <input
-					name="name" type="hidden" th:value="${name}"> <input
-					name="email" type="hidden" th:value="${email}"> <input
-					name="code" type="hidden" th:value="${code}"> <input
-					id="password" name="withdraw" type="password"
-					class="check-password-input" maxlength="12"
-					placeholder="비밀번호를 입력해 주세요.">
+			<form id="submit-password" action="/mypage/withdraw" method="post">
+				<input id="password" name="userPw" type="password" class="check-password-input" maxlength="12"
+				placeholder="비밀번호를 입력해 주세요.">
 				<div id="password-error" class="error-message"></div>
 				<div id="check-password-result" class="error-message"></div>
 				<div id="button-area">

@@ -93,14 +93,14 @@
 /* 커스텀 체크박스 스타일 */
 .custom-checkbox {
 	display: inline-block;
-	width: 0.9rem;
-	height: 0.9rem;
-	border: 0.14rem solid #9DD7D7;
+	width: 1.5rem;
+	height: 1.5rem;
+	border: 0.2rem solid #9DD7D7;
 	border-radius: 100%;
 	position: relative;
 	cursor: pointer;
 	vertical-align: middle;
-	margin-bottom: 0.6rem;
+  margin-right: 0.5rem;
 }
 
 /* 체크박스 체크 상태일 때 스타일 */
@@ -113,9 +113,9 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 	position: absolute;
 	top: 40%;
 	left: 57%;
-	width: 0.42rem;
-	height: 0.42rem;
-	border: solid 0.14rem #0b9b9b;
-	border-width: 0 0.14rem 0.14rem 0;
-	transform: translate(-60%, -60%) rotate(45deg);
+	width: 0.6rem;
+	height: 0.6rem;
+	border: solid 0.15rem #0b9b9b;
+	border-width: 0 0.01rem 0.01rem 0;
+	transform: translate(-55%, -50%) rotate(45deg);
 }

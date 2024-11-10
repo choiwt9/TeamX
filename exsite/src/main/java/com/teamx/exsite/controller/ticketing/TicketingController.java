@@ -6,7 +6,7 @@ import java.util.Date;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.teamx.exsite.model.user.dto.UserDTO;
+import com.teamx.exsite.model.dto.user.UserDTO;
 
 import jakarta.servlet.http.HttpSession;
 

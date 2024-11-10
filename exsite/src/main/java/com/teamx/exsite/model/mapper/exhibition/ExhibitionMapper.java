@@ -3,7 +3,6 @@ package com.teamx.exsite.model.mapper.exhibition;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 

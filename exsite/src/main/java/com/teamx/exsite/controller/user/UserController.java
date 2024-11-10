@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.teamx.exsite.model.user.dto.UserDTO;
+import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.service.user.AuthService;
 import com.teamx.exsite.service.user.UserService;
 
@@ -39,11 +39,11 @@ public class UserController {
 	 */
 	@RequestMapping("/user/register")
 	public String userRegister(HttpSession session, UserDTO registerInfo) {
-		// 회원가입에서 상세 받은 상세주소(addressDetail)를 Address에 합침, DB 설계에 상세주소 컬럼이 따로 없음
-		registerInfo.setAddress(registerInfo.getAddress() + "=" + registerInfo.getAddressDetail());
 		int result = userService.userRegister(registerInfo);
 		if (result == 1) {
 			UserDTO loginUser = registerInfo;
+			loginUser.setMethod("NORMAL");
+			loginUser.setUserPw(null);
 			session.setAttribute("loginUser", loginUser);
 		}
 		return "redirect:/";
@@ -218,7 +218,6 @@ public class UserController {
 	
 
 
-	// --------------------------계정정보 메일 인증 기능 -------------------------------
 	/**
 	 * @param name 아이디/비밀번호 찾기 시 사용자가 입력한 실명
 	 * @param email 이메일 정보
@@ -273,17 +272,17 @@ public class UserController {
 		
 		String authMethod = email == null ? phone : email;
 		Map<String, String> result = authService.verifyCode(name + authMethod, code);
-		String userId = userService.idSearch(authMethod);
-		if(userId == null) {
+		UserDTO idInfo = userService.idSearch(authMethod);
+		if(idInfo.getUserId() == null) {
 			result.put("userId", "notFound");
+		} else if(idInfo.getUserStatus() == 'Y') {
+			result.put("userId", "withDraw");
 		} else {
-			result.put("userId", userId);
+			result.put("userId", idInfo.getUserId());
 		}
 		
 		return result;
 	}
-	// ------------------------------------------------------------------------
-	// ------------------------ 아이디 찾기 ----------------------------------------
 
 	@GetMapping("/id/recover")
 	public String findIdForm() {
@@ -295,8 +294,6 @@ public class UserController {
 		return "/user/findIdResultForm";
 	}
 
-	// -------------------------------------------------------------------------
-	// ------------------------ 비밀번호 재설정 ----------------------------------------
 	/**
 	 * @param userId 아이디 찾기로 id를 찾은 후 비밀번호 재설정 페이지로 넘어오는 경우, 해당 페이지에서 받은 userId값
 	 * @param model
@@ -339,17 +336,23 @@ public class UserController {
 								   , Model model) {
 		
 		String authMethod = email == null ? phone : email;
-		model.addAttribute("userId", userId);
-		model.addAttribute("name", name);
-		model.addAttribute("authMethod", authMethod);
-		// 비밀번호 재설정 페이지로 같이 넘길 6자리 인증번호
-		String code = authService.generateAuthCode();
-		// email 또는 phone + name + userId를 key값으로, code를 value로 AuthService.verificationCodes에 저장
-		authService.generateAuthInfo(authMethod + name + userId, code);
-		// code를 비밀번호 재설정 페이지로 같이 넘김
-		model.addAttribute("code", code);
-		System.out.println(code);
-		return "/user/changePasswordForm";
+		UserDTO userInfo = (UserDTO)userService.idSearch(authMethod);
+		if(userInfo.getUserStatus() == 'Y') {
+			model.addAttribute("userId", "withDraw");
+			return "/user/findIdResultForm";
+		} else {
+			model.addAttribute("userId", userId);
+			model.addAttribute("name", name);
+			model.addAttribute("authMethod", authMethod);
+			// 비밀번호 재설정 페이지로 같이 넘길 6자리 인증번호
+			String code = authService.generateAuthCode();
+			// email 또는 phone + name + userId를 key값으로, code를 value로 AuthService.verificationCodes에 저장
+			authService.generateAuthInfo(authMethod + name + userId, code);
+			// code를 비밀번호 재설정 페이지로 같이 넘김
+			model.addAttribute("code", code);
+			System.out.println(code);
+			return "/user/changePasswordForm";
+		}
 	}
 	
 	/**
@@ -387,6 +390,4 @@ public class UserController {
 
 		return "redirect:/";
 	}
-
-	// -------------------------------------------------------------------------
 }

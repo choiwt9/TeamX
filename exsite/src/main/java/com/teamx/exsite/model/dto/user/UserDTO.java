@@ -1,4 +1,4 @@
-package com.teamx.exsite.model.user.dto;
+package com.teamx.exsite.model.dto.user;
 
 import lombok.Data;
 

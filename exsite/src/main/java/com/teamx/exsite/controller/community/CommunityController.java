@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.teamx.exsite.common.model.vo.PageInfo;
 import com.teamx.exsite.common.template.Pagination;
-import com.teamx.exsite.model.user.dto.UserDTO;
+import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.vo.community.Board;
 import com.teamx.exsite.model.vo.community.ParentReply;
 import com.teamx.exsite.service.community.BoardService;

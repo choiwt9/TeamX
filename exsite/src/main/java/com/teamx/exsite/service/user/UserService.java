@@ -7,8 +7,8 @@ import org.json.JSONObject;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.mapper.user.UserMapper;
-import com.teamx.exsite.model.user.dto.UserDTO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -32,12 +32,13 @@ public class UserService {
 	}
 	
 	public UserDTO basicLogin(UserDTO loginInfo) {
-		UserDTO idSelectResult = userMapper.basicLogin(loginInfo);
-		if(idSelectResult == null) {
+		UserDTO loginResult = userMapper.basicLogin(loginInfo);
+		if(loginResult == null) {
 			return null;
 		}
-		if(passwordEncoder.matches(loginInfo.getUserPw(), idSelectResult.getUserPw())) {
-			return idSelectResult;
+		if(passwordEncoder.matches(loginInfo.getUserPw(), loginResult.getUserPw())) {
+			loginResult.setUserPw(null);
+			return loginResult;
 		}
 		return null;
 	}
@@ -51,19 +52,24 @@ public class UserService {
 		return userMapper.accountCheck(signupMethod, email);
 	}
 
-	public String idSearch(String authMethod) {
+	public UserDTO idSearch(String authMethod) {
 		return userMapper.idSearch(authMethod);
 	}
 	
 	public String idSearch(String authMethod, String loginMethod) {
-		return userMapper.idSearch(authMethod, loginMethod);
+		return userMapper.socialUserIdSearch(authMethod, loginMethod);
+	}
+	
+	public int passwordChange(int userNo, String changePassword) {
+		String encodedPassword = passwordEncoder.encode(changePassword);
+		return userMapper.loginUserPasswordChange(userNo, encodedPassword);
 	}
 
 	public int passwordChange(String userId, String name, String authMethod, String changePassword) {
 		String encodedPassword = passwordEncoder.encode(changePassword);
 		return userMapper.passwordChange(userId, name, authMethod, encodedPassword);
 	}
-
+	
 	public Map<String, String> naverUserRegistration(UserDTO user, HttpSession session) {
 	    Map<String, String> result = new HashMap<>();
 	    if (accountCheck("NAVER", user.getEmail()) == 0 && identifierCheck(user.getSocialUserIdentifier()) == 0) {
@@ -140,6 +146,34 @@ public class UserService {
 		}
 		return result;
 	}
-	
 
+	public UserDTO normalUserModifyInfo(UserDTO modifyInfo) {
+		int result = userMapper.normalUserModifyInfo(modifyInfo);
+		
+		if(result == 1) {
+			return userMapper.selectUserInfo(modifyInfo);
+		}
+		return null;
+	}
+
+	public UserDTO socialUserModifyInfo(UserDTO modifyInfo) {
+		int result = userMapper.socialUserModifyInfo(modifyInfo);
+		
+		if(result == 1) {
+			return userMapper.socialUserLogin(modifyInfo.getSocialUserIdentifier());
+		}
+		return null;
+	}
+
+	public int withDrawUser(int userNo, String userPw) {
+		String encodedPassword = userMapper.getPassword(userNo);
+		
+		boolean isTrue = passwordEncoder.matches(userPw, encodedPassword);
+		
+		if(isTrue) {
+			return userMapper.withDrawUser(userNo);
+		} else {
+			return 0;
+		}
+	}
 }

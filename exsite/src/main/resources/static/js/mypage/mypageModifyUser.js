@@ -1,57 +1,14 @@
-let idCheckResult = false;
-let passwordCheckResult = false;
-let passwordConfirmReslt = false;
-let nameCheckResult = false;
-let emailCheckResult = false;
-let phoneCheckResult= false; 
-let addressCheckResult= false;
-let addressDetailCheckResult= false;
 
-let idAlert;
-let passwordAlert;
+let emailCheckResult = true;
+let phoneCheckResult= true;
+let addressCheckResult = true;
+
+let addressDetailCheckResult= true;
+
 let emailAlert;
 let phoneAlert;
 let addressAlert;
 let addressDetailAlert;
-
-
-
-// 아이디 중복검사
-$(function() {
-
-  let idRegex = /^[a-zA-Z0-9]{6,20}$/;
-  idAlert = $('#id-check-result-alert');
-  $('#id-check').click(function() {
-    if($('#id').val().length < 6 || $('#id').val().length > 20 || !idRegex.test($('#id').val())) {
-      idAlert.removeClass('success-message');
-      idAlert.addClass('error-message');
-      idAlert.text('아이디는 6~20자 사이의 영문, 숫자로 구성해야합니다.');
-      return false;
-    }
-    $.ajax({
-      url: '/id/check',
-      type: 'post',
-      data: {userId: $('#id').val()},
-      success: function(result) {
-        if(result == 0) {
-          idCheckResult=true;
-          idAlert.removeClass('error-message');
-          idAlert.addClass('success-message');
-          idAlert.text('사용 가능한 아이디입니다.');
-        } else {
-          idAlert.removeClass('success-message');
-          idAlert.addClass('error-message');
-          idAlert.text('이미 사용중인 아이디입니다. 다시 입력해주세요.')
-        }
-      }
-    });
-  });
-  //중복검사 후 아이디 입력 내용 변경 시 중복검사결과값을 false로 변경
-  $('#id').on('input', function() {
-    idCheckResult=false;
-    idAlert.text('');
-  });
-});
 
 
 
@@ -165,17 +122,6 @@ $(function() {
       errorElement.textContent = '8~12자의 영문, 숫자, 특수문자를 사용해 주세요.'; // 조건을 만족하지 않을 경우 오류 메시지 표시
     }
   }
-});
-
-
-
-//실명 입력 검사
-$(function() {
-  $('#user_name').on('input', function() {
-    if(this.value != '') {
-      nameCheckResult = true;
-    }
-  });
 });
 
 
@@ -398,19 +344,13 @@ $(function() {
       popupKey: 'popup1' //팝업창 Key값 설정 (영문+숫자 추천)
     });
 
-  });
+  })
 });
 
 
 
+// 필수요소 입력상태 체크
 $(function() {
-  
-  let termsAndConditionsAgreement = $('#terms-and-conditions').is(':checked');
-
-  $('#terms-and-conditions').on('click', function() {
-    termsAndConditionsAgreement = $('#terms-and-conditions').is(':checked');
-  });
-
   $('#enroll-btn').click(function(event) {
     event.preventDefault(); // 기본 submit 동작 방지
     let isPossible = true;
@@ -420,10 +360,6 @@ $(function() {
       addressDetailCheckResult = false;
     }
     let checkResults = [
-      idCheckResult,
-      passwordCheckResult,
-      passwordConfirmReslt,
-      nameCheckResult,
       emailCheckResult,
       phoneCheckResult,
       addressCheckResult,
@@ -439,65 +375,45 @@ $(function() {
 
     // 모든 검사가 통과되었을 때만 form을 제출
     if (isPossible) {
-      if(!termsAndConditionsAgreement) {
-        alert('이용약관 동의가 필요합니다.');
-        return false;
-      }
        // form을 수동으로 제출
       $(this).closest('form').submit();
     } else {
-      if(idCheckResult === false) {
-        idAlert.removeClass('success-message');
-        idAlert.addClass('error-message');
-        idAlert.text('필수 항목입니다.');
-      }
-      if(passwordCheckResult === false) {
-        $('#password-error').removeClass('success-message');
-        $('#password-error').addClass('error-message');
-        $('#password-error').text('필수 항목입니다.');
-      }
-      if(passwordConfirmReslt === false) {
-        $('#check-password-result').removeClass('success-message');
-        $('#check-password-result').addClass('error-message');
-        $('#check-password-result').text('필수 항목입니다.');
-      }
-      if(nameCheckResult === false) {
-        $('#name-check').removeClass('success-message');
-        $('#name-check').addClass('error-message');
-        $('#name-check').text('필수 항목입니다.');
-      }
       if(emailCheckResult === false) {
         emailAlert.removeClass('success-message');
         emailAlert.addClass('error-message');
-        emailAlert.text('필수 항목입니다.');
+        emailAlert.text('인증이 필요한 항목입니다.');
       }
       if(phoneCheckResult === false) {
         phoneAlert.removeClass('success-message');
         phoneAlert.addClass('error-message');
-        phoneAlert.text('필수 항목입니다.');
+        phoneAlert.text('인증이 필요한 항목입니다.');
       }
       if(addressCheckResult === false) {
         $('#address-alert').removeClass('success-message');
         $('#address-alert').addClass('error-message');
-        $('#address-alert').text('주소와 상세주소를 모두입력해주세요.');
+        $('#address-alert').text('주소와 상세주소를 모두 입력해주세요');
       }
       if(addressDetailCheckResult === false) {
         $('#address-alert').removeClass('success-message');
         $('#address-alert').addClass('error-message');
-        $('#address-alert').text('주소와 상세주소를 모두입력해주세요.');
+        $('#address-alert').text('주소와 상세주소를 모두 입력해주세요');
       }
       return false;
     }
   });
 });
 
-//전체적으로 input 시 출력됐던 오류메시지 지움(email, phone, address, user_name)
+
+
+// input 시 기존 인증 정보들 재인증해야함
 $(function() {
   $('#email-prefix').on('input', function() {
     emailAlert.text('');
+    emailCheckResult = false;
   });
   $('#phone').on('input', function() {
     phoneAlert.text('');
+    phoneCheckResult = false;
   });
   $('#address-input').on('input', function() {
     $('#address-alert').text('');
@@ -505,18 +421,5 @@ $(function() {
   });
   $('#detail-address-input').on('input', function() {
     $('#address-alert').text('');
-  });
-  $('#user_name').on('input', function() {
-    $('#name-check').text('');
-  });
-});
-
-
-
-// 네이버로 회원가입
-$(function() {
-  $(document).on("click", "#naver-signup-btn-img", function(){ 
-    var btnNaverLogin = $("#naver_id_login").children().first();
-    btnNaverLogin.trigger("click");
   });
 });
