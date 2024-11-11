@@ -355,7 +355,7 @@ html, body {
 /* 포워딩 페이지 섹션 */
 .intro-fowarding-section{
     width: 100%;
-    padding: 10rem;
+    padding: 20rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -368,7 +368,7 @@ html, body {
 }
 
 .intro-forwarding-textarea{
-    font-size: 10.24rem; 
+    font-size: 6rem; 
     font-weight: 900;
     text-align: center;
     margin-bottom: 11.2rem;
