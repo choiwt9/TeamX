@@ -32,4 +32,10 @@ public interface ExhibitionMapper {
 
 	List<ExhibitionEvent> getPaidEvents();
 
+	void insertLike(int userNo, int exhibitionNo);
+
+	void deleteLike(int userNo, int exhibitionNo);
+
+	int checkLike(int userNo, int exhibitionNo);
+
 }
