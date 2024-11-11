@@ -31,17 +31,19 @@
 						<a class="dropdown-item" href="#" id="festa-title" onclick="updateCategory(this)">행사 제목4</a>
 					</div>
 				</div>
+				<form action="/event/eventDetail" method="post">
 				<div class="review-title">
-					<input type="text" class="" id="review-title" placeholder="리뷰 제목"></input>
+					<input type="text" name="reviewTitle" class="" id="review-title" placeholder="리뷰 제목">
 				</div>
 				<div class="festa-review">
-					<textarea name="" class="" id="review-content" value="${ loginUser.reviewContent }"
+					<textarea name="reviewContent" class="" id="review-content"
 						placeholder="리뷰 내용"></textarea>
 				</div>
 				<div class="btn-area">
-					<button type="button" class="review-button" id="resist">등록</button>
+					<button type="submit" class="review-button" id="resist">등록</button>
 					<button type="button" class="review-button" id="cancel">취소</button>
 				</div>
+			</form>
 			</div>
 		</div>
 		<script>
@@ -49,29 +51,6 @@
 			function updateCategory(element) {
 				document.getElementById("festa-title").textContent = element.textContent;
 			}
-			
-			$('#resist').click(function() {
-			    var reviewData = {
-			        title: $('#reviewTitle').val(),
-			        content: $('#reviewContent').val  
-			    };
-
-			    $.ajax({
-			        url: '/review/add',
-			        type: 'POST',
-			        contentType: 'application/json',
-			        data: JSON.stringify(reviewData),
-			        success: function(response) {
-			            alert('리뷰가 성공적으로 등록되었습니다!');
-			         
-			            $('#reviewTitle').val('');
-			            $('#reviewContent').val('');
-			        },
-			        error: function() {
-			            alert('리뷰 등록에 실패했습니다.');
-			        }
-			    });
-			});
 		</script>
 	</div>
 

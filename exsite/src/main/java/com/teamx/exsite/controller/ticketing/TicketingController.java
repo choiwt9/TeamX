@@ -1,4 +1,4 @@
-package com.teamx.exsite.controller.Ticketing;
+package com.teamx.exsite.controller.ticketing;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
