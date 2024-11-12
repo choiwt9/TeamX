@@ -5,6 +5,9 @@
             const faqSection = document.getElementById('faq-section');
             const contactSection = document.getElementById('contact-section');
 
+            const userNo = $('#userId').val();
+            const isLoggedIn = userNo && userNo !== '';
+
             // 초기 버튼 스타일 설정
             faqSection.style.display = 'block'; // FAQ 섹션 표시
             contactSection.style.display = 'none'; // Contact 섹션 숨김
@@ -27,6 +30,13 @@
 
             // Contact 버튼 클릭 이벤트
             contactButton.addEventListener('click', function() {
+                if (!isLoggedIn) {
+                    alert("로그인이 필요합니다."); // 로그인 필요 경고
+                    window.location.href = "/login"; // 로그인 페이지로 리디렉션
+                    return; // 로그인하지 않은 경우 함수 종료
+                }
+
+                // 로그인된 경우 Contact 섹션 표시
                 contactSection.style.display = 'block'; // Contact 섹션 표시
                 faqSection.style.display = 'none'; // FAQ 섹션 숨김
 

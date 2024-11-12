@@ -1,77 +1,73 @@
-window.onload = () => {
+$(function () {
 
     document.getElementById('exhibition-details-button').style.color = '#0B9B9B';
 
-    const heart = document.getElementById('exhibition-heart');
+    const heart = $('#exhibition-heart');
     let count = 0;
-    let liked = false;
+    let liked;
+    const userNo = $('#userId').val();
+    const exhibitionNo = $('#exhibitionNo').val();
+    const path = $('path');
 
-    heart.addEventListener('click', () => {
+    // 디테일 페이지가 로딩될 때 해당 유저가 게시글에 좋아요 했는지 여부를 확인해서
+    // 하트 표시를 채울지 말지 결정하는 코드
+    if (userNo && userNo !== '') {
+        $.ajax({
+            url: '/exhibition/likes/status', // 좋아요 추가 API
+            type: 'get',
+            data: { userNo: userNo, exhibitionNo: exhibitionNo },
+            success: function (data) {
+                console.log(data);
+                liked = data.status === 'true';
+                if (liked) {
+                    path.attr('fill', 'red');
+                } else {
+                    path.attr('fill', 'none');
+                }
 
-        // 로그인 상태 확인
-        if (!isUserLoggedIn()) {
+            },
+            error: function (err) {
+                console.error('좋아요 추가 중 오류 발생:', err);
+                alert('좋아요 추가에 실패했습니다. 다시 시도해주세요.');
+            }
+        });
+    }
+
+    heart.on('click', () => {
+
+        if (userNo === '' || userNo === null) {
+            console.log("User No:", userNo); // userNo의 값을 확인
+            heart.prop('disabled', false);
             alert("로그인이 필요합니다.");
-            // 로그인 페이지로 리디렉션
-            window.location.href = "/login";
-            return; // 로그인하지 않은 경우 함수 종료
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 1000);
+            return;
         }
-        
-        liked = !liked;
-        const path = heart.querySelector('path');
 
-        const userNo = getCurrentUserNo();/* 현재 로그인한 사용자의 번호 */;
-        const exhibitionNo = getCurrentExhibitionNo();/* 현재 전시회의 번호 */;
+        this.disabled = true;
 
-        if (liked) {
-            count++;
-            path.setAttribute('fill', 'red');
-            path.setAttribute('stroke', 'red');
-
-            // AJAX 요청: 좋아요 추가
-            $.ajax({
-                url: `/exhibition/likes/status?userNo=${userNo}&exhibitionNo=${exhibitionNo}`,
-                type: 'GET',
-                success: (data) => {
-                    if (data.liked) {
-                        liked = true;
-                        heart.querySelector('path').setAttribute('fill', 'red');
-                        heart.querySelector('path').setAttribute('stroke', 'red');
-                    }
-                },
-                error: (err) => {
-                    console.error('좋아요 상태 확인 중 오류 발생:', err);
+        // 좋아요 추가
+        $.ajax({
+            url: '/exhibition/likes/add', // 좋아요 추가 API
+            type: 'get',
+            data: { userNo: userNo, exhibitionNo: exhibitionNo },
+            success: function (data) {
+                heart.disabled = false;
+                console.log(data);
+                liked = true;
+                if (data.status === 'add') {
+                    path.attr('fill', 'red'); // 하트를 빨간색으로
+                } else {
+                    path.attr('fill', 'none');
                 }
-            });
-        
-            //     contentType: 'application/json',
-            //     data: JSON.stringify({ userNo: userNo, exhibitionNo: exhibitionNo }),
-            //     success: (data) => {
-            //         console.log('좋아요 추가됨');
-            //     },
-            //     error: (err) => {
-            //         console.error('좋아요 추가 중 오류 발생:', err);
-            //         alert('좋아요 추가에 실패했습니다. 다시 시도해주세요.');
-            //     }
-            // });
 
-        } else {
-            count--;
-            path.setAttribute('fill', 'none');
-            path.setAttribute('stroke', 'red');
-
-            // AJAX 요청: 좋아요 제거
-            $.ajax({
-                url: `/exhibition/likes/${userNo}/${exhibitionNo}`,
-                type: 'DELETE',
-                success: (data) => {
-                    console.log('좋아요 제거됨');
-                },
-                error: (err) => {
-                    console.error('좋아요 제거 중 오류 발생:', err);
-                    alert('좋아요 제거에 실패했습니다. 다시 시도해주세요.');
-                }
-            });
-        }
+            },
+            error: function (err) {
+                console.error('좋아요 추가 중 오류 발생:', err);
+                alert('좋아요 추가에 실패했습니다. 다시 시도해주세요.');
+            }
+        });
     });
 
     document.getElementById('exhibition-details-button').addEventListener('click', function () {
@@ -101,4 +97,4 @@ window.onload = () => {
             }
         });
     });
-}
+})
