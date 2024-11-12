@@ -20,10 +20,6 @@ public class ReviewService {
         reviewMapper.insertReview(reviewInfo);
     }
 
-	public List<ReviewInfo> addReview(String userId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
 }

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/mypage/views/mypageWithdraw.css">
+</head>
+<body>
+	<div class="mypage-view-withdraw">
+		<div class="mypage-head-section">
+			<div class="mypage-view-head-title">회원탈퇴</div>
+		</div>
+		<div id="withdraw-main">
+			<ul>
+				<li>회원 탈퇴 시 기존 아이디는 재가입 시 사용 불가능하며, 예매내역, 결제 정보, 회원 정보는 복구
+					불가능합니다.</li>
+				<li>전자상거래 등에서의 소비자 보호에 관한 법률 제6조(거래기록의 보전 등)에 의거, 주문 정보는 회원 탈퇴
+					후 5 년간 보존됩니다.</li>
+			</ul>
+			<div id="terms-and-conditions-div">
+				<input type="checkbox" id="terms-and-conditions"
+					style="display: none;"> <span class="custom-checkbox"></span>
+				<span id="terms-and-condition-content">위 내용을 인지하였으며, 아이디 재사용
+					불가함에 동의합니다.</span>
+			</div>
+			<form id="submit-password" action="/password/change" method="post">
+				<input name="userId" type="hidden" th:value="${userId}"> <input
+					name="name" type="hidden" th:value="${name}"> <input
+					name="email" type="hidden" th:value="${email}"> <input
+					name="code" type="hidden" th:value="${code}"> <input
+					id="password" name="withdraw" type="password"
+					class="check-password-input" maxlength="12"
+					placeholder="비밀번호를 입력해 주세요.">
+				<div id="password-error" class="error-message"></div>
+				<div id="check-password-result" class="error-message"></div>
+				<div id="button-area">
+					<button id="submit-check-password">확인</button>
+					<button id="submit-change-password">취소</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

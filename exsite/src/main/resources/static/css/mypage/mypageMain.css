@@ -1,0 +1,63 @@
+.mypage-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid rebeccapurple; */
+    padding: 5rem 0 20rem 0;
+}
+
+.mypage-head-section{
+    width: 10rem;
+    text-align: center;
+    margin-bottom: 4rem;
+    border-bottom: 2px solid #000;
+}
+
+.mypage-head-title{
+    font-size: 1.8rem;
+    font-weight: 900;
+    padding-bottom: 0.5rem;
+}
+
+.mypage-main-section{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%; /* 부모 컨테이너의 전체 너비 */
+    max-width: 100rem; /* 최대 너비 */
+    /* border: 1px solid blue; */
+    
+}
+
+.mypage-nav-wrapper{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	flex-basis: 20rem; /* 기본 너비 */
+    min-width: 18rem; /* 최소 너비 */
+    height: 18rem;
+    /* border: 1px solid red; */
+    border-radius: 2rem;
+    background-color: #EDF8F8;
+    
+    margin: 2rem;
+}
+
+.mypage-nav-wrapper a{
+    flex-basis: 20rem; /* 기본 너비 */
+    min-width: 18rem; /* 최소 너비 */
+    height: 18rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    font-size: 1.4rem;
+    /* border: 1px solid red; */
+    padding: 2rem;
+    border-radius: 2rem;
+}
+
+.mypage-nav-wrapper img{
+    width: 10rem;
+}

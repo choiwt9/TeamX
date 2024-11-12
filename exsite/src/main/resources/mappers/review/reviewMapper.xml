@@ -7,8 +7,9 @@
         INSERT INTO REVIEW
             (ticket_no, user_no, review_title, review_content, review_date, review_status)
         VALUES 
-            (#{ticketNo}, 
-            #{userNo}, 
+            (
+            (SELECT ticket_no FROM ticketing WHERE ticket_no = 'T2024'), 
+            (SELECT user_no FROM user_info WHERE  user_no = 1), 
             #{reviewTitle}, 
             #{reviewContent},
             #{reviewDate}, 

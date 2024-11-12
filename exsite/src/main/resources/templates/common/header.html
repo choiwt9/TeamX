@@ -30,7 +30,7 @@
                 <div><a href="/exhibition/list/search?codename=exhibition" class="header-nav">전시</a></div>
                 <div><a href="/event/list/search?codename=event" class="header-nav">행사</a></div>
                 <div><a href="/community/list" class="header-nav">커뮤니티</a></div>
-                <div><a href="#" class="header-nav">EX-MAP</a></div>
+                <div><a href="/exmap" class="header-nav">EX-MAP</a></div>
             </div>
         </div>
     
@@ -48,7 +48,7 @@
 
         <!-- 일반유저 로그인 후 -->
         <div th:if="${session.loginUser != null}" class="header-right-area header-common-style">
-            <div><a href="#"><sapn id="login-user-name">[[${session.loginUser.name}]]</sapn>님<br>환영합니다.</a></div>
+            <div><a href="/mypage/main"><sapn id="login-user-name">[[${session.loginUser.name}]]</sapn>님<br>환영합니다.</a></div>
             <div><a href="/logout">로그아웃</a></div>
         </div>
         

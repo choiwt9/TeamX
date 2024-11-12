@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/user/enrollForm.css">
+<link rel="stylesheet" href="/css/mypage/views/mypageModifyUser.css">
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+<script src="/js/user/enrollForm.js"></script>
+</head>
+<body>
+	<div id="enroll-form-main">
+        <div class="mypage-head-section">
+			<div class="mypage-view-head-title">회원 정보 수정</div>
+		</div>
+		<form action="/user/register" method="post">
+			<div id="enroll-form">
+				<table id="form-table">
+					<tr>
+						<td>아이디<span id="userId">user01</span>
+                        </td>	
+					</tr>
+					<tr>
+						<td>이름<span id="userName">이혜인</span></td>
+					</tr>
+					<tr>
+						<td>이메일<sapn class="required">*</sapn><input id="email-prefix" name="email-prefix">
+						<sapn id="at">@</sapn><select id="email-suffix">
+							<option value="naver.com">naver.com</option>
+							<option value="gmail.com">gmail.com</option>
+							<option value="other">기타(직접 입력)</option>
+						</select>
+							<button type="button" id="authentication-email" class="check-button">인증받기</button>
+							<div id="registered-email-alert" class="success-message"></div>
+							<input type="hidden" id="email" name="email">
+						</td>
+					</tr>
+					<tr>
+						<td>연락처<sapn class="required">*</sapn><input name="phone" id="phone" maxlength="11" type="text" placeholder="01012345678" required>
+							<button type="button" id="authentication-phone" class="check-button">인증받기</button>
+							<div id="registered-phone-alert" class="success-message"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							주소<sapn class="required">*</sapn>
+							<input name="address" id="address-input" type="text" required>
+							<button type="button" id="search-address" class="check-button">검색</button>
+							<div id="address-alert" class="success-message"></div>
+							<span id="detail-address-span">상세주소</span><input name="addressDetail" id="detail-address-input" type="text" required>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<button type="submit" id="enroll-btn">수정</button>
+		</form>
+	</div>
+</body>
+</html>

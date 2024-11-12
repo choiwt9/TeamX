@@ -1,0 +1,29 @@
+table {
+    text-align: left;
+}
+
+td{
+	border-radius: 2rem;
+}
+
+tbody tr:hover {
+    background-color: white;
+    cursor: auto;
+    transition: none;
+}
+
+tbody {
+    font-size: 1.4rem;
+}
+
+#userId{
+    padding-left: 2.5rem;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
+
+#userName{
+    padding-left: 3.8rem;
+    font-size: 1.4rem;
+    font-weight: normal;
+}
