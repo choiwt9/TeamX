@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>전시/행사 정보 상세 조회 페이지</title>
+    <title>전시 정보 상세 조회 페이지</title>
     
     <!-- noto sans 글씨체 다운로드 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,12 +14,15 @@
     <link rel="stylesheet" href="/css/exhibition/exhibitionDetail.css">
     
     <!-- jQuery 사용-->
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
 	
+	<!-- 자바스크립트 -->
 	<script src="/js/exhibition/exhibitionDetail.js"></script>
 	
 </head>
 <body>
+    <input id="userId" type="hidden" th:value="${session.loginUser != null ? session.loginUser.userNo : ''}">
+    <input id="exhibitionNo" type="hidden" th:value="${exhibition.exhibitionNo}">
     <div th:insert="~{common/header}"></div>
     <div class="exhibition-detail-container">
         <div class="exhibition-detail-info">
@@ -70,8 +73,8 @@
 					    <img th:src="${imgUrl}" alt="이미지 상세" class="exhibition-detail-explain-image">
 					</div>
                 </div>
-                <!-- <div id="exhibition-reviews" class="content-section">
-                    <div class="review-write">
+                <div id="exhibition-reviews" class="content-section">
+                 <!--    <div class="review-write">
                         <button class="review-write-button">리뷰 작성하기</button>
                         <div class="review-post">
                             <div class="review-post-info">
@@ -103,16 +106,13 @@
                             <div class="review-post-see"><button class="review-see-more">더보기</button></div>
                         </div>
                         <div class="review-button"><button class="review-correct">수정</button><button class="review-delete">삭제</button></div>
-                    </div>
-                </div> -->
+                    </div>-->
+                </div> 
             </div>
         </div>
     </div>
-        <!-- 자바스크립트 -->
         <!-- 티켓팅 팝업 여는 스크립트 -->
         <script src="/js/ticketing/openTicketingPopup.js"></script>
         <div th:insert="~{common/footer}"></div>
-        
-        
 </body>
 </html>

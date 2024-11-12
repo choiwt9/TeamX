@@ -33,16 +33,19 @@
 
     <select id="getExhibitionsSortedByReviews" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
         SELECT 
-            EXHIBITION_NO, 
-            TITLE, 
-            PLACE, 
-            MAIN_IMG, 
-            EX_DATE, 
-            CODENAME, 
-            IS_FREE 
-        FROM EXHIBITION
-        WHERE CODENAME = '전시/미술' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
-        ORDER BY REVIEW_COUNT DESC
+		    A.EXHIBITION_NO, 
+		    A.TITLE, 
+		    A.PLACE, 
+		    A.MAIN_IMG, 
+		    A.EX_DATE, 
+		    A.CODENAME, 
+		    A.IS_FREE
+		FROM EXHIBITION A
+		    JOIN TICKETING B ON (A.EXHIBITION_NO = B.EXHIBITION_NO)
+		    JOIN REVIEW C ON (B.TICKET_NO = C.TICKET_NO)
+		WHERE CODENAME = '전시/미술' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+		GROUP BY A.EXHIBITION_NO, A.TITLE, A.PLACE, A.MAIN_IMG, A.EX_DATE, A.CODENAME, A.IS_FREE
+		ORDER BY COUNT(C.TICKET_NO) DESC
     </select>
 
     <select id="getFreeExhibitions" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
@@ -106,16 +109,19 @@
 
     <select id="getEventsSortedByReviews" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
         SELECT 
-            EXHIBITION_NO, 
-            TITLE, 
-            PLACE, 
-            MAIN_IMG, 
-            EX_DATE, 
-            CODENAME, 
-            IS_FREE 
-        FROM EXHIBITION
-        WHERE CODENAME LIKE '축제%' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
-        ORDER BY REVIEW_COUNT DESC
+		    A.EXHIBITION_NO, 
+		    A.TITLE, 
+		    A.PLACE, 
+		    A.MAIN_IMG, 
+		    A.EX_DATE, 
+		    A.CODENAME, 
+		    A.IS_FREE
+		FROM EXHIBITION A
+		    JOIN TICKETING B ON (A.EXHIBITION_NO = B.EXHIBITION_NO)
+		    JOIN REVIEW C ON (B.TICKET_NO = C.TICKET_NO)
+		WHERE CODENAME  LIKE '축제%' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+		GROUP BY A.EXHIBITION_NO, A.TITLE, A.PLACE, A.MAIN_IMG, A.EX_DATE, A.CODENAME, A.IS_FREE
+		ORDER BY COUNT(C.TICKET_NO) DESC
     </select>
 
     <select id="getFreeEvents" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
@@ -142,6 +148,22 @@
             IS_FREE 
         FROM EXHIBITION
         WHERE CODENAME LIKE '축제%' AND IS_FREE = '유료' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
-    </select>    
+    </select>
+    
+    <insert id="insertLike" parameterType="map">
+	    INSERT INTO EXHIBITION_LIKE (USER_NO, EXHIBITION_NO) 
+	    VALUES (#{userNo}, #{exhibitionNo})
+	</insert>
+	
+	<delete id="deleteLike" parameterType="map">
+	    DELETE FROM EXHIBITION_LIKE 
+	    WHERE USER_NO = #{userNo} AND EXHIBITION_NO = #{exhibitionNo}
+	</delete>
+	
+	<select id="checkLike">
+		SELECT COUNT(*)
+		FROM EXHIBITION_LIKE
+		WHERE USER_NO = #{userNo} AND EXHIBITION_NO = #{exhibitionNo}
+	</select>
 	
 </mapper>

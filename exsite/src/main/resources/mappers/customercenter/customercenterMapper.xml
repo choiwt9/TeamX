@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamx.exsite.model.mapper.customercenter.CustomercenterMapper">
+
+	<insert id="saveInquiry" parameterType="com.teamx.exsite.model.customercenter.vo.Inquiry">
+	    INSERT INTO INQUIRY (INQUIRY_NO, USER_NO, INQUIRY_TITLE, INQUIRY_CONTENT, INQUIRY_DATE, INQUIRY_RESPONSE)
+	    VALUES (inquiry_seq.NEXTVAL, #{userNo}, #{inquiryTitle}, #{inquiryContent}, SYSDATE, 'N')
+	</insert>
+    
+    <select id="getAllInquiries" resultType="com.teamx.exsite.model.customercenter.vo.Inquiry">
+        SELECT INQUIRY_NO, USER_NO, INQUIRY_TITLE, INQUIRY_CONTENT, INQUIRY_DATE, INQUIRY_RESPONSE
+        FROM INQUIRY
+    </select>
+    
+    <select id="getInquiryById" parameterType="int" resultType="com.teamx.exsite.model.customercenter.vo.Inquiry">
+	   SELECT *
+	   FROM INQUIRY
+	   WHERE INQUIRY_NO = #{inquiryNo}
+	</select>
+    
+     <delete id="deleteInquiry" parameterType="int">
+        DELETE FROM inquiry WHERE inquiry_no = #{inquiryNo}
+    </delete>
+    
+    <update id="updateInquiryResponse">
+        UPDATE inquiry
+        SET response_content = #{responseContent}, inquiry_response = 'y'
+        WHERE inquiry_no = #{inquiryNo}
+    </update>
+    
+    <select id="findInquiriesByUserNo" resultType="com.teamx.exsite.model.customercenter.vo.Inquiry">
+        SELECT * FROM inquiry WHERE user_no = #{userNo}
+    </select>
+    
+</mapper>

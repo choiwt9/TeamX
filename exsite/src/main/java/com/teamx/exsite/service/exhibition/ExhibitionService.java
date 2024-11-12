@@ -83,5 +83,21 @@ public class ExhibitionService {
 		
 		return exhibitionMapper.getPaidEvents();
 	}
+
+	public void addLike(int userNo, int exhibitionNo) {
+		 
+		exhibitionMapper.insertLike(userNo, exhibitionNo);
+		
+	}
+
+	public void removeLike(int userNo, int exhibitionNo) {
+		
+		 exhibitionMapper.deleteLike(userNo, exhibitionNo);
+		 
+	}
+
+	public int checkLike(int userNo, int exhibitionNo) {
+		return exhibitionMapper.checkLike(userNo, exhibitionNo);
+	}
 	
 }
