@@ -2,9 +2,12 @@ package com.teamx.exsite.controller.exhibition;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -58,7 +61,6 @@ public class ExhibitionController {
 			List<String> detailImgUrlList = Arrays.asList(detailImgUrls.split(" "));
 			model.addAttribute("detailImgUrlList", detailImgUrlList);
 		}
-		
 		
 	    model.addAttribute("exhibition", exhibition);
 	    
@@ -120,4 +122,35 @@ public class ExhibitionController {
 			}
 		}
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/exhibition/likes/add", produces="application/json; charset=utf-8")
+    public Map<String, String> addLike(@RequestParam int userNo, @RequestParam int exhibitionNo) {
+        int result = exhibitionService.checkLike(userNo, exhibitionNo);
+        Map<String, String> responseResult = new HashMap<>();
+		if(result == 0) {
+			responseResult.put("status", "add");
+			exhibitionService.addLike(userNo, exhibitionNo);
+			return responseResult;
+		} else {
+			responseResult.put("status", "remove");
+			exhibitionService.removeLike(userNo, exhibitionNo);
+			return responseResult;
+		}
+    }
+	
+	@ResponseBody
+	@GetMapping(value="/exhibition/likes/status", produces="application/json; charset=utf-8")
+    public Map<String, String> likeStatus(@RequestParam int userNo, @RequestParam int exhibitionNo) {
+        int result = exhibitionService.checkLike(userNo, exhibitionNo);
+        Map<String, String> responseResult = new HashMap<>();
+		if(result == 1) {
+			responseResult.put("status", "true");
+			return responseResult;
+		} else {
+			responseResult.put("status", "false");
+			return responseResult;
+		}
+    }
+	
 }

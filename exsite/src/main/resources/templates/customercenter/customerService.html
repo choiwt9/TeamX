@@ -14,12 +14,17 @@
     <link rel="stylesheet" href="/css/customercenter/customerService.css">
     
     <!-- 자바스크립트 -->
-    <script src="js/customercenter/customerService.js"></script>
+    <script src="/js/customercenter/customerService.js"></script>
+    
+    <!-- jQuery 사용-->
+	<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+	
 </head>
 <body>
+    <input id="userId" type="hidden" th:value="${loginUser != null ? loginUser.userNo : ''}">
 	<div th:insert="~{common/header}"></div>
-    <div class="costomer-service-container">
-        <div class="costomer-service">고객센터</div>
+    <div class="customer-service-container">
+        <div class="customer-service">고객센터</div>
     </div>
     <div class="inquiry">
         <button id="faq-button">FAQ</button>
@@ -52,30 +57,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="inquiry-row">
-                    <td class="inquiry-title">예매했는데 부분취소가 언제까지 가능한가요?</td>
-                    <td class="inquiry-date">2024.09.22</td>
-                    <td class="inquiry-answer">Y</td>
-                </tr>
-                <tr class="inquiry-row">
-                    <td class="inquiry-title">예매 변경하려는데 취소하지 않고 매수 변경 가능 한가요?</td>
-                    <td class="inquiry-date">2024.05.11</td>
-                    <td class="inquiry-answer">Y</td>
-                </tr>
-                <tr class="inquiry-row">
-                    <td class="inquiry-title">티켓이 택배수령으로 되어있는데 현장수령으로 변경가능한가요?</td>
-                    <td class="inquiry-date">2024.03.04</td>
-                    <td class="inquiry-answer">Y</td>
-                </tr>
-                <tr class="inquiry-row">
-                    <td class="inquiry-title">카드취소를 했는데 환불처리는 며칠 걸리나요?</td>
-                    <td class="inquiry-date">2024.01.30</td>
-                    <td class="inquiry-answer">Y</td>
+                <tr class="inquiry-row" th:each="inquiry : ${inquiries}">
+                    <td class="inquiry-title"><a th:href="@{/customer/answer(inquiryNo=${inquiry.inquiryNo})}" th:text="${inquiry.inquiryTitle}"></a></td>
+                    <td class="inquiry-date" th:text="${#dates.format(inquiry.inquiryDate, 'yyyy.MM.dd')}"></td>
+                    <td class="inquiry-answer" th:text="${inquiry.inquiryResponse}"></td>
                 </tr>
             </tbody>
         </table>
         <div class="inquiry-button">
-            <button id="inquiry-button">문의하기</button>
+        	<a th:href="@{/customer/inquiry}">
+            	<button id="inquiry-button">문의하기</button>
+            </a>
         </div>
     </div>
     <div th:insert="~{common/footer}"></div>
