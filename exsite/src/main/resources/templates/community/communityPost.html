@@ -8,7 +8,13 @@
 </head>
 <body>
     <div th:insert="~{common/header}"></div>
-
+    <input type="hidden" th:value="${boardDetail.postNo}" id="postNo">
+    <script th:inline="javascript">
+        /* 사용자 번호를 JavaScript 변수에 안전하게 삽입 */
+        const userNo = /*[[${session.loginUser != null ? session.loginUser.userNo : 0}]]*/ 0;
+        const userId = /*[[${session.loginUser != null ? session.loginUser.userId : 'null'}]]*/ 'null';
+    </script>
+    
     <div class="communityPost-container">
         
         <!-- 게시글 제목 및 정보 영역 -->
@@ -16,13 +22,13 @@
             <div class="post-title" th:text="${boardDetail.postTitle}">제목</div>
             <div class="post-info">
                 <div><span th:text="${boardDetail.userId}">유저ID</span> | <span th:text="${boardDetail.postDatetime}">날짜시간</span></div>
-                <div>조회수 2</div>
+                <div th:text="'조회수: '+${boardDetail.postViewCount}">조회수 2</div>
             </div>
         </div>
 
         <!-- 게시글 내용 영역 -->
         <div class="communityPost-content-section" th:utext="${boardDetail.postContent}">
-            <p>안된거라고</p>
+            <p>게시글 내용</p>
         </div>
 
         <!-- 버튼 영역: rightarea는 작성자일경우 보이도록 -->
@@ -31,66 +37,27 @@
                 <button type="button" class="community-btn community-list-btn" onclick="location.href='/community/list'">목록</button>
                 <button type="button" class="community-btn community-report-btn">신고</button>
             </div>
-            <div class="communityPost-btn-rightarea">
-                <button type="button" class="community-btn community-edit-btn" onclick="location.href='/community/edit'">수정</button>
-                <button type="button" class="community-btn community-delete-btn">삭제</button>
+            <div class="communityPost-btn-rightarea" th:if="${session.loginUser != null and session.loginUser.userId == boardDetail.userId}">
+                <a class="community-btn community-edit-btn"  th:href="'/community/edit/' + ${boardDetail.postNo}">수정</a>
+                <a class="community-btn community-delete-btn">삭제</a>
             </div>
             
         </div>
 
         <!-- 댓글 리스트 영역 -->
         <div class="communityPost-comment-section-title">
-            <p>전체댓글&nbsp;</p><p class="count-comment">3</p>
+            <p>전체댓글&nbsp;</p><p class="count-comment"></p>
         </div>
         <div class="communityPost-comment-section">
-            <div class="comment-item">
-                <div class="comment-info">
-                    <span class="comment-author">user2</span>
-                    <span class="comment-date">2024.10.17 14:23</span>
-                </div>
-                <div class="comment-content">저도 관심있습니다!<br>언제 만날까요?</div>
-                <button type="button" class="commuity-btn community-reply-btn">답글</button>
-            </div>
-            <div class="reply-item">
-                <div class="comment-author"><img src="/img/community/reply-arrow.png" alt="답글아이콘">글쓴이</div>
-                <div class="comment-date">2024.10.17 14:23</div>
+            <div class='comment-item'>
                 <div class="comment-content">
-                    <span>user2</span>
-                    <span>
-                        카카오톡 링크 전달 드릴게요!<br>잠시만 기다려 주세요~
-                    </span>
-                </div>
-            </div>
-            <div class="reply-item">
-                <div class="comment-author"><img src="/img/community/reply-arrow.png" alt="답글아이콘">user2</div>
-                <div class="comment-date">2024.10.17 14:23</div>
-                <div class="comment-content">
-                    <span>글쓴이</span>
-                    <span>
-                        네 감사합니다~
-                    </span>
-                </div>
-            </div>
-            <div class="comment-item deleted-comment">
-                <div class="comment-content">삭제된 댓글입니다.</div>
-            </div>
-            <div class="reply-item">
-                <div class="comment-author"><img src="/img/community/reply-arrow.png" alt="답글아이콘">글쓴이</div>
-                <div class="comment-date">2024.10.17 14:23</div>
-                <div class="comment-content">
-                    <span>글쓴이</span>
-                    <span>
-                        네 감사합니다~
-                    </span>
+                    아직 댓글이 없어요! 첫 댓글의 주인공이 되어보세요.
                 </div>
             </div>
         </div>
-
-        
 
         <!-- 댓글 작성 영역 -->
         <div class="communityPost-addComment-section">
-            <input type="hidden" th:value="${boardDetail.postNo}" id="postNo">
             <input type="text" class="community-btn community-comment-input" placeholder="댓글 등록">
             <button type="button" class="community-btn community-submit-btn" onclick="insertParentReply();">등록</button>
         </div>
