@@ -180,7 +180,7 @@ $(function() {
       type: 'text',
       maxlength: 6,
       placeholder: '인증번호를 입력하세요'
-    }).insertAfter('#form-table :nth-child(5)>td>#authentication-email-confirm');
+    }).insertAfter('#form-table :nth-child(3)>td>#authentication-email-confirm');
     $('#authentication-email-confirm').on('click', () => {
       sendCertificationEmailNoToServer();
     })

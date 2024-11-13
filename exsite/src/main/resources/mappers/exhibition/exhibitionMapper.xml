@@ -166,4 +166,11 @@
 		WHERE USER_NO = #{userNo} AND EXHIBITION_NO = #{exhibitionNo}
 	</select>
 	
+	<select id="selectLikeList">
+		SELECT A.EXHIBITION_NO, A.TITLE, A.PLACE, A.MAIN_IMG, A.EX_DATE
+		FROM EXHIBITION A
+			JOIN EXHIBITION_LIKE B ON A.EXHIBITION_NO = B.EXHIBITION_NO
+		WHERE B.USER_NO = #{userNo}
+	</select>
+	
 </mapper>

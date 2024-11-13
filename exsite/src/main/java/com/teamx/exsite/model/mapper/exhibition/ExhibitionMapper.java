@@ -37,4 +37,6 @@ public interface ExhibitionMapper {
 
 	int checkLike(int userNo, int exhibitionNo);
 
+	List<ExhibitionEvent> selectLikeList(int userNo);
+
 }

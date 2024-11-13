@@ -1,12 +1,19 @@
 package com.teamx.exsite.controller.mypage;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamx.exsite.model.dto.user.UserDTO;
+import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.service.mypage.MypageService;
 import com.teamx.exsite.service.user.AuthService;
 import com.teamx.exsite.service.user.UserService;
 
@@ -19,6 +26,7 @@ public class MypageController {
 	
 	private final AuthService authService;
 	private final UserService userService;
+	private final MypageService mypageService;
 
 	@GetMapping("/mypage/main")
 	public String mypageMain() {
@@ -28,10 +36,10 @@ public class MypageController {
 	@GetMapping("/mypage/view")
     public String mypageView(@RequestParam(value = "view", required = false) String view, Model model, HttpSession session) {
         // view 파라미터에 따라 상태값을 true로 설정
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
         if (view != null) {
             switch (view) {
                 case "modifyUserPasswordCheck":
-                	UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
                 	if(loginUser.getMethod() != null) {
                 		if(loginUser.getMethod().equals("NAVER") || loginUser.getMethod().equals("GOOGLE")) {
                     		model.addAttribute("showModifyUser", true);
@@ -53,6 +61,8 @@ public class MypageController {
                     model.addAttribute("showTicketDetail", true);
                     break;
                 case "likeList":
+                	List<ExhibitionEvent> likeList = mypageService.selectLikeList(loginUser.getUserNo());
+                	model.addAttribute("likeList", likeList);
                     model.addAttribute("showLikeList", true);
                     break;
                 case "reviewList":
@@ -136,4 +146,41 @@ public class MypageController {
 		
 	}
 	
+	@ResponseBody
+	@PostMapping(value="/mypage/withdraw/social/auth", produces="application/json; charset=utf-8;")
+	public Map<String, String> withdrawSocialUserSendAuth(HttpSession session, Model model, String email) throws Exception {
+		Map<String, String> result = new HashMap<>();
+		
+		int userNo = ((UserDTO)session.getAttribute("loginUser")).getUserNo();
+		
+		String authCode = authService.generateAuthCode();
+		
+		authService.generateAuthInfo(String.valueOf(userNo), authCode);
+		
+		if(authService.mailCheck(email) == 1) {
+			authService.javaMailSender(email);
+			result.put("status", "success");
+		} else {
+			result.put("status", "notfound");
+		}
+		
+		return result;
+	}
+	
+	@PostMapping("/mypage/withdraw/social/auth/verify")
+	public String widdrawSocialUserAuthResult(HttpSession session, Model model, String email, String code) {
+		Map<String, String> result = authService.verifyCode(email, code);
+		int userNo = ((UserDTO)session.getAttribute("loginUser")).getUserNo();
+		if(result.get("status").equals("success")) {
+			userService.withDrawSocialUser(email, userNo);
+			session.invalidate();
+			return "redirect:/";
+		} else if(result.get("status").equals("timeover")) {
+			model.addAttribute("alertMsg", "인증유효시간이 초과되었습니다.");
+			return "mypage/views/mypageWithdraw";
+		} else {
+			model.addAttribute("alertMsg", "인증 실패했습니다.");
+			return "mypage/views/mypageWithdraw";
+		}
+	}
 }

@@ -168,6 +168,9 @@ public class UserController {
 				
 				model.addAttribute("alertMsg", "가입하지 않은 회원입니다. 가입하시겠습니까?");
 				return "/user/googleCallbackPage";
+			} else if(result.get("status").equals("withdraw")) {
+				model.addAttribute("alertMsg", "탈퇴된 회원입니다.");
+				return "/user/loginForm";
 			}
 		
 		}
@@ -273,7 +276,7 @@ public class UserController {
 		String authMethod = email == null ? phone : email;
 		Map<String, String> result = authService.verifyCode(name + authMethod, code);
 		UserDTO idInfo = userService.idSearch(authMethod);
-		if(idInfo.getUserId() == null) {
+		if(idInfo == null) {
 			result.put("userId", "notFound");
 		} else if(idInfo.getUserStatus() == 'Y') {
 			result.put("userId", "withDraw");

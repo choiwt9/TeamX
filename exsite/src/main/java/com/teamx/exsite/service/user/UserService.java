@@ -94,8 +94,12 @@ public class UserService {
 	    // 네이버로 가입한 이메일인지 확인, 맞으면 로그인 유저 객체 session에 담아 로그인 성공 응답
 	    if (accountCheck("NAVER", user.getEmail()) == 1 && identifierCheck(user.getSocialUserIdentifier()) == 1) {
 	        user = userMapper.socialUserLogin(user.getSocialUserIdentifier());
-            session.setAttribute("loginUser", user);
-            result.put("status", "success");
+	        if(user != null) {
+	        	session.setAttribute("loginUser", user);
+	            result.put("status", "success");
+	        } else {
+	        	result.put("status", "withdraw");
+	        }
 	    // 네이버로 가입한 이메일이 아닐 때, 이미 사용중인 이메일인지 확인, 존재하는 이메일이면 exist 응답
 	    } else if(authService.mailCheck(user.getEmail()) == 1 || authService.phoneCheck(user.getPhone()) == 1) {
 	    	result.put("status", "exist");
@@ -132,8 +136,12 @@ public class UserService {
 		int mailCheck = authService.mailCheck(userInfo.getString("email"));
 		if(accountCheck == 1 && identifierCheck == 1) {
 			UserDTO user = userMapper.socialUserLogin(userInfo.getString("sub"));
-			session.setAttribute("loginUser", user);
-			result.put("status", "success");
+			if(user != null) {
+				session.setAttribute("loginUser", user);
+				result.put("status", "success");
+			} else {
+				result.put("status", "withdraw");
+			}
 		} else if(mailCheck == 1) {
 			result.put("status", "exist");
 		} else {
@@ -175,5 +183,11 @@ public class UserService {
 		} else {
 			return 0;
 		}
+	}
+
+	public int withDrawSocialUser(String email, int userNo) {
+		
+		return userMapper.withDrawSocialUser(email, userNo);
+		
 	}
 }

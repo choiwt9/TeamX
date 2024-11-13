@@ -47,4 +47,6 @@ public interface UserMapper {
 
 	public int withDrawUser(int userNo);
 
+	public int withDrawSocialUser(String email, int userNo);
+
 }

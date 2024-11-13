@@ -28,15 +28,20 @@ public class CustomercenterController {
 	}
 	
 	@GetMapping("/customer/service")
-	public String customerService(@RequestParam(required = false) Integer userNo, Model model, HttpSession session) {
+	public String customerService(@RequestParam(required = false) Integer userNo
+								, Model model
+								, HttpSession session
+								, @RequestParam(required = false) String personalInquiery) {
 		
 	    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 	    
 	    if (loginUser == null) {
 	        return "redirect:/login"; 
 	    }
-
+	    
+	    
 	    model.addAttribute("loginUser", loginUser);
+	    model.addAttribute("personalInquiery", personalInquiery);
 	    
 	    List<Inquiry> inquiries = customercenterService.getInquiriesByUserNo(loginUser.getUserNo());
 	    model.addAttribute("inquiries", inquiries);

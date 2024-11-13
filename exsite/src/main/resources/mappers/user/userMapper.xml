@@ -107,7 +107,7 @@
   <select id="socialUserLogin">
   	SELECT USER_NO, NAME, USER_ID, EMAIL, PHONE, ADDRESS, ADDRESS_DETAIL, METHOD, GRADE
   	FROM USER_INFO
-  	WHERE SOCIAL_USER_IDENTIFIER = #{socialUserIdentifier}
+  	WHERE SOCIAL_USER_IDENTIFIER = #{socialUserIdentifier} AND USER_STATUS='N'
   </select>
   
   <select id="getPassword">
@@ -144,6 +144,12 @@
   	UPDATE USER_INFO
   		SET USER_STATUS = 'Y'
   	WHERE USER_NO = #{userNo}
+  </update>
+  
+  <update id="withDrawSocialUser">
+  	UPDATE USER_INFO
+  		SET USER_STATUS = 'Y'
+  	WHERE USER_NO = #{userNo} AND EMAIL = #{email}
   </update>
   
 </mapper>
