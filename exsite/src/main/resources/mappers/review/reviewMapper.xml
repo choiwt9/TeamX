@@ -2,17 +2,34 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.teamx.exsite.model.mapper.review.ReviewMapper">
-<insert id="insertReview" parameterType="com.teamx.exsite.model.review.vo.ReviewInfo">
-        INSERT INTO REVIEW
-            (ticket_no, user_no, review_title, review_content, review_date, review_status)
-        VALUES 
-            (
-            (SELECT ticket_no FROM ticketing WHERE ticket_no = 'T2024'), 
-            (SELECT user_no FROM user_info WHERE  user_no = 1), 
-            #{reviewTitle}, 
-            #{reviewContent},
-            #{reviewDate}, 
-            #{reviewStatus})
-    </insert>
+<mapper
+	namespace="com.teamx.exsite.model.mapper.review.ReviewMapper">
+	<insert id="insertReview">
+		INSERT INTO REVIEW
+		(ticket_no, user_no, review_title, review_content, review_date, review_status)
+		VALUES
+		(
+		(SELECT ticket_no FROM ticketing WHERE ticket_no = #{ticketNo}),
+		(SELECT user_no FROM user_info WHERE user_no = #{userNo}),
+		#{reviewTitle},
+		#{reviewContent},
+		#{reviewDate},
+		#{reviewStatus})
+	</insert>
+	<select id="selectTicketNo"
+		parameterType="com.teamx.exsite.model.review.vo.ReviewInfo">
+		SELECT ticket_no FROM ticketing WHERE ticket_no = #{ticketNo}
+	</select>
+	<select id="selectUserId"
+		parameterType="com.teamx.exsite.model.user.dto.UserDTO">
+		SELECT user_id FROM user_info WHERE user_no = #{userNo}
+	</select>
+	<select id="allReview" resultType="ReviewInfo">
+		SELECT R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_DATE, U.USER_ID "userNo"
+		FROM REVIEW R
+		JOIN TICKETING T ON R.TICKET_NO = T.TICKET_NO
+		JOIN EXHIBITION E ON E.EXHIBITION_NO = T.EXHIBITION_NO
+		JOIN USER_INFO U ON R.USER_NO = U.USER_NO
+		WHERE T.EXHIBITION_NO = ${exhibitionNo} AND REVIEW_STATUS = 'N'
+	</select>
 </mapper>

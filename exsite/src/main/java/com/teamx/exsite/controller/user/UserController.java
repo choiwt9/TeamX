@@ -76,7 +76,7 @@ public class UserController {
 		result.put("response", "false");
 		return result;
 	}
-	
+
 	@GetMapping("/login/naver/callback")
 	public String naverLoginCallback() {
 		return "/user/naverCallbackPage";

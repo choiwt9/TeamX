@@ -33,7 +33,8 @@
 				</div>
 				<form action="/event/eventDetail" method="post">
 				  <input type="hidden" name="ticketNo" value="T2024">
-                  <input type="hidden" name="userNo" value="1">
+                  <input type="hidden" name="userNo" th:value="${session.loginUser.userNo}">
+                  <input type="hidden" name="exhibitionNo" th:value="${exhibitionNo}">
 				<div class="review-title">
 					<input type="text" name="reviewTitle" class="" id="review-title" placeholder="리뷰 제목">
 				</div>
@@ -43,7 +44,8 @@
 				</div>
 				<div class="btn-area">
 					<button type="submit" class="review-button" id="resist">등록</button>
-					<button type="button" class="review-button" id="cancel">취소</button>
+					<button type="button" class="review-button" id="cancel"
+					 onclick="history.back();">취소</button>
 				</div>
 			</form>
 			</div>

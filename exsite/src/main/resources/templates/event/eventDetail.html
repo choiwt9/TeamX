@@ -77,17 +77,22 @@
 						<img th:src="${imgUrl}" alt="이미지 상세"
 							class="exhibition-detail-explain-image">
 					</div>
-				</div>
+				</div>'
+				<script>
+					const requestReview = (no) => {
+						window.location.href = "/review?id=" + no;
+					}
+				</script>
 				<div id="exhibition-reviews" class="content-section">
-					<button id="write-review" onclick="window.location.href='/review'">
+					<button id="write-review" th:onclick="'requestReview('+${exhibition.exhibitionNo}+')'">
 						리뷰 작성하기</button>
 					<div class="review-content-area" >
 						<div class="review-header">
 							<span id="client-info">user</span> <span>|</span> 
-							<span id="date-info">날짜</span>
+							<span id="date-info" >날짜</span>
 						</div>
 						<p id="review-title">리뷰 제목</p>
-						<div class="text"  id="review-content">
+						<div class="text"  id="review-content" >
 						
 						</div>
 						<br>
@@ -96,7 +101,8 @@
 					<div class="review-action-buttons">
 						<button class="review-buttons" id="replace"
 							onclick="window.location.href='/replaceReview'">수정</button>
-						<button class="review-buttons" id="delete">삭제</button>
+						<button class="review-buttons" id="delete" 
+						    onclick="window.location.href='/deleteReview'">삭제</button>
 					</div>
 				</div>
 			</div>

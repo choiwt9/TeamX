@@ -15,17 +15,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.model.review.vo.ReviewInfo;
 import com.teamx.exsite.service.exhibition.ExhibitionService;
+import com.teamx.exsite.service.review.ReviewService;
 
 @Controller
 public class ExhibitionController {
 	
 	private final ExhibitionService exhibitionService;
+	private final ReviewService rService;
 	
 	@Autowired
-	public ExhibitionController(ExhibitionService exhibitionService) {
+	public ExhibitionController(ExhibitionService exhibitionService, ReviewService rService) {
 		
 		this.exhibitionService = exhibitionService;
+		this.rService = rService; 
 	
 	}
 	
@@ -84,6 +88,9 @@ public class ExhibitionController {
 		}
 		
 	    model.addAttribute("exhibition", exhibition);
+	    
+		List<ReviewInfo> reviews = rService.allReview(exhibitionNo); // 서비스에서 리뷰 목록을 가져옴
+	    model.addAttribute("reviews", reviews);
 		
 		return "event/eventDetail";
 	
