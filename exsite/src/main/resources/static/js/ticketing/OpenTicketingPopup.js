@@ -12,5 +12,12 @@ document.querySelector('.reservation-button1').addEventListener("click", functio
     const top = (window.screen.height / 2) - (height / 2);
     const popupOptions = `width=${width},height=${height},left=${left},top=${top}`;
 
-    window.open('/ticketingPopup', '예매', popupOptions);
+    const exhibitionNo = document.getElementById("exhibitionNo").value;
+    const exhibitionTitle = document.getElementById("exhibitionTitle").value;
+    const useFee = document.getElementById("useFee").value.replace("원", "");
+    const popupUrl = `/ticketingPopup?exhibitionNo=${encodeURIComponent(exhibitionNo)}
+                        &exhibitionTitle=${encodeURIComponent(exhibitionTitle)}
+                        &useFee=${encodeURIComponent(useFee)}`;
+
+    window.open(popupUrl, '예매', popupOptions);
 });

@@ -19,4 +19,6 @@ public class ExhibitionEvent {
 	private int userNo;
 	private int likeCount; // 좋아요 개수 추가
 	
+	private String orgLink;
+	
 }
