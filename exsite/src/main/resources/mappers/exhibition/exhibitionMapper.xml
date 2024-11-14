@@ -166,4 +166,16 @@
 		WHERE USER_NO = #{userNo} AND EXHIBITION_NO = #{exhibitionNo}
 	</select>
 	
+	<select id="searchByTitle">
+		SELECT
+			EXHIBITION_NO, 
+            TITLE, 
+            PLACE, 
+            MAIN_IMG, 
+            EX_DATE, 
+            CODENAME
+		FROM EXHIBITION
+		WHERE TITLE LIKE '%' || #{ query } || '%'
+		  AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+	</select>
 </mapper>

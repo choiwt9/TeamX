@@ -44,7 +44,7 @@ public class ExmapController {
 	}
 	
 	
-	@GetMapping("/exmap/exhibition-info")
+	@GetMapping("/exmap/exhibitionInfo")
 	@ResponseBody
 	public ExmapExhibition getExhibitionInfo(@RequestParam("lat") String lat, 
 	                                        @RequestParam("lot") String lot) {

@@ -45,4 +45,8 @@ public interface BoardMapper {
 
 	int deleteChildrenReply(ChildrenReply childrenReply);
 
+	int editParentReply(ParentReply parentReply);
+
+	int editChildrenReply(ChildrenReply childrenReply);
+
 }

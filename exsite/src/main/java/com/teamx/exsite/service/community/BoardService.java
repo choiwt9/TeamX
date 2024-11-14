@@ -97,5 +97,13 @@ public class BoardService {
 		return mapper.deleteChildrenReply(childrenReply);
 	}
 
+	public int editParentReply(ParentReply parentReply) {
+		return mapper.editParentReply(parentReply);
+	}
+
+	public int editChildrenReply(ChildrenReply childrenReply) {
+		return mapper.editChildrenReply(childrenReply);
+	}
+
 
 }

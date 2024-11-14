@@ -18,12 +18,12 @@
 	</select>
 	
     <select id="findRecentExhibitionByCoordinates" resultType="ExmapExhibition">
-	select * from (SELECT e.TITLE, e.PLACE, e.EX_DATE, e.MAIN_IMG
-    FROM EX_MAP em
-    JOIN EXHIBITION e ON em.EXHIBITION_NO = e.EXHIBITION_NO
-    WHERE em.LAT = #{lot} AND em.LOT = #{lat}
-    ORDER BY e.EX_DATE DESC)
-    where rownum = 1
+		select * from (SELECT e.EXHIBITION_NO, e.TITLE, e.PLACE, e.EX_DATE, e.MAIN_IMG
+	    FROM EX_MAP em
+	    JOIN EXHIBITION e ON em.EXHIBITION_NO = e.EXHIBITION_NO
+	    WHERE em.LAT = #{lot} AND em.LOT = #{lat}
+	    ORDER BY e.EX_DATE DESC)
+	    where rownum = 1
     </select>
 	
 </mapper>

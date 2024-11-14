@@ -85,7 +85,7 @@ function selectParentReply(){
                                        + "</div>"
                                        + "<div class='comment-content'>"+ r.parentReplyContent +"</div>"
                                        + "<div class='communityPost-comment-btn-section'>"
-                                          + " <button type='button' class='commuity-btn community-reply-btn' data-comment-id='" + r.parentReplyNo + "'>답글</button>"
+                                          + "<button type='button' class='commuity-btn community-reply-btn' data-comment-id='" + r.parentReplyNo + "'>답글</button>"
                                        + "</div>"   
                                     + "</div>"
                }
@@ -99,7 +99,7 @@ function selectParentReply(){
             $(".count-comment").text(totalReplyCount);
             
             // 답글 버튼 이벤트 등록
-            $('.community-reply-btn').click(function () {
+            $('.community-reply-btn').on('click',function () {
                
 
                // 현재 클릭한 답글 버튼이 포함된 댓글 항목
@@ -118,6 +118,8 @@ function selectParentReply(){
                   // 현재 댓글의 고유번호 가져오기
                   const commentId = $(this).data('comment-id');
 
+                  console.log("부모댓글값:"+commentId);
+                  
                   // 답글 입력 폼 추가 HTML
                   const replyForm = `
                      <div class="reply-form">
@@ -154,7 +156,7 @@ function selectChildrenReply(parentReplyNo, userId){
             let childrenReplyValue = "";
 
             for(let child of children){
-               // 유저아이디 일치, 댓글상태 삭제 아닐때
+               // 유저아이디 일치, 답글상태 삭제 아닐때
                if(userId === child.userId && child.childrenReplyStatus == "N"){
                   childrenReplyValue += "<div class='reply-item'>"
                                           + "<div class='comment-info'>"
@@ -162,7 +164,8 @@ function selectChildrenReply(parentReplyNo, userId){
                                              + "<span class='comment-date'>" + child.childrenReplyDatetime + "</span>"
                                           + "</div>"
                                           + "<div class='comment-content'>"
-                                             + "<span id='child-reply-userId-span'>" + child.userId + "</span>"
+                                             // + "<span id='child-reply-userId-span'>" + child.userId + "</span>"
+                                             + "<span id='child-reply-userId-span'></span>"
                                              + "<span id='child-reply-content-span'>" + child.childrenReplyContent + "</span>"
                                           + "</div>"
                                           + "<div class='communityPost-reply-btn-section'>"
@@ -170,12 +173,10 @@ function selectChildrenReply(parentReplyNo, userId){
                                              + "<button type='button' class='commuity-btn community-reply-delete-btn' data-comment-id='" + child.childrenReplyNo + "'>삭제</button>"
                                           + "</div>"
                                        + "</div>";
-                // 댓글상태 삭제일때
+                // 답글상태 삭제일때
                } else if(child.childrenReplyStatus == "Y"){
-                  childrenReplyValue += "<div class='comment-item deleted-comment' id='comment-" + child.childrenReplyNo + "'>"
-                                       + "<div class=comment-content'>삭제된 답글입니다.</div>"
-                                    + "</div>"
-               // 유저아이디 불일치, 댓글상태 삭제 아닐때                     
+                  childrenReplyValue = ""
+               // 유저아이디 불일치, 답글상태 삭제 아닐때                     
                } else {
                   childrenReplyValue += "<div class='reply-item'>"
                      + "<div class='comment-info'>"
@@ -183,7 +184,8 @@ function selectChildrenReply(parentReplyNo, userId){
                         + "<span class='comment-date'>" + child.childrenReplyDatetime + "</span>"
                      + "</div>"
                      + "<div class='comment-content'>"
-                        + "<span id='child-reply-userId-span'>" + child.userId + "</span>"
+                        // + "<span id='child-reply-userId-span'>" + child.userId + "</span>"
+                        + "<span id='child-reply-userId-span'></span>"
                         + "<span id='child-reply-content-span'>" + child.childrenReplyContent + "</span>"
                      + "</div>"
                   + "</div>";
@@ -206,25 +208,25 @@ function selectChildrenReply(parentReplyNo, userId){
 // 부모댓글 입력 함수
 function insertParentReply(){
 
-    //입력된 내용이 있을 경우 추가 요청하도록 --trim()넣어서 공백은 제거
-   if ( $(".community-comment-input").val().trim().length>0 ){
+   //입력된 내용이 있을 경우 추가 요청하도록 --trim()넣어서 공백은 제거
+   if ( $("#community-parentReply-input").val().trim().length>0 ){
 
       $.ajax({
          url : "/community/parentReply/insert", 
          method: 'post',
          data : {
-            parentReplyContent: $(".community-comment-input").val()
+            parentReplyContent: $("#community-parentReply-input").val()
             , postNo: $('#postNo').val()
          },
          success: function(result){   
             console.log(result);
             //댓글 추가 성공 시, 입력창 부분을 초기화 댓글 목록 다시 조회
             if (result == "ok") {
-               $(".community-comment-input").val('');
+               $("#community-parentReply-input").val('');
                selectParentReply();                 
             } else {
                //댓글 추가 실패 시, '댓글 추가에 실패했습니다.'메시지를 출력(alert)
-               alert("댓글 추가에 실패했습니다.");   
+               alert("로그인 후 댓글을 등록해주세요.");   
             }
          },
          error: function(err) {   //요청실패 시 (통신실패)
@@ -244,7 +246,7 @@ function insertChildrenReply(parentReplyNo, button){
       $.ajax({
          url: "/community/childrenReply/insert",
          method: 'post',
-         data:{
+         data: {
             childrenReplyContent: $('.reply-input').val(),
             postNo: $('#postNo').val(),
             parentReplyNo: parentReplyNo
@@ -252,10 +254,9 @@ function insertChildrenReply(parentReplyNo, button){
          success: function(result){
             if(result=='ok'){
                $('.reply-form').remove();
-               alert('답글이 등록되었습니다.');
-               selectChildrenReply(parentReplyNo);
+               selectChildrenReply(parentReplyNo, userId);
             } else{
-               alert("답글 추가에 실패했습니다.")
+               alert("로그인 후 답글을 등록해주세요.")
             }
          },
          error: function(err){
@@ -265,10 +266,8 @@ function insertChildrenReply(parentReplyNo, button){
       })
    } else {
       alert("내용 입력 후 추가 가능합니다.");
-     }
+   }
 }
-
-// 댓글 수정 요청 함수
 
 // 댓글 삭제 요청 함수
 $(document).on('click', '.community-comment-delete-btn', function () {
@@ -287,7 +286,6 @@ $(document).on('click', '.community-comment-delete-btn', function () {
          contentType: "application/json",
          data: JSON.stringify({
             parentReplyNo: parentReplyNo,
-            userNo: userNo
          }),
          success: function (result) {
                if (result === 'ok') {
@@ -338,8 +336,136 @@ $(document).on('click', '.community-reply-delete-btn', function () {
          error: function (error) {
                // 요청이 실패하면 실행되는 코드
                console.error("오류 발생:", error);
-               alert("답글 삭제에 실패했습니다.");
+               alert("답글 삭제에 통신 실패했습니다.");
          }
       });
    }
 });
+
+// 댓글 수정 클릭 이벤트 등록
+$(document).on('click', '.community-comment-edit-btn', function(){
+   // 기존 모든 입력 폼 제거
+    $('.reply-form').remove();
+
+   // 현재 클릭한 답글 버튼이 포함된 댓글 항목
+   const commentItem = $(this).closest('.comment-item');
+
+   // 현재 댓글에 답글 입력 폼이 있는지 확인
+   const existingForm = commentItem.find('.reply-form');
+
+   // 답글 폼이 이미 있는 경우 제거 (여기서는 해당 댓글 내에 폼이 있는 경우만)
+   if (existingForm.length > 0) {
+      existingForm.remove();
+   } else {
+      // 이전에 생성된 모든 답글 입력폼 제거
+      $('.reply-form').remove();
+
+      // 현재 댓글의 고유번호 가져오기
+      const commentId = $(this).data('comment-id');
+
+      // 수정 입력 폼 추가 HTML
+      const replyForm = `
+         <div class="reply-form">
+               <input type="text" class="community-btn community-comment-input reply-input" id="community-edit-parent-reply-input">
+               <button type="button" class="community-btn community-submit-btn" onclick="editParentReply(${commentId}, this);">수정</button>
+         </div>
+      `;
+      
+      // 답글 버튼 아래에 답글 입력 폼 추가
+      commentItem.find('.communityPost-comment-btn-section').after(replyForm);
+   }
+});
+
+// 댓글 수정 요청 함수
+function editParentReply(parentReplyNo, button){
+
+   if( $(button).siblings('.reply-input').val().trim().length > 0 ){
+      $.ajax({ 
+         url: "/community/parentReply/edit",
+         method: "POST",
+         data:{
+            parentReplyContent: $('.reply-input').val(),
+            parentReplyNo: parentReplyNo,
+            userNo: userNo
+         },
+         success: function(result){
+            if(result=='ok'){
+               $('.reply-form').remove();
+               selectParentReply();
+            } else{
+               alert("댓글 수정에 실패했습니다.")
+            }
+         },
+         error: function(err){
+            console.log("댓글 수정 요청 통신 실패!");
+            console.log(err);
+         }
+      })
+   } else {
+      alert("내용 입력 후 추가 가능합니다.");
+   }
+}
+
+// 답글 수정 클릭 이벤트 등록
+$(document).on('click', '.community-reply-edit-btn', function(){
+   // 기존 모든 입력 폼 제거
+    $('.reply-form').remove();
+
+   // 현재 클릭한 수정 버튼이 포함된 댓글 항목
+   const replyItem = $(this).closest('.reply-item');
+
+   // 현재 댓글에 답글 입력 폼이 있는지 확인
+   const existingForm = replyItem.find('.reply-form');
+
+   // 답글 폼이 이미 있는 경우 제거 (여기서는 해당 댓글 내에 폼이 있는 경우만)
+   if (existingForm.length > 0) {
+      existingForm.remove();
+   } else {
+      // 이전에 생성된 모든 답글 입력폼 제거
+      $('.reply-form').remove();
+
+      // 현재 댓글의 고유번호 가져오기
+      const replyId = $(this).data('comment-id');
+
+      // 수정 입력 폼 추가 HTML
+      const replyForm = `
+         <div class="reply-form" id="reply-edit-form">
+               <input type="text" class="community-btn community-comment-input reply-input" id="community-edit-children-reply-input">
+               <button type="button" class="community-btn community-submit-btn" onclick="editChildrenReply(${replyId}, this);">수정</button>
+         </div>
+      `;
+      
+      // 답글 버튼 아래에 답글 입력 폼 추가
+      replyItem.find('.communityPost-reply-btn-section').after(replyForm);
+   }
+});
+
+// 답글 수정 요청 함수
+function editChildrenReply(childrenReplyNo, button){
+
+   if( $(button).siblings('.reply-input').val().trim().length > 0 ){
+      $.ajax({ 
+         url: "/community/childrenReply/edit",
+         method: "POST",
+         data:{
+            childrenReplyContent: $('.reply-input').val(),
+            childrenReplyNo: childrenReplyNo,
+            userNo: userNo
+         },
+         success: function(result){
+            if(result=='ok'){
+               $('.reply-form').remove();
+               selectParentReply();
+            } else{
+               alert("답글 수정에 실패했습니다.")
+            }
+         },
+         error: function(err){
+            console.log("답글 수정 요청 통신 실패!");
+            console.log(err);
+         }
+      })
+   } else {
+      alert("내용 입력 후 추가 가능합니다.");
+   }
+}

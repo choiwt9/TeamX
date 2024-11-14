@@ -96,8 +96,16 @@ public class CommunityController {
 	 */
 	@ResponseBody
 	@PostMapping("/community/board/write")
-	public String postWrite(@RequestBody Board board) {
+	public String postWrite(@RequestBody Board board, HttpSession session) {
 		log.info("data : {}", board);
+		
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			board.setUserNo(loginUser.getUserNo());
+		} else {
+			return "로그인해주세요.";
+		}
 		
 		int result = boardService.insertBoard(board);
 
@@ -138,7 +146,7 @@ public class CommunityController {
 	public String toEditPost(@PathVariable int postNo, Model model) {
 	    // 기존 게시글 정보를 조회
 	    Board board = boardService.selectDetail(postNo);
-	    System.out.println(board);
+
 	    model.addAttribute("boardDetail", board);
 	    
 	    return "community/communityEdit";
@@ -151,8 +159,16 @@ public class CommunityController {
 	 */
 	@ResponseBody
 	@PostMapping("/community/board/edit")
-	public String postEdit(@RequestBody Board board) {
+	public String postEdit(@RequestBody Board board, HttpSession session) {
 		log.info("data : {}", board);
+		
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			board.setUserNo(loginUser.getUserNo());
+		} else {
+			return "로그인해주세요.";
+		}
 		
 		int result = boardService.editBoard(board);
 
@@ -273,6 +289,12 @@ public class CommunityController {
 	    return result;
 	}
 	
+	/**
+	 * 카테고리 - 전체 목록 조회 메소드
+	 * @param postCategory
+	 * @param currentPage
+	 * @return 보드객체 리스트와 페이지정보를 담은 맵 객체
+	 */
 	@ResponseBody
 	@GetMapping("/community/allCategory")
 	public Map<String, Object> getPostsByAllCategory(@RequestParam("postCategory") String postCategory, @RequestParam(value="cpage", defaultValue="1") int currentPage) {
@@ -336,6 +358,11 @@ public class CommunityController {
 		return result > 0 ? "ok" : "failed";
 	}
 	
+	/**
+	 * 자식댓글 조회 메소드
+	 * @param parentReplyNo 부모댓글 식별번호 
+	 * @return 자식댓글 리스트 객체
+	 */
 	@GetMapping("/community/childrenReply/select/{parentReplyNo}")
 	@ResponseBody
 	public List<ChildrenReply> getChildrenReply(@PathVariable("parentReplyNo")int parentReplyNo) {
@@ -369,12 +396,21 @@ public class CommunityController {
 	
 	/**
 	 * 부모댓글 삭제 메소드
-	 * @param parentReply
-	 * @return
+	 * 실제로는 삭제되지않고 STATUS만 'Y'로 변경됨
+	 * @param parentReply 부모댓글 객체
+	 * @return 삭제 성공여부
 	 */
 	@ResponseBody
 	@PostMapping("/community/parentReply/delete")
-	public String deleteParentReply(@RequestBody ParentReply parentReply) {
+	public String deleteParentReply(@RequestBody ParentReply parentReply, HttpSession session) {
+		
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			parentReply.setUserNo(loginUser.getUserNo());
+		} else {
+			return "로그인해주세요.";
+		}
 		
 		int result = boardService.deleteParentReply(parentReply);
 
@@ -383,14 +419,67 @@ public class CommunityController {
 	
 	/**
 	 * 자식댓글 삭제 메소드
-	 * @param parentReply
-	 * @return
+	 * 실제로는 삭제되지않고 STATUS만 'Y'로 변경됨
+	 * @param childrenReply 자식댓글 객체
+	 * @return 삭제 성공여부
 	 */
 	@ResponseBody
 	@PostMapping("/community/childrenReply/delete")
-	public String deleteChildrenReply(@RequestBody ChildrenReply childrenReply) {
+	public String deleteChildrenReply(@RequestBody ChildrenReply childrenReply, HttpSession session) {
+		
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			childrenReply.setUserNo(loginUser.getUserNo());
+		} else {
+			return "로그인해주세요.";
+		}
 		
 		int result = boardService.deleteChildrenReply(childrenReply);
+
+		return result > 0 ? "ok" : "fail";
+	}
+	
+	/**
+	 * 부모댓글 수정 메소드
+	 * @param parentReply 부모댓글 식별용 부모댓글객체
+	 * @param session 유저 식별번호 검증용 세션객체
+	 * @return 수정 성공여부
+	 */
+	@ResponseBody
+	@PostMapping("/community/parentReply/edit")
+	public String editParentReply(ParentReply parentReply, HttpSession session) {
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			parentReply.setUserNo(loginUser.getUserNo());
+		} else {
+			return "로그인해주세요.";
+		}
+		
+		int result = boardService.editParentReply(parentReply);
+
+		return result > 0 ? "ok" : "fail";
+	}
+	
+	/**
+	 * 자식댓글 수정 메소드
+	 * @param childrenReply 자식댓글 식별용 부모댓글객체
+	 * @param session 유저 식별번호 검증용 세션객체
+	 * @return 수정 성공여부
+	 */
+	@ResponseBody
+	@PostMapping("/community/childrenReply/edit")
+	public String editChildrenReply(ChildrenReply childrenReply, HttpSession session) {
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			childrenReply.setUserNo(loginUser.getUserNo());
+		} else {
+			return "로그인해주세요.";
+		}
+		
+		int result = boardService.editChildrenReply(childrenReply);
 
 		return result > 0 ? "ok" : "fail";
 	}

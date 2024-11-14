@@ -130,7 +130,7 @@
 			FROM PARENT_REPLY
 			JOIN USER_INFO USING (USER_NO)
 		WHERE POST_NO = #{ postNo }
-		ORDER BY PARENT_REPLY_NO DESC
+		ORDER BY PARENT_REPLY_NO
 	</select>
 	
 	<!-- 자식댓글(답글) 작성 쿼리문 -->
@@ -184,16 +184,31 @@
 	<update id="deleteParentReply">
 		UPDATE PARENT_REPLY
 		   SET PARENT_REPLY_STATUS = 'Y'
-		WHERE PARENT_REPLY_NO = #{parentReplyNo}
-		  AND USER_NO = #{userNo}
+		 WHERE PARENT_REPLY_NO = #{parentReplyNo}
+		   AND USER_NO = #{userNo}
 	</update>
 
 	<!-- 자식댓글 삭제 쿼리문 -->
 	<update id="deleteChildrenReply">
 		UPDATE CHILDREN_REPLY
 		   SET CHILDREN_REPLY_STATUS = 'Y'
-		WHERE CHILDREN_REPLY_NO = #{childrenReplyNo}
-		  AND USER_NO = #{userNo}
+		 WHERE CHILDREN_REPLY_NO = #{childrenReplyNo}
+		   AND USER_NO = #{userNo}
 	</update>
 	
+	<!-- 부모댓글 수정 쿼리문 -->
+	<update id="editParentReply">
+		UPDATE PARENT_REPLY
+		   SET PARENT_REPLY_CONTENT = #{parentReplyContent }
+		 WHERE PARENT_REPLY_NO = #{ parentReplyNo }
+		   AND USER_NO = #{ userNo }
+	</update>
+	
+	<!-- 자식댓글 수정 쿼리문 -->
+	<update id="editChildrenReply">
+		UPDATE CHILDREN_REPLY
+		   SET CHILDREN_REPLY_CONTENT = #{childrenReplyContent }
+		 WHERE CHILDREN_REPLY_NO = #{ childrenReplyNo }
+		   AND USER_NO = #{ userNo }
+	</update>
 </mapper>

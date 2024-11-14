@@ -80,18 +80,22 @@ function addMarker(position) {
     kakao.maps.event.addListener(marker, 'click', function() {
         // 모달 클릭 전, 좌표를 서버로 전송해서 해당 좌표의 최신 전시정보 조회해오기
         $.ajax({
-            url: 'exmap/exhibition-info',
+            url: 'exmap/exhibitionInfo',
             type: 'GET',
             data: {
                 lat: position.getLat(),
                 lot: position.getLng()
             },
             success: (response) =>{
+                console.log("AJAX 응답:", response); // 응답 데이터 확인
                 if(response){
                     $('.item-title').text(response.title);
                     $('.item-place').text(response.place);
                     $('.item-date').text(response.exDate);
                     $('.item-image').attr('src', response.mainImg);
+
+                    // input hidden에 exhibitionNo 값 억지로 낑가놓기
+                    $('#detailExhibitionPage input[name="id"]').val(response.exhibitionNo);
 
                     modal.style.display = "block";
                 } else{

@@ -1,5 +1,5 @@
 function updateCategory(element) {
-    const selectedCategory = $(element).text();
+    const selectedCategory = $(element).text(); // 선택된 드롭다운 아이템을 변수에 초기화
     $('#dropdownMenuButton').text(selectedCategory); // 버튼 텍스트를 선택한 카테고리로 변경
     $('#dropdownMenuButton').attr("data-value", selectedCategory); // 선택된 카테고리를 data-value에 저장
 }
@@ -8,8 +8,7 @@ $(document).ready(function(){
   
     // summernote 파일업로드 함수
     // imgList: file 객체 리스트(배열)
-    const imageUpload = (imgList) => {
-        console.log(imgList);
+    function imageUpload(imgList){
 
         const formData = new FormData();
         for(let file of imgList){
@@ -23,15 +22,13 @@ $(document).ready(function(){
             processData: false,
             contentType: false, 
             success: (result) => {
-                console.log(result);  
-                for(let imgSrc of result){
+              for(let imgSrc of result){
                 $("#summernote").summernote("editor.insertImage", imgSrc);
-                }
+              }
             },
             error: (err)=>{
-                console.log(err);
-                alert('문제가 발생했습니다.');
-                
+              console.log(err);
+              alert('문제가 발생했습니다.');
             }
         });
     };
@@ -57,11 +54,17 @@ $(document).ready(function(){
 
   // 글수정 메소드 요청 함수
   $('.community-submit-btn').click(()=>{
-    // console.log($('#dropdownMenuButton').attr("data-value"));
-    const category = $('#dropdownMenuButton').attr("data-value");
+     
+    const category = $('#dropdownMenuButton').attr("data-value"); // 카테고리 가져오기
     const title = $('#title').val();  // 제목 가져오기
     const content = $('#summernote').summernote('code');  // Summernote의 HTML 콘텐츠 가져오기
-    const postNo = $('#postNo').val();
+    const postNo = $('#postNo').val();  // input hidden의 postNo 가져오기
+
+    // 제목과 내용이 비어있는지 확인
+    if (!title.trim() || !content.trim()) {
+      alert("제목과 내용은 필수로 입력해야합니다.");
+      return; // 서버 요청을 보내지 않고 함수 종료
+    }   
 
     $.ajax({
       url: "/community/board/edit",
@@ -72,7 +75,6 @@ $(document).ready(function(){
           postTitle: title,
           postContent: content,
           postNo: postNo,
-          userNo: userNo
       }),
       success: function(result) {
         if(result ==='ok'){
@@ -89,8 +91,6 @@ $(document).ready(function(){
       }
     });
   });
-
-
 });
 
 
