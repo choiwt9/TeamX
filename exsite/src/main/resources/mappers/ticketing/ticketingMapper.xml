@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamx.exsite.model.mapper.ticketing.TicketingMapper">
+
+<insert id="insertTicketingInfo">
+	INSERT INTO TICKETING (MERCHANT_UID, TICKETING_DATE, VISIT_DATE, TICKET_STATUS,
+							TICKET_COUNT, EXHIBITION_NO, USER_NO, NAME
+							, BUYER_NAME, BUYER_TEL)
+			VALUES (
+					#{merchantUid}, SYSDATE, #{visitDate}, DEFAULT,
+					#{ticketCount}, #{exhibitionNo}, #{userNo}, #{name},
+					#{buyerName}, #{buyerTel}
+					)
+</insert>
+
+<insert id="insertPaymentInfo">
+	INSERT INTO PAYMENT (MERCHANT_UID, PAY_METHOD, STATUS, IMP_UID, PAID_AMOUNT)
+			VALUES (
+					#{merchantUid}, #{payMethod}, #{status}, #{impUid}, #{paidAmount}
+					)
+</insert>
+
+<select id="ticketingSuccessInfo">
+	SELECT *
+	FROM TICKETING
+		JOIN PAYMENT USING (MERCHANT_UID)
+		JOIN EXHIBITION USING (EXHIBITION_NO)
+	WHERE MERCHANT_UID = #{merchantUid}
+</select>
+
+</mapper>

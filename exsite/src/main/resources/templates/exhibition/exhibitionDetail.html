@@ -52,7 +52,7 @@
                 </div>
                 <div class="exhibition-detail-price">
                     <div class="exhibition-detail-price1">가격</div>                
-                    <div class="exhibition-detail-price2" th:text="${exhibition.useFee}"></div>
+                    <div class="exhibition-detail-price2" th:text="${exhibition.useFee} == null ? '무료' : ${exhibition.useFee}+'원'"></div>
                 </div>
                 <div class="reservation-info">
                     <div class="reservation-info1">예매하기 버튼을 누르고 <br> 날짜를 선택하세요.</div>
@@ -114,5 +114,10 @@
         <!-- 티켓팅 팝업 여는 스크립트 -->
         <script src="/js/ticketing/openTicketingPopup.js"></script>
         <div th:insert="~{common/footer}"></div>
+        <script src="/js/ticketing/ticketingPopup.js"></script>
+        
+        <input type="hidden" id="exhibitionNo" th:value="${exhibition.exhibitionNo}" />
+        <input type="hidden" id="exhibitionTitle" th:value="${exhibition.title}" />
+        <input type="hidden" id="useFee" th:value="${exhibition.useFee} == null ? '무료' : ${exhibition.useFee}+'원'" />
 </body>
 </html>
