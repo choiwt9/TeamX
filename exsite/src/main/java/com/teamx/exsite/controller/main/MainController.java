@@ -24,7 +24,7 @@ public class MainController {
 	@GetMapping("/main/slide/list")
 	public List<ExhibitionEvent> mainSlideList() {
 		List<ExhibitionEvent> slideList = mainService.getAllExhibitionsEvents();
-		System.out.println(slideList);
+//		System.out.println(slideList);
 		
 		return slideList;
 	}
@@ -33,7 +33,7 @@ public class MainController {
 	@GetMapping("/main/top10/list")
 	public List<ExhibitionEvent> top10List(){
 		List<ExhibitionEvent> top10List = mainService.getTop10ExhibitionsEvents();
-		System.out.println(top10List);
+//		System.out.println(top10List);
 		return top10List;
 	}
 }

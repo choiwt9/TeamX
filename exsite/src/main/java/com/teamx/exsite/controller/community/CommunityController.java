@@ -296,7 +296,7 @@ public class CommunityController {
 	 * @return 보드객체 리스트와 페이지정보를 담은 맵 객체
 	 */
 	@ResponseBody
-	@GetMapping("/community/allCategory")
+	@GetMapping("/community/all/category")
 	public Map<String, Object> getPostsByAllCategory(@RequestParam("postCategory") String postCategory, @RequestParam(value="cpage", defaultValue="1") int currentPage) {
 
 	    // 전체 게시글 수 조회
@@ -328,7 +328,7 @@ public class CommunityController {
 	 * @return 부모댓글 리스트
 	 */
 	@ResponseBody
-	@GetMapping("/community/parentReply/select/{postNo}")
+	@GetMapping("/community/parent/reply/select/{postNo}")
 	public List<ParentReply> selectParentReply(@PathVariable("postNo")int postNo) {
 		ArrayList<ParentReply> parentReplyList = boardService.selectParentReply(postNo);
 		
@@ -342,7 +342,7 @@ public class CommunityController {
 	 * @return 입력 성공여부
 	 */
 	@ResponseBody
-	@PostMapping("/community/parentReply/insert")
+	@PostMapping("/community/parent/reply/insert")
 	public String insertParentReply(HttpSession session, ParentReply parentReply) {
 		
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
@@ -363,7 +363,7 @@ public class CommunityController {
 	 * @param parentReplyNo 부모댓글 식별번호 
 	 * @return 자식댓글 리스트 객체
 	 */
-	@GetMapping("/community/childrenReply/select/{parentReplyNo}")
+	@GetMapping("/community/children/reply/select/{parentReplyNo}")
 	@ResponseBody
 	public List<ChildrenReply> getChildrenReply(@PathVariable("parentReplyNo")int parentReplyNo) {
 	    
@@ -379,7 +379,7 @@ public class CommunityController {
 	 * @return 입력 성공여부
 	 */
 	@ResponseBody
-	@PostMapping("/community/childrenReply/insert")
+	@PostMapping("/community/children/reply/insert")
 	public String insertChildrenReply(HttpSession session, ChildrenReply childrenReply) {
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 		
@@ -401,7 +401,7 @@ public class CommunityController {
 	 * @return 삭제 성공여부
 	 */
 	@ResponseBody
-	@PostMapping("/community/parentReply/delete")
+	@PostMapping("/community/parent/reply/delete")
 	public String deleteParentReply(@RequestBody ParentReply parentReply, HttpSession session) {
 		
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
@@ -424,7 +424,7 @@ public class CommunityController {
 	 * @return 삭제 성공여부
 	 */
 	@ResponseBody
-	@PostMapping("/community/childrenReply/delete")
+	@PostMapping("/community/children/reply/delete")
 	public String deleteChildrenReply(@RequestBody ChildrenReply childrenReply, HttpSession session) {
 		
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
@@ -447,7 +447,7 @@ public class CommunityController {
 	 * @return 수정 성공여부
 	 */
 	@ResponseBody
-	@PostMapping("/community/parentReply/edit")
+	@PostMapping("/community/parent/reply/edit")
 	public String editParentReply(ParentReply parentReply, HttpSession session) {
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 		
@@ -469,7 +469,7 @@ public class CommunityController {
 	 * @return 수정 성공여부
 	 */
 	@ResponseBody
-	@PostMapping("/community/childrenReply/edit")
+	@PostMapping("/community/children/reply/edit")
 	public String editChildrenReply(ChildrenReply childrenReply, HttpSession session) {
 		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 		

@@ -50,7 +50,7 @@ $(document).ready(function() {
 
     // 카테고리와 페이지 번호에 맞는 게시글을 가져오는 함수
     function fetchPostsByCategory(category, page) {
-        const url = category === "전체" ? "/community/allCategory" : "/community/category";
+        const url = category === "전체" ? "/community/all/category" : "/community/category";
         
         $.ajax({
             url: url,

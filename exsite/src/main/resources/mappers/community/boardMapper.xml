@@ -157,7 +157,7 @@
 		SELECT CHILDREN_REPLY_NO, CHILDREN_REPLY_CONTENT, CHILDREN_REPLY_DATETIME, CHILDREN_REPLY_STATUS, USER_ID
 			FROM CHILDREN_REPLY
 			JOIN USER_INFO USING (USER_NO)
-		WHERE PARENT_REPLY_NO = #{ parentReplyNo }
+		WHERE PARENT_REPLY_NO = #{ parentReplyNo } AND CHILDREN_REPLY_STATUS = 'N'
 		ORDER BY CHILDREN_REPLY_NO
 	</select>
 	
@@ -165,18 +165,17 @@
 	<select id="countAllReplies">
 		SELECT COUNT(*)
 			FROM (
-			    -- 부모 댓글 수
 			    SELECT PARENT_REPLY_NO
 			    FROM PARENT_REPLY
 			    WHERE POST_NO = #{ postNo }
 			    
 			    UNION ALL
 			    
-			    -- 부모 댓글과 연관된 자식 댓글 수
 			    SELECT C.PARENT_REPLY_NO
 			    FROM CHILDREN_REPLY C
 			    JOIN PARENT_REPLY P ON C.PARENT_REPLY_NO = P.PARENT_REPLY_NO
 			    WHERE P.POST_NO = #{ postNo }
+			    AND C.CHILDREN_REPLY_STATUS = 'N'
 			)
 	</select>
 	

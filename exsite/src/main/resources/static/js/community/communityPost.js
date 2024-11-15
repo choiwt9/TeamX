@@ -46,10 +46,10 @@ function selectParentReply(){
    const postNo =  $('#postNo').val()
    
    $.ajax({
-      url: "/community/parentReply/select/" + postNo,
+      url: "/community/parent/reply/select/" + postNo,
       success: function(result){
-         console.log(result);
-         console.log(result.length);
+         // console.log(result);
+         // console.log(result.length);
          
          if(result != null && result.length > 0){
             let parentReplyValue = "";
@@ -95,7 +95,7 @@ function selectParentReply(){
             }
 
             $(".communityPost-comment-section").html(parentReplyValue);
-            totalReplyCount += result.length;
+            totalReplyCount = result.length;
             $(".count-comment").text(totalReplyCount);
             
             // 답글 버튼 이벤트 등록
@@ -118,7 +118,7 @@ function selectParentReply(){
                   // 현재 댓글의 고유번호 가져오기
                   const commentId = $(this).data('comment-id');
 
-                  console.log("부모댓글값:"+commentId);
+                  // console.log("부모댓글값:"+commentId);
                   
                   // 답글 입력 폼 추가 HTML
                   const replyForm = `
@@ -148,9 +148,8 @@ function selectChildrenReply(parentReplyNo, userId){
    $("#comment-" + parentReplyNo).nextAll(".reply-item").remove();
 
    $.ajax({
-      url: "/community/childrenReply/select/" + parentReplyNo,
+      url: "/community/children/reply/select/" + parentReplyNo,
       success: function(children){
-         console.log(children);
 
          if(children != null && children.length > 0){
             let childrenReplyValue = "";
@@ -212,14 +211,14 @@ function insertParentReply(){
    if ( $("#community-parentReply-input").val().trim().length>0 ){
 
       $.ajax({
-         url : "/community/parentReply/insert", 
+         url : "/community/parent/reply/insert", 
          method: 'post',
          data : {
             parentReplyContent: $("#community-parentReply-input").val()
             , postNo: $('#postNo').val()
          },
          success: function(result){   
-            console.log(result);
+            // console.log(result);
             //댓글 추가 성공 시, 입력창 부분을 초기화 댓글 목록 다시 조회
             if (result == "ok") {
                $("#community-parentReply-input").val('');
@@ -244,7 +243,7 @@ function insertChildrenReply(parentReplyNo, button){
 
    if( $(button).siblings('.reply-input').val().trim().length > 0 ){
       $.ajax({
-         url: "/community/childrenReply/insert",
+         url: "/community/children/reply/insert",
          method: 'post',
          data: {
             childrenReplyContent: $('.reply-input').val(),
@@ -254,7 +253,7 @@ function insertChildrenReply(parentReplyNo, button){
          success: function(result){
             if(result=='ok'){
                $('.reply-form').remove();
-               selectChildrenReply(parentReplyNo, userId);
+               selectParentReply(parentReplyNo, userId);
             } else{
                alert("로그인 후 답글을 등록해주세요.")
             }
@@ -281,7 +280,7 @@ $(document).on('click', '.community-comment-delete-btn', function () {
 
       // 댓글 삭제 요청
       $.ajax({
-         url: "/community/parentReply/delete",
+         url: "/community/parent/reply/delete",
          type: "POST",
          contentType: "application/json",
          data: JSON.stringify({
@@ -317,7 +316,7 @@ $(document).on('click', '.community-reply-delete-btn', function () {
 
       // 댓글 삭제 요청
       $.ajax({
-         url: "/community/childrenReply/delete",
+         url: "/community/children/reply/delete",
          type: "POST",
          contentType: "application/json",
          data: JSON.stringify({
@@ -381,7 +380,7 @@ function editParentReply(parentReplyNo, button){
 
    if( $(button).siblings('.reply-input').val().trim().length > 0 ){
       $.ajax({ 
-         url: "/community/parentReply/edit",
+         url: "/community/parent/reply/edit",
          method: "POST",
          data:{
             parentReplyContent: $('.reply-input').val(),
@@ -445,7 +444,7 @@ function editChildrenReply(childrenReplyNo, button){
 
    if( $(button).siblings('.reply-input').val().trim().length > 0 ){
       $.ajax({ 
-         url: "/community/childrenReply/edit",
+         url: "/community/children/reply/edit",
          method: "POST",
          data:{
             childrenReplyContent: $('.reply-input').val(),

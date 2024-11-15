@@ -9,7 +9,7 @@ $(document).ready(function(){
   // summernote, 파일업로드
   // imgList: file 객체 리스트(배열)
   const imageUpload = (imgList) => {
-    console.log(imgList);
+    // console.log(imgList);
 
     const formData = new FormData();
     for(let file of imgList){
@@ -23,7 +23,7 @@ $(document).ready(function(){
       processData: false,
       contentType: false, 
       success: (result) => {
-        console.log(result);  
+        // console.log(result);  
         for(let imgSrc of result){
           $("#summernote").summernote("editor.insertImage", imgSrc);
         }
@@ -57,7 +57,7 @@ $(document).ready(function(){
 
     // 글작성 메소드 요청 함수
     $('.community-submit-btn').click(()=>{
-      console.log($('#dropdownMenuButton').attr("data-value"));
+      // console.log($('#dropdownMenuButton').attr("data-value"));
       const category = $('#dropdownMenuButton').attr("data-value");
       const title = $('#title').val();  // 제목 가져오기
       const content = $('#summernote').summernote('code');  // Summernote의 HTML 콘텐츠 가져오기

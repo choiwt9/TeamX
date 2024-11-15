@@ -39,12 +39,12 @@ public class ExmapController {
 	@ResponseBody
 	@GetMapping("/exmap/coordinates")
 	public List<ExmapCoordinate> selectAllCoordinates(@RequestParam String guname) {
-		System.out.println(guname);
+//		System.out.println(guname);
 		return exmapService.selectAllExmapCoordinates(guname);  
 	}
 	
 	
-	@GetMapping("/exmap/exhibitionInfo")
+	@GetMapping("/exmap/exhibition/info")
 	@ResponseBody
 	public ExmapExhibition getExhibitionInfo(@RequestParam("lat") String lat, 
 	                                        @RequestParam("lot") String lot) {
