@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 import com.teamx.exsite.service.exhibition.ExhibitionService;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class ExhibitionController {
 	
@@ -56,6 +58,8 @@ public class ExhibitionController {
 	        return "error"; // error.html 페이지로 이동
 	    }
 		
+		log.info("{}", exhibition);
+		
 		String detailImgUrls = exhibition.getDetailImgUrl();
 		if(detailImgUrls != null) {
 			List<String> detailImgUrlList = Arrays.asList(detailImgUrls.split(" "));
@@ -76,6 +80,8 @@ public class ExhibitionController {
 	        // 전시회가 없을 경우 에러 페이지로 리다이렉트하거나 적절한 처리
 	        return "error"; // error.html 페이지로 이동
 	    }
+		
+		log.info("{}", exhibition);
 		
 		String detailImgUrls = exhibition.getDetailImgUrl();
 		if(detailImgUrls != null) {

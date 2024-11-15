@@ -1,6 +1,7 @@
 package com.teamx.exsite.controller.ticketing;
 
 import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,11 +37,17 @@ public class TicketingController {
 	public String openTicketingPopup(@RequestParam(value = "exhibitionNo", required = false) String exhibitionNo,
             @RequestParam(value = "exhibitionTitle",required = false) String exhibitionTitle,
             @RequestParam(value = "useFee",required = false) String useFee,
+            @RequestParam(value = "mainImg",required = false) String mainImg,
+            @RequestParam(value = "endDate",required = false) String endDate,
+            @RequestParam(value = "strtDate",required = false) String strtDate,
             Model model) {
 		
 		model.addAttribute("exhibitionNo", exhibitionNo.trim());
 		model.addAttribute("exhibitionTitle", exhibitionTitle.trim());
 		model.addAttribute("useFee", useFee);
+		model.addAttribute("mainImg", mainImg);
+		model.addAttribute("endDate", endDate);
+		model.addAttribute("strtDate", strtDate);
 		
 		log.info("exhibitionNo --> {}", exhibitionNo);
 		log.info("exhibitionNo --> {}", exhibitionTitle);
@@ -104,7 +111,7 @@ public class TicketingController {
 	 * @return
 	 */
 	@ResponseBody
-	@PostMapping(value="/verifyPayment", produces="application/json;charset=UTF-8")
+	@PostMapping(value="/verifyPayment")
 	public ResponseEntity<String> verifyPayment (PaymentDTO verifyPayment, HttpSession session, String exhibitionNo,
 												String visitDate, int ticketCount) {
 		String indentifiedKey = verifyPayment.getMerchantUid();	// 포트원 고유 결제번호
@@ -144,12 +151,57 @@ public class TicketingController {
 		
 	}
 	
-	@PostMapping("/ticketingsuccess")
+	/**
+	 * 예매 완료 페이지에 예매 정보를 포워딩하기 위한 메소드
+	 * @param merchantUid 예매 번호
+	 * @param model
+	 * @return 예매 완료 페이지
+	 */
+	@GetMapping("/ticketingsuccess")
 	public String ticketingSuccess(String merchantUid, Model model) {
 		
 		PaymentDTO ticketingInfo = paymentService.ticketingSuccessInfo(merchantUid);
+		ticketingInfo.setVisitDate(ticketingInfo.getVisitDate().substring(0, 10));
 		
-		model.addAttribute(ticketingInfo);
+		model.addAttribute("ticketingInfo", ticketingInfo);
+		log.info("{}" ,ticketingInfo);
+		
+		return "ticketing/ticketingSuccess";
+	}
+	
+	/**
+	 * 무료 전시 예매 정보 저장을 위한 메소드
+	 * @param freeTicketingInfo 무료 전시 예매 정보
+	 * @return 무료 전시 예매 정보 저장 성공 여부
+	 */
+	@PostMapping("/freeticketing")
+	@ResponseBody
+	public ResponseEntity<String> freeTicketing(PaymentDTO freeTicketingInfo, HttpSession session) {
+		
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		freeTicketingInfo.setUserNo(loginUser.getUserNo());
+		
+		int result = paymentService.insertFreeTicketingInfo(freeTicketingInfo);
+		
+		if (result == 1) { return ResponseEntity.ok("무료 티켓 정보 저장 성공"); }
+		else { return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("무료 티켓 정보 저장 실패"); }
+		
+	}
+	
+	/**
+	 * 무료 전시 예매 완료 페이지에 예매 정보를 포워딩하기 위한 메소드
+	 * @param merchantUid 예매 번호
+	 * @param model
+	 * @return 예매 완료 페이지
+	 */
+	@GetMapping("/freeticketingsuccess")
+	public String freeTicketingSuccess(String merchantUid, Model model) {
+		log.info("{}" ,merchantUid);
+		PaymentDTO freeTicketingInfo = paymentService.freeTicketingSuccessInfo(merchantUid);
+		 freeTicketingInfo.setVisitDate(freeTicketingInfo.getVisitDate().substring(0, 10));
+		
+		model.addAttribute("ticketingInfo", freeTicketingInfo);
+		log.info("{}" ,freeTicketingInfo);
 		
 		return "ticketing/ticketingSuccess";
 	}

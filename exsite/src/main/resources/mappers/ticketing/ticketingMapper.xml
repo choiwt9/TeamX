@@ -30,4 +30,22 @@
 	WHERE MERCHANT_UID = #{merchantUid}
 </select>
 
+<insert id="insertFreeTicketingInfo">
+	INSERT INTO TICKETING (MERCHANT_UID, TICKETING_DATE, VISIT_DATE, TICKET_STATUS,
+							TICKET_COUNT, EXHIBITION_NO, USER_NO, NAME,
+							BUYER_NAME, BUYER_TEL)
+			VALUES (
+					#{merchantUid}, SYSDATE, #{visitDate}, DEFAULT,
+					#{ticketCount}, #{exhibitionNo}, #{userNo}, #{name},
+					#{buyerName}, #{buyerTel}
+					)
+</insert>
+
+<select id="freeTicketingSuccessInfo">
+	SELECT *
+	FROM TICKETING
+		JOIN EXHIBITION USING (EXHIBITION_NO)
+	WHERE MERCHANT_UID = #{merchantUid}
+</select>
+
 </mapper>

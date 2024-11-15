@@ -13,5 +13,9 @@ public interface TicketingMapper {
 			String name, String buyerName, String buyerTel);
 
 	PaymentDTO ticketingSuccessInfo(String merchantUid);
+
+	int insertFreeTicketingInfo(PaymentDTO freeTicketingInfo);
+
+	PaymentDTO freeTicketingSuccessInfo(String merchantUid);
 	
 }
