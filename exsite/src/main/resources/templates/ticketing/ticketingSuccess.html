@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TICKETING SUCCESS - 결제 후 예매 확인 페이지</title>
+
+<style>
+    html { font-size: 62.5%; }
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0 7rem;
+    }
+    .ticketing-success-container {
+        background: white;
+        padding: 2rem;
+        width: 100%;
+        display: flex;
+    }
+    .success-left-area {
+        width: 20%;
+        text-align: center;
+        padding-right: 2rem;
+        padding-top: 2rem;
+    }
+    .success-left-area img {
+        width: 10rem;
+        margin-bottom: 2rem;
+    }
+    .success-right-area {
+        width: 70%;
+        padding-left: 2rem;
+    }
+    .success-right-area p {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    .success-right-area hr {
+        border: none;
+        border-top: 0.1rem solid #dee2e6;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+    }
+    th, td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 0.1rem solid #dee2e6;
+    }
+    th {
+        color: #0b9b9b;
+    }
+    button {
+        width: 10rem;
+        padding: 1.2rem;
+        font-size: 1rem;
+        font-weight: 900;
+        background-color: #0b9b9b;
+        color: white;
+        border: none;
+        border-radius: 1.5rem;
+        cursor: pointer;
+    }
+    #btn-area { display: flex; justify-content: center; margin-top: 5rem; }
+</style>
+
+</head>
+<body>
+    <div class="ticketing-success-container">
+        <div class="success-left-area">
+            <img src="exsite-logo.png" alt="로고 이미지">
+        </div>
+
+        <div class="success-right-area">
+            <p>예매가 완료되었습니다!</p>
+
+            <hr />
+
+            <table>
+                <tr>
+                    <th>예매 번호</th>
+                    <td>[[${ ticketingInfo.merchantUid }]]</td>
+                    <th>매수</th>
+                    <td>[[${ ticketingInfo.ticketCount }]]매</td>
+                </tr>
+                <tr>
+                    <th>전시명</th>
+                    <td>[[${ ticketingInfo.name }]]</td>
+                    <th>결제 정보</th>
+                    <td>[[${ ticketingInfo.paidAmount }]], [[${ ticketingInfo.payMethod }]]</td>
+                </tr>
+                <tr>
+                    <th>관람 장소</th>
+                    <td>[[${ ticketingInfo.place }]]</td>
+                    <th>수령 방법</th>
+                    <td>현장수령</td>
+                </tr>
+                <tr>
+                    <th>관람일</th>
+                    <td>[[${ ticketingInfo.visitDate }]]</td>
+                    <th>취소 마감</th>
+                    <td>고정값수정요망</td>
+                </tr>
+                <tr>
+                    <th>이름</th>
+                    <td>[[${ ticketingInfo.buyerName }]]</td>
+                    <th>연락처</th>
+                    <td>[[${ ticketingInfo.buyerTel }]]</td>
+                </tr>
+            </table>
+
+            <div id="btn-area"><button>예매 확인</button></div>
+        </div>
+    </div>
+
+</body>
+</html>
