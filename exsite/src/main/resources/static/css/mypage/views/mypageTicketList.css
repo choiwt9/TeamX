@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 4rem 0 30rem 0;
+    padding: 4rem 0 5rem 0;
     /* border: 1px solid rgb(55, 0, 255); */
     
   }
@@ -74,4 +74,8 @@
     transition: background-color 0.3s ease;
   }
   
+  .nav-bar-active {
+    background-color: #9DD7D7;
+    border: 0.1rem solid #9DD7D7;
+  }
   

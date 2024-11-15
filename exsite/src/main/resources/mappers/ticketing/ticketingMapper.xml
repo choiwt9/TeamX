@@ -30,4 +30,93 @@
 	WHERE MERCHANT_UID = #{merchantUid}
 </select>
 
+<insert id="insertFreeTicketingInfo">
+	INSERT INTO TICKETING (MERCHANT_UID, TICKETING_DATE, VISIT_DATE, TICKET_STATUS,
+							TICKET_COUNT, EXHIBITION_NO, USER_NO, NAME,
+							BUYER_NAME, BUYER_TEL)
+			VALUES (
+					#{merchantUid}, SYSDATE, #{visitDate}, DEFAULT,
+					#{ticketCount}, #{exhibitionNo}, #{userNo}, #{name},
+					#{buyerName}, #{buyerTel}
+					)
+</insert>
+
+<select id="freeTicketingSuccessInfo">
+	SELECT *
+	FROM TICKETING
+		JOIN EXHIBITION USING (EXHIBITION_NO)
+	WHERE MERCHANT_UID = #{merchantUid}
+</select>
+
+<select id="selectTicketingList">
+    SELECT *
+    FROM TICKETING
+    JOIN EXHIBITION USING (EXHIBITION_NO)
+    WHERE USER_NO = #{userNo}
+    <if test="ticketingDateRange != null">
+        AND (
+            <choose>
+                <when test="ticketingDateRange == '전체기간'">
+                    1 = 1 <!-- 전체기간은 필터 없이 모든 데이터 조회 -->
+                </when>
+                <when test="ticketingDateRange == '6개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -6)
+                </when>
+                <when test="ticketingDateRange == '3개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -3)
+                </when>
+                <when test="ticketingDateRange == '2개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -2)
+                </when>
+                <when test="ticketingDateRange == '1개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -1)
+                </when>
+                <otherwise>
+                    1 = 1 <!-- 기본적으로 전체 데이터를 조회 -->
+                </otherwise>
+            </choose>
+        )
+    </if>
+</select>
+
+<select id="selectTicketingListCount">
+    SELECT COUNT(*)
+    FROM TICKETING
+    JOIN EXHIBITION USING (EXHIBITION_NO)
+    WHERE USER_NO = #{userNo}
+    <if test="ticketingDateRange != null">
+        AND (
+            <choose>
+                <when test="ticketingDateRange == '전체기간'">
+                    1 = 1 <!-- 전체기간은 필터 없이 모든 데이터 조회 -->
+                </when>
+                <when test="ticketingDateRange == '6개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -6)
+                </when>
+                <when test="ticketingDateRange == '3개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -3)
+                </when>
+                <when test="ticketingDateRange == '2개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -2)
+                </when>
+                <when test="ticketingDateRange == '1개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -1)
+                </when>
+                <otherwise>
+                    1 = 1 <!-- 기본적으로 전체 데이터를 조회 -->
+                </otherwise>
+            </choose>
+        )
+    </if>
+</select>
+
+<select id="selectTicketingInfo">
+	SELECT * 
+	FROM TICKETING
+		JOIN EXHIBITION USING(EXHIBITION_NO)
+		JOIN PAYMENT USING(MERCHANT_UID)
+	WHERE MERCHANT_UID = #{merchantUid}	
+
+</select>
+
 </mapper>

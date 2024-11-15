@@ -11,15 +11,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.teamx.exsite.common.model.vo.PageInfo;
+import com.teamx.exsite.common.template.Pagination;
 import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 import com.teamx.exsite.service.mypage.MypageService;
 import com.teamx.exsite.service.user.AuthService;
 import com.teamx.exsite.service.user.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class MypageController {
@@ -34,9 +39,15 @@ public class MypageController {
 	}
 	
 	@GetMapping("/mypage/view")
-    public String mypageView(@RequestParam(value = "view", required = false) String view, Model model, HttpSession session) {
+    public String mypageView(@RequestParam(value = "view", required = false) String view
+    						, @RequestParam(value="cpage", defaultValue="1") int currentPage
+    						, @RequestParam(value="ticketingDateRange", defaultValue="전체기간") String ticketingDateRange
+    						, @RequestParam(value="merchantUid", required=false) String merchantUid
+    						, Model model
+    						, HttpSession session) {
         // view 파라미터에 따라 상태값을 true로 설정
 		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		PageInfo pageInfo = null;
         if (view != null) {
             switch (view) {
                 case "modifyUserPasswordCheck":
@@ -55,9 +66,21 @@ public class MypageController {
                     model.addAttribute("showPasswordChange", true);
                     break;
                 case "ticketList":
+                	int listCount = mypageService.selectTicketingListCount(Integer.valueOf(loginUser.getUserNo()), ticketingDateRange);
+            		pageInfo = Pagination.getPageInfo(listCount, currentPage, 10, 15);
+            		List<PaymentDTO> ticketingInfo = mypageService.selectTicketingList(Integer.valueOf(loginUser.getUserNo()), pageInfo, ticketingDateRange);
+            		
+            		model.addAttribute("showTicketList", true);
+            		model.addAttribute("pageInfo", pageInfo);
+            		model.addAttribute("ticketingInfo", ticketingInfo);
+            		log.info("티케팅 정보 ==> {}", ticketingInfo);
+            		log.info("페이지 정보 ==> {}", pageInfo);
+                	
                     model.addAttribute("showTicketList", true);
                     break;
                 case "ticketDetail":
+                	PaymentDTO paymentInfo = mypageService.selectTicketingInfo(merchantUid);
+                	model.addAttribute("paymentInfo", paymentInfo);
                     model.addAttribute("showTicketDetail", true);
                     break;
                 case "likeList":
