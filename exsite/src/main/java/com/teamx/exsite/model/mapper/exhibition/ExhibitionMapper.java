@@ -38,5 +38,7 @@ public interface ExhibitionMapper {
 	int checkLike(int userNo, int exhibitionNo);
 
 	List<ExhibitionEvent> selectLikeList(int userNo);
+	
+	List<ExhibitionEvent> searchByTitle(String query);
 
 }

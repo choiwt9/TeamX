@@ -1,0 +1,116 @@
+/* search-result 섹션 */
+.search-result-section{
+    width: 100%;
+    border-top: 0.2rem solid #EDF8F8;
+    border-bottom: 0.2rem solid #EDF8F8; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 3rem;
+    /* border: 1px red solid; */
+    
+}
+
+.search-result-textarea{
+    font-size: 2.5rem; 
+    font-weight: 900;
+    text-align: center;
+    margin: 5rem 0;
+    /* border: 1px red solid; */
+}
+
+.search-keyword{
+    color: #0B9B9B;
+    margin-right: 1rem;
+}
+
+.search-result-info-area {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+    width: 80%;
+    padding: 2rem;
+    box-sizing: border-box;
+    /* border: solid 1px red; */
+}
+
+/* 화면 크기가 1200px 이하일 때는 한 줄에 3개의 아이템을 표시 */
+@media (max-width: 1200px) {
+    .search-result-info-area {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* 화면 크기가 768px 이하일 때는 한 줄에 2개의 아이템을 표시 */
+@media (max-width: 768px) {
+    .search-result-info-area {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 화면 크기가 480px 이하일 때는 한 줄에 1개의 아이템을 표시 */
+@media (max-width: 480px) {
+    .search-result-info-area {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.search-result-exhibition-item a{
+    border-radius: 1rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    flex: 0 0 auto; /* 슬라이드들이 한 줄로 나란히 배치되도록 설정 */
+    margin-right: 16px; /* 슬라이드 간 간격 */
+    /* border: 1px red solid; */
+    text-decoration: none;
+}
+
+.search-result-item-image-wrapper {
+    width: 100%;
+    max-width: 24rem; /* 최대 너비 설정 */
+    height: 33.4rem; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
+    overflow: hidden; /* 이미지가 컨테이너의 모서리를 넘지 않도록 */
+    background-color: #EDF8F8;
+    /* border: 1px red solid; */
+}
+
+.search-result-item-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* 이미지 비율을 유지하며 전체 표시 */
+
+}
+
+.search-result-item-textarea{
+    padding: 0rem;
+    margin-top: 1rem; 
+    width: 90%;
+    color: #000;
+    /* border: 1px greenyellow solid; */
+}
+
+.search-result-item-textarea li{
+    list-style: none;
+    font-size: 1.5rem;
+    /* border: 1px green solid; */
+    white-space: nowrap; /* 텍스트를 한 줄로 제한 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 '...'으로 표시 */
+    max-width: 18rem; /* 최대 너비 지정 (필요에 따라 조정) */
+}
+
+.search-result-item-title{
+    font-weight: 900;
+}
+
+.search-result-item-date{
+    color: #C9C0C0;
+}

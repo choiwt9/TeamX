@@ -28,8 +28,3 @@ public interface TicketingMapper {
 	PaymentDTO selectTicketingInfo(String merchantUid);
 	
 }
-
-
-
-	
-

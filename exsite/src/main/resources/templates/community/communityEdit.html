@@ -4,16 +4,18 @@
 <meta charset="UTF-8">
 <title>EX-SITE</title>
 <link rel="stylesheet" href="/css/community/communityWrite.css">
-
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </head>
 <body>
-<div th:insert="~{common/header}"></div>
+    <div th:insert="~{common/header}"></div>
 
-<form action="/your-server-endpoint" method="POST">
+   <!--부트스트랩 -->
+   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+   <!-- summernote cdn (헤더 js 이후 배치해야해서 부득이하게 아래에 위치) -->
+   <link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
+   <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js"></script>
+
+    <input type="hidden" id="postNo" th:value=${boardDetail.postNo}>
     <div class="community-write-container">
         <div class="community-head-section">
             <span id="community-head-title">작성글 수정</span>
@@ -23,48 +25,42 @@
         <div class="dropdown-container mt-5">
             <label for="dropdownMenuButton">카테고리 <span class="required">*</span></label> 
             <div class="dropdown">
-                <button class="btn custom-dropdown-toggle dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    카테고리를 선택하세요
+                <button class="btn custom-dropdown-toggle dropdown-toggle" type="button" id="dropdownMenuButton" 
+                        data-toggle="dropdown" 
+                        aria-haspopup="true" 
+                        aria-expanded="false" 
+                        th:text="${boardDetail.postCategory}" 
+                        th:attr="data-value=${boardDetail.postCategory}">
                 </button>
                 <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#" onclick="updateCategory(this)">카테고리를 선택하세요</a>
-                    <a class="dropdown-item" href="#" onclick="updateCategory(this)">동행 구인</a>
-                    <a class="dropdown-item" href="#" onclick="updateCategory(this)">정보 공유</a>
+                    <a class="dropdown-item" href="#" onclick="updateCategory(this)">동행구인</a>
+                    <a class="dropdown-item" href="#" onclick="updateCategory(this)">정보공유</a>
                     <a class="dropdown-item" href="#" onclick="updateCategory(this)">잡담</a>
                 </div>
             </div>
         </div>
-        <script>
-            // 선택된 카테고리를 버튼 텍스트에 표시하는 함수
-            function updateCategory(element) {
-                document.getElementById("dropdownMenuButton").textContent = element.textContent;
-            }
-        </script>
-        
 
         <!-- 제목 입력 -->
         <div class="community-input-title-section">
             <label for="title">제목 <span class="required">*</span></label>
-            <input class="community-input-title" type="text" id="title" name="title" placeholder="제목을 입력하세요" required>
+            <input class="community-input-title" type="text" id="title" name="title" th:value="${boardDetail.postTitle}" required>
         </div>
 
         <!-- 내용 입력 -->
-        <div class="community-input-content-section">
-            <label for="content">내용 <span class="required">*</span></label>
-            <textarea class="community-input-content" id="content" name="content" rows="6" placeholder="내용을 입력하세요" required></textarea>
+        <div class="community-input-content-section" >
+            <label for="summernote">내용 <span class="required">*</span></label>
+            <div class="community-input-content" id="summernote" th:utext="${boardDetail.postContent}" required></div>
         </div>
 
-        <!-- 등록 및 취소 버튼 -->
+        <!-- 수정 및 취소 버튼 -->
         <div class="community-write-button-section">
-            <button class="community-submit-btn" type="submit">수정</button>
+            <button class="community-submit-btn">수정</button>
             <button class="community-cancel-btn" type="button" onclick="window.location.href='/community/list'">취소</button>
         </div>
     </div>
-</form>
+    
+    <script src="/js/community/communityEdit.js"></script>
 
-
-
-
-<div th:insert="~{common/footer}"></div>
+    <div th:insert="~{common/footer}"></div>
 </body>
 </html>

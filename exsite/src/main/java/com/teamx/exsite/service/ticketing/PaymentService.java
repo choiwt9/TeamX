@@ -5,8 +5,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.mapper.ticketing.TicketingMapper;
+import com.teamx.exsite.model.user.dto.UserDTO;
 import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 
 import jakarta.servlet.http.HttpSession;
