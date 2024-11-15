@@ -91,7 +91,7 @@
         <!-- 오른쪽 영역 -->
         <div class="ticketing-detail-right-area">
             <div class="ticketing-detail-right-area-content">
-                <div><img src="exhibition-img.png" alt="전시 대표 이미지" id="ticketing-detail-exhibition-img"></div>
+                <div><img th:src="${mainImg}" alt="전시 대표 이미지" id="ticketing-detail-exhibition-img"></div>
                 <div>
                     <p id="exhibition-title"></p>
                     <!-- <span id="exhibition-title-view"></span> -->
@@ -130,6 +130,8 @@
     <input type="hidden" th:value="${exhibitionNo}" id="exhibitionNo"/>
     <input type="hidden" th:value="${exhibitionTitle}" id="exhibitionTitle"/>
     <input type="hidden" th:value="${useFee}" id="useFee"/>
+    <input type="hidden" th:value="${endDate}" id="endDate"/>
+    <input type="hidden" th:value="${strtDate}" id="strtDate"/>
     
     <!-- iamport.payment.js -->
     <script src="/js/ticketing/ticketingPopup.js"></script>

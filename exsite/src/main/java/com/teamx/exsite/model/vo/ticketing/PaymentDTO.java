@@ -32,4 +32,8 @@ public class PaymentDTO {
     private int amount;	// 결제 요청 시 금액
     private int ticketCount;	// 티켓 수량
     private String place;	// 전시 고유 번호
+    private String visitDate;	// 관람일
+    private int exhibitionNo;	// 전시 고유 번호
+    private int userNo;		// 로그인 유저 고유 번호
+    private String mainImg;	// 전시 대표 이미지
 }
