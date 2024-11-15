@@ -27,22 +27,23 @@
 			</div>
 			<form id="submit-password" action="/mypage/withdraw" method="post" th:if="${session.loginUser.method == 'NORMAL'}">
 				<input id="password" name="userPw" type="password" class="check-password-input" maxlength="12"
-				placeholder="비밀번호를 입력해 주세요.">
+							 placeholder="비밀번호를 입력해 주세요.">
 				<div id="password-error" class="error-message"></div>
 				<div id="check-password-result" class="error-message"></div>
 				<div id="button-area">
-					<button id="submit-check-password">확인</button>
-					<button id="submit-change-password">취소</button>
+						<button id="submit-check-password" type="submit">확인</button>
+						<button id="submit-change-password" type="button">취소</button>
 				</div>
-			</form>
-			<form action="/mypage/withdraw/social/auth/verify" method="post">
+		</form>
+		
+		<form action="/mypage/withdraw/social/auth/verify" method="post" th:if="${session.loginUser.method != 'NORMAL'}">
 				<div class="sub-inner">
-					<span class="title-authentication">이메일로 인증</span>
-					<small>회원가입 시 이메일 주소와 일치할 경우 인증 번호가 발송됩니다.</small>
-					<input name="email" id="submit-email" type="email" maxlength="40" placeholder="이메일 주소">
-					<button id="submit-email-btn" class="submit-authentication-info" type="submit">인증번호 받기</button>
+						<span class="title-authentication">이메일로 인증</span>
+						<small>회원가입 시 이메일 주소와 일치할 경우 인증 번호가 발송됩니다.</small>
+						<input name="email" id="submit-email" type="email" maxlength="40" placeholder="이메일 주소">
+						<button id="submit-email-btn" class="submit-authentication-info" type="submit">인증번호 받기</button>
 				</div>
-			</form>
+		</form>
 		</div>
 	</div>
 </body>
