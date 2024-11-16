@@ -12,12 +12,14 @@
     
     <!-- css 사용 -->
     <link rel="stylesheet" href="/css/exhibition/exhibitionDetail.css">
+    <link rel="stylesheet" href="/css/review/review.css">
     
     <!-- jQuery 사용-->
 	<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
     
     <!-- 자바스크립트 -->
     <script src="/js/exhibition/exhibitionDetail.js"></script>
+    <script src="/js/review/review.js"></script>
     
 </head>
 <body>
@@ -73,41 +75,8 @@
                         <img th:src="${imgUrl}" alt="이미지 상세" class="exhibition-detail-explain-image">
                     </div>
                 </div>
-                <div id="exhibition-reviews" class="content-section">
-                    <div class="review-write">
-                        <button class="review-write-button">리뷰 작성하기</button>
-                        <div class="review-post">
-                            <div class="review-post-info">
-                                <div class="review-post-user">user***</div>|
-                                <div class="review-post-date">2024.10.28</div>
-                            </div>
-                            <div class="review-post-title">리뷰제목</div>
-                            <div class="review-post-content">리뷰내용</div>
-                            <div class="review-post-see"><button class="review-see-more">더보기</button></div>
-                        </div>
-                        <div class="review-button"><button class="review-correct">수정</button><button class="review-delete">삭제</button></div>
-                        <div class="review-post">
-                            <div class="review-post-info">
-                                <div class="review-post-user">user***</div>|
-                                <div class="review-post-date">2024.10.28</div>
-                            </div>
-                            <div class="review-post-title">리뷰제목</div>
-                            <div class="review-post-content">리뷰내용</div>
-                            <div class="review-post-see"><button class="review-see-more">더보기</button></div>
-                        </div>
-                        <div class="review-button"><button class="review-correct">수정</button><button class="review-delete">삭제</button></div>
-                        <div class="review-post">
-                            <div class="review-post-info">
-                                <div class="review-post-user">user***</div>|
-                                <div class="review-post-date">2024.10.28</div>
-                            </div>
-                            <div class="review-post-title">리뷰제목</div>
-                            <div class="review-post-content">리뷰내용</div>
-                            <div class="review-post-see"><button class="review-see-more">더보기</button></div>
-                        </div>
-                        <div class="review-button"><button class="review-correct">수정</button><button class="review-delete">삭제</button></div>
-                    </div>
-                </div>
+                <!-- 리뷰 영역 -->
+                <div th:insert="~{review/review}"></div>
             </div>
         </div>
     </div>

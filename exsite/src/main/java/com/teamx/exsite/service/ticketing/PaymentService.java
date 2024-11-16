@@ -1,12 +1,13 @@
 package com.teamx.exsite.service.ticketing;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.mapper.ticketing.TicketingMapper;
-import com.teamx.exsite.model.user.dto.UserDTO;
 import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 
 import jakarta.servlet.http.HttpSession;
@@ -88,6 +89,14 @@ public class PaymentService {
 	public PaymentDTO ticketingSuccessInfo(String merchantUid) {
 		
 		return ticketingMapper.ticketingSuccessInfo(merchantUid);
+	}
+
+	public PaymentDTO findPaymentInfo(int userNo) {
+		return ticketingMapper.findPaymentInfo(userNo);
+	}
+
+	public List<PaymentDTO> findPaymentInfo(int userNo, int exhibitionNo) {
+		return ticketingMapper.findPaymentInfoList(userNo, exhibitionNo);
 	}
 	
 	

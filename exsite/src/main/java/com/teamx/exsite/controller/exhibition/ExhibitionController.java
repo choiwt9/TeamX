@@ -7,26 +7,37 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
+import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 import com.teamx.exsite.service.exhibition.ExhibitionService;
+import com.teamx.exsite.service.review.ReviewService;
+import com.teamx.exsite.service.ticketing.PaymentService;
 
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 public class ExhibitionController {
 	
 	private final ExhibitionService exhibitionService;
+	private final ReviewService reviewService;
+	private final PaymentService paymentService;
 	
 	@Autowired
-	public ExhibitionController(ExhibitionService exhibitionService) {
+	public ExhibitionController(ExhibitionService exhibitionService, ReviewService reviewService, PaymentService paymentService) {
 		
 		this.exhibitionService = exhibitionService;
-	
+		this.reviewService = reviewService;
+		this.paymentService = paymentService;
 	}
 	
 	@GetMapping("/exhibition/list/search")
@@ -48,7 +59,7 @@ public class ExhibitionController {
 	}
 	
 	@GetMapping("/exhibition/detail")
-	public String exhibitionDetail(@RequestParam(value="id") int exhibitionNo, Model model) {
+	public String exhibitionDetail(@RequestParam(value="id") int exhibitionNo, Model model, HttpSession session) {
 
 		ExhibitionEvent exhibition = exhibitionService.findExhibitionById(exhibitionNo);
 		if (exhibition == null) {
@@ -56,6 +67,27 @@ public class ExhibitionController {
 	        return "error"; // error.html 페이지로 이동
 	    }
 		
+		// 접근할 상세페이지에 함꼐할 리뷰 리스트를 해당 전시번호로 조회
+		List<ReviewDTO> reviewList = reviewService.selectReviewList(exhibitionNo);
+		// 조회한 유저가 해당 상품을 구매한 사람인지 
+		boolean buyer = false;
+		
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			// 유저 고유번호로 결제정보들을 가져옴
+			List<PaymentDTO> paymentResult = paymentService.findPaymentInfo(loginUser.getUserNo(), exhibitionNo);
+			if(paymentResult != null) {
+				for(int i = 0; i < paymentResult.size(); i++) {
+					// 결제정보의 전시행사번호와 조회하려는 전시행사번호가 일치하는지 확인 => 맞으면 해당 콘텐츠의 구매자
+					buyer = paymentResult.get(i).getExhibitionNo() == exhibitionNo;
+					if(buyer) {
+						break;
+					}
+				}
+			}
+		}
+		
 		String detailImgUrls = exhibition.getDetailImgUrl();
 		if(detailImgUrls != null) {
 			List<String> detailImgUrlList = Arrays.asList(detailImgUrls.split(" "));
@@ -63,13 +95,15 @@ public class ExhibitionController {
 		}
 		
 	    model.addAttribute("exhibition", exhibition);
+	    model.addAttribute("reviewList", reviewList);
+	    model.addAttribute("buyer", buyer);
 	    
 	    return "/exhibition/exhibitionDetail";
 		
 	}
 	
 	@GetMapping("/event/detail")
-	public String getExhibitionDetail(@RequestParam(value="id") int exhibitionNo, Model model) {
+	public String getExhibitionDetail(@RequestParam(value="id") int exhibitionNo, Model model, HttpSession session) {
 		
 		ExhibitionEvent exhibition = exhibitionService.findExhibitionById(exhibitionNo);
 		if (exhibition == null) {
@@ -77,6 +111,27 @@ public class ExhibitionController {
 	        return "error"; // error.html 페이지로 이동
 	    }
 		
+		// 접근할 상세페이지에 함꼐할 리뷰 리스트를 해당 전시번호로 조회
+		List<ReviewDTO> reviewList = reviewService.selectReviewList(exhibitionNo);
+		
+		boolean buyer = false;
+		
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		
+		if(loginUser != null) {
+			// 유저 고유번호로 결제정보를 가져옴
+			List<PaymentDTO> paymentResult = paymentService.findPaymentInfo(loginUser.getUserNo(), exhibitionNo);
+			if(paymentResult != null) {
+				for(int i = 0; i < paymentResult.size(); i++) {
+					// 결제정보의 전시행사번호와 조회하려는 전시행사번호가 일치하는지 확인
+					buyer = paymentResult.get(i).getExhibitionNo() == exhibitionNo;
+					if(buyer) {
+						break;
+					}
+				}
+			}
+		}
+		
 		String detailImgUrls = exhibition.getDetailImgUrl();
 		if(detailImgUrls != null) {
 			List<String> detailImgUrlList = Arrays.asList(detailImgUrls.split(" "));
@@ -84,6 +139,8 @@ public class ExhibitionController {
 		}
 		
 	    model.addAttribute("exhibition", exhibition);
+	    model.addAttribute("reviewList", reviewList);
+	    model.addAttribute("buyer", buyer);
 		
 		return "event/eventDetail";
 	

@@ -59,14 +59,14 @@
                 <when test="ticketingDateRange == '전체기간'">
                     1 = 1 <!-- 전체기간은 필터 없이 모든 데이터 조회 -->
                 </when>
+                <when test="ticketingDateRange == '12개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -12)
+                </when>
                 <when test="ticketingDateRange == '6개월'">
                     TICKETING_DATE >= ADD_MONTHS(SYSDATE, -6)
                 </when>
                 <when test="ticketingDateRange == '3개월'">
                     TICKETING_DATE >= ADD_MONTHS(SYSDATE, -3)
-                </when>
-                <when test="ticketingDateRange == '2개월'">
-                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -2)
                 </when>
                 <when test="ticketingDateRange == '1개월'">
                     TICKETING_DATE >= ADD_MONTHS(SYSDATE, -1)
@@ -90,14 +90,14 @@
                 <when test="ticketingDateRange == '전체기간'">
                     1 = 1 <!-- 전체기간은 필터 없이 모든 데이터 조회 -->
                 </when>
+                <when test="ticketingDateRange == '12개월'">
+                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -12)
+                </when>
                 <when test="ticketingDateRange == '6개월'">
                     TICKETING_DATE >= ADD_MONTHS(SYSDATE, -6)
                 </when>
                 <when test="ticketingDateRange == '3개월'">
                     TICKETING_DATE >= ADD_MONTHS(SYSDATE, -3)
-                </when>
-                <when test="ticketingDateRange == '2개월'">
-                    TICKETING_DATE >= ADD_MONTHS(SYSDATE, -2)
                 </when>
                 <when test="ticketingDateRange == '1개월'">
                     TICKETING_DATE >= ADD_MONTHS(SYSDATE, -1)
@@ -117,6 +117,18 @@
 		JOIN PAYMENT USING(MERCHANT_UID)
 	WHERE MERCHANT_UID = #{merchantUid}	
 
+</select>
+
+<select id="findPaymentInfo">
+	SELECT *
+	FROM TICKETING
+	WHERE USER_NO = ${userNo}
+</select>
+
+<select id="findPaymentInfoList">
+	SELECT *
+	FROM TICKETING
+	WHERE USER_NO = ${userNo} AND EXHIBITION_NO = #{exhibitionNo}
 </select>
 
 </mapper>

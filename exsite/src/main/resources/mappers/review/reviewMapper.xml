@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.teamx.exsite.model.mapper.review.ReviewMapper">
+
+	<select id="selectReviewList">
+		SELECT C.NAME, B.MERCHANT_UID, B.USER_NO, B.REVIEW_TITLE, B.REVIEW_CONTENT, B.REVIEW_DATE, B.REVIEW_STATUS
+		FROM TICKETING A
+			JOIN REVIEW B ON(A.MERCHANT_UID = B.MERCHANT_UID)
+            JOIN USER_INFO C ON(B.USER_NO = C.USER_NO)
+		WHERE EXHIBITION_NO = #{exhibitionNo} AND B.REVIEW_STATUS = 'N'
+	</select>
+
+	<insert id="insertReview">
+		INSERT INTO REVIEW(MERCHANT_UID, USER_NO, EXHIBITION_TITLE, REVIEW_TITLE, REVIEW_CONTENT
+						   , REVIEW_DATE, REVIEW_STATUS)
+			VALUES(#{merchantUid}, #{userNo}, #{exhibitionTitle}, #{reviewTitle}, #{reviewContent}
+					, SYSDATE, DEFAULT)
+	</insert>
+	
+	<select id="checkReviewWrited">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE USER_NO = #{userNo} AND MERCHANT_UID = #{merchantUid}
+	
+	</select>
+	
+	<update id="updateReview">
+		UPDATE REVIEW
+		SET REVIEW_TITLE = #{reviewTitle},
+		    REVIEW_CONTENT = #{reviewContent}
+		WHERE USER_NO = #{userNo} AND MERCHANT_UID=#{merchantUid}
+	</update>
+	
+	<select id="selelectViewedContent" resultType="com.teamx.exsite.model.vo.exhibition.ReviewDTO">
+	    SELECT *
+	    FROM TICKETING A
+	    JOIN EXHIBITION B ON (A.EXHIBITION_NO = B.EXHIBITION_NO)
+	    WHERE A.USER_NO = #{userNo}
+	      AND A.VISIT_DATE &lt; SYSDATE
+	</select>
+	
+	<select id="selectWritedReviewList">
+		SELECT MERCHANT_UID
+		FROM REVIEW
+		WHERE USER_NO = #{userNo}
+	</select>
+	
+	<update id="deleteReview">
+		UPDATE REVIEW
+			SET REVIEW_STATUS = 'Y'
+		WHERE MERCHANT_UID = #{merchantUid} AND USER_NO = #{userNo}
+	</update>
+	
+
+</mapper>

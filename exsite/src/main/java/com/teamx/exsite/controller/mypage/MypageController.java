@@ -73,8 +73,6 @@ public class MypageController {
             		model.addAttribute("showTicketList", true);
             		model.addAttribute("pageInfo", pageInfo);
             		model.addAttribute("ticketingInfo", ticketingInfo);
-            		log.info("티케팅 정보 ==> {}", ticketingInfo);
-            		log.info("페이지 정보 ==> {}", pageInfo);
                 	
                     model.addAttribute("showTicketList", true);
                     break;

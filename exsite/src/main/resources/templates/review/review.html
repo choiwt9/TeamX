@@ -1,0 +1,28 @@
+<div id="exhibition-reviews" class="content-section">
+  <button id="write-review" th:if="${buyer}">리뷰 작성하기</button>
+  <div class="review-content-area" th:each="review:${reviewList}">
+    <div class="review-header">
+      <span id="client-info" th:text="${review.name}">user</span> <span>|</span> <span
+        id="date-info" th:text="${review.reviewDate}">날짜</span>
+    </div>
+    <p id="review-title" th:text="${review.reviewTitle}" 
+                                     th:data-exhibition-title="${review.exhibitionTitle}">리뷰 제목</p>
+    <div class="text" id="review-content" th:text="${review.reviewContent}">
+                    <br>
+                    <button class="review-buttons" id="more">더보기</button>
+    </div>
+    <div class="review-action-buttons">
+      <button class="review-buttons" id="replace"
+        th:data-user-no="${review.userNo}" 
+        th:data-login-user-no="${session.loginUser != null ? session.loginUser.userNo : ''}"
+        th:data-merchant-uid="${review.merchantUid}">수정</button>
+      <button class="review-buttons" id="delete"
+        th:data-user-no="${review.userNo}" 
+        th:data-login-user-no="${session.loginUser != null ? session.loginUser.userNo : ''}"
+        th:data-merchant-uid="${review.merchantUid}">삭제</button>
+    </div>
+  </div>
+  <div class="review-content-area" th:if="${reviewList == null or reviewList.isEmpty()}">
+    <div id="none-review-message">아직 게시된 리뷰가 없습니다.</div>
+  </div>
+</div>

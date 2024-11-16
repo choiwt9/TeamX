@@ -50,7 +50,7 @@
                 </table>
             </div>
         
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" th:if="${pageInfo.endPage > 1}">
                 <ul class="pagination justify-content-center">
                     <li th:classappend="${pageInfo.currentPage == 1} ? 'disabled'" class="page-item">
                         <a id="page-prev" class="page-link" 

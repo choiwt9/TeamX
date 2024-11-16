@@ -26,5 +26,9 @@ public interface TicketingMapper {
 	int selectTicketingListCount(int userNo, String ticketingDateRange);
 
 	PaymentDTO selectTicketingInfo(String merchantUid);
+
+	PaymentDTO findPaymentInfo(int userNo);
+
+	List<PaymentDTO> findPaymentInfoList(int userNo, int exhibitionNo);
 	
 }

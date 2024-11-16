@@ -47,7 +47,7 @@ public class AuthService {
 		String code = generateAuthCode();
 		message.setFrom(fromNumber);
 		message.setTo(phone);
-		message.setText("[EX-SITE]/n본인확인 인증번호는" + code + "입니다.");
+		message.setText("[EX-SITE] 본인확인 인증번호는" + code + "입니다.");
 		log.info("fromNumber: {}", fromNumber);
 		messageService.sendOne(new SingleMessageSendingRequest(message));
 		generateAuthInfo(phone, code);
@@ -58,7 +58,7 @@ public class AuthService {
 		String code = generateAuthCode();
 		message.setFrom(fromNumber);
 		message.setTo(phone);
-		message.setText("[EX-SITE]/n본인확인 인증번호는" + code + "입니다.");
+		message.setText("[EX-SITE] 본인확인 인증번호는" + code + "입니다.");
 		log.info("fromNumber: {}", fromNumber);
 		messageService.sendOne(new SingleMessageSendingRequest(message));
 		generateAuthInfo(name+phone, code);
