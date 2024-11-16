@@ -21,7 +21,6 @@ import com.teamx.exsite.service.exhibition.ExhibitionService;
 import com.teamx.exsite.service.review.ReviewService;
 import com.teamx.exsite.service.ticketing.PaymentService;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
