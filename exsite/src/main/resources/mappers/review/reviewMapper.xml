@@ -5,7 +5,9 @@
 <mapper namespace="com.teamx.exsite.model.mapper.review.ReviewMapper">
 
 	<select id="selectReviewList">
-		SELECT C.NAME, B.MERCHANT_UID, B.USER_NO, B.REVIEW_TITLE, B.REVIEW_CONTENT, B.REVIEW_DATE, B.REVIEW_STATUS
+		SELECT C.NAME, B.MERCHANT_UID, B.USER_NO, B.REVIEW_TITLE
+			 , B.REVIEW_CONTENT, B.REVIEW_DATE, B.REVIEW_STATUS
+			 , A.EXHIBITION_NO
 		FROM TICKETING A
 			JOIN REVIEW B ON(A.MERCHANT_UID = B.MERCHANT_UID)
             JOIN USER_INFO C ON(B.USER_NO = C.USER_NO)
@@ -22,7 +24,7 @@
 	<select id="checkReviewWrited">
 		SELECT COUNT(*)
 		FROM REVIEW
-		WHERE USER_NO = #{userNo} AND MERCHANT_UID = #{merchantUid}
+		WHERE USER_NO = #{userNo} AND MERCHANT_UID = #{merchantUid} AND REVIEW_STATUS = 'N'
 	
 	</select>
 	
@@ -30,7 +32,7 @@
 		UPDATE REVIEW
 		SET REVIEW_TITLE = #{reviewTitle},
 		    REVIEW_CONTENT = #{reviewContent}
-		WHERE USER_NO = #{userNo} AND MERCHANT_UID=#{merchantUid}
+		WHERE USER_NO = #{userNo} AND MERCHANT_UID=#{merchantUid} AND REVIEW_STATUS='N'
 	</update>
 	
 	<select id="selelectViewedContent" resultType="com.teamx.exsite.model.vo.exhibition.ReviewDTO">
@@ -44,7 +46,7 @@
 	<select id="selectWritedReviewList">
 		SELECT MERCHANT_UID
 		FROM REVIEW
-		WHERE USER_NO = #{userNo}
+		WHERE USER_NO = #{userNo} AND REVIEW_STATUS='N'
 	</select>
 	
 	<update id="deleteReview">
@@ -52,6 +54,19 @@
 			SET REVIEW_STATUS = 'Y'
 		WHERE MERCHANT_UID = #{merchantUid} AND USER_NO = #{userNo}
 	</update>
+	
+	<select id="selectMyPageReviewList">
+		SELECT B.EXHIBITION_NO, A.REVIEW_TITLE, A.EXHIBITION_TITLE, B.VISIT_DATE, A.REVIEW_DATE
+		FROM REVIEW A
+			JOIN TICKETING B ON (A.MERCHANT_UID = B.MERCHANT_UID)
+		WHERE A.USER_NO = #{userNo} AND REVIEW_STATUS = 'N'
+	</select>
+	
+	<select id="selectMyPageReviewCount">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE USER_NO = #{userNo} AND REVIEW_STATUS = 'N'
+	</select>
 	
 
 </mapper>

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.teamx.exsite.common.model.vo.PageInfo;
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 import com.teamx.exsite.model.mapper.exhibition.ExhibitionMapper;
+import com.teamx.exsite.model.mapper.review.ReviewMapper;
 import com.teamx.exsite.model.mapper.ticketing.TicketingMapper;
 import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 
@@ -21,6 +22,7 @@ public class MypageService {
 	
 	private final ExhibitionMapper exhibitionMapper;
 	private final TicketingMapper ticketingMapper;
+	private final ReviewMapper reviewMapper;
 
 	public List<ExhibitionEvent> selectLikeList(int userNo) {
 		return exhibitionMapper.selectLikeList(userNo);
@@ -46,6 +48,10 @@ public class MypageService {
 
 	public PaymentDTO selectTicketingInfo(String merchantUid) {
 		return ticketingMapper.selectTicketingInfo(merchantUid);
+	}
+
+	public int selectMyPageReviewCount(int userNo) {
+		return reviewMapper.selectMyPageReviewCount(userNo);
 	}
 
 }

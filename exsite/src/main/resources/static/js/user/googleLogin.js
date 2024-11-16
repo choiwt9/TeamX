@@ -1,4 +1,3 @@
-
 window.onload = () => {
     ///////////////////// GOOGLE_ClIENT_ID, GOOGLE_REDIRECT_URL 넣는 자리 //////////////////////////////
 

@@ -15,8 +15,10 @@ import com.teamx.exsite.common.model.vo.PageInfo;
 import com.teamx.exsite.common.template.Pagination;
 import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
 import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 import com.teamx.exsite.service.mypage.MypageService;
+import com.teamx.exsite.service.review.ReviewService;
 import com.teamx.exsite.service.user.AuthService;
 import com.teamx.exsite.service.user.UserService;
 
@@ -32,6 +34,7 @@ public class MypageController {
 	private final AuthService authService;
 	private final UserService userService;
 	private final MypageService mypageService;
+	private final ReviewService reviewService;
 
 	@GetMapping("/mypage/main")
 	public String mypageMain() {
@@ -66,9 +69,9 @@ public class MypageController {
                     model.addAttribute("showPasswordChange", true);
                     break;
                 case "ticketList":
-                	int listCount = mypageService.selectTicketingListCount(Integer.valueOf(loginUser.getUserNo()), ticketingDateRange);
+                	int listCount = mypageService.selectTicketingListCount(loginUser.getUserNo(), ticketingDateRange);
             		pageInfo = Pagination.getPageInfo(listCount, currentPage, 10, 15);
-            		List<PaymentDTO> ticketingInfo = mypageService.selectTicketingList(Integer.valueOf(loginUser.getUserNo()), pageInfo, ticketingDateRange);
+            		List<PaymentDTO> ticketingInfo = mypageService.selectTicketingList(loginUser.getUserNo(), pageInfo, ticketingDateRange);
             		
             		model.addAttribute("showTicketList", true);
             		model.addAttribute("pageInfo", pageInfo);
@@ -79,6 +82,7 @@ public class MypageController {
                 case "ticketDetail":
                 	PaymentDTO paymentInfo = mypageService.selectTicketingInfo(merchantUid);
                 	model.addAttribute("paymentInfo", paymentInfo);
+                	model.addAttribute("pageInfo", pageInfo);
                     model.addAttribute("showTicketDetail", true);
                     break;
                 case "likeList":
@@ -87,6 +91,12 @@ public class MypageController {
                     model.addAttribute("showLikeList", true);
                     break;
                 case "reviewList":
+                	int reviewListCount = mypageService.selectMyPageReviewCount(loginUser.getUserNo());
+            		pageInfo = Pagination.getPageInfo(reviewListCount, currentPage, 10, 15);
+                	List<ReviewDTO> reviewList = reviewService.selectMyPageReviewList(loginUser.getUserNo(), pageInfo);
+                	model.addAttribute("reviewList", reviewList);
+                	log.info("{}", reviewList);
+                	model.addAttribute("pageInfo", pageInfo);
                     model.addAttribute("showReviewList", true);
                     break;
                 case "withdraw":
@@ -204,4 +214,5 @@ public class MypageController {
 			return "mypage/views/mypageWithdraw";
 		}
 	}
+	
 }

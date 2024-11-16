@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/mypage/views/mypageReviewList.css">
+<script src="/js/mypage/mypageReviewList.js"></script>
 </head>
 <body>
     <div class="mypage-view-review-list">
@@ -26,46 +27,41 @@
                         </tr>
                     </thead>
                     <tbody class="mypage-view-review-content-list">
-                        <tr>
-                            <td>고흐 전시 추천합니다 :)</td>
-                            <td>[라스트 얼리버드] 불멸의 화가 반 고흐</td>
-                            <td>상시 상품</td>
-                            <td>2024.10.22</td>
-                        </tr>
-                        <tr>
-                            <td>고흐 전시 추천합니다 :)</td>
-                            <td>[라스트 얼리버드] 불멸의 화가 반 고흐</td>
-                            <td>상시 상품</td>
-                            <td>2024.10.22</td>
-                        </tr>
-                        <tr>
-                            <td>고흐 전시 추천합니다 :)</td>
-                            <td>[라스트 얼리버드] 불멸의 화가 반 고흐</td>
-                            <td>상시 상품</td>
-                            <td>2024.10.22</td>
+                        <tr th:each="review:${reviewList}" th:data-exhibition-id="${review.exhibitionNo}" class="clickable-row">
+                            <td th:text="${review.reviewTitle}">고흐 전시 추천합니다 :)</td>
+                            <td th:text="${review.exhibitionTitle}">[라스트 얼리버드] 불멸의 화가 반 고흐</td>
+                            <td th:text="${review.visitDate}">상시 상품</td>
+                            <td th:text="${review.reviewDate}">2024.10.22</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" th:if="${pageInfo.endPage > 1}">
                 <ul class="pagination justify-content-center">
-                  <li class="page-item disabled">
-                    <a id="page-prev" class="page-link" href="#" tabindex="-1" aria-disabled="true"><img src="/img/common/pagenation_arrow_left.png" alt=""></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">4</a></li>
-                  <li class="page-item"><a class="page-link" href="#">5</a></li>
-                  <li class="page-item"><a class="page-link" href="#">6</a></li>
-                  <li class="page-item"><a class="page-link" href="#">7</a></li>
-                  <li class="page-item"><a class="page-link" href="#">8</a></li>
-                  <li class="page-item"><a class="page-link" href="#">9</a></li>
-                  <li class="page-item"><a class="page-link" href="#">10</a></li>
-                  <li class="page-item">
-                    <a id="page-next" class="page-link" href="#"><img src="/img/common/pagenation_arrow_right.png" alt=""></a>
-                  </li>
+                    <li th:classappend="${pageInfo.currentPage == 1} ? 'disabled'" class="page-item">
+                        <a id="page-prev" class="page-link" 
+                           th:href="${pageInfo.currentPage > 1} ? '/mypage/view?view=reviewList&cpage=' + ${pageInfo.currentPage - 1} : '#'" 
+                           >
+                            <img src="/img/common/pagenation_arrow_left.png" alt="">
+                        </a>
+                    </li>
+                    <!-- 페이지 링크 반복 -->
+                    <span th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+                         <!-- 페이징 바 클릭 시 cpage 값으로 i 전달 -->
+                        <a th:href="'/mypage/view?view=reviewList&cpage=' + ${i}" 
+                           class="page-link page-number" 
+                           th:text="${i}" 
+                           th:classappend="${i == pageInfo.currentPage} ? 'pagenation-active'"></a>
+                           <!-- append로 active 클래스 추가-->
+                    </span>
+                    <li th:classappend="${pageInfo.currentPage == pageInfo.maxPage} ? 'disabled'" class="page-item">
+                        <a id="page-next" class="page-link"
+                            th:href="${pageInfo.currentPage lt pageInfo.maxPage} ? '/mypage/view?view=reviewList&cpage=' +  ${pageInfo.currentPage + 1} : '#'" 
+                            >
+                            <img src="/img/common/pagenation_arrow_right.png" alt="">
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>

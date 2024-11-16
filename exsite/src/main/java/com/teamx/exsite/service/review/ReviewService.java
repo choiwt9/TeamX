@@ -3,8 +3,10 @@ package com.teamx.exsite.service.review;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
+import com.teamx.exsite.common.model.vo.PageInfo;
 import com.teamx.exsite.model.mapper.review.ReviewMapper;
 import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
 
@@ -57,6 +59,12 @@ public class ReviewService {
 
 	public int deleteReview(ReviewDTO deleteReview) {
 		return reviewMapper.deleteReview(deleteReview);
+	}
+
+	public List<ReviewDTO> selectMyPageReviewList(int userNo, PageInfo pageInfo) {
+		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pageInfo.getBoardLimit());
+		return reviewMapper.selectMyPageReviewList(userNo, rowBounds);
 	}
 	
 	
