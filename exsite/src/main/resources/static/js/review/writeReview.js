@@ -27,6 +27,7 @@ $(function() {
     console.log(selectedMerchantUid);
     console.log($('#review-title').val());
     console.log($('#review-content').val());
+    console.log(JSON.stringify($('#review-content').val()));
     $.ajax({
       url: '/review/write/confirm',
       type: 'post',

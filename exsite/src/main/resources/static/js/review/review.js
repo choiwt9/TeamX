@@ -2,16 +2,18 @@ $(function() {
 
   // 리뷰내용 간략히, 더보기
   $(document).ready(function () {
-      $("#more").click(function () {
-          const $textContent = $("#review-content");
-          $textContent.toggleClass("expanded");
+    $(".more").click(function () {
+        const $button = $(this); // 클릭된 버튼
+        const $textContent = $button.closest(".review-content-area").find(".review-content"); // 해당 리뷰의 텍스트 영역
+        
+        $textContent.toggleClass("expanded"); // 텍스트에 expanded 클래스 토글
   
-          if ($textContent.hasClass("expanded")) {
-              $(this).text("간략히");
-          } else {
-              $(this).text("더보기");
-          }
-      });
+        if ($textContent.hasClass("expanded")) {
+            $button.text("간략히");
+        } else {
+            $button.text("더보기");
+        }
+    });
   });
 
   $('#write-review').click(function () {
@@ -49,13 +51,15 @@ $(function() {
   let exhibitionNo = $('#exhibitionNo').val();
   let merchantUid = $('#replace').data("merchant-uid");
   let reviewTitle = $('#review-title').text();
-  let reviewContent = $('#review-content').text();
+  let reviewContent = $('#review-content').html().replace(/<br\s*\/?>/g, '\n');
   $('#replace').on('click', function() {
       sessionStorage.setItem("reviewTitle", reviewTitle);
       sessionStorage.setItem("merchantUid", merchantUid);
       sessionStorage.setItem("reviewContent", reviewContent);
       sessionStorage.setItem("exhibitionNo", exhibitionNo);
+      console.log(sessionStorage.getItem('reviewContent'));
      location.href="/review/replace/form";
+     
   });
 
   $('#delete').on('click', function() {

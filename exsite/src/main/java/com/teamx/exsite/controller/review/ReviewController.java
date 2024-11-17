@@ -84,6 +84,8 @@ public class ReviewController {
 		} else if(review.getReviewContent() == null || review.getReviewContent().trim().equals("")) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("내용을 입력하세요.");
 		}
+		// 개행상태를 유지
+		review.setReviewContent(review.getReviewContent().replace("\n", "<br>"));
 		
 		int result = reviewService.insertReview(review);
 		
@@ -115,6 +117,9 @@ public class ReviewController {
 		} else if(replaceReview.getReviewContent() == null || replaceReview.getReviewContent().trim().equals("")) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("내용을 입력하세요.");
 		}
+		
+		// 개행상태를 유지
+		replaceReview.setReviewContent(replaceReview.getReviewContent().replace("\n", "<br>"));
 		
 		int result = reviewService.updateReview(replaceReview);
 

@@ -12,6 +12,7 @@
 			JOIN REVIEW B ON(A.MERCHANT_UID = B.MERCHANT_UID)
             JOIN USER_INFO C ON(B.USER_NO = C.USER_NO)
 		WHERE EXHIBITION_NO = #{exhibitionNo} AND B.REVIEW_STATUS = 'N'
+		ORDER BY REVIEW_DATE DESC
 	</select>
 
 	<insert id="insertReview">
@@ -46,7 +47,7 @@
 	<select id="selectWritedReviewList">
 		SELECT MERCHANT_UID
 		FROM REVIEW
-		WHERE USER_NO = #{userNo} AND REVIEW_STATUS='N'
+		WHERE USER_NO = #{userNo}
 	</select>
 	
 	<update id="deleteReview">
