@@ -7,12 +7,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.mapper.user.UserMapper;
-import com.teamx.exsite.model.user.vo.VerificationInfo;
+import com.teamx.exsite.model.vo.user.VerificationInfo;
 
 import jakarta.mail.internet.MimeMessage;
+import jakarta.servlet.http.HttpSession;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +38,7 @@ public class AuthService {
 	private Map<String, VerificationInfo> verificationCodes = new HashMap<>();
 	private final UserMapper userMapper;
 	private final DefaultMessageService messageService;
+	private final PasswordEncoder passwordEncoder;
 	
 	
 	// 회원 가입용 휴대폰 인증
@@ -43,7 +47,7 @@ public class AuthService {
 		String code = generateAuthCode();
 		message.setFrom(fromNumber);
 		message.setTo(phone);
-		message.setText("[EX-SITE]/n본인확인 인증번호는" + code + "입니다.");
+		message.setText("[EX-SITE] 본인확인 인증번호는" + code + "입니다.");
 		log.info("fromNumber: {}", fromNumber);
 		messageService.sendOne(new SingleMessageSendingRequest(message));
 		generateAuthInfo(phone, code);
@@ -54,7 +58,7 @@ public class AuthService {
 		String code = generateAuthCode();
 		message.setFrom(fromNumber);
 		message.setTo(phone);
-		message.setText("[EX-SITE]/n본인확인 인증번호는" + code + "입니다.");
+		message.setText("[EX-SITE] 본인확인 인증번호는" + code + "입니다.");
 		log.info("fromNumber: {}", fromNumber);
 		messageService.sendOne(new SingleMessageSendingRequest(message));
 		generateAuthInfo(name+phone, code);
@@ -146,5 +150,14 @@ public class AuthService {
 	public int phoneCheck(String phone) {
 		return userMapper.phoneCheck(phone);
 	}
-    
+
+	public boolean passwordCheck(String password, HttpSession session) {
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		
+		String passwordInDatabase = userMapper.getPassword(loginUser.getUserNo());
+		
+		return passwordEncoder.matches(password, passwordInDatabase);
+		
+	}
+	
 }

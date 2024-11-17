@@ -13,14 +13,16 @@
     <!-- css 사용 -->
     <link rel="stylesheet" href="/css/customercenter/customerService.css">
     
+    <!-- jQuery 사용-->
+	<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+
     <!-- 자바스크립트 -->
     <script src="/js/customercenter/customerService.js"></script>
     
-    <!-- jQuery 사용-->
-	<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
 	
 </head>
 <body>
+    <input type="hidden" id="personal-inquiery" th:value="${personalInquiery} == 'true' ? 'true' : 'false'"/>
     <input id="userId" type="hidden" th:value="${loginUser != null ? loginUser.userNo : ''}">
 	<div th:insert="~{common/header}"></div>
     <div class="customer-service-container">

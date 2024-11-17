@@ -3,7 +3,6 @@
   width: 80%;
   max-width: 120rem;
   min-width: 90rem;
-  margin-bottom: 2rem;
   display: flex;
   justify-content: center;
   /* border: 1px solid red; */
@@ -31,6 +30,6 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 4rem 0 30rem 0;
+  padding: 4rem 0 0rem 0;
   /* border: 1px solid rgb(55, 0, 255);  */
 }

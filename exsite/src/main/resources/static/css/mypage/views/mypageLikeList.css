@@ -71,6 +71,11 @@
     margin-right: 16px; /* 슬라이드 간 간격 */
     /* border: 1px red solid; */
   }
+
+  .like-list-exhibition-item>a {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 부모 요소의 색상 상속 */
+  }
   
   .like-list-item-image-wrapper {
     width: 100%;

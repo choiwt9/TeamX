@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.teamx.exsite.model.user.dto.UserDTO;
+import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 import com.teamx.exsite.service.ticketing.PaymentService;
 
