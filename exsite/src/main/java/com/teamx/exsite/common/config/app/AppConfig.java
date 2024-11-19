@@ -32,4 +32,5 @@ public class AppConfig implements WebMvcConfigurer {
 			.addPathPatterns("/community/write")
 			.excludePathPatterns("/login");
 	}
+    
 }

@@ -1,4 +1,4 @@
-package com.teamx.exsite.model.exhibition.vo;
+package com.teamx.exsite.model.vo.exhibition;
 
 import lombok.Data;
 

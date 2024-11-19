@@ -1,6 +1,7 @@
 package com.teamx.exsite.service.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -161,6 +162,45 @@ public class UserService {
 		}
 		return result;
 	}
+
+	// 관리자 페이지 전체 유저 정보 불러오기
+	public List<UserDTO> getAllUsers() {
+		
+		return userMapper.getAllUsers();
+		
+	}
+
+	// 관리자 페이지 회원 검색하기
+	public List<UserDTO> searchUsers(String name) {
+
+		return userMapper.searchUsers(name);
+	
+	}
+
+	// 관리자 페이지 해당회원 정보 불러오기
+	public UserDTO getUserByNo(int userNo) {
+
+		return userMapper.findByUserNo(userNo);
+		
+	}
+
+	// 관리자 페이지 해당회원 정보 수정하기
+	public UserDTO updateUserInfo(int userNo, UserDTO member) {
+		
+		member.setUserNo(userNo);
+		
+		userMapper.updateUserInfo(member);
+		
+		return member;
+		
+	}
+
+	// 관리자 페이지 해당회원 탈퇴 처리하기
+	public boolean withdrawUserInfo(String userId) {
+		
+		return userMapper.updateUserStatus(userId) > 0;
+		
+	}	
 
 	public UserDTO normalUserModifyInfo(UserDTO modifyInfo) {
 		int result = userMapper.normalUserModifyInfo(modifyInfo);

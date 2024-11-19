@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamx.exsite.model.dto.user.UserDTO;
-import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
+import com.teamx.exsite.model.vo.review.ReviewDTO;
 import com.teamx.exsite.service.review.ReviewService;
 
 import jakarta.servlet.http.HttpSession;
