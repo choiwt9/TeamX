@@ -19,7 +19,9 @@ import com.teamx.exsite.model.vo.customercenter.Inquiry;
 import com.teamx.exsite.service.customercenter.CustomercenterService;
 
 import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 public class CustomercenterController {
 	
@@ -151,10 +153,13 @@ public class CustomercenterController {
 	// 관리자 페이지 관리자 답변 등록
 	@ResponseBody
 	@PutMapping("/api/inquiries/search/{inquiryNo}")
-    public ResponseEntity<String> updateInquiryResponse(@PathVariable int inquiryNo, @RequestBody Inquiry inquiryResponse) {
+    public ResponseEntity<String> updateInquiryResponse(@PathVariable int inquiryNo, @RequestBody Inquiry inquiryResponse, @RequestBody Inquiry ResponseContent) {
 		
-		customercenterService.updateInquiryResponse(inquiryNo, inquiryResponse);
-		
+		customercenterService.updateInquiryResponse(inquiryNo, inquiryResponse, ResponseContent);
+
+		log.info("inquiryNo --> {}", inquiryNo);
+		log.info("inquiryResponse --> {}", inquiryResponse);
+		log.info("ResponseContent --> {}", ResponseContent);
         try {	
             return ResponseEntity.ok().build();
         } catch (Exception e) {

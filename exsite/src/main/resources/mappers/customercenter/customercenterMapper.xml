@@ -46,7 +46,7 @@
     <!-- 관리자 페이지 관리자 답변 등록 -->
     <update id="updateInquiryResponse">
         UPDATE INQUIRY
-        SET RESPONSE_CONTENT = #{responseContent}, INQUIRY_RESPONSE = 'Y'
+        SET RESPONSE_CONTENT = #{answerContent}, INQUIRY_RESPONSE = 'Y'
         WHERE INQUIRY_NO = #{inquiryNo}
     </update>
     

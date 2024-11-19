@@ -63,10 +63,16 @@ public class CustomercenterService {
 	}
 
 	// 관리자 페이지 관리자 답변 등록
-	public void updateInquiryResponse(int inquiryNo, Inquiry inquiryResponse) {
+	public void updateInquiryResponse(int inquiryNo, Inquiry inquiryResponse, Inquiry responseContent) {
 
-		customercenterMapper.updateInquiryResponse();
+		customercenterMapper.updateInquiryResponse(inquiryNo, inquiryResponse, responseContent);
 		
 	}
+
+//	public void updateInquiryResponse(int inquiryNo, String inquiryResponse) {
+//
+//		customercenterMapper.updateInquiryResponse(inquiryNo, inquiryResponse);
+//		
+//	}
 
 }
