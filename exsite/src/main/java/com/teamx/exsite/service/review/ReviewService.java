@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamx.exsite.common.model.vo.PageInfo;
 import com.teamx.exsite.model.mapper.review.ReviewMapper;
-import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
+import com.teamx.exsite.model.vo.review.ReviewDTO;
 
 import lombok.RequiredArgsConstructor;
 
