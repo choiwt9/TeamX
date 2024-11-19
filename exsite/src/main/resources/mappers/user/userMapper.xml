@@ -4,8 +4,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.teamx.exsite.model.mapper.user.UserMapper">
   
-  <insert id="registerUser">
-    INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, USER_PW, EMAIL, PHONE, ADDRESS, METHOD)
+  <insert id="registerUser" useGeneratedKeys="false">
+    INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, USER_PW, EMAIL, PHONE, ADDRESS, ADDRESS_DETAIL, METHOD)
     	VALUES (
     		SEQ_USER_NO.NEXTVAL,
     		#{name},
@@ -14,47 +14,48 @@
     		#{email},
     		#{phone},
     		#{address},
+    		#{addressDetail},
     		'NORMAL'
     	)
   </insert>
   
+  <select id="getGeneratedUserNo" resultType="int">
+    SELECT SEQ_USER_NO.CURRVAL FROM DUAL
+  </select>
+  
   <insert id="registerWithNaver">
-  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, PHONE, METHOD)
+  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, PHONE, METHOD, SOCIAL_USER_IDENTIFIER)
   		VALUES (
   			SEQ_USER_NO.NEXTVAL,
   			#{name},
-  			#{userId},
+  			'N_' || SEQ_NAVER_USER_NO.NEXTVAL,
   			#{email},
   			#{phone},
-  			#{method}
+  			#{method},
+  			#{socialUserIdentifier}
   		)
   </insert>
   
   <insert id="registerWithGoogle">
-  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, METHOD)
+  	INSERT INTO USER_INFO (USER_NO, NAME, USER_ID, EMAIL, METHOD, SOCIAL_USER_IDENTIFIER)
   		VALUES (
   			SEQ_USER_NO.NEXTVAL,
   			#{name},
-  			#{userId},
+  			'G_' || SEQ_GOOGLE_USER_NO.NEXTVAL,
   			#{email},
-  			#{method}
+  			#{method},
+  			#{socialUserIdentifier}
   		)
   </insert>
   
   <select id="idCheck">
   	SELECT COUNT(*) 
   	FROM USER_INFO 
-  	WHERE USER_ID = #{id} AND USER_STATUS = 'N'
+  	WHERE USER_ID = #{id}
   </select>
   
-  
-  <resultMap id="userInfo" type="UserDTO">
-  	<result column="USER_ID" property="userId"/>
-  	<result column="USER_PW" property="userPw"/>
-  </resultMap>
-  
-  <select id="basicLogin" resultMap="userInfo">
-  	SELECT USER_NO, NAME, USER_ID, USER_PW, EMAIL, PHONE, ADDRESS, CREATE_DATE, UPDATE_DATE, USER_STATUS, METHOD, GRADE
+  <select id="basicLogin">
+  	SELECT USER_NO, NAME, USER_ID, USER_PW, EMAIL, PHONE, ADDRESS, ADDRESS_DETAIL, METHOD, GRADE
   	FROM USER_INFO
   	WHERE USER_ID = #{userId} AND METHOD = 'NORMAL' AND USER_STATUS = 'N'
   </select>
@@ -72,9 +73,15 @@
   </select>
   
   <select id="idSearch">
-  	SELECT USER_ID
+  	SELECT USER_ID, USER_STATUS
   	FROM USER_INFO
   	WHERE (EMAIL = #{authMethod} OR PHONE = #{authMethod}) AND METHOD = 'NORMAL'
+  </select>
+  
+  <select id="socialUserIdSearch">
+  	SELECT USER_ID
+  	FROM USER_INFO
+  	WHERE (EMAIL = #{authMethod} OR PHONE = #{authMethod}) AND METHOD = #{loginMethod}
   </select>
   
   <select id="searchUserName">
@@ -94,4 +101,59 @@
   	FROM USER_INFO
   	WHERE METHOD = #{signupMethod} AND EMAIL = #{email}
   </select>
+  
+  <select id="identifierCheck">
+  	SELECT COUNT(*)
+  	FROM USER_INFO
+  	WHERE SOCIAL_USER_IDENTIFIER = #{email}
+  </select>
+  
+  <select id="socialUserLogin">
+  	SELECT USER_NO, NAME, USER_ID, EMAIL, PHONE, ADDRESS, ADDRESS_DETAIL, METHOD, GRADE
+  	FROM USER_INFO
+  	WHERE SOCIAL_USER_IDENTIFIER = #{socialUserIdentifier} AND USER_STATUS='N'
+  </select>
+  
+  <select id="getPassword">
+  	SELECT USER_PW
+  	FROM USER_INFO
+  	WHERE USER_NO = #{userNo}
+  </select>
+  
+  <update id="normalUserModifyInfo">
+  	UPDATE USER_INFO
+		SET EMAIL = #{email}, PHONE = #{phone}, ADDRESS = #{address}, ADDRESS_DETAIL = #{addressDetail}
+	WHERE USER_NO = #{userNo}
+  </update>
+  
+  <select id="selectUserInfo">
+  	SELECT USER_NO, NAME, USER_ID, EMAIL, PHONE, ADDRESS, ADDRESS_DETAIL, METHOD, GRADE
+  	FROM USER_INFO
+  	WHERE USER_NO = #{userNo}
+  </select>
+  
+    <update id="socialUserModifyInfo">
+  	UPDATE USER_INFO
+		SET PHONE = #{phone}, ADDRESS = #{address}, ADDRESS_DETAIL = #{addressDetail}
+	WHERE USER_NO = #{userNo}
+  </update>
+  
+  <update id="loginUserPasswordChange">
+  	UPDATE USER_INFO
+  		SET USER_PW = #{encodedPassword}
+  	WHERE USER_NO = #{userNo}
+  </update>
+  
+  <update id="withDrawUser">
+  	UPDATE USER_INFO
+  		SET USER_STATUS = 'Y'
+  	WHERE USER_NO = #{userNo}
+  </update>
+  
+  <update id="withDrawSocialUser">
+  	UPDATE USER_INFO
+  		SET USER_STATUS = 'Y'
+  	WHERE USER_NO = #{userNo} AND EMAIL = #{email}
+  </update>
+  
 </mapper>

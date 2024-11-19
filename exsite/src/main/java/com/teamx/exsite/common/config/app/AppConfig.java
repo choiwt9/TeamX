@@ -30,6 +30,7 @@ public class AppConfig implements WebMvcConfigurer {
 		registry.addInterceptor(loginInterceptor)
 			.addPathPatterns("/mypageMain")
 			.addPathPatterns("/ticketingpopup")
+			.addPathPatterns("/mypage/**")
 			.excludePathPatterns("/login");
 	}
 }

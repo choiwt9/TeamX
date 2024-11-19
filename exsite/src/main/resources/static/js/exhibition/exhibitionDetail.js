@@ -17,7 +17,6 @@ $(function () {
             type: 'get',
             data: { userNo: userNo, exhibitionNo: exhibitionNo },
             success: function (data) {
-                console.log(data);
                 liked = data.status === 'true';
                 if (liked) {
                     path.attr('fill', 'red');
@@ -86,4 +85,4 @@ $(function () {
         document.getElementById('exhibition-details-button').style.color = '';
     });
 
-})
+});
