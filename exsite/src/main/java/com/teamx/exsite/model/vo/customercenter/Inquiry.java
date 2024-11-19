@@ -1,4 +1,4 @@
-package com.teamx.exsite.model.customercenter.vo;
+package com.teamx.exsite.model.vo.customercenter;
 
 import java.util.Date;
 
@@ -16,5 +16,6 @@ public class Inquiry {
 	private Date inquiryDate;
 	private char inquiryResponse;
 	private String responseContent;
+	private String userId;
 	
 }

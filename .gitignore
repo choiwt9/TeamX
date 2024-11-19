@@ -76,3 +76,10 @@ Thumbs.db
 
 **/.env
 **/.metadata
+
+
+# TeamX 설정 정보
+exsite/src/main/resources/application.properties
+exsite/src/main/resources/static/js/user/googleLogin.js
+exsite/src/main/resources/static/js/user/naverCallbackPage.js
+exsite/src/main/resources/static/js/user/naverLogin.js

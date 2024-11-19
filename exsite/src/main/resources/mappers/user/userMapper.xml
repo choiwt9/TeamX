@@ -102,6 +102,67 @@
   	WHERE METHOD = #{signupMethod} AND EMAIL = #{email}
   </select>
   
+  <!-- 관리자 페이지 전체 유저 정보 불러오기 -->
+  <select id="getAllUsers" resultType="com.teamx.exsite.model.dto.user.UserDTO">
+        SELECT 
+            USER_NO,
+            NAME,
+            USER_ID,
+            USER_PW,
+            EMAIL,
+            PHONE,
+            ADDRESS,
+            CREATE_DATE,
+            UPDATE_DATE,
+            USER_STATUS,
+            METHOD,
+            GRADE
+        FROM USER_INFO
+    </select>
+    
+    <!-- 관리자 페이지 회원 검색하기 -->
+    <select id="searchUsers" resultType="com.teamx.exsite.model.dto.user.UserDTO">
+        SELECT 
+            USER_NO,
+            NAME,
+            USER_ID,
+            USER_PW,
+            EMAIL,
+            PHONE,
+            ADDRESS,
+            CREATE_DATE,
+            UPDATE_DATE,
+            USER_STATUS,
+            METHOD,
+            GRADE
+        FROM USER_INFO
+        WHERE NAME LIKE '%' || #{name} || '%'
+    </select>
+    
+    <!-- 관리자 페이지 해당회원 정보 불러오기 -->
+    <select id="findByUserNo" resultType="com.teamx.exsite.model.dto.user.UserDTO">
+        SELECT * FROM USER_INFO WHERE USER_NO = #{userNo}
+    </select>
+    
+    <!-- 관리자 페이지 해당회원 정보 수정하기 -->
+    <update id="updateUserInfo">
+        UPDATE USER_INFO
+        SET USER_PW = #{userPw},
+        	NAME = #{name},
+            EMAIL = #{email},
+            PHONE = #{phone},
+            ADDRESS = #{address},
+            GRADE = #{grade}
+        WHERE USER_NO = #{userNo}
+    </update>
+    
+    <!-- 관리자 페이지 해당회원 탈퇴 처리하기 -->
+    <update id="updateUserStatus" parameterType="String">
+	    UPDATE user_info
+	    SET USER_STATUS = 'Y', UPDATE_DATE = SYSDATE
+	    WHERE USER_ID = #{userId}
+	</update>
+	
   <select id="identifierCheck">
   	SELECT COUNT(*)
   	FROM USER_INFO

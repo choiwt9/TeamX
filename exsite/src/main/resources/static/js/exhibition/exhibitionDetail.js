@@ -33,7 +33,7 @@ $(function () {
     }
 
     heart.on('click', () => {
-
+        console.log(userNo);
         if (userNo === '' || userNo === null) {
             console.log("User No:", userNo); // userNo의 값을 확인
             heart.prop('disabled', false);

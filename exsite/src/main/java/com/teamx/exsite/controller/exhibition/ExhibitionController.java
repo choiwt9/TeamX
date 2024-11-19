@@ -7,15 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamx.exsite.model.dto.user.UserDTO;
-import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
-import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
+import com.teamx.exsite.model.vo.exhibition.ExhibitionEvent;
+import com.teamx.exsite.model.vo.review.ReviewDTO;
 import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 import com.teamx.exsite.service.exhibition.ExhibitionService;
 import com.teamx.exsite.service.review.ReviewService;
@@ -209,4 +212,32 @@ public class ExhibitionController {
 		}
     }
 	
+	// 관리자 페이지 전시목록 불러오기
+	@GetMapping("/api/exhibitions")
+	@ResponseBody
+	public List<ExhibitionEvent> getAllExhibitionEvents() {
+		 
+		return exhibitionService.findAllExhibitionEvent();
+	 
+	}
+	 
+	// 관리자 페이지 전시 검색하기
+	@ResponseBody
+	@GetMapping("/api/exhibitions/search")
+	public List<ExhibitionEvent> searchExhibitions(@RequestParam String title) {
+		 
+		return exhibitionService.searchExhibitions(title);
+		 
+	}
+	 
+	// 관리자 페이지 전시관리버튼
+	@PatchMapping("/api/exhibitions/{exhibitionNo}")
+	public ResponseEntity<String> deleteExhibition(@PathVariable int exhibitionNo) {
+		 
+		exhibitionService.deleteExhibition(exhibitionNo);
+	     
+		return ResponseEntity.ok().build();
+	    
+	}
+	  
 }

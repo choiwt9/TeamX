@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.model.vo.exhibition.ExhibitionEvent;
 import com.teamx.exsite.service.main.MainService;
 
 @Controller
