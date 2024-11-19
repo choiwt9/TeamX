@@ -1,4 +1,4 @@
-package com.teamx.exsite.model.user.dto;
+package com.teamx.exsite.model.dto.user;
 
 import lombok.Data;
 
@@ -16,5 +16,6 @@ public class UserDTO {
 	private String updateDate;
 	private char userStatus;
 	private String method;
+	private String socialUserIdentifier;
 	private char grade;
 }

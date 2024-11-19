@@ -45,11 +45,11 @@ public class UserController {
 	 */
 	@RequestMapping("/user/register")
 	public String userRegister(HttpSession session, UserDTO registerInfo) {
-		// 회원가입에서 상세 받은 상세주소(addressDetail)를 Address에 합침, DB 설계에 상세주소 컬럼이 따로 없음
-		registerInfo.setAddress(registerInfo.getAddress() + "=" + registerInfo.getAddressDetail());
 		int result = userService.userRegister(registerInfo);
 		if (result == 1) {
 			UserDTO loginUser = registerInfo;
+			loginUser.setMethod("NORMAL");
+			loginUser.setUserPw(null);
 			session.setAttribute("loginUser", loginUser);
 		}
 		return "redirect:/";
@@ -134,7 +134,7 @@ public class UserController {
 		JSONObject userInfo = new JSONObject(userInfoCache.get(registerKey));
 		UserDTO registerationInfo = new UserDTO();
 		registerationInfo.setName(userInfo.getString("name"));
-		registerationInfo.setUserId(userInfo.getString("id"));
+		registerationInfo.setSocialUserIdentifier(userInfo.getString("socialUserIdentifier"));
 		registerationInfo.setEmail(userInfo.getString("email"));
 		registerationInfo.setMethod("GOOGLE");
 		userService.googleUserRegistration(registerationInfo, session);
@@ -170,9 +170,13 @@ public class UserController {
 				String registerKey = authService.generateAuthCode();
 				model.addAttribute("registerKey", registerKey);
 				userInfoCache.put(registerKey, result.get("registrationInfo"));
+				result.remove("registrationInfo");
 				
 				model.addAttribute("alertMsg", "가입하지 않은 회원입니다. 가입하시겠습니까?");
 				return "/user/googleCallbackPage";
+			} else if(result.get("status").equals("withdraw")) {
+				model.addAttribute("alertMsg", "탈퇴된 회원입니다.");
+				return "/user/loginForm";
 			}
 		
 		}
@@ -223,7 +227,6 @@ public class UserController {
 	
 
 
-	// --------------------------계정정보 메일 인증 기능 -------------------------------
 	/**
 	 * @param name 아이디/비밀번호 찾기 시 사용자가 입력한 실명
 	 * @param email 이메일 정보
@@ -278,17 +281,17 @@ public class UserController {
 		
 		String authMethod = email == null ? phone : email;
 		Map<String, String> result = authService.verifyCode(name + authMethod, code);
-		String userId = userService.idSearch(authMethod);
-		if(userId == null) {
+		UserDTO idInfo = userService.idSearch(authMethod);
+		if(idInfo == null) {
 			result.put("userId", "notFound");
+		} else if(idInfo.getUserStatus() == 'Y') {
+			result.put("userId", "withDraw");
 		} else {
-			result.put("userId", userId);
+			result.put("userId", idInfo.getUserId());
 		}
 		
 		return result;
 	}
-	// ------------------------------------------------------------------------
-	// ------------------------ 아이디 찾기 ----------------------------------------
 
 	@GetMapping("/id/recover")
 	public String findIdForm() {
@@ -300,8 +303,6 @@ public class UserController {
 		return "/user/findIdResultForm";
 	}
 
-	// -------------------------------------------------------------------------
-	// ------------------------ 비밀번호 재설정 ----------------------------------------
 	/**
 	 * @param userId 아이디 찾기로 id를 찾은 후 비밀번호 재설정 페이지로 넘어오는 경우, 해당 페이지에서 받은 userId값
 	 * @param model
@@ -344,17 +345,23 @@ public class UserController {
 								   , Model model) {
 		
 		String authMethod = email == null ? phone : email;
-		model.addAttribute("userId", userId);
-		model.addAttribute("name", name);
-		model.addAttribute("authMethod", authMethod);
-		// 비밀번호 재설정 페이지로 같이 넘길 6자리 인증번호
-		String code = authService.generateAuthCode();
-		// email 또는 phone + name + userId를 key값으로, code를 value로 AuthService.verificationCodes에 저장
-		authService.generateAuthInfo(authMethod + name + userId, code);
-		// code를 비밀번호 재설정 페이지로 같이 넘김
-		model.addAttribute("code", code);
-		System.out.println(code);
-		return "/user/changePasswordForm";
+		UserDTO userInfo = (UserDTO)userService.idSearch(authMethod);
+		if(userInfo.getUserStatus() == 'Y') {
+			model.addAttribute("userId", "withDraw");
+			return "/user/findIdResultForm";
+		} else {
+			model.addAttribute("userId", userId);
+			model.addAttribute("name", name);
+			model.addAttribute("authMethod", authMethod);
+			// 비밀번호 재설정 페이지로 같이 넘길 6자리 인증번호
+			String code = authService.generateAuthCode();
+			// email 또는 phone + name + userId를 key값으로, code를 value로 AuthService.verificationCodes에 저장
+			authService.generateAuthInfo(authMethod + name + userId, code);
+			// code를 비밀번호 재설정 페이지로 같이 넘김
+			model.addAttribute("code", code);
+			System.out.println(code);
+			return "/user/changePasswordForm";
+		}
 	}
 	
 	/**
@@ -392,60 +399,6 @@ public class UserController {
 
 		return "redirect:/";
 	}
-	
-	// 관리자 페이지 전체 유저 정보 불러오기
-	@ResponseBody
-	@GetMapping("/api/members")
-	public List<UserDTO> getAllUsers() {
-		 
-		return userService.getAllUsers();
-	    
-	}
-	
-	// 관리자 페이지 회원 검색하기
-	@ResponseBody
-	@GetMapping("/api/members/search")
-	public List<UserDTO> searchUsers(@RequestParam String name) {
-		 
-		return userService.searchUsers(name);
-		 
-	}
-	
-	// 관리자 페이지 해당회원 정보 불러오기
-	@ResponseBody
-	@GetMapping("/api/members/info/{userNo}")
-	public ResponseEntity<UserDTO> getUserInfo(@PathVariable int userNo){
-
-		UserDTO user = userService.getUserByNo(userNo);
-		
-        return ResponseEntity.ok(user);
-	
-	}
-
-	// 관리자 페이지 해당회원 정보 수정하기
-	@ResponseBody
-	@PutMapping("/api/members/{userNo}")
-    public ResponseEntity<UserDTO> updateUserInfo(@PathVariable int userNo, @RequestBody UserDTO member) {
-		
-		UserDTO updatedMember = userService.updateUserInfo(userNo, member);
-		
-        return ResponseEntity.ok(updatedMember);
-    }
-	
-	// 관리자 페이지 해당회원 탈퇴 처리하기
-	@ResponseBody
-	@PostMapping("/api/members/withdraw")
-    public ResponseEntity<String> withdraw(@RequestBody UserDTO withdrawMember) {
-		
-        boolean isWithdrawn = userService.withdrawUserInfo(withdrawMember.getUserId());
-        
-        if (isWithdrawn) {
-            return ResponseEntity.ok("탈퇴 처리되었습니다.");
-        } else {
-            return ResponseEntity.status(400).body("탈퇴 처리 중 오류가 발생했습니다.");
-        }
-        
-    }
 
 	// -------------------------------------------------------------------------
 }

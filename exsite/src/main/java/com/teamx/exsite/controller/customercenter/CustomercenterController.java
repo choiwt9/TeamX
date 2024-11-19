@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamx.exsite.model.customercenter.vo.Inquiry;
-import com.teamx.exsite.model.user.dto.UserDTO;
+import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.service.customercenter.CustomercenterService;
 
 import jakarta.servlet.http.HttpSession;
@@ -33,11 +33,19 @@ public class CustomercenterController {
 	}
 	
 	@GetMapping("/customer/service")
-	public String customerService(@RequestParam(required = false) Integer userNo, Model model, HttpSession session) {
+	public String customerService(@RequestParam(required = false) Integer userNo
+								, Model model
+								, HttpSession session
+								, @RequestParam(required = false) String personalInquiery) {
 		
 	    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
 	 
 	    model.addAttribute("loginUser", loginUser);
+	    model.addAttribute("personalInquiery", personalInquiery);
+	    
+	    List<Inquiry> inquiries = customercenterService.getInquiriesByUserNo(loginUser.getUserNo());
+	    model.addAttribute("inquiries", inquiries);
+	    
 	    
 	    if (loginUser != null) {
 	    	

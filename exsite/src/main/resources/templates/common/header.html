@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <title>HEADER</title>
 
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 <!-- 웹폰트 적용-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +16,7 @@
 <body>
     <div class="header-container">
         <div class="header-left-area">
-            <a href="/">
+            <a href="/" class="header-nav">
                 <img src="/img/common/exsite-logo.png" id="header-logo" alt="로고 이미지">
             </a>
         </div>
@@ -23,7 +25,7 @@
         <div class="header-center-area">
             <div class="header-center-top-area header-common-style">
                 <input type="text" id="header-search-input">
-                <img src="/img/common/header-search-icon.png" alt="로고 이미지" id="header-search-icon" href="#">
+                <img src="/img/common/header-search-icon.png" alt="로고 이미지" id="header-search-icon" onclick=redirectToSearchResultPage()>
             </div>
     
             <div class="header-center-bottom-area header-common-style">

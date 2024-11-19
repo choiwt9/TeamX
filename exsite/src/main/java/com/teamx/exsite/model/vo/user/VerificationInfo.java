@@ -1,4 +1,4 @@
-package com.teamx.exsite.model.user.vo;
+package com.teamx.exsite.model.vo.user;
 
 import java.time.LocalDateTime;
 

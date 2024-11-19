@@ -4,19 +4,19 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.teamx.exsite.model.mapper.community.BoardMapper">
-	
+	<!-- 게시굴 관련 쿼리문 -->
 	<!-- 게시글작성 쿼리문 -->
 	<insert id="insertBoard">
 		INSERT INTO COMMUNITY (POST_NO, POST_TITLE, POST_CONTENT, POST_CATEGORY, POST_DATETIME, POST_VIEW_COUNT, POST_STATUS, USER_NO)
-					   VALUES (SEQ_POST_NO.NEXTVAL,
-					   			#{postTitle},
-							    #{postContent},
-							    #{postCategory},
-							    SYSDATE,
-							    0,
-							    'N',
-							    #{userNo}
-							  )
+				   VALUES (SEQ_POST_NO.NEXTVAL,
+				   			#{postTitle},
+						    #{postContent},
+						    #{postCategory},
+						    SYSDATE,
+						    0,
+						    'N',
+						    #{userNo}
+						  )
 	</insert>
 	
 	<!-- 게시글 총 갯수 조회 쿼리문 -->
@@ -53,6 +53,7 @@
 		SELECT POST_NO
 		     , POST_TITLE
 			 , POST_CONTENT
+			 , POST_CATEGORY
 			 , POST_DATETIME
 			 , POST_VIEW_COUNT
     		 , USER_ID
@@ -61,15 +62,60 @@
   			WHERE POST_NO = #{ postNo } AND POST_STATUS = 'N'
 	</select>
 	
-	<!-- 댓글 작성 쿼리문 -->
+	<!-- 게시글 수정 쿼리문 -->
+	<update id="editBoard">
+		UPDATE COMMUNITY
+			SET POST_TITLE = #{postTitle}
+			   ,POST_CONTENT = #{postContent}
+			   ,POST_CATEGORY = #{postCategory}
+		WHERE POST_NO = #{postNo}
+		  AND USER_NO = #{userNo}
+	</update>
+	
+	<!-- 게시글 삭제 쿼리문 -->
+	<update id="deleteBoard">
+		UPDATE COMMUNITY
+		   SET POST_STATUS = 'Y'
+		WHERE POST_NO = #{postNo}
+		  AND USER_NO = #{userNo}
+	</update>
+	
+
+	<!-- 카테고리별 게시글 갯수 조회 쿼리문 -->
+	<select id="selectListCountByCategory" resultType="_int">
+		SELECT COUNT (*)
+		FROM COMMUNITY
+		WHERE POST_STATUS = 'N' AND POST_CATEGORY = #{ postCategory }
+	</select>
+
+	<!-- 카테고리별 게시글 조회 쿼리문 -->
+	<select id="selectPostsByCategory">
+		SELECT POST_NO
+	   	     , POST_TITLE
+		 	 , POST_CONTENT
+		 	 , POST_CATEGORY
+		 	 , POST_DATETIME
+		 	 , POST_VIEW_COUNT
+	     	 , USER_ID
+			FROM COMMUNITY
+	        JOIN USER_INFO USING (USER_NO)
+			WHERE POST_STATUS = 'N' AND POST_CATEGORY = #{postCategory} 
+			ORDER BY POST_NO DESC
+	</select>
+	
+	
+	<!-- 댓글 관련 쿼리문 -->
+	<!-- 부모댓글 작성 쿼리문 -->
 	<insert id="insertParentReply">
-        INSERT INTO PARENT_REPLY(PARENT_REPLY_NO
+        INSERT INTO PARENT_REPLY(
+        			PARENT_REPLY_NO
   			      , PARENT_REPLY_CONTENT
   			  	  , PARENT_REPLY_DATETIME
   				  , PARENT_REPLY_STATUS
                   , USER_NO
                   , POST_NO)
-  				VALUES(SEQ_PARENT_REPLY_NO.NEXTVAL
+  				VALUES(
+  					  SEQ_PARENT_REPLY_NO.NEXTVAL
   					, #{ parentReplyContent }
   					, SYSDATE
   					, 'N'
@@ -78,5 +124,90 @@
                 )		
 	</insert>
 	
+	<!-- 부모댓글 조회 쿼리문 -->
+	<select id="selectParentReply">
+		SELECT PARENT_REPLY_NO, PARENT_REPLY_CONTENT, PARENT_REPLY_DATETIME, PARENT_REPLY_STATUS, USER_ID
+			FROM PARENT_REPLY
+			JOIN USER_INFO USING (USER_NO)
+		WHERE POST_NO = #{ postNo }
+		ORDER BY PARENT_REPLY_NO
+	</select>
 	
+	<!-- 자식댓글(답글) 작성 쿼리문 -->
+	<insert id="insertChildrenReply">
+        INSERT INTO CHILDREN_REPLY(
+                    CHILDREN_REPLY_NO
+  			      , CHILDREN_REPLY_CONTENT
+  			  	  , CHILDREN_REPLY_DATETIME
+  				  , CHILDREN_REPLY_STATUS
+                  , PARENT_REPLY_NO
+                  , USER_NO)
+  				VALUES(
+  					  SEQ_CHILDREN_REPLY_NO.NEXTVAL
+  					, #{ childrenReplyContent }
+  					, SYSDATE
+  					, 'N'
+                    , #{ parentReplyNo }
+                    , #{ userNo }
+                )	
+	</insert>
+	
+	<!-- 자식댓글(답글) 조회 쿼리문 -->
+	<select id="selectChildrenReply">
+		SELECT CHILDREN_REPLY_NO, CHILDREN_REPLY_CONTENT, CHILDREN_REPLY_DATETIME, CHILDREN_REPLY_STATUS, USER_ID
+			FROM CHILDREN_REPLY
+			JOIN USER_INFO USING (USER_NO)
+		WHERE PARENT_REPLY_NO = #{ parentReplyNo } AND CHILDREN_REPLY_STATUS = 'N'
+		ORDER BY CHILDREN_REPLY_NO
+	</select>
+	
+	<!-- 부모+자식댓글 수 카운트 함수 -->
+	<select id="countAllReplies">
+		SELECT COUNT(*)
+			FROM (
+			    SELECT PARENT_REPLY_NO
+			    FROM PARENT_REPLY
+			    WHERE POST_NO = #{ postNo }
+			    
+			    UNION ALL
+			    
+			    SELECT C.PARENT_REPLY_NO
+			    FROM CHILDREN_REPLY C
+			    JOIN PARENT_REPLY P ON C.PARENT_REPLY_NO = P.PARENT_REPLY_NO
+			    WHERE P.POST_NO = #{ postNo }
+			    AND C.CHILDREN_REPLY_STATUS = 'N'
+			)
+	</select>
+	
+	<!-- 부모댓글 삭제 쿼리문 -->
+	<update id="deleteParentReply">
+		UPDATE PARENT_REPLY
+		   SET PARENT_REPLY_STATUS = 'Y'
+		 WHERE PARENT_REPLY_NO = #{parentReplyNo}
+		   AND USER_NO = #{userNo}
+	</update>
+
+	<!-- 자식댓글 삭제 쿼리문 -->
+	<update id="deleteChildrenReply">
+		UPDATE CHILDREN_REPLY
+		   SET CHILDREN_REPLY_STATUS = 'Y'
+		 WHERE CHILDREN_REPLY_NO = #{childrenReplyNo}
+		   AND USER_NO = #{userNo}
+	</update>
+	
+	<!-- 부모댓글 수정 쿼리문 -->
+	<update id="editParentReply">
+		UPDATE PARENT_REPLY
+		   SET PARENT_REPLY_CONTENT = #{parentReplyContent }
+		 WHERE PARENT_REPLY_NO = #{ parentReplyNo }
+		   AND USER_NO = #{ userNo }
+	</update>
+	
+	<!-- 자식댓글 수정 쿼리문 -->
+	<update id="editChildrenReply">
+		UPDATE CHILDREN_REPLY
+		   SET CHILDREN_REPLY_CONTENT = #{childrenReplyContent }
+		 WHERE CHILDREN_REPLY_NO = #{ childrenReplyNo }
+		   AND USER_NO = #{ userNo }
+	</update>
 </mapper>

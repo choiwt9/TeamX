@@ -1,0 +1,63 @@
+    html { font-size: 62.5%; }
+    body {
+        font-family: 'Noto Sans', sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0 3rem;
+    }
+    .ticketing-success-container {
+        background: white;
+        padding: 2rem;
+        width: 100%;
+        display: flex;
+    }
+    .success-left-area {
+        width: 20%;
+        text-align: center;
+        padding-right: 2rem;
+        padding-top: 2rem;
+    }
+    .success-left-area img {
+        width: 10rem;
+        margin-bottom: 2rem;
+    }
+    .success-right-area {
+        width: 70%;
+        padding-left: 2rem;
+    }
+    .success-right-area p {
+        font-size: 1.5rem;
+        font-weight: bold;
+    }
+    .success-right-area hr {
+        border: none;
+        border-top: 0.1rem solid #dee2e6;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+    }
+    th, td {
+        font-size: 1.2rem;
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 0.1rem solid #dee2e6;
+    }
+    th {
+        color: #0b9b9b;
+    }
+    button {
+        width: 10rem;
+        padding: 1.2rem;
+        font-size: 1rem;
+        font-weight: 900;
+        background-color: #0b9b9b;
+        color: white;
+        border: none;
+        border-radius: 1.5rem;
+        cursor: pointer;
+    }
+    #btn-area { display: flex; justify-content: center; margin-top: 5rem; }

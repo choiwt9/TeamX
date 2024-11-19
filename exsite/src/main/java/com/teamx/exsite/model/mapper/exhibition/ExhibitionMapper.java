@@ -3,7 +3,6 @@ package com.teamx.exsite.model.mapper.exhibition;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 
@@ -46,5 +45,9 @@ public interface ExhibitionMapper {
 
 	// 관리자 페이지 전시관리버튼
 	void updateExhibitionStatus(int exhibitionNo, String status);
+	
+	List<ExhibitionEvent> selectLikeList(int userNo);
+	
+	List<ExhibitionEvent> searchByTitle(String query);
 
 }

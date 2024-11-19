@@ -5,15 +5,16 @@ let nameCheckResult = false;
 let emailCheckResult = false;
 let phoneCheckResult= false; 
 let addressCheckResult= false;
+let addressDetailCheckResult= false;
 
 let idAlert;
 let passwordAlert;
 let emailAlert;
 let phoneAlert;
 let addressAlert;
-/* 
-구글로 회원가입 기능 구현 필요
-*/
+let addressDetailAlert;
+
+
 
 // 아이디 중복검사
 $(function() {
@@ -51,6 +52,7 @@ $(function() {
     idAlert.text('');
   });
 });
+
 
 
 // 이메일 직접입력 input 생성
@@ -165,6 +167,8 @@ $(function() {
   }
 });
 
+
+
 //실명 입력 검사
 $(function() {
   $('#user_name').on('input', function() {
@@ -173,6 +177,8 @@ $(function() {
     }
   });
 });
+
+
 
 // 이메일 인증 부분
 $(function() {
@@ -271,6 +277,7 @@ $(function() {
 });
 
 
+
 // 휴대폰 인증 부분
 $(function() {
   
@@ -363,6 +370,7 @@ $(function() {
 });
 
 
+
 // 거주지 주소 입력(우편번호 서비스 api 이용)
 $(function() {
   $('#search-address').click(function() {
@@ -390,8 +398,10 @@ $(function() {
       popupKey: 'popup1' //팝업창 Key값 설정 (영문+숫자 추천)
     });
 
-  })
+  });
 });
+
+
 
 $(function() {
   
@@ -404,6 +414,11 @@ $(function() {
   $('#enroll-btn').click(function(event) {
     event.preventDefault(); // 기본 submit 동작 방지
     let isPossible = true;
+    if($('#detail-address-input').val() !== null && $('#detail-address-input').val() !== '') {
+      addressDetailCheckResult = true;
+    } else {
+      addressDetailCheckResult = false;
+    }
     let checkResults = [
       idCheckResult,
       passwordCheckResult,
@@ -411,7 +426,8 @@ $(function() {
       nameCheckResult,
       emailCheckResult,
       phoneCheckResult,
-      addressCheckResult
+      addressCheckResult,
+      addressDetailCheckResult
     ];
     
     for(let i in checkResults) {
@@ -463,7 +479,12 @@ $(function() {
       if(addressCheckResult === false) {
         $('#address-alert').removeClass('success-message');
         $('#address-alert').addClass('error-message');
-        $('#address-alert').text('필수 항목입니다.');
+        $('#address-alert').text('주소와 상세주소를 모두입력해주세요.');
+      }
+      if(addressDetailCheckResult === false) {
+        $('#address-alert').removeClass('success-message');
+        $('#address-alert').addClass('error-message');
+        $('#address-alert').text('주소와 상세주소를 모두입력해주세요.');
       }
       return false;
     }
@@ -481,10 +502,13 @@ $(function() {
   $('#address-input').on('input', function() {
     $('#address-alert').text('');
     addressCheckResult = false;
-  })
+  });
+  $('#detail-address-input').on('input', function() {
+    $('#address-alert').text('');
+  });
   $('#user_name').on('input', function() {
     $('#name-check').text('');
-  })
+  });
 });
 
 

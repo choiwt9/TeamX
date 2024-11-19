@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/mypage/views/mypageTicketList.css">
+<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+<script src="/js/mypage/mypageTicketList.js"></script>
 </head>
 <body>
     <div class="mypage-view-ticket-info">
@@ -35,55 +37,44 @@
                         </tr>
                     </thead>
                     <tbody class="mypage-view-ticket-content-list">
-                        <tr>
-                            <td>2024.10.15</td>
+                        <tr th:each=" info:${ticketingInfo}">
+                            <td th:text="${#strings.substring(info.ticketingDate, 0, 10)}"></td>
                             <td>
-                                <a href="/mypage-view-ticket/post">0052018062204015183</a>
+                                <a th:href="'/mypage/view?view=ticketDetail&merchantUid=' + ${info.merchantUid}" th:text="${info.merchantUid}"></a>
                             </td>
-                            <td>[라스트얼리버드] 불멸의 화가 반 고흐</td>
-                            <td>상시 상품</td>
-                            <td>예매</td>
-                        </tr>
-                        <tr>
-                            <td>2024.10.15</td>
-                            <td>
-                                <a href="/mypage-view-ticket/post">0052018062204015183</a>
-                            </td>
-                            <td>[라스트얼리버드] 불멸의 화가 반 고흐</td>
-                            <td>상시 상품</td>
-                            <td>예매</td>
-                        </tr>
-                        <tr>
-                            <td>2024.10.15</td>
-                            <td>
-                                <a href="/mypage-view-ticket/post">0052018062204015183</a>
-                            </td>
-                            <td>[라스트얼리버드] 불멸의 화가 반 고흐</td>
-                            <td>상시 상품</td>
-                            <td>취소</td>
+                            <td th:text="${info.name}">[라스트얼리버드] 불멸의 화가 반 고흐</td>
+                            <td th:text="${info.exDate}">상시 상품</td>
+                            <td th:text="${info.ticketStatus}">예매</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         
-            <nav aria-label="Page navigation">
+            <nav aria-label="Page navigation" th:if="${pageInfo.endPage > 1}">
                 <ul class="pagination justify-content-center">
-                  <li class="page-item disabled">
-                    <a id="page-prev" class="page-link" href="#" tabindex="-1" aria-disabled="true"><img src="/img/common/pagenation_arrow_left.png" alt=""></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">4</a></li>
-                  <li class="page-item"><a class="page-link" href="#">5</a></li>
-                  <li class="page-item"><a class="page-link" href="#">6</a></li>
-                  <li class="page-item"><a class="page-link" href="#">7</a></li>
-                  <li class="page-item"><a class="page-link" href="#">8</a></li>
-                  <li class="page-item"><a class="page-link" href="#">9</a></li>
-                  <li class="page-item"><a class="page-link" href="#">10</a></li>
-                  <li class="page-item">
-                    <a id="page-next" class="page-link" href="#"><img src="/img/common/pagenation_arrow_right.png" alt=""></a>
-                  </li>
+                    <li th:classappend="${pageInfo.currentPage == 1} ? 'disabled'" class="page-item">
+                        <a id="page-prev" class="page-link" 
+                           th:href="${pageInfo.currentPage > 1} ? '/mypage/view?view=ticketList&cpage=' + ${pageInfo.currentPage - 1} : '#'" 
+                           >
+                            <img src="/img/common/pagenation_arrow_left.png" alt="">
+                        </a>
+                    </li>
+                    <!-- 페이지 링크 반복 -->
+                    <span th:each="i : ${#numbers.sequence(pageInfo.startPage, pageInfo.endPage)}">
+                         <!-- 페이징 바 클릭 시 cpage 값으로 i 전달 -->
+                        <a th:href="'/mypage/view?view=ticketList&cpage=' + ${i}" 
+                           class="page-link page-number" 
+                           th:text="${i}" 
+                           th:classappend="${i == pageInfo.currentPage} ? 'pagenation-active'"></a>
+                           <!-- append로 active 클래스 추가-->
+                    </span>
+                    <li th:classappend="${pageInfo.currentPage == pageInfo.maxPage} ? 'disabled'" class="page-item">
+                        <a id="page-next" class="page-link"
+                            th:href="${pageInfo.currentPage lt pageInfo.maxPage} ? '/mypage/view?view=ticketList&cpage=' +  ${pageInfo.currentPage + 1} : '#'" 
+                            >
+                            <img src="/img/common/pagenation_arrow_right.png" alt="">
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
