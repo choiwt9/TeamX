@@ -1,6 +1,7 @@
 package com.teamx.exsite.controller.review;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamx.exsite.model.dto.user.UserDTO;
@@ -134,10 +136,7 @@ public class ReviewController {
 	@PutMapping("/review/delete")
 	public ResponseEntity<String> deleteReview(HttpSession session, ReviewDTO deleteReview) {
 		
-		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
-		deleteReview.setUserNo(loginUser.getUserNo());
-		
-		int result = reviewService.deleteReview(deleteReview);
+		int result = reviewService.deleteReview(deleteReview.getMerchantUid());
 		
 		if(result == 1) {
 			return ResponseEntity.ok("리뷰가 삭제되었습니다.");
@@ -145,6 +144,31 @@ public class ReviewController {
 		
 		return ResponseEntity.status(HttpStatus.CONFLICT).body("리뷰 삭제에 오류가 발생했습니다.");
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/api/review/info", produces="application/json; charset=utf-8")
+	public ResponseEntity<List<ReviewDTO>> getReviewInfo() {
+		
+		List<ReviewDTO> list = reviewService.getReviewList();
+		
+		return ResponseEntity.ok(list);
+	}
+	
+	@ResponseBody
+	@PutMapping(value="/api/review/update", produces="application/json; charset=utf-8")
+	public ResponseEntity<String> deleteReview(@RequestBody Map<String, List<String>> deleteReviews) {
+		
+		log.info("{}", deleteReviews);
+		
+		List<String> list = deleteReviews.get("deleteReview");
+		
+		for(int i = 0; i < list.size(); i++) {
+			reviewService.deleteReview(list.get(i));
+		}
+		
+		return ResponseEntity.ok("요청한 리뷰가 삭제되었습니다.");
+	}
+	
 	
 		
 }

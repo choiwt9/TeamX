@@ -53,7 +53,7 @@
 	<update id="deleteReview">
 		UPDATE REVIEW
 			SET REVIEW_STATUS = 'Y'
-		WHERE MERCHANT_UID = #{merchantUid} AND USER_NO = #{userNo}
+		WHERE MERCHANT_UID = #{merchantUid}
 	</update>
 	
 	<select id="selectMyPageReviewList">
@@ -69,5 +69,12 @@
 		WHERE USER_NO = #{userNo} AND REVIEW_STATUS = 'N'
 	</select>
 	
+	<select id="getReviewList">
+		SELECT A.MERCHANT_UID, B.EXHIBITION_NO, A.EXHIBITION_TITLE, C.NAME, A.REVIEW_DATE
+		FROM REVIEW A
+			JOIN TICKETING B ON (A.MERCHANT_UID = B.MERCHANT_UID)
+			JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
+		WHERE A.REVIEW_STATUS ='N'
+	</select>
 
 </mapper>

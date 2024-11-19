@@ -57,14 +57,18 @@ public class ReviewService {
 	    .collect(Collectors.toList());
 	}
 
-	public int deleteReview(ReviewDTO deleteReview) {
-		return reviewMapper.deleteReview(deleteReview);
+	public int deleteReview(String merchantUid) {
+		return reviewMapper.deleteReview(merchantUid);
 	}
 
 	public List<ReviewDTO> selectMyPageReviewList(int userNo, PageInfo pageInfo) {
 		int offset = (pageInfo.getCurrentPage() - 1) * pageInfo.getBoardLimit();
 		RowBounds rowBounds = new RowBounds(offset, pageInfo.getBoardLimit());
 		return reviewMapper.selectMyPageReviewList(userNo, rowBounds);
+	}
+
+	public List<ReviewDTO> getReviewList() {
+		return reviewMapper.getReviewList();
 	}
 	
 	
