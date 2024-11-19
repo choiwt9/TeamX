@@ -67,6 +67,7 @@
             cursor: pointer;
             width: 100%;
             max-width: 100%;
+            
         }
 
         @media (max-width: 600px) {
@@ -83,7 +84,7 @@
         }
 
         .faq-answer.active {
-            max-height: 100px;
+            max-height: 100%;
             padding-top: 3rem;
         }
 

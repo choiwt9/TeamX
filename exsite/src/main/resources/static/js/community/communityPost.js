@@ -2,6 +2,14 @@ $(document).ready(function(){
    // 댓글 조회 함수 호출
    selectParentReply();
 
+   // 댓글 입력창에서 엔터 시 검색버튼 클릭 이벤트 호출
+   $('#community-parentReply-input').keyup(function(event){
+      if (event.key === "Enter") {
+         insertParentReply();
+      }
+   });
+
+
 });
 
 // 글삭제 메소드 요청 함수
@@ -130,6 +138,16 @@ function selectParentReply(){
                   
                   // 답글 버튼 아래에 답글 입력 폼 추가
                   commentItem.find('.communityPost-comment-btn-section').after(replyForm);
+                  
+                 const replySubmitBtn = $('.reply-submit-btn');
+
+                  // 답글 입력창에서 엔터 시 검색버튼 클릭 이벤트 호출
+                  $('.reply-input').keyup(function(event){
+                     if (event.key === "Enter") {
+                        insertChildrenReply(commentId, replySubmitBtn);
+                     }
+                  });
+
                }
            });
          }
@@ -373,6 +391,7 @@ $(document).on('click', '.community-comment-edit-btn', function(){
       // 답글 버튼 아래에 답글 입력 폼 추가
       commentItem.find('.communityPost-comment-btn-section').after(replyForm);
    }
+   
 });
 
 // 댓글 수정 요청 함수
