@@ -22,10 +22,17 @@ public class UserService {
 	private final AuthService authService;
 	private final APIService apiService;
 	
-	public int userRegister(UserDTO registerInfo) {
+	public UserDTO userRegister(UserDTO registerInfo) {
 		String encodePass = passwordEncoder.encode(registerInfo.getUserPw());
 		registerInfo.setUserPw(encodePass);
-		return userMapper.registerUser(registerInfo);
+		int registerResult = userMapper.registerUser(registerInfo);
+		if(registerResult  == 1) {
+	        int userNo = userMapper.getGeneratedUserNo();
+	        registerInfo.setUserNo(userNo);
+	        registerInfo.setMethod("NORMAL");
+	        return registerInfo;
+		}
+		return null;
 	}
 	
 	public int idCheck(String id) {

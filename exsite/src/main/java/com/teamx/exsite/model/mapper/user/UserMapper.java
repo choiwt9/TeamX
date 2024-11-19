@@ -66,4 +66,6 @@ public interface UserMapper {
 
 	public int withDrawSocialUser(String email, int userNo);
 
+	public int getGeneratedUserNo();
+
 }

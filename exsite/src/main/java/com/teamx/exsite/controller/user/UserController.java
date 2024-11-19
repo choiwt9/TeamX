@@ -44,13 +44,14 @@ public class UserController {
 	 * @return 메인 페이지로 리다이렉트
 	 */
 	@RequestMapping("/user/register")
-	public String userRegister(HttpSession session, UserDTO registerInfo) {
-		int result = userService.userRegister(registerInfo);
-		if (result == 1) {
-			UserDTO loginUser = registerInfo;
-			loginUser.setMethod("NORMAL");
-			loginUser.setUserPw(null);
-			session.setAttribute("loginUser", loginUser);
+	public String userRegister(HttpSession session, Model model, UserDTO registerInfo) {
+		UserDTO registerUser = userService.userRegister(registerInfo);
+		if (registerUser != null) {
+			registerUser.setUserPw(null);
+			session.setAttribute("loginUser", registerUser);
+		} else {
+			model.addAttribute("alertMsg", "회원가입에 실패했습니다.");
+			return "/user/loginForm";
 		}
 		return "redirect:/";
 	}
