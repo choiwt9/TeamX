@@ -3,6 +3,7 @@ package com.teamx.exsite.model.mapper.customercenter;
 import java.util.List;
 
 import com.teamx.exsite.model.customercenter.vo.Inquiry;
+import com.teamx.exsite.model.user.dto.UserDTO;
 
 public interface CustomercenterMapper {
 
@@ -16,6 +17,13 @@ public interface CustomercenterMapper {
 
 	List<Inquiry> findInquiriesByUserNo(int userNo);
 
-//	void updateInquiryResponse(int inquiryNo, String responseContent);
+	// 관리자 페이지 1:1 문의목록 조회 
+	List<Inquiry> findAll();
+
+	// 관리자 페이지 1:1 문의 특정회원 검색하기
+	List<Inquiry> searchUsers(String userId);
+
+	// 관리자 페이지 관리자 답변 등록
+	void updateInquiryResponse();
 
 }

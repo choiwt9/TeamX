@@ -99,5 +99,26 @@ public class ExhibitionService {
 	public int checkLike(int userNo, int exhibitionNo) {
 		return exhibitionMapper.checkLike(userNo, exhibitionNo);
 	}
+
+	// 관리자 페이지 전시목록 불러오기
+	public List<ExhibitionEvent> findAllExhibitionEvent() {
+
+		return exhibitionMapper.findAllExhibitionEvent();
+			
+	}
+		
+	// 관리자 페이지 전시 검색하기
+	public List<ExhibitionEvent> searchExhibitions(String title) {
+					
+		return exhibitionMapper.findExhibitionsByTitle(title);
+				
+	}
+
+	// 관리자 페이지 전시관리버튼
+	public void deleteExhibition(int exhibitionNo) {
+		
+		exhibitionMapper.updateExhibitionStatus(exhibitionNo, "Y");
+		
+	}
 	
 }

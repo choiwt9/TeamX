@@ -16,5 +16,6 @@ public class Inquiry {
 	private Date inquiryDate;
 	private char inquiryResponse;
 	private String responseContent;
+	private String userId;
 	
 }

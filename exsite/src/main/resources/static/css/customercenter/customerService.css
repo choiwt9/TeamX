@@ -120,6 +120,11 @@
         td {
             font-size: 1.5rem;
         }
+        
+        .inquiry-title a {
+        	text-decoration: none;
+        	color: black;
+        }
 
         .inquiry-date, .inquiry-answer {
             text-align: center;

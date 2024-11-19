@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamx.exsite.model.customercenter.vo.Inquiry;
 import com.teamx.exsite.model.mapper.customercenter.CustomercenterMapper;
+import com.teamx.exsite.model.user.dto.UserDTO;
 
 @Service
 public class CustomercenterService {
@@ -47,30 +48,24 @@ public class CustomercenterService {
 
 		return customercenterMapper.findInquiriesByUserNo(userNo);
 	}
-
-//	public void respondToInquiry(int inquiryNo, String responseContent) {
-//		
-//		customercenterMapper.updateInquiryResponse(inquiryNo, responseContent);
-//		
-//	}
-
 	
-//	public void deleteInquiry(int inquiryNo) {
-//		
-//		customercenterMapper.delete(inquiryNo);
-//		
-//	}
-//	
-//	public InquiryVO findInquiryById(Long inquiryNo) {
-//        return inquiryRepository.findById(inquiryNo); // 특정 문의글 가져오기
-//    }
-//	
-//	 public void updateInquiry(InquiryVO inquiry) {
-//	        inquiryRepository.update(inquiry); // 문의글 업데이트
-//	    }
-//	 
-//	 public List<InquiryVO> findInquiriesByUser(int userNo) {
-//	        return inquiryRepository.findByUserNo(userNo); // 사용자별 문의글 가져오기
-//	    }
+	// 관리자 페이지 1:1 문의목록 조회 
+	public List<Inquiry> getAllInquiries() {
+		
+		return customercenterMapper.findAll();
+	
+	}
+
+	// 관리자 페이지 1:1 문의 특정회원 검색하기
+	public List<Inquiry> searchUsers(String userId) {
+		
+		return customercenterMapper.searchUsers(userId);
+	}
+
+	// 관리자 페이지 관리자 답변 등록
+	public void updateInquiryResponse(int inquiryNo, Inquiry inquiryResponse) {
+
+		customercenterMapper.updateInquiryResponse();
+	}
 
 }

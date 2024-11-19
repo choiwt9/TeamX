@@ -20,18 +20,33 @@
 	   WHERE INQUIRY_NO = #{inquiryNo}
 	</select>
     
-     <delete id="deleteInquiry" parameterType="int">
-        DELETE FROM inquiry WHERE inquiry_no = #{inquiryNo}
+    <delete id="deleteInquiry" parameterType="int">
+        DELETE FROM INQUIRY WHERE INQUIRY_NO = #{inquiryNo}
     </delete>
     
     <update id="updateInquiryResponse">
-        UPDATE inquiry
-        SET response_content = #{responseContent}, inquiry_response = 'y'
-        WHERE inquiry_no = #{inquiryNo}
+        UPDATE INQUIRY
+        SET RESPONSE_CONTENT = #{responseContent}, INQUIRY_RESPONSE = 'Y'
+        WHERE INQUIRY_NO = #{inquiryNo}
     </update>
     
     <select id="findInquiriesByUserNo" resultType="com.teamx.exsite.model.customercenter.vo.Inquiry">
         SELECT * FROM inquiry WHERE user_no = #{userNo}
+    </select>
+    
+    <!-- 관리자 페이지 1:1 문의목록 조회 -->
+    <select id="findAll" resultType="com.teamx.exsite.model.customercenter.vo.Inquiry">
+        SELECT I.*, U.USER_ID 
+	    FROM INQUIRY I
+	    JOIN USER_INFO U ON (I.USER_NO = U.USER_NO)
+    </select>
+    
+    <!-- 관리자 페이지 1:1 문의 특정회원 검색하기 -->
+    <select id="searchUsers" resultType="com.teamx.exsite.model.customercenter.vo.Inquiry">
+        SELECT I.*, U.USER_ID
+        FROM INQUIRY I
+        JOIN USER_INFO U ON (I.USER_NO = U.USER_NO)
+        WHERE U.USER_ID LIKE '%' || #{userId} || '%'
     </select>
     
 </mapper>

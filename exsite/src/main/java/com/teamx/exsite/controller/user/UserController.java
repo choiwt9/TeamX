@@ -1,17 +1,23 @@
 package com.teamx.exsite.controller.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 import com.teamx.exsite.model.user.dto.UserDTO;
 import com.teamx.exsite.service.user.AuthService;
 import com.teamx.exsite.service.user.UserService;
@@ -386,6 +392,60 @@ public class UserController {
 
 		return "redirect:/";
 	}
+	
+	// 관리자 페이지 전체 유저 정보 불러오기
+	@ResponseBody
+	@GetMapping("/api/members")
+	public List<UserDTO> getAllUsers() {
+		 
+		return userService.getAllUsers();
+	    
+	}
+	
+	// 관리자 페이지 회원 검색하기
+	@ResponseBody
+	@GetMapping("/api/members/search")
+	public List<UserDTO> searchUsers(@RequestParam String name) {
+		 
+		return userService.searchUsers(name);
+		 
+	}
+	
+	// 관리자 페이지 해당회원 정보 불러오기
+	@ResponseBody
+	@GetMapping("/api/members/info/{userNo}")
+	public ResponseEntity<UserDTO> getUserInfo(@PathVariable int userNo){
+
+		UserDTO user = userService.getUserByNo(userNo);
+		
+        return ResponseEntity.ok(user);
+	
+	}
+
+	// 관리자 페이지 해당회원 정보 수정하기
+	@ResponseBody
+	@PutMapping("/api/members/{userNo}")
+    public ResponseEntity<UserDTO> updateUserInfo(@PathVariable int userNo, @RequestBody UserDTO member) {
+		
+		UserDTO updatedMember = userService.updateUserInfo(userNo, member);
+		
+        return ResponseEntity.ok(updatedMember);
+    }
+	
+	// 관리자 페이지 해당회원 탈퇴 처리하기
+	@ResponseBody
+	@PostMapping("/api/members/withdraw")
+    public ResponseEntity<String> withdraw(@RequestBody UserDTO withdrawMember) {
+		
+        boolean isWithdrawn = userService.withdrawUserInfo(withdrawMember.getUserId());
+        
+        if (isWithdrawn) {
+            return ResponseEntity.ok("탈퇴 처리되었습니다.");
+        } else {
+            return ResponseEntity.status(400).body("탈퇴 처리 중 오류가 발생했습니다.");
+        }
+        
+    }
 
 	// -------------------------------------------------------------------------
 }

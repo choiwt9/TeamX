@@ -31,4 +31,5 @@ public class AppConfig implements WebMvcConfigurer {
 			.addPathPatterns("/mypageMain")
 			.excludePathPatterns("/login");
 	}
+    
 }

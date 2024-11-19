@@ -77,7 +77,7 @@
     <select id="getExhibitionById" parameterType="int" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
    		SELECT * FROM exhibition
 		    JOIN EXHIBITION_DETAIL USING (EXHIBITION_NO)
-		WHERE exhibition_no = #{exhibitionNo}
+		WHERE EXHIBITION_NO = #{exhibitionNo}
 	</select>
     
     <select id="getAllEvents" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
@@ -150,6 +150,7 @@
         WHERE CODENAME LIKE '축제%' AND IS_FREE = '유료' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
     </select>
     
+    <!-- 좋아요 기능 -->
     <insert id="insertLike" parameterType="map">
 	    INSERT INTO EXHIBITION_LIKE (USER_NO, EXHIBITION_NO) 
 	    VALUES (#{userNo}, #{exhibitionNo})
@@ -165,5 +166,28 @@
 		FROM EXHIBITION_LIKE
 		WHERE USER_NO = #{userNo} AND EXHIBITION_NO = #{exhibitionNo}
 	</select>
+
+	<!-- 관리자 페이지 전시목록 불러오기 -->
+	<select id="findAllExhibitionEvent" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT 
+            EXHIBITION_NO, 
+            TITLE, 
+            STATUS 
+        FROM EXHIBITION
+        WHERE STATUS = 'N' AND CODENAME LIKE '전시/미술'
+    </select>
+	
+	<!-- 관리자 페이지 전시 검색하기 -->
+	<select id="findExhibitionsByTitle" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+        SELECT * FROM EXHIBITION 
+        WHERE TITLE LIKE '%' || #{title} || '%'
+    </select>
+    
+    <!-- 관리자 페이지 전시관리버튼 -->
+    <update id="updateExhibitionStatus">
+        UPDATE EXHIBITION
+        SET STATUS = #{status}
+        WHERE EXHIBITION_NO = #{exhibitionNo}
+    </update>
 	
 </mapper>

@@ -1,0 +1,124 @@
+html, body {
+    font-size: 62.5%;
+    font-family: "Noto Sans", sans-serif;
+    margin: 0; 
+    padding: 0; 
+    width: 100%;
+    height: 100%;
+    /* overflow: hidden; 스크롤 숨기기 */
+    box-sizing: border-box;
+}
+
+* {
+    box-sizing: inherit;
+}
+
+.inquiry-management {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 0.1rem solid pink; */
+    margin: 0 auto;
+    margin: 2rem 15rem 0rem 15rem;
+    height: 100%;
+}
+
+.inquiry-management-table {
+    /* border: 0.1rem solid red; */
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1.4rem;
+}
+
+.inquiry-management-caption {
+    border-bottom: 0.3rem solid black;
+    font-size: 2.5rem;
+    font-weight: bold;
+    width: 16rem;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+}
+
+.inquiry-management-search {
+    border: 0.3rem solid #0B9B9B;
+    border-radius: 2rem;
+    margin-bottom: 3rem;
+    margin-left: auto;
+    width: 17rem;
+    display: flex;
+}
+
+.search-input {
+    width: 100%;
+    border: 0.1rem solid white;
+    border-radius: 2rem;
+    padding: 0.8rem;
+    outline: none;
+    font-size: 1.5rem;
+}
+
+.search-input-image {
+    padding: 0.8rem;
+}
+
+.inquiry-management-thead-th {
+    /* border: 0.3rem solid #ddd; */
+    text-align: center;
+    padding: 2rem 2rem;
+    background-color: #EDF8F8;
+}
+
+.inquiry-management-td {
+    padding: 1rem 1rem;
+    text-align: center;
+}
+
+.inquiry-info {
+    /* border: 1rem solid black; */
+    padding: 1rem 3rem;
+} 
+
+.pagination {
+    margin-top: 3rem;
+    border: 0.1rem solid #9DD7D7;
+    border-radius: 2rem;
+    display: flex;
+    font-size: 1.4rem;
+    align-items: center;
+}
+
+.pagination1, .pagination12 {
+    border-left: 0.1rem solid #9DD7D7;
+}
+
+/* 버튼 스타일 통일 */
+.pagination button {
+    border-radius: 0rem;
+    background-color: transparent; 
+    border: none;
+    cursor: pointer; 
+    margin: 0; 
+    padding: 0.5rem 1rem;
+}
+
+.pagination button:hover {
+    background-color:  #0B9B9B;
+}
+
+.pagination11 button:hover {
+    border-top-left-radius: 2rem;
+    border-bottom-left-radius: 2rem;
+}
+
+.pagination12 button:hover {
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+
+.inquiry-edit {
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}

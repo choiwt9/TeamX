@@ -3,11 +3,16 @@ package com.teamx.exsite.controller.customercenter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.teamx.exsite.model.customercenter.vo.Inquiry;
 import com.teamx.exsite.model.user.dto.UserDTO;
@@ -31,16 +36,16 @@ public class CustomercenterController {
 	public String customerService(@RequestParam(required = false) Integer userNo, Model model, HttpSession session) {
 		
 	    UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
-	    
-	    if (loginUser == null) {
-	        return "redirect:/login"; 
-	    }
-
+	 
 	    model.addAttribute("loginUser", loginUser);
 	    
-	    List<Inquiry> inquiries = customercenterService.getInquiriesByUserNo(loginUser.getUserNo());
-	    model.addAttribute("inquiries", inquiries);
+	    if (loginUser != null) {
+	    	
+	        List<Inquiry> inquiries = customercenterService.getInquiriesByUserNo(loginUser.getUserNo());
+	        model.addAttribute("inquiries", inquiries);
 	    
+	    }
+
 	    return "/customercenter/customerService";
 	    
 	}
@@ -112,13 +117,45 @@ public class CustomercenterController {
         
 	}
 	
-//	@PostMapping("/customer/answer/create")
-//	public String respondToInquiry(@RequestParam("inquiryNo") int inquiryNo, @RequestParam("responseContent") String responseContent) {
-//	    
-//	    customercenterService.respondToInquiry(inquiryNo, responseContent);
-//	    
-//	    return "redirect:/customer/service";
-//	    
-//	}
+	// 관리자 페이지 1:1 문의목록 조회 
+	@ResponseBody
+	@GetMapping("/api/inquiries")
+	public List<Inquiry> getInquiries() {
+		
+        return customercenterService.getAllInquiries();
+    
+	}
+	
+	// 관리자 페이지 해당 1:1문의 답변하기 페이지 조회
+	@ResponseBody
+	@GetMapping("/api/inquiries/{inquiryNo}")
+	public Inquiry getInquiryAnswerById(@PathVariable int inquiryNo) {
+		
+        return customercenterService.getInquiryById(inquiryNo);
+    
+	}
+	
+	// 관리자 페이지 1:1문의 특정회원 검색하기
+	@ResponseBody
+	@GetMapping("/api/inquiries/search")
+	public List<Inquiry> searchUsers(@RequestParam String userId) {
+		
+		return customercenterService.searchUsers(userId) ;
+			 		 
+	}
+	
+	// 관리자 페이지 관리자 답변 등록
+	@ResponseBody
+	@PutMapping("/api/inquiries/search/{inquiryNo}")
+    public ResponseEntity<Inquiry> updateInquiryResponse(@PathVariable int inquiryNo, @RequestBody Inquiry inquiryResponse) {
+		
+        try {
+        	customercenterService.updateInquiryResponse(inquiryNo, inquiryResponse);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error updating inquiry response: " + e.getMessage());
+        }
+        
+    }
 	
 }
