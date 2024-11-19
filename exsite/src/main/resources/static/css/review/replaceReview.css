@@ -1,0 +1,85 @@
+html {
+    font-size: 62.5%;
+    font-family: "Noto Sans", sans-serif;
+}
+
+#all-area {
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#all-area #replace-review {
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+#all-area .review-replace-page {
+    width: 64rem;
+    margin: auto;
+
+}
+
+#all-area #review-title {
+    border: solid #9DD7D7;
+    width: 100%;
+    height: 4rem;
+    border-radius: 1.5rem;
+    border-width: 0.3rem;
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    padding-left: 1.12rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+
+#all-area #review-content {
+
+    border-style: solid;
+    border-color: #9DD7D7;
+    border-width: 0.3rem;
+    border-radius: 1.5rem;
+    margin-top: 4rem;
+    width: 100%;
+    height: 32rem;
+    padding-top: 0.8rem;
+    padding-left: 1.12rem;
+    resize: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#all-area #review-title:focus,
+#all-area #review-content:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#all-area .buttons {
+    display: flex;
+    justify-content: end;
+    margin-top: 3.2rem;
+}
+
+#all-area #replace,
+#cancel {
+    border-radius: 1.5rem;
+    width: 4.8rem;
+    height: 2.8rem;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#all-area #replace {
+    background-color: #0B9B9B;
+    border: none;
+    margin-right: 0.8rem;
+    color: #FFFFFF;
+}
+
+#all-area #cancel {
+    background-color: #FFFFFF;
+    border-width: 0.06rem;
+}

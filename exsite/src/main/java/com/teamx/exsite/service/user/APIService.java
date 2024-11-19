@@ -12,10 +12,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Component
-@Slf4j
 public class APIService {
 	@Value("${google.tokenRequestUrl}")
 	private String tokenRequestUrl;
@@ -73,21 +70,14 @@ public class APIService {
 	public JSONObject googleUserInfoGetProcess(String code) {
 		String token = getToken(code);
 		
-		log.info("token: {}", token);
-		
 		JSONObject tokenObj = new JSONObject(token);
 		
-		String accessToken = (String)tokenObj.get("access_token");
-		
-		log.info("accessToken: {}", accessToken);
+		String accessToken = tokenObj.getString("access_token");
 		
 		String userInfo = callGoogleLoginApi(accessToken);
 		
-		log.info("userInfo: {}", userInfo);
-		
 		JSONObject jsonUserInfo = new JSONObject(userInfo);
 		
-		log.info("jsonUserInfo: {}", jsonUserInfo);
 		return jsonUserInfo;
 	}
 

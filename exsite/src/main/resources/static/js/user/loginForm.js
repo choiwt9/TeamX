@@ -34,6 +34,14 @@ $(function() {
       }
     });
   });
+
+  $('input').on('keydown', function(event) {
+    if(event.key === 'Enter') {
+      event.preventDefault();
+      $('#login-btn').click();
+    }
+  });
+  
 });
 
 // 네이버 로그인

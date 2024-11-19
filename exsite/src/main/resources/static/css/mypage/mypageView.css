@@ -106,3 +106,6 @@ tbody tr:hover {
   object-position: center; 
 }
 
+.pagenation-active{
+  background-color: #9DD7D7 !important;
+}

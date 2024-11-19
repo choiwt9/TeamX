@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -12,54 +12,19 @@
 		</div>
 		<div class="like-list-section">
 			<div class="like-list-info-area">
-				<div class="like-list-exhibition-item">
+				<div class="like-list-exhibition-item" th:each="item : ${likeList}">
+					<a th:href="@{/exhibition/detail?(id=${item.exhibitionNo})}">
 					<div class="like-list-item-image-wrapper">
 						<img class="like-list-item-image"
-							src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=d86ee210bd054f49b41441fb5a59e6f7&thumb=Y"
+							th:src="${item.mainImg}"
 							alt="전시썸네일">
 					</div>
 					<ul class="like-list-item-textarea">
-						<li class="like-list-item-title">서울일러스트레이션페어 V.18</li>
-						<li class="like-list-item-place">코엑스 B홀</li>
-						<li class="like-list-item-date">2024-12-26~2024-12-29</li>
+						<li class="like-list-item-title" th:text="${item.title}"></li>
+						<li class="like-list-item-place" th:text="${item.place}">코엑스 B홀</li>
+						<li class="like-list-item-date" th:text="${item.exDate}">2024-12-26~2024-12-29</li>
 					</ul>
-				</div>
-				<div class="like-list-exhibition-item">
-					<div class="like-list-item-image-wrapper">
-						<img class="like-list-item-image"
-							src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=8e23ffb88353475ea776fa58459e7699&thumb=Y"
-							alt="전시썸네일">
-					</div>
-					<ul class="like-list-item-textarea">
-						<li class="like-list-item-title">[종로문화재단] 음악동화 [행복의 파랑새]</li>
-						<li class="like-list-item-place">종로 아이들극장</li>
-						<li class="like-list-item-date">2024-12-12~2024-12-13</li>
-					</ul>
-				</div>
-				<div class="like-list-exhibition-item">
-					<div class="like-list-item-image-wrapper">
-						<img class="like-list-item-image"
-							src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=7c48ddce0b54406a9c83b8ae36fe3eb2&thumb=Y"
-							alt="전시썸네일">
-					</div>
-					<ul class="like-list-item-textarea">
-						<li class="like-list-item-title">[강동문화재단] 계간 생활문화 프로그램 : 커스텀
-							펫 패션 소품 만들기</li>
-						<li class="like-list-item-place">모두랑 대연습실#2</li>
-						<li class="like-list-item-date">2024-12-06~2024-12-13</li>
-					</ul>
-				</div>
-				<div class="like-list-exhibition-item">
-					<div class="like-list-item-image-wrapper">
-						<img class="like-list-item-image"
-							src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=59da975904c94facbf6989987c187525&thumb=Y"
-							alt="전시썸네일">
-					</div>
-					<ul class="like-list-item-textarea">
-						<li class="like-list-item-title">2024 서울 일러스트코리아 winter</li>
-						<li class="like-list-item-place">양재 aT센터</li>
-						<li class="like-list-item-date">2024-11-29~2024-12-01</li>
-					</ul>
+				</a>
 				</div>
 			</div>
 		</div>

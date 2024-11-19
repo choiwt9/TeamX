@@ -1,21 +1,24 @@
 package com.teamx.exsite.service.ticketing;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.mapper.ticketing.TicketingMapper;
-import com.teamx.exsite.model.user.dto.UserDTO;
 import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Data
 @RequiredArgsConstructor
+@Slf4j
 public class PaymentService {
 	
 	private Map<String, PaymentDTO> tempPayment = new HashMap<>();	// 결제 정보 임시 저장 Map
@@ -42,12 +45,16 @@ public class PaymentService {
 	 */
 	public boolean comparePayments(PaymentDTO verifyPayment, PaymentDTO cacheData) {
 		
-		boolean payMethod = verifyPayment.getPayMethod().equals(cacheData.getPayMethod());
+//		boolean payMethod = verifyPayment.getPayMethod().equals(cacheData.getPayMethod());
 		boolean name = verifyPayment.getName().equals(cacheData.getName());
 		boolean payAmount = verifyPayment.getPaidAmount() == cacheData.getAmount();
 		boolean merchantUid = verifyPayment.getMerchantUid().equals(cacheData.getMerchantUid());
 		
-		if (payMethod && name && payAmount && merchantUid) {
+		log.info("{}", verifyPayment);
+		log.info("{}", cacheData);
+		
+//		payMethod &&
+		if ( name && payAmount && merchantUid) {
 			return true;
 		} else {
 			return false;
@@ -85,11 +92,44 @@ public class PaymentService {
 		
 	}
 
+	/**
+	 * 예매 완료 페이지에 예매 정보 전달을 위한 서비스
+	 * @param merchantUid 예매 번호
+	 * @return 예매 번호로 조회한 예매 정보
+	 */
 	public PaymentDTO ticketingSuccessInfo(String merchantUid) {
 		
 		return ticketingMapper.ticketingSuccessInfo(merchantUid);
 	}
+
+	public PaymentDTO findPaymentInfo(int userNo) {
+		return ticketingMapper.findPaymentInfo(userNo);
+	}
+
+	public List<PaymentDTO> findPaymentInfo(int userNo, int exhibitionNo) {
+		return ticketingMapper.findPaymentInfoList(userNo, exhibitionNo);
+	}
 	
+	/**
+	 * 무료 전시 예매 정보 저장을 위한 서비스
+	 * @param freeTicketingInfo 무료 전시 예매 정보
+	 * @return 무료 전시 예매 정보 저장 결과
+	 */
+	public int insertFreeTicketingInfo(PaymentDTO freeTicketingInfo) {
+		
+		return ticketingMapper.insertFreeTicketingInfo(freeTicketingInfo);
+	}
+	
+	
+	/**
+	 * 무료 전시 예매 완료 페이지에 예매 정보 전달을 위한 서비스
+	 * @param merchantUid 예매 번호
+	 * @return 예매 번호로 조회한 예매 정보
+	 */
+	public PaymentDTO freeTicketingSuccessInfo(String merchantUid) {
+		
+		return ticketingMapper.freeTicketingSuccessInfo(merchantUid);
+	}
 	
 
 }
