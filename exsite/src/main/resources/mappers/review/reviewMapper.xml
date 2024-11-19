@@ -36,7 +36,7 @@
 		WHERE USER_NO = #{userNo} AND MERCHANT_UID=#{merchantUid} AND REVIEW_STATUS='N'
 	</update>
 	
-	<select id="selelectViewedContent" resultType="com.teamx.exsite.model.vo.exhibition.ReviewDTO">
+	<select id="selelectViewedContent" resultType="com.teamx.exsite.model.vo.review.ReviewDTO">
 	    SELECT *
 	    FROM TICKETING A
 	    JOIN EXHIBITION B ON (A.EXHIBITION_NO = B.EXHIBITION_NO)

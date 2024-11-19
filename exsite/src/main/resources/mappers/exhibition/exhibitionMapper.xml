@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.teamx.exsite.model.mapper.exhibition.ExhibitionMapper">
 
-	<select id="getAllExhibitions" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+	<select id="getAllExhibitions" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
             EXHIBITION_NO, 
             TITLE, 
@@ -17,7 +17,7 @@
         WHERE CODENAME = '전시/미술' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
     </select>
     
-     <select id="getExhibitionsSortedByEndDate" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+     <select id="getExhibitionsSortedByEndDate" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
             EXHIBITION_NO, 
             TITLE, 
@@ -31,7 +31,7 @@
         ORDER BY TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') ASC
     </select>
 
-    <select id="getExhibitionsSortedByReviews" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+    <select id="getExhibitionsSortedByReviews" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
 		    A.EXHIBITION_NO, 
 		    A.TITLE, 
@@ -48,7 +48,7 @@
 		ORDER BY COUNT(C.TICKET_NO) DESC
     </select>
 
-    <select id="getFreeExhibitions" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+    <select id="getFreeExhibitions" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
             EXHIBITION_NO, 
             TITLE, 
@@ -61,7 +61,7 @@
         WHERE CODENAME = '전시/미술' AND IS_FREE = '무료' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
     </select>
 
-    <select id="getPaidExhibitions" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+    <select id="getPaidExhibitions" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
             EXHIBITION_NO, 
             TITLE, 
@@ -74,13 +74,13 @@
         WHERE CODENAME = '전시/미술' AND IS_FREE = '유료' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
     </select>
     
-    <select id="getExhibitionById" parameterType="int" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+    <select id="getExhibitionById" parameterType="int" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
    		SELECT * FROM exhibition
 		    JOIN EXHIBITION_DETAIL USING (EXHIBITION_NO)
 		WHERE EXHIBITION_NO = #{exhibitionNo}
 	</select>
     
-    <select id="getAllEvents" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+    <select id="getAllEvents" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
             EXHIBITION_NO, 
             TITLE, 
@@ -93,7 +93,7 @@
         WHERE CODENAME LIKE '축제%' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
     </select>
     
-     <select id="getEventsSortedByEndDate" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+     <select id="getEventsSortedByEndDate" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
             EXHIBITION_NO, 
             TITLE, 
@@ -107,7 +107,7 @@
         ORDER BY TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') ASC
     </select>
 
-    <select id="getEventsSortedByReviews" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+    <select id="getEventsSortedByReviews" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
 		    A.EXHIBITION_NO, 
 		    A.TITLE, 
@@ -124,7 +124,7 @@
 		ORDER BY COUNT(C.TICKET_NO) DESC
     </select>
 
-    <select id="getFreeEvents" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+    <select id="getFreeEvents" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
             EXHIBITION_NO, 
             TITLE, 
@@ -137,7 +137,7 @@
         WHERE CODENAME LIKE '축제%' AND IS_FREE = '무료' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
     </select>
 
-    <select id="getPaidEvents" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+    <select id="getPaidEvents" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
             EXHIBITION_NO, 
             TITLE, 
@@ -168,19 +168,20 @@
 	</select>
 
 	<!-- 관리자 페이지 전시목록 불러오기 -->
-	<select id="findAllExhibitionEvent" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+	<select id="findAllExhibitionEvent" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT 
             EXHIBITION_NO, 
             TITLE, 
             STATUS 
         FROM EXHIBITION
-        WHERE STATUS = 'N' AND CODENAME LIKE '전시/미술'
+        WHERE STATUS = 'N'
+        ORDER BY EXHIBITION_NO
     </select>
 	
 	<!-- 관리자 페이지 전시 검색하기 -->
-	<select id="findExhibitionsByTitle" resultType="com.teamx.exsite.model.exhibition.vo.ExhibitionEvent">
+	<select id="findExhibitionsByTitle" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
         SELECT * FROM EXHIBITION 
-        WHERE TITLE LIKE '%' || #{title} || '%'
+        WHERE TITLE LIKE '%' || #{title} || '%' AND STATUS = 'N'
     </select>
     
     <!-- 관리자 페이지 전시관리버튼 -->

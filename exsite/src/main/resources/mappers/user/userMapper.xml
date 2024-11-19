@@ -99,7 +99,7 @@
   </select>
   
   <!-- 관리자 페이지 전체 유저 정보 불러오기 -->
-  <select id="getAllUsers" resultType="com.teamx.exsite.model.user.dto.UserDTO">
+  <select id="getAllUsers" resultType="com.teamx.exsite.model.dto.user.UserDTO">
         SELECT 
             USER_NO,
             NAME,
@@ -117,7 +117,7 @@
     </select>
     
     <!-- 관리자 페이지 회원 검색하기 -->
-    <select id="searchUsers" resultType="com.teamx.exsite.model.user.dto.UserDTO">
+    <select id="searchUsers" resultType="com.teamx.exsite.model.dto.user.UserDTO">
         SELECT 
             USER_NO,
             NAME,
@@ -136,7 +136,7 @@
     </select>
     
     <!-- 관리자 페이지 해당회원 정보 불러오기 -->
-    <select id="findByUserNo" resultType="com.teamx.exsite.model.user.dto.UserDTO">
+    <select id="findByUserNo" resultType="com.teamx.exsite.model.dto.user.UserDTO">
         SELECT * FROM USER_INFO WHERE USER_NO = #{userNo}
     </select>
     

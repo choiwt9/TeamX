@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.teamx.exsite.model.customercenter.vo.Inquiry;
 import com.teamx.exsite.model.dto.user.UserDTO;
+import com.teamx.exsite.model.vo.customercenter.Inquiry;
 import com.teamx.exsite.service.customercenter.CustomercenterService;
 
 import jakarta.servlet.http.HttpSession;
@@ -42,14 +42,10 @@ public class CustomercenterController {
 	 
 	    model.addAttribute("loginUser", loginUser);
 	    model.addAttribute("personalInquiery", personalInquiery);
-	    
-	    List<Inquiry> inquiries = customercenterService.getInquiriesByUserNo(loginUser.getUserNo());
-	    model.addAttribute("inquiries", inquiries);
-	    
-	    
+	     
 	    if (loginUser != null) {
 	    	
-	        List<Inquiry> inquiries = customercenterService.getInquiriesByUserNo(loginUser.getUserNo());
+	    	List<Inquiry> inquiries = customercenterService.getInquiriesByUserNo(loginUser.getUserNo());
 	        model.addAttribute("inquiries", inquiries);
 	    
 	    }
@@ -155,10 +151,11 @@ public class CustomercenterController {
 	// 관리자 페이지 관리자 답변 등록
 	@ResponseBody
 	@PutMapping("/api/inquiries/search/{inquiryNo}")
-    public ResponseEntity<Inquiry> updateInquiryResponse(@PathVariable int inquiryNo, @RequestBody Inquiry inquiryResponse) {
+    public ResponseEntity<String> updateInquiryResponse(@PathVariable int inquiryNo, @RequestBody Inquiry inquiryResponse) {
 		
-        try {
-        	customercenterService.updateInquiryResponse(inquiryNo, inquiryResponse);
+		customercenterService.updateInquiryResponse(inquiryNo, inquiryResponse);
+		
+        try {	
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Error updating inquiry response: " + e.getMessage());

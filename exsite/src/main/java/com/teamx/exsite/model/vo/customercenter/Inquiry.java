@@ -1,4 +1,4 @@
-package com.teamx.exsite.model.customercenter.vo;
+package com.teamx.exsite.model.vo.customercenter;
 
 import java.util.Date;
 

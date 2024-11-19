@@ -2,9 +2,11 @@ package com.teamx.exsite.model.mapper.customercenter;
 
 import java.util.List;
 
-import com.teamx.exsite.model.customercenter.vo.Inquiry;
-import com.teamx.exsite.model.user.dto.UserDTO;
+import org.apache.ibatis.annotations.Mapper;
 
+import com.teamx.exsite.model.vo.customercenter.Inquiry;
+
+@Mapper
 public interface CustomercenterMapper {
 
 	void saveInquiry(Inquiry inquiry);

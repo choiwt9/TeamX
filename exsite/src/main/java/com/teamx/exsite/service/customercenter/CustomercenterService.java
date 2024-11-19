@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamx.exsite.model.customercenter.vo.Inquiry;
 import com.teamx.exsite.model.mapper.customercenter.CustomercenterMapper;
-import com.teamx.exsite.model.user.dto.UserDTO;
+import com.teamx.exsite.model.vo.customercenter.Inquiry;
+
 
 @Service
 public class CustomercenterService {
@@ -66,6 +66,7 @@ public class CustomercenterService {
 	public void updateInquiryResponse(int inquiryNo, Inquiry inquiryResponse) {
 
 		customercenterMapper.updateInquiryResponse();
+		
 	}
 
 }

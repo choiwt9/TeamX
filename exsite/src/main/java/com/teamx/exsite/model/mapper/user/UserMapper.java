@@ -47,6 +47,7 @@ public interface UserMapper {
 
 	// 관리자 페이지 해당회원 탈퇴 처리하기
 	public int updateUserStatus(String userId);
+	
 	public int identifierCheck(String socialUserIdentifier);
 
 	public UserDTO socialUserLogin(String socialUserIdentifier);

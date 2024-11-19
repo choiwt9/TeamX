@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 import com.teamx.exsite.model.mapper.exhibition.ExhibitionMapper;
-import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
+import com.teamx.exsite.model.vo.exhibition.ExhibitionEvent;
+import com.teamx.exsite.model.vo.review.ReviewDTO;
 
 @Service
 public class ExhibitionService {
