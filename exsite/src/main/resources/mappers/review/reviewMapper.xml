@@ -76,5 +76,6 @@
 			JOIN USER_INFO C ON (B.USER_NO = C.USER_NO)
 		WHERE A.REVIEW_STATUS ='N'
 	</select>
+	
 
 </mapper>

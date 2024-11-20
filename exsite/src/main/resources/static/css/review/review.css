@@ -39,7 +39,7 @@
 	padding-left: 1rem;
 }
 
-#exhibition-reviews #review-title {
+#exhibition-reviews .review-title {
 	font-size: 1.4rem;
 	font-weight: bold;
 	padding-left: 1rem;
@@ -79,14 +79,14 @@
 	font-size: 1.3rem;
 }
 
-#exhibition-reviews #replace {
+#exhibition-reviews .replace {
 	border-style: solid;
 	border-color: #0B9B9B;
 	background-color: #0B9B9B;
 	color: #ffffff;
 }
 
-#exhibition-reviews #delete {
+#exhibition-reviews .delete {
 	border-style: solid;
 	border-color: #000000;
 	border-width: 0.06rem;

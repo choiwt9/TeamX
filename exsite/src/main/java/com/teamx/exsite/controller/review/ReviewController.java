@@ -151,6 +151,8 @@ public class ReviewController {
 		
 		List<ReviewDTO> list = reviewService.getReviewList();
 		
+		log.info("{}", list);
+		
 		return ResponseEntity.ok(list);
 	}
 	

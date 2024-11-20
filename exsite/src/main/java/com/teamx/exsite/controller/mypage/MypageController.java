@@ -128,6 +128,7 @@ public class MypageController {
 		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
 		modifyInfo.setUserNo(loginUser.getUserNo());
 		modifyInfo.setSocialUserIdentifier(loginUser.getSocialUserIdentifier());
+		log.info("{}", modifyInfo);
 		UserDTO afterModifyInfo = loginUser.getMethod().equals("NORMAL") 
 								 ? userService.normalUserModifyInfo(modifyInfo) 
 								 : userService.socialUserModifyInfo(modifyInfo); 

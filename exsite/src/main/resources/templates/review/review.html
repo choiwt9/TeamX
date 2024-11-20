@@ -6,16 +6,16 @@
         <span id="client-info" th:text="${review.name}">user</span> <span>|</span> <span
           id="date-info" th:text="${review.reviewDate}">날짜</span>
       </div>
-      <p id="review-title" th:text="${review.reviewTitle}" th:data-exhibition-title="${review.exhibitionTitle}">리뷰 제목</p>
+      <p class="review-title" th:text="${review.reviewTitle}" th:data-exhibition-title="${review.exhibitionTitle}">리뷰 제목</p>
       <div class="text review-content" th:utext="${review.reviewContent}"></div>
       <button class="review-buttons more">더보기</button>
     </div>
     <div class="review-action-buttons">
-      <button class="review-buttons" id="replace"
+      <button class="review-buttons replace"
         th:data-user-no="${review.userNo}" 
         th:data-login-user-no="${session.loginUser != null ? session.loginUser.userNo : ''}"
         th:data-merchant-uid="${review.merchantUid}">수정</button>
-      <button class="review-buttons" id="delete"
+      <button class="review-buttons delete"
         th:data-user-no="${review.userNo}" 
         th:data-login-user-no="${session.loginUser != null ? session.loginUser.userNo : ''}"
         th:data-merchant-uid="${review.merchantUid}">삭제</button>

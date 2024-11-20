@@ -41,15 +41,15 @@
             <div><a href="/signup">회원가입</a></div>
         </div>
 
-        <!-- 관리자용 로그인 후
-        <div class="header-right-area header-common-style">
-            <div><a href="#">관리자 콘솔</a></div>
-            <div><a href="#">로그아웃</a></div>
+        <!-- 관리자용 로그인 후-->
+        <div th:if="${session.loginUser != null AND session.loginUser.grade.toString() == 'A'}" class="header-right-area header-common-style">
+            <div><a href="/admin">관리자 콘솔</a></div>
+            <div><a href="/logout">로그아웃</a></div>
         </div>
-        -->
+        
 
         <!-- 일반유저 로그인 후 -->
-        <div th:if="${session.loginUser != null}" class="header-right-area header-common-style">
+        <div th:if="${session.loginUser != null AND session.loginUser.grade.toString() == 'U'}" class="header-right-area header-common-style">
             <div><a href="/mypage/main"><sapn id="login-user-name">[[${session.loginUser.name}]]</sapn>님<br>환영합니다.</a></div>
             <div><a href="/logout">로그아웃</a></div>
         </div>

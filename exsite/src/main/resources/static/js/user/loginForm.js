@@ -22,6 +22,9 @@ $(function() {
       },
       success: (result) => {
         console.log(result.response);
+        if(result.response == 'admin') {
+          window.location.href='/admin';
+        }
         if(result.response == 'success') {
           window.location.href='/';
         } else {

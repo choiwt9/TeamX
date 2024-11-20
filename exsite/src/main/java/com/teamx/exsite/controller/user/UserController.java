@@ -75,9 +75,9 @@ public class UserController {
 		Map<String, String> result = new HashMap<>();
 		if ((loginInfo = userService.basicLogin(loginInfo)) != null) {
 			// 로그인 성공 시 "success"를 반환
-			
 			log.info("{}", loginInfo);
 			session.setAttribute("loginUser", loginInfo);
+			
 			result.put("response", "success");
 			return result;
 		}
