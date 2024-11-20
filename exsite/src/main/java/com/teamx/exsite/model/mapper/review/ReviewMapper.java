@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import com.teamx.exsite.common.model.vo.PageInfo;
-import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
+import com.teamx.exsite.model.vo.review.ReviewDTO;
 
 @Mapper
 public interface ReviewMapper {

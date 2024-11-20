@@ -1,13 +1,18 @@
 package com.teamx.exsite.controller.user;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,7 +23,8 @@ import com.teamx.exsite.service.user.UserService;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class UserController {
@@ -38,13 +44,14 @@ public class UserController {
 	 * @return 메인 페이지로 리다이렉트
 	 */
 	@RequestMapping("/user/register")
-	public String userRegister(HttpSession session, UserDTO registerInfo) {
-		int result = userService.userRegister(registerInfo);
-		if (result == 1) {
-			UserDTO loginUser = registerInfo;
-			loginUser.setMethod("NORMAL");
-			loginUser.setUserPw(null);
-			session.setAttribute("loginUser", loginUser);
+	public String userRegister(HttpSession session, Model model, UserDTO registerInfo) {
+		UserDTO registerUser = userService.userRegister(registerInfo);
+		if (registerUser != null) {
+			registerUser.setUserPw(null);
+			session.setAttribute("loginUser", registerUser);
+		} else {
+			model.addAttribute("alertMsg", "회원가입에 실패했습니다.");
+			return "/user/loginForm";
 		}
 		return "redirect:/";
 	}
@@ -68,6 +75,8 @@ public class UserController {
 		Map<String, String> result = new HashMap<>();
 		if ((loginInfo = userService.basicLogin(loginInfo)) != null) {
 			// 로그인 성공 시 "success"를 반환
+			
+			log.info("{}", loginInfo);
 			session.setAttribute("loginUser", loginInfo);
 			result.put("response", "success");
 			return result;
@@ -76,7 +85,7 @@ public class UserController {
 		result.put("response", "false");
 		return result;
 	}
-
+	
 	@GetMapping("/login/naver/callback")
 	public String naverLoginCallback() {
 		return "/user/naverCallbackPage";
@@ -393,4 +402,59 @@ public class UserController {
 
 		return "redirect:/";
 	}
+
+	// -------------------------------------------------------------------------
+	
+	// 관리자 페이지 전체 유저 정보 불러오기
+		@ResponseBody
+		@GetMapping("/api/members")
+		public List<UserDTO> getAllUsers() {
+			 
+			return userService.getAllUsers();
+		    
+		}
+		
+		// 관리자 페이지 회원 검색하기
+		@ResponseBody
+		@GetMapping("/api/members/search")
+		public List<UserDTO> searchUsers(@RequestParam String name) {
+			 
+			return userService.searchUsers(name);
+			 
+		}
+		
+		// 관리자 페이지 해당회원 정보 불러오기
+		@ResponseBody
+		@GetMapping("/api/members/info/{userNo}")
+		public ResponseEntity<UserDTO> getUserInfo(@PathVariable int userNo){
+			UserDTO user = userService.getUserByNo(userNo);
+			
+	        return ResponseEntity.ok(user);
+		
+		}
+		// 관리자 페이지 해당회원 정보 수정하기
+		@ResponseBody
+		@PutMapping("/api/members/{userNo}")
+	    public ResponseEntity<UserDTO> updateUserInfo(@PathVariable int userNo, @RequestBody UserDTO member) {
+			
+			UserDTO updatedMember = userService.updateUserInfo(userNo, member);
+			
+	        return ResponseEntity.ok(updatedMember);
+	    }
+		
+		// 관리자 페이지 해당회원 탈퇴 처리하기
+		@ResponseBody
+		@PostMapping("/api/members/withdraw")
+	    public ResponseEntity<String> withdraw(@RequestBody UserDTO withdrawMember) {
+			
+	        boolean isWithdrawn = userService.withdrawUserInfo(withdrawMember.getUserId());
+	        
+	        if (isWithdrawn) {
+	            return ResponseEntity.ok("탈퇴 처리되었습니다.");
+	        } else {
+	            return ResponseEntity.status(400).body("탈퇴 처리 중 오류가 발생했습니다.");
+	        }
+	        
+	    }
+		
 }

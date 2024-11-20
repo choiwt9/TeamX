@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.model.vo.exhibition.ExhibitionEvent;
 
 @Mapper
 public interface ExhibitionMapper {
@@ -37,6 +37,15 @@ public interface ExhibitionMapper {
 
 	int checkLike(int userNo, int exhibitionNo);
 
+	//관리자 페이지 전시목록 불러오기
+	List<ExhibitionEvent> findAllExhibitionEvent();
+
+	// 관리자 페이지 전시 검색하기
+	List<ExhibitionEvent> findExhibitionsByTitle(String title);
+
+	// 관리자 페이지 전시관리버튼
+	void updateExhibitionStatus(int exhibitionNo, String status);
+	
 	List<ExhibitionEvent> selectLikeList(int userNo);
 	
 	List<ExhibitionEvent> searchByTitle(String query);

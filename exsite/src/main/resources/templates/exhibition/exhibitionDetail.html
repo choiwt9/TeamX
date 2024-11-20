@@ -17,13 +17,9 @@
     <!-- jQuery 사용-->
 	<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
 	
-<<<<<<< HEAD
-	
-=======
 	<!-- 자바스크립트 -->
 	<script src="/js/exhibition/exhibitionDetail.js"></script>
     <script src="/js/review/review.js"></script>
->>>>>>> upstream/main
 	
 </head>
 <body>
@@ -34,7 +30,7 @@
         <div class="exhibition-detail-info">
             <div class="exhibition-detail-explain">
                 <div class="exhibition-detail-image">
-                    <img th:src="@{${exhibition.mainImg}}" alt="전시이미지">
+                    <img th:src="${exhibition.mainImg}" alt="전시이미지">
                 </div>
                 <div class="exhibition-like-button" id="exhibition-like-button">
                     <button class="exhibition-heart" id="exhibition-heart">
@@ -92,36 +88,11 @@
 					    <img th:src="${imgUrl}" alt="이미지 상세" class="exhibition-detail-explain-image">
 					</div>
                 </div>
-<<<<<<< HEAD
-           <div id="exhibition-reviews" class="content-section">
-					<button id="write-review" onclick="window.location.href='/review'">
-						리뷰 작성하기</button>
-					<div class="review-content-area">
-						<div class="review-header">
-							<span id="client-info">user</span> <span>|</span> <span
-								id="date-info">날짜</span>
-						</div>
-						<p id="review-title">리뷰 제목</p>
-						<div class="text" id="review-content">
-						<br>
-						<button class="review-buttons" id="more">더보기</button>
-					</div>
-					<div class="review-action-buttons">
-						<button class="review-buttons" id="replace"
-							onclick="window.location.href='/replaceReview'">수정</button>
-						<button class="review-buttons" id="delete">삭제</button>
-					</div>
-                </div> 
-                </div>
-=======
                 <!-- 리뷰 영역 -->
                 <div th:insert="~{review/review}"></div>
->>>>>>> upstream/main
             </div>
         </div>
     </div>
-        <!-- 자바스크립트 -->
-        <script src="/js/exhibition/exhibitionDetail.js"></script>
         <!-- 티켓팅 팝업 여는 스크립트 -->
         <script src="/js/ticketing/openTicketingPopup.js"></script>
         <div th:insert="~{common/footer}"></div>

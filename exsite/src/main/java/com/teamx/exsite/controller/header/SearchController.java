@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.model.vo.exhibition.ExhibitionEvent;
 import com.teamx.exsite.service.exhibition.ExhibitionService;
 
 import lombok.RequiredArgsConstructor;

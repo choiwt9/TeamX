@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 import com.teamx.exsite.model.mapper.main.MainMapper;
+import com.teamx.exsite.model.vo.exhibition.ExhibitionEvent;
 
 @Service
 public class MainService {

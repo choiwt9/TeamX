@@ -1,24 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-<<<<<<< HEAD
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>전시/행사 정보 상세 조회 페이지</title>
-
-<!-- noto sans 글씨체 다운로드 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-	href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap"
-	rel="stylesheet">
-
-<!-- css 사용 -->
-<link rel="stylesheet" href="/css/exhibition/exhibitionDetail.css">
-
-<!-- jQuery 사용-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-=======
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>행사 정보 상세 조회 페이지</title>
@@ -39,105 +21,22 @@
     <script src="/js/exhibition/exhibitionDetail.js"></script>
     <script src="/js/review/review.js"></script>
     
->>>>>>> upstream/main
 </head>
 <body>
-	<div th:insert="~{common/header}"></div>
-	<div class="exhibition-detail-container">
-		<div class="exhibition-detail-info">
-			<div class="exhibition-detail-explain">
-				<div class="exhibition-detail-image">
-					<img th:src="@{${exhibition.mainImg}}" alt="전시이미지">
-				</div>
-				<div class="exhibition-like-button" id="exhibition-like-button">
-					<button class="exhibition-heart" id="exhibition-heart">
-						<svg width="3rem" height="3rem" viewBox="0 0 24 24" fill="none"
-							xmlns="http://www.w3.org/2000/svg">
-                        <path
-								d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
-								fill="none" stroke="red" stroke-width="2" />
+	<input id="userId" type="hidden" th:value="${session.loginUser != null ? session.loginUser.userNo : ''}">
+    <input id="exhibitionNo" type="hidden" th:value="${exhibition.exhibitionNo}">
+    <div th:insert="~{common/header}"></div>
+    <div class="exhibition-detail-container">
+        <div class="exhibition-detail-info">
+            <div class="exhibition-detail-explain">
+                <div class="exhibition-detail-image">
+                    <img th:src="@{${exhibition.mainImg}}" alt="전시이미지">
+                </div>
+                <div class="exhibition-like-button" id="exhibition-like-button">
+                    <button class="exhibition-heart" id="exhibition-heart">
+                        <svg width="3rem" height="3rem" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="red" stroke-width="2" />
                         </svg>
-<<<<<<< HEAD
-					</button>
-				</div>
-			</div>
-			<div class="detail-info">
-				<div class="exhibition-detail-title">
-					<div class="exhibition-detail-title1" th:text="${exhibition.title}"></div>
-				</div>
-				<div class="exhibition-detail-location">
-					<div class="exhibition-detail-location1">장소</div>
-					<div class="exhibition-detail-location2"
-						th:text="${exhibition.place}"></div>
-				</div>
-				<div class="exhibition-detail-date">
-					<div class="exhibition-detail-date1">기간</div>
-					<div class="exhibition-detail-date2" th:text="${exhibition.exDate}"></div>
-				</div>
-				<div class="exhibition-detail-price">
-					<div class="exhibition-detail-price1">가격</div>
-					<div class="exhibition-detail-price2"
-						th:text="${exhibition.useFee}"></div>
-				</div>
-				<div class="reservation-info">
-					<div class="reservation-info1">
-						예매하기 버튼을 누르고 <br> 날짜를 선택하세요.
-					</div>
-				</div>
-				<div class="reservation-button">
-					<button class="reservation-button1">예매하기</button>
-				</div>
-			</div>
-		</div>
-		<div class="exhibition-detail-page">
-			<div class="exhibition-detail-navigation">
-				<button id="exhibition-details-button">상세 정보</button>
-				<button id="exhibition-reviews-button">구매자 리뷰</button>
-			</div>
-			<div class="exhibition-detail-content" id="detail-content">
-				<div id="exhibition-details" class="content-section">
-					<div class="details-container"
-						th:each="imgUrl : ${detailImgUrlList}">
-						<img th:src="${imgUrl}" alt="이미지 상세"
-							class="exhibition-detail-explain-image">
-					</div>
-				</div>'
-				<script>
-					const requestReview = (no) => {
-						window.location.href = "/review?id=" + no;
-					}
-				</script>
-				<div id="exhibition-reviews" class="content-section">
-					<button id="write-review" th:onclick="'requestReview('+${exhibition.exhibitionNo}+')'">
-						리뷰 작성하기</button>
-					<div class="review-content-area" th:each="review : ${reviewList}">
-						<div class="review-header">
-							<span id="client-info" th:text="${review.userId}">user</span> <span>|</span> 
-							<span id="date-info" th:text="${#dates.format(review.reviewDate, 'yyyy-MM-dd')}">날짜</span>
-						</div>
-						<p id="review-title" th:text="${review.reviewTitle}">리뷰 제목</p>
-						<div class="text" id="review-content" th:text="${review.reviewContent}">
-						
-						</div>
-						<br>
-						<button class="review-buttons" id="more">더보기</button>
-					</div>
-					<div class="review-action-buttons">
-						<button class="review-buttons" id="replace"
-							onclick="window.location.href='/replaceReview'">수정</button>
-						<button class="review-buttons" id="delete" 
-						    onclick="window.location.href='/deleteReview'">삭제</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- 자바스크립트 -->
-	<script src="/js/event/eventDetail.js"></script>
-	<div th:insert="~{common/footer}"></div>
-	
-
-=======
                     </button>
                 </div>
             </div>
@@ -203,6 +102,5 @@
         <input type="hidden" id="exhibitionTitle" th:value="${exhibition.title}" />
         <input type="hidden" id="useFee" th:value="${exhibition.useFee} == null ? '무료' : ${exhibition.useFee}+'원'" />
         <input type="hidden" id="mainImg" th:value="${exhibition.mainImg}" />
->>>>>>> upstream/main
 </body>
 </html>

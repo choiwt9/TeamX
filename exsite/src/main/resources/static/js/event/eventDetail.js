@@ -47,18 +47,13 @@ window.onload = () => {
     });
 
     document.getElementById('exhibition-reviews-button').addEventListener('click', function() {
-
         document.getElementById('exhibition-reviews').style.display = 'block';
         document.getElementById('exhibition-details').style.display = 'none';
 
         this.style.color = '#0B9B9B'; 
         document.getElementById('exhibition-details-button').style.color = ''; 
     });
-<<<<<<< HEAD
-   
-=======
 
->>>>>>> upstream/main
     $(document).ready(function () {
         $("#more").click(function () {
             const $textContent = $("#review-content");
@@ -71,9 +66,5 @@ window.onload = () => {
             }
         });
     });
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> upstream/main
 }

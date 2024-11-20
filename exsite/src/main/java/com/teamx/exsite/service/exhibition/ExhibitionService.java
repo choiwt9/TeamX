@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 import com.teamx.exsite.model.mapper.exhibition.ExhibitionMapper;
-import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
+import com.teamx.exsite.model.vo.exhibition.ExhibitionEvent;
+import com.teamx.exsite.model.vo.review.ReviewDTO;
 
 @Service
 public class ExhibitionService {
@@ -101,6 +101,27 @@ public class ExhibitionService {
 		return exhibitionMapper.checkLike(userNo, exhibitionNo);
 	}
 
+	// 관리자 페이지 전시목록 불러오기
+	public List<ExhibitionEvent> findAllExhibitionEvent() {
+
+		return exhibitionMapper.findAllExhibitionEvent();
+			
+	}
+		
+	// 관리자 페이지 전시 검색하기
+	public List<ExhibitionEvent> searchExhibitions(String title) {
+					
+		return exhibitionMapper.findExhibitionsByTitle(title);
+				
+	}
+
+	// 관리자 페이지 전시관리버튼
+	public void deleteExhibition(int exhibitionNo) {
+		
+		exhibitionMapper.updateExhibitionStatus(exhibitionNo, "Y");
+		
+	}
+	
 	// 제목 키워드로 검색(허완작성)
 	public List<ExhibitionEvent> searchByTitle(String query) {
 		return exhibitionMapper.searchByTitle(query);

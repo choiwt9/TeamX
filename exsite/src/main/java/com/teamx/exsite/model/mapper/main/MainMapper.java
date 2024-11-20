@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
+import com.teamx.exsite.model.vo.exhibition.ExhibitionEvent;
 
 @Mapper
 public interface MainMapper {

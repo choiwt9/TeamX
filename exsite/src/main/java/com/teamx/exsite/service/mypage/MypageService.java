@@ -6,10 +6,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import com.teamx.exsite.common.model.vo.PageInfo;
-import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 import com.teamx.exsite.model.mapper.exhibition.ExhibitionMapper;
 import com.teamx.exsite.model.mapper.review.ReviewMapper;
 import com.teamx.exsite.model.mapper.ticketing.TicketingMapper;
+import com.teamx.exsite.model.vo.exhibition.ExhibitionEvent;
 import com.teamx.exsite.model.vo.ticketing.PaymentDTO;
 
 import lombok.RequiredArgsConstructor;
