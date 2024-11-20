@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.teamx.exsite.controller.user.UserController;
-import com.teamx.exsite.model.user.vo.VerificationInfo;
+import com.teamx.exsite.model.vo.user.VerificationInfo;
 import com.teamx.exsite.service.user.AuthService;
 
 import lombok.RequiredArgsConstructor;

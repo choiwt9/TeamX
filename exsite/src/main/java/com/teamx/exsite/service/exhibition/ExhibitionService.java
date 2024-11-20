@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 import com.teamx.exsite.model.mapper.exhibition.ExhibitionMapper;
+import com.teamx.exsite.model.vo.exhibition.ReviewDTO;
 
 @Service
 public class ExhibitionService {
@@ -99,5 +100,10 @@ public class ExhibitionService {
 	public int checkLike(int userNo, int exhibitionNo) {
 		return exhibitionMapper.checkLike(userNo, exhibitionNo);
 	}
-	
+
+	// 제목 키워드로 검색(허완작성)
+	public List<ExhibitionEvent> searchByTitle(String query) {
+		return exhibitionMapper.searchByTitle(query);
+	}
+
 }

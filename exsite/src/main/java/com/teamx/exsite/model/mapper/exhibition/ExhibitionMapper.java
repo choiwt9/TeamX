@@ -3,7 +3,6 @@ package com.teamx.exsite.model.mapper.exhibition;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 
 import com.teamx.exsite.model.exhibition.vo.ExhibitionEvent;
 
@@ -37,5 +36,9 @@ public interface ExhibitionMapper {
 	void deleteLike(int userNo, int exhibitionNo);
 
 	int checkLike(int userNo, int exhibitionNo);
+
+	List<ExhibitionEvent> selectLikeList(int userNo);
+	
+	List<ExhibitionEvent> searchByTitle(String query);
 
 }

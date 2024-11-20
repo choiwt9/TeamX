@@ -29,3 +29,20 @@ window.addEventListener("DOMContentLoaded", function() {
         }
     }
 });
+
+// 검색버튼 클릭 시, 검색 결과 페이지로 이동하는 함수
+function redirectToSearchResultPage() {
+    const searchTerm = $('#header-search-input').val().trim();  // 검색어 가져오기
+
+    if (!searchTerm) {
+        alert("검색어를 입력해주세요.");
+        return;
+    }
+
+    // 검색어를 URL에 query 파라미터로 추가하여 검색 결과 페이지로 이동
+    window.location.href = "/search/results?page=1&query=" + encodeURIComponent(searchTerm);
+}
+
+onload = () => {
+    document.title = 'EX-SITE';
+ }

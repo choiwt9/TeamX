@@ -57,4 +57,13 @@
                     answer.classList.toggle('active'); // active 클래스를 토글
                 });
             });
+
+            if(document.getElementById('personal-inquiery').value == 'true') {
+                contactSection.style.display = 'block'; // Contact 섹션 표시
+                faqSection.style.display = 'none'; // FAQ 섹션 숨김
+                contactButton.style.backgroundColor = '#EDF8F8'; // 배경색 변경
+                contactButton.style.fontWeight = 'bolder'; // 글씨 굵기 변경
+                faqButton.style.backgroundColor = 'white'; // 배경색 초기화
+                faqButton.style.fontWeight = 'normal'; // 글씨 굵기 초기화
+            }
         });

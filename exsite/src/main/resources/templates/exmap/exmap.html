@@ -44,13 +44,13 @@
             <div id="map"></div>
         </div>
         <!-- 모달 요소 -->
-        <form action="정현님이 만든 콘트롤러 url /exhibition~" id="detailExhibitionPage">
+        <form action="/exhibition/detail" method="get" id="detailExhibitionPage">
+        <input type="hidden" name="id">
             <div id="markerModal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <!-- 전시정보 -->
                         <div class="exhibition-item">
-                            <input type="hidden" th:value="${exhibitionNo}">
                             <div class="item-image-wrapper">
                                 <img class="item-image" src="https://culture.seoul.go.kr/cmmn/file/getImage.do?atchFileId=d86ee210bd054f49b41441fb5a59e6f7&thumb=Y" alt="전시썸네일">
                             </div>

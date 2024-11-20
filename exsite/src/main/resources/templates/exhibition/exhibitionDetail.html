@@ -12,11 +12,18 @@
     
     <!-- css 사용 -->
     <link rel="stylesheet" href="/css/exhibition/exhibitionDetail.css">
+    <link rel="stylesheet" href="/css/review/review.css">
     
     <!-- jQuery 사용-->
 	<script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
 	
+<<<<<<< HEAD
 	
+=======
+	<!-- 자바스크립트 -->
+	<script src="/js/exhibition/exhibitionDetail.js"></script>
+    <script src="/js/review/review.js"></script>
+>>>>>>> upstream/main
 	
 </head>
 <body>
@@ -50,8 +57,21 @@
                     <div class="exhibition-detail-date2" th:text="${exhibition.exDate}"></div>
                 </div>
                 <div class="exhibition-detail-price">
-                    <div class="exhibition-detail-price1">가격</div>                
-                    <div class="exhibition-detail-price2" th:text="${exhibition.useFee}"></div>
+                    <div class="exhibition-detail-price1">가격</div>
+
+                    <!-- 홈페이지 참조일 시 해당 url로 이동하기 위한 hidden 요소 -->
+                    <input id="org-link" type="hidden" th:value="${exhibition.orgLink}"/>
+                    
+                    <div class="exhibition-detail-price2" th:if="${exhibition.useFee == null}">
+                        무료
+                    </div>
+                    <div class="exhibition-detail-price2" th:if="${exhibition.useFee == '홈페이지 참조'}">
+                        홈페이지 참조
+                    </div>
+                    <div class="exhibition-detail-price2" th:if="${exhibition.useFee != null and exhibition.useFee != '홈페이지 참조'}">
+                        <span th:text="${exhibition.useFee} + '원'"></span>
+                    </div>
+
                 </div>
                 <div class="reservation-info">
                     <div class="reservation-info1">예매하기 버튼을 누르고 <br> 날짜를 선택하세요.</div>
@@ -72,6 +92,7 @@
 					    <img th:src="${imgUrl}" alt="이미지 상세" class="exhibition-detail-explain-image">
 					</div>
                 </div>
+<<<<<<< HEAD
            <div id="exhibition-reviews" class="content-section">
 					<button id="write-review" onclick="window.location.href='/review'">
 						리뷰 작성하기</button>
@@ -92,6 +113,10 @@
 					</div>
                 </div> 
                 </div>
+=======
+                <!-- 리뷰 영역 -->
+                <div th:insert="~{review/review}"></div>
+>>>>>>> upstream/main
             </div>
         </div>
     </div>
@@ -100,5 +125,13 @@
         <!-- 티켓팅 팝업 여는 스크립트 -->
         <script src="/js/ticketing/openTicketingPopup.js"></script>
         <div th:insert="~{common/footer}"></div>
+        <script src="/js/ticketing/ticketingPopup.js"></script>
+        
+        <input type="hidden" id="exhibitionNo" th:value="${exhibition.exhibitionNo}" />
+        <input type="hidden" id="exhibitionTitle" th:value="${exhibition.title}" />
+        <input type="hidden" id="useFee" th:value="${exhibition.useFee} == null ? '무료' : ${exhibition.useFee}+'원'" />
+        <input type="hidden" id="mainImg" th:value="${exhibition.mainImg}" />
+        <input type="hidden" id="endDate" th:value="${exhibition.endDate}" />
+        <input type="hidden" id="strtDate" th:value="${exhibition.strtDate}" />
 </body>
 </html>

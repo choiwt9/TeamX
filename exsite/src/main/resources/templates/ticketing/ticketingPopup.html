@@ -38,9 +38,10 @@
                 <div id="ticketing-info-text"><p>예매 정보 선택</p></div>
                 <div class="ticket-info-select">
                     <p>일반(정가)</p>
-                    <p>16,800원</p>
+                    <p id="ticket-useFee" th:text="${useFee}"></p>
                     <select name="ticket-count" id="ticket-count">
-                        <option th:each="i : ${#numbers.sequence(1, 50)}" th:value="${i}" th:text="${i}"></option>
+                        <option th:each="i : ${#numbers.sequence(1, 50)}" th:value="${i}" th:text="${i}"
+                                th:selected="${i == 1}"></option>
                     </select>
                 </div>
 
@@ -48,15 +49,15 @@
                     <table>
                         <tr>
                             <th>이름</th>
-                            <td><input type="text" value="${session.loginUser.name}" id="input-name"></td>
+                            <td><input type="text" th:value="${session.loginUser.name}" id="input-name"></td>
                         </tr>
                         <tr>
                             <th>연락처</th>
-                            <td><input type="tel" value="${session.loginUser.phone}" id="input-phone"></td>
+                            <td><input type="tel" th:value="${session.loginUser.phone}" id="input-phone"></td>
                         </tr>
                         <tr>
                             <th style="border-bottom: none;">이메일</th>
-                            <td style="border-bottom: none;"><input type="text" value="${session.loginUser.email}" id="input-email"></td>
+                            <td style="border-bottom: none;"><input type="text" th:value="${session.loginUser.email}" id="input-email"></td>
                         </tr>
                     </table>
                 </div>
@@ -83,20 +84,6 @@
                 </div>
             </div>
 
-            <!-- 3단계: 결제 방식 선택 -->
-            <div class="step-content" id="step-3" style="display: none;">
-                <p>결제 방식 선택</p>
-                <div class="pay-method-select">
-                    <div id="card-area">
-                        <input type="radio" name="pay-method" value="card">
-                        <p>신용카드 및 간편 결제</p>
-                    </div>
-                    <div id="virtual-area">
-                        <input type="radio" name="pays-method" value="vbank">
-                        <p>무통장 입금</p>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="vertical-line"></div>
@@ -104,8 +91,11 @@
         <!-- 오른쪽 영역 -->
         <div class="ticketing-detail-right-area">
             <div class="ticketing-detail-right-area-content">
-                <div><img src="exhibition-img.png" alt="전시 대표 이미지" id="ticketing-detail-exhibition-img"></div>
-                <div><p id="exhibition-title">전시 제목</p></div>
+                <div><img th:src="${mainImg}" alt="전시 대표 이미지" id="ticketing-detail-exhibition-img"></div>
+                <div>
+                    <p id="exhibition-title"></p>
+                    <!-- <span id="exhibition-title-view"></span> -->
+                </div>
                 <div>
                     <div><b>예매 정보</b></div>
                     <hr />
@@ -136,8 +126,14 @@
         </div>
     </div>
     
+    
+    <input type="hidden" th:value="${exhibitionNo}" id="exhibitionNo"/>
+    <input type="hidden" th:value="${exhibitionTitle}" id="exhibitionTitle"/>
+    <input type="hidden" th:value="${useFee}" id="useFee"/>
+    <input type="hidden" th:value="${endDate}" id="endDate"/>
+    <input type="hidden" th:value="${strtDate}" id="strtDate"/>
+    
     <!-- iamport.payment.js -->
     <script src="/js/ticketing/ticketingPopup.js"></script>
-
 </body>
 </html>

@@ -2,34 +2,72 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper
-	namespace="com.teamx.exsite.model.mapper.review.ReviewMapper">
+<mapper namespace="com.teamx.exsite.model.mapper.review.ReviewMapper">
+
+	<select id="selectReviewList">
+		SELECT C.NAME, B.MERCHANT_UID, B.USER_NO, B.REVIEW_TITLE
+			 , B.REVIEW_CONTENT, B.REVIEW_DATE, B.REVIEW_STATUS
+			 , A.EXHIBITION_NO
+		FROM TICKETING A
+			JOIN REVIEW B ON(A.MERCHANT_UID = B.MERCHANT_UID)
+            JOIN USER_INFO C ON(B.USER_NO = C.USER_NO)
+		WHERE EXHIBITION_NO = #{exhibitionNo} AND B.REVIEW_STATUS = 'N'
+		ORDER BY REVIEW_DATE DESC
+	</select>
+
 	<insert id="insertReview">
-		INSERT INTO REVIEW
-		(ticket_no, user_no, review_title, review_content, review_date, review_status)
-		VALUES
-		(
-		(SELECT ticket_no FROM ticketing WHERE ticket_no = #{ticketNo}),
-		(SELECT user_no FROM user_info WHERE user_no = #{userNo}),
-		#{reviewTitle},
-		#{reviewContent},
-		#{reviewDate},
-		#{reviewStatus})
+		INSERT INTO REVIEW(MERCHANT_UID, USER_NO, EXHIBITION_TITLE, REVIEW_TITLE, REVIEW_CONTENT
+						   , REVIEW_DATE, REVIEW_STATUS)
+			VALUES(#{merchantUid}, #{userNo}, #{exhibitionTitle}, #{reviewTitle}, #{reviewContent}
+					, SYSDATE, DEFAULT)
 	</insert>
-	<select id="selectTicketNo"
-		parameterType="com.teamx.exsite.model.review.vo.ReviewInfo">
-		SELECT ticket_no FROM ticketing WHERE ticket_no = #{ticketNo}
+	
+	<select id="checkReviewWrited">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE USER_NO = #{userNo} AND MERCHANT_UID = #{merchantUid} AND REVIEW_STATUS = 'N'
+	
 	</select>
-	<select id="selectUserId"
-		parameterType="com.teamx.exsite.model.user.dto.UserDTO">
-		SELECT user_id FROM user_info WHERE user_no = #{userNo}
+	
+	<update id="updateReview">
+		UPDATE REVIEW
+		SET REVIEW_TITLE = #{reviewTitle},
+		    REVIEW_CONTENT = #{reviewContent}
+		WHERE USER_NO = #{userNo} AND MERCHANT_UID=#{merchantUid} AND REVIEW_STATUS='N'
+	</update>
+	
+	<select id="selelectViewedContent" resultType="com.teamx.exsite.model.vo.exhibition.ReviewDTO">
+	    SELECT *
+	    FROM TICKETING A
+	    JOIN EXHIBITION B ON (A.EXHIBITION_NO = B.EXHIBITION_NO)
+	    WHERE A.USER_NO = #{userNo}
+	      AND A.VISIT_DATE &lt; SYSDATE
 	</select>
-	<select id="allReview" resultType="ReviewInfo">
-		SELECT R.REVIEW_TITLE, R.REVIEW_CONTENT, R.REVIEW_DATE, U.USER_ID "userNo"
-		FROM REVIEW R
-		JOIN TICKETING T ON R.TICKET_NO = T.TICKET_NO
-		JOIN EXHIBITION E ON E.EXHIBITION_NO = T.EXHIBITION_NO
-		JOIN USER_INFO U ON R.USER_NO = U.USER_NO
-		WHERE T.EXHIBITION_NO = ${exhibitionNo} AND REVIEW_STATUS = 'N'
+	
+	<select id="selectWritedReviewList">
+		SELECT MERCHANT_UID
+		FROM REVIEW
+		WHERE USER_NO = #{userNo}
 	</select>
+	
+	<update id="deleteReview">
+		UPDATE REVIEW
+			SET REVIEW_STATUS = 'Y'
+		WHERE MERCHANT_UID = #{merchantUid} AND USER_NO = #{userNo}
+	</update>
+	
+	<select id="selectMyPageReviewList">
+		SELECT B.EXHIBITION_NO, A.REVIEW_TITLE, A.EXHIBITION_TITLE, B.VISIT_DATE, A.REVIEW_DATE
+		FROM REVIEW A
+			JOIN TICKETING B ON (A.MERCHANT_UID = B.MERCHANT_UID)
+		WHERE A.USER_NO = #{userNo} AND REVIEW_STATUS = 'N'
+	</select>
+	
+	<select id="selectMyPageReviewCount">
+		SELECT COUNT(*)
+		FROM REVIEW
+		WHERE USER_NO = #{userNo} AND REVIEW_STATUS = 'N'
+	</select>
+	
+
 </mapper>

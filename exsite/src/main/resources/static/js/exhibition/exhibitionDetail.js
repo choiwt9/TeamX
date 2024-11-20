@@ -17,7 +17,6 @@ $(function () {
             type: 'get',
             data: { userNo: userNo, exhibitionNo: exhibitionNo },
             success: function (data) {
-                console.log(data);
                 liked = data.status === 'true';
                 if (liked) {
                     path.attr('fill', 'red');
@@ -85,6 +84,7 @@ $(function () {
         this.style.color = '#0B9B9B';
         document.getElementById('exhibition-details-button').style.color = '';
     });
+<<<<<<< HEAD
     $(document).ready(function () {
         $("#more").click(function () {
             const $textContent = $("#review-content");
@@ -98,3 +98,7 @@ $(function () {
         });
     });
 })
+=======
+
+});
+>>>>>>> upstream/main

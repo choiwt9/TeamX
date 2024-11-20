@@ -8,7 +8,6 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
 <script src="/js/user/loginForm.js"></script>
-<script src="/js/user/googleLogin.js"></script>
 </head>
 <body>
   <input type="hidden" id="alertMsg" th:value="${alertMsg}">
@@ -41,6 +40,7 @@
     <div id="naver_id_login"></div>
     <script src="/js/user/naverLogin.js"></script>
     <img id="google-login-btn-img" src="/img/user/google-login-btn-img.png" alt="구글 로그인">
+    <script src="/js/user/googleLogin.js"></script>
   </div>
   <div th:insert="~{common/footer}"></div>
 </body>
