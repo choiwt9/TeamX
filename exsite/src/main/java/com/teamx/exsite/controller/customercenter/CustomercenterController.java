@@ -152,19 +152,12 @@ public class CustomercenterController {
 	
 	// 관리자 페이지 관리자 답변 등록
 	@ResponseBody
-	@PutMapping("/api/inquiries/search/{inquiryNo}")
-    public ResponseEntity<String> updateInquiryResponse(@PathVariable int inquiryNo, @RequestBody Inquiry inquiryResponse, @RequestBody Inquiry ResponseContent) {
+	@PutMapping("/api/inquiries/save/{inquiryNo}")
+    public ResponseEntity<Inquiry> saveInquiryResponse(@PathVariable int inquiryNo, @RequestBody Inquiry inquiry) {
 		
-		customercenterService.updateInquiryResponse(inquiryNo, inquiryResponse, ResponseContent);
-
-		log.info("inquiryNo --> {}", inquiryNo);
-		log.info("inquiryResponse --> {}", inquiryResponse);
-		log.info("ResponseContent --> {}", ResponseContent);
-        try {	
-            return ResponseEntity.ok().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error updating inquiry response: " + e.getMessage());
-        }
+		Inquiry updateInquiry = customercenterService.updateInquiry(inquiryNo, inquiry);
+        
+		return ResponseEntity.ok(updateInquiry);
         
     }
 	

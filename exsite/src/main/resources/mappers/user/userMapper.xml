@@ -136,7 +136,13 @@
             METHOD,
             GRADE
         FROM USER_INFO
-        WHERE NAME LIKE '%' || #{name} || '%'
+        WHERE
+		    NAME LIKE ('%' || #{name} || '%') OR 
+		    USER_ID LIKE ('%' || #{userId} || '%') OR 
+		    EMAIL LIKE ('%' || #{email} || '%') OR 
+		    PHONE LIKE ('%' || #{phone} || '%') OR 
+		    ADDRESS LIKE ('%' || #{address} || '%') 
+        ORDER BY USER_NO DESC    
     </select>
     
     <!-- 관리자 페이지 해당회원 정보 불러오기 -->
