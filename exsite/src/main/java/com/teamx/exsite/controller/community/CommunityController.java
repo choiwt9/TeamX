@@ -83,6 +83,14 @@ public class CommunityController {
 			b.setPostDate(dateOnly);
 		}
 		
+		List<Board> noticeList = selectNotice();
+		for(Board n: noticeList) {
+			String dateOnly = n.getFormattedPostDatetime().substring(0, 10);
+			n.setPostDate(dateOnly);
+		}
+		
+		model.addAttribute("notice", noticeList);
+		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pageInfo", pageInfo);
 		
@@ -483,4 +491,81 @@ public class CommunityController {
 
 		return result > 0 ? "ok" : "fail";
 	}
+	
+	/**
+	 * 관리자 페이지 게시글 목록 불러오는 메소드
+	 * @return 게시글 목록 조회 결과
+	 */
+	@ResponseBody
+	@GetMapping("/api/community/list")
+	public List<Board> selectPostList() {
+		
+		return boardService.selectPostList();
+		
+	}
+	
+	/**
+	 * 관리자 페이지 카테고리 변경하는 메소드
+	 * @param requestData 카테고리, 게시글 번호
+	 * @return 카테고리 업데이트 결과
+	 */
+	@ResponseBody
+	@PostMapping("api/community/category")
+	public int updateCategory(@RequestBody Map<String, Object> requestData) {
+	    String category = (String) requestData.get("category");
+	    int postNo = (int) requestData.get("postNo");
+
+	    return boardService.updateCategory(category, postNo);
+	}
+	
+	/**
+	 * 관리자 페이지 커뮤니티 게시글 삭제하는 메소드
+	 * @param requestData 선택된 게시글 배열
+	 * @retun 게시글 상태 업데이트 결과
+	 */
+	@ResponseBody
+	@PostMapping("/api/community/delete")
+	public int deletePosts(@RequestBody Map<String, Object> requestData) {
+		List<Integer> postNos = (List<Integer>) requestData.get("postNos");
+		return boardService.deletePosts(postNos);
+	}
+	
+	/**
+	 * 관리자 페이지 공지사항 작성하는 메소드
+	 * @param requestData 공지 제목, 공지 내용
+	 * @param session
+	 * @return 공지 사항 insert 결과
+	 */
+	@ResponseBody
+	@PostMapping("/api/community/notice")
+	public int insertNotice(@RequestBody Map<String, Object> requestData, HttpSession session) {
+		String postTitle = (String) requestData.get("postTitle");
+		String postContent = (String) requestData.get("postContent");
+		
+//		int userNo = (int) session.getAttribute("userNo");
+		int userNo = 1;
+		
+		return boardService.insertNotice(postTitle, postContent, userNo);
+	}
+	
+	/*****************************/
+	
+	/**
+	 * 공지 게시글 조회해 오는 메소드
+	 * @return 공지 게시글 select 결과
+	 */
+	public List<Board> selectNotice() {
+		return boardService.selectNotice();
+	}
+	
+	/**
+	 * 관리자 페이지 게시글 검색 메소드
+	 * @return 검색 결과
+	 */
+	@ResponseBody
+	@GetMapping("/api/community/search")
+	public List<Board> searchPost(String keyword) {
+		return boardService.searchPost(keyword);
+	}
+
 }
