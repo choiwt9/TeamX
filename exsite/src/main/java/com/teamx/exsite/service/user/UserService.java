@@ -187,10 +187,14 @@ public class UserService {
 	// 관리자 페이지 해당회원 정보 수정하기
 	public UserDTO updateUserInfo(int userNo, UserDTO member) {
 		
+		String encodePass = passwordEncoder.encode(member.getUserPw());
+		
+		member.setUserPw(encodePass);
+		
 		member.setUserNo(userNo);
 		
-		userMapper.updateUserInfo(member);
-		
+        userMapper.updateUserInfo(member);
+
 		return member;
 		
 	}

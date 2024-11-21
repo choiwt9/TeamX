@@ -14,7 +14,7 @@ public class Inquiry {
 	private String inquiryOriginFile;
 	private String inquiryChangeFile;
 	private Date inquiryDate;
-	private char inquiryResponse;
+	private String inquiryResponse;
 	private String responseContent;
 	private String userId;
 	

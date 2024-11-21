@@ -26,12 +26,6 @@ public interface CustomercenterMapper {
 	List<Inquiry> searchUsers(String userId);
 
 	// 관리자 페이지 관리자 답변 등록
-	void updateInquiryResponse(int inquiryNo, Inquiry inquiryResponse, Inquiry responseContent);
+	public void updateInquiry(Inquiry inquiry);
 	
-	// 관리자 페이지 관리자 답변 등록
-//	void updateInquiryResponse(int inquiryNo, String inquiryResponse);
-
-	
-
-
 }

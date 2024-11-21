@@ -35,7 +35,10 @@
         <div class="communityPost-btn-section">
             <div class="communityPost-btn-leftarea">
                 <button type="button" class="community-btn community-list-btn" onclick="location.href='/community/list'">목록</button>
-                <button type="button" class="community-btn community-report-btn" onclick="increaseReportCount();">신고</button>
+                <button 
+        				type="button" 
+        				class="community-btn community-report-btn" 
+        				th:if="${boardDetail.postCategory != '공지'}" onclick="increaseReportCount();">신고</button>
             </div>
             <div class="communityPost-btn-rightarea" th:if="${session.loginUser != null and session.loginUser.userId == boardDetail.userId}">
                 <a class="community-btn community-edit-btn"  th:href="'/community/edit/' + ${boardDetail.postNo}">수정</a>
