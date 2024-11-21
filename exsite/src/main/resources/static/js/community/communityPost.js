@@ -487,3 +487,31 @@ function editChildrenReply(childrenReplyNo, button){
       alert("내용 입력 후 추가 가능합니다.");
    }
 }
+
+// 신고 요청 함수
+function increaseReportCount(){
+   
+      if(userNo && userNo !== ''){
+         $.ajax({
+            url: '/community/board/report', // 신고 테이블에 유저 추가
+            type: 'post',
+            data: {
+               userNo: userNo,
+               postNo: $('#postNo').val()
+            },
+            success: function(result){
+               if(result == "ok"){
+                  alert('게시물이 신고되었습니다.');
+               } else{
+                  alert('이미 신고한 게시글입니다.');
+               }
+            },
+            error: function(err){
+               console.log("게시글 신고 요청 통신 실패!");
+               console.log(err);
+            }
+         });
+      } else{
+         alert('게시글 신고는 로그인 후에 이용해주세요.');
+      }
+};

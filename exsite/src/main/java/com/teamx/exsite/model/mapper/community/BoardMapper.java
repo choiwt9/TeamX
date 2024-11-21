@@ -2,11 +2,14 @@ package com.teamx.exsite.model.mapper.community;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
 import com.teamx.exsite.common.model.vo.PageInfo;
+import com.teamx.exsite.model.dto.community.ChildrenReplyDTO;
+import com.teamx.exsite.model.dto.community.ParentReplyDTO;
 import com.teamx.exsite.model.vo.community.Board;
 import com.teamx.exsite.model.vo.community.ChildrenReply;
 import com.teamx.exsite.model.vo.community.ParentReply;
@@ -20,7 +23,7 @@ public interface BoardMapper {
 
 	ArrayList<Board> selectList(PageInfo pageInfo, RowBounds rowBounds);
 	
-	int increaseCount(int postNo);
+	int increaseViewCount(int postNo);
 	
 	Board selectDetail(int postNo);
 
@@ -48,5 +51,18 @@ public interface BoardMapper {
 	int editParentReply(ParentReply parentReply);
 
 	int editChildrenReply(ChildrenReply childrenReply);
+
+	ArrayList<ParentReplyDTO> adminSelectParentReply(String searchKeyword);
+
+	ArrayList<ParentReplyDTO> adminSelectChildrenReply(String searchKeyword);
+
+	int adminDeleteParentReply(List<Integer> parentReplyNos);
+
+	int adminDeleteChildrenReply(List<Integer> childrenReplyNos);
+
+	int checkReport(int userNo, int postNo);
+
+	int increaseReportCount(int userNo, int postNo);
+
 
 }

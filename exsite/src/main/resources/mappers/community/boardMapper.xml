@@ -42,7 +42,7 @@
 	</select>
 	
 	<!-- 조회수 증가 쿼리문 -->
-	<update id="increaseCount">
+	<update id="increaseViewCount">
 		UPDATE COMMUNITY
 		   SET POST_VIEW_COUNT = POST_VIEW_COUNT+1
 		 WHERE POST_NO = #{ postNo } AND POST_STATUS='N'
@@ -80,6 +80,20 @@
 		  AND USER_NO = #{userNo}
 	</update>
 	
+	<!-- 신고여부 체크 쿼리문 -->
+	<select id="checkReport">
+		SELECT COUNT(*)
+		FROM COMMUNITY_REPORT
+		WHERE USER_NO = #{userNo} AND POST_NO = #{postNo}
+	</select>
+	
+	
+	<!-- 신고회수 증가 쿼리문 -->
+    <insert id="increaseReportCount">
+	    INSERT INTO COMMUNITY_REPORT (USER_NO, POST_NO) 
+	    VALUES (#{userNo}, #{postNo})
+	</insert>
+
 
 	<!-- 카테고리별 게시글 갯수 조회 쿼리문 -->
 	<select id="selectListCountByCategory" resultType="_int">
@@ -210,4 +224,52 @@
 		 WHERE CHILDREN_REPLY_NO = #{ childrenReplyNo }
 		   AND USER_NO = #{ userNo }
 	</update>
+	
+	<!-- 관리자페이지 댓글 관련 쿼리문 -->
+	<!-- 관리자페이지 부모 댓글 조회 쿼리문 -->
+	<select id="adminSelectParentReply">
+	    SELECT POST_NO, PARENT_REPLY_NO, PARENT_REPLY_CONTENT, PARENT_REPLY_DATETIME, USER_ID, PARENT_REPLY_STATUS
+	    FROM PARENT_REPLY
+	    JOIN USER_INFO USING (USER_NO)
+	    <where>
+	        <if test="searchKeyword != null and searchKeyword != ''">
+	            (PARENT_REPLY_CONTENT LIKE '%' || #{searchKeyword} || '%'
+	            OR USER_ID LIKE '%' || #{searchKeyword} || '%')
+	        </if>
+	    </where>
+	    ORDER BY POST_NO DESC, PARENT_REPLY_NO DESC
+	</select>
+	
+	<select id="adminSelectChildrenReply">
+	    SELECT POST_NO, PARENT_REPLY_NO, CHILDREN_REPLY_NO, CHILDREN_REPLY_CONTENT, CHILDREN_REPLY_DATETIME, USER_ID
+	    FROM CHILDREN_REPLY
+	    JOIN USER_INFO USING (USER_NO)
+	    JOIN PARENT_REPLY USING (PARENT_REPLY_NO)
+	    WHERE CHILDREN_REPLY_STATUS = 'N'
+	    <if test="searchKeyword != null and searchKeyword != ''">
+	        AND (CHILDREN_REPLY_CONTENT LIKE '%' || #{searchKeyword} || '%'
+	        OR USER_ID LIKE '%' || #{searchKeyword} || '%')
+	    </if>
+	    ORDER BY POST_NO DESC, PARENT_REPLY_NO DESC, CHILDREN_REPLY_NO DESC
+	</select>
+	
+	<!-- 관리자페이지 부모 댓글 삭제 쿼리문 -->
+	<delete id="adminDeleteParentReply">
+	    UPDATE PARENT_REPLY
+	    SET PARENT_REPLY_STATUS = 'Y'
+	    WHERE PARENT_REPLY_NO IN
+	    <foreach item="replyNo" collection="parentReplyNos" open="(" separator="," close=")">
+	        #{replyNo}
+	    </foreach>
+	</delete>
+	
+	<!-- 관리자페이지 자식 댓글 삭제 쿼리문 -->
+	<delete id="adminDeleteChildrenReply">
+	    UPDATE CHILDREN_REPLY
+	    SET CHILDREN_REPLY_STATUS = 'Y'
+	    WHERE CHILDREN_REPLY_NO IN
+	    <foreach item="replyNo" collection="childrenReplyNos" open="(" separator="," close=")">
+	        #{replyNo}
+	    </foreach>
+	</delete>
 </mapper>

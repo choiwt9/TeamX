@@ -12,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.Gson;
 import com.teamx.exsite.common.model.vo.PageInfo;
 import com.teamx.exsite.common.template.Pagination;
+import com.teamx.exsite.model.dto.community.ParentReplyDTO;
 import com.teamx.exsite.model.dto.user.UserDTO;
 import com.teamx.exsite.model.vo.community.Board;
 import com.teamx.exsite.model.vo.community.ChildrenReply;
@@ -121,7 +124,7 @@ public class CommunityController {
 	@GetMapping("/community/post/{postNo}")
 	public String postDetail(@PathVariable("postNo")int postNo, Model model) {
 		// 게시글 조회수 업데이트 함수 실행
-		int result = boardService.increaseCount(postNo);
+		int result = boardService.increaseViewCount(postNo);
 		
 		if(result > 0) {
 			// 게시글 조회수 증가 성공 시
@@ -190,6 +193,19 @@ public class CommunityController {
 		return result > 0 ? "ok" : "fail";
 	}
 	
+	@ResponseBody
+	@PostMapping("/community/board/report")
+	public String increaseReportCount(@RequestParam int userNo, @RequestParam int postNo) {
+		
+		int result = 0;
+		int checkResult = boardService.checkReport(userNo, postNo);
+		
+		if(checkResult == 0) {
+			result = boardService.increaseReportCount(userNo, postNo);
+		}
+		
+		return result > 0 ? "ok" : "fail";
+	}
 	
 	/**
 	 * 전달된 이미지파일들을 서버에 저장한 뒤, 해당 파일들의 이름 목록을 반환
@@ -483,4 +499,63 @@ public class CommunityController {
 
 		return result > 0 ? "ok" : "fail";
 	}
+	
+	/*********** 관리자 댓글 관련 메소드 ************/
+
+	/**
+	 * 관리자 댓글 조회메소드(부모댓글과 부모댓글에 종속된 자식댓글 조회)
+	 * @return
+	 */
+	@ResponseBody
+	@GetMapping("/api/parent/reply/select")
+	public List<ParentReplyDTO> adminSelectParentReply(@RequestParam(required = false) String searchKeyword) {
+		
+		return boardService.adminSelectParentReply(searchKeyword);
+	}
+
+	/**
+	 * 관리자 부모댓글 삭제 메소드
+	 * @param parentReplyNos
+	 * @return
+	 */
+	@PostMapping("/api/parent/reply/delete")
+	public ResponseEntity<Integer> adminDeleteParentReply(@RequestBody List<Integer> parentReplyNos) {
+	    System.out.println("받은 데이터: " + parentReplyNos);
+	    if (parentReplyNos == null) {
+	        System.out.println("데이터가 null입니다.");
+	    } else if (parentReplyNos.isEmpty()) {
+	        System.out.println("데이터가 비어 있습니다.");
+	    }
+
+	    try {
+	        int updatedCount = boardService.adminDeleteParentReply(parentReplyNos);
+	        return ResponseEntity.ok(updatedCount);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0);
+	    }
+	}
+	
+	/**
+	 * 관리자 자식댓글 삭제 메소드
+	 * @param childrenReplyNos
+	 * @return
+	 */
+	@PostMapping("/api/children/reply/delete")
+	public ResponseEntity<Integer> adminDeleteChildrenReply(@RequestBody List<Integer> childrenReplyNos) {
+	    try {
+	        if (childrenReplyNos == null || childrenReplyNos.isEmpty()) {
+	            return ResponseEntity.badRequest().body(0); // 잘못된 요청 처리
+	        }
+	        int updatedCount = boardService.adminDeleteChildrenReply(childrenReplyNos);
+	        return ResponseEntity.ok(updatedCount); // 업데이트된 자식 댓글 수 반환
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0);
+	    }
+	}
+	
+	
+	
+	
 }
