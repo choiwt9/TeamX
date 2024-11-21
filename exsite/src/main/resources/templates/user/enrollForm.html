@@ -48,6 +48,9 @@
 						<sapn id="at">@</sapn><select id="email-suffix">
 							<option value="naver.com">naver.com</option>
 							<option value="gmail.com">gmail.com</option>
+							<option value="gmail.com">hanmail.net</option>
+							<option value="gmail.com">nate.com</option>
+							<option value="gmail.com">hotmail.com</option>
 							<option value="other">기타(직접 입력)</option>
 						</select>
 							<button type="button" id="authentication-email" class="check-button">인증받기</button>
@@ -75,9 +78,11 @@
 			<div id="terms-and-conditions-div">
 				<label>
 					<input type="checkbox" id="terms-and-conditions" style="display: none;">
-					<span class="custom-checkbox enroll-span"></span> <span class="enroll-span" id="terms-and-condition-content">이용 약관에 동의합니다.</span>
-			</label>
-			</div>
+					<span class="custom-checkbox"></span>
+				</label>
+					<span id="terms-and-condition-content">이용 약관에 동의합니다.</span>
+			
+			</div> 
 			<button type="submit" id="enroll-btn">가입 완료</button>
 			<div id="sosical-signup-btn-area">
 				<img id="naver-signup-btn-img"
@@ -91,5 +96,26 @@
 		</form>
 	</div>
 	<div th:insert="~{common/footer}"></div>
+
+
+		    <!-- 이용약관 모달 -->
+				<div class="modal fade" id="terms-modal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+	        <div class="modal-dialog modal-dialog-scrollable" id="termsModalWidth">
+	            <div class="modal-content">
+	                <div class="modal-header">
+	                    <h5 class="modal-title" id="termsModalLabel">이용약관</h5>
+	                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	                </div>
+	                <div class="modal-body">
+						<p th:insert="~{common/termsAndPrivacyPolicy}">
+						</p>
+	                </div>
+	                <div class="modal-footer">
+	                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
 </body>
 </html>

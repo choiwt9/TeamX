@@ -48,8 +48,8 @@ html, body {
 
 /* 커뮤니티 글쓰기버튼 스타일 */
 .community-write-area{
-	width: 80%;
-	max-width: 950px;
+   width: 80%;
+   max-width: 950px;
     display: flex;
     justify-content: end;
     margin-bottom: 2rem;
@@ -113,7 +113,7 @@ tbody{
 }
 
 .community-content-list tr td a {
-	color: black;
+   color: black;
     text-decoration: none;
 }
 
@@ -134,7 +134,7 @@ tbody{
 }
 
 .community-notification tr td a {
-	color: black;
+   color: black;
     text-decoration: none;
 }
 

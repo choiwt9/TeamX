@@ -28,7 +28,7 @@ window.onload = () => {
             const mainImg = document.getElementById("mainImg").value;
             const endDate = document.getElementById("endDate").value;
             const strtDate = document.getElementById("strtDate").value;
-            const popupUrl = `/ticketingPopup?exhibitionNo=${encodeURIComponent(exhibitionNo)}&exhibitionTitle=${encodeURIComponent(exhibitionTitle)}&useFee=${encodeURIComponent(useFee)}&mainImg=${encodeURIComponent(mainImg)}&endDate=${encodeURIComponent(endDate)}&strtDate=${encodeURIComponent(strtDate)}`;
+            const popupUrl = `/ticketingpopup?exhibitionNo=${encodeURIComponent(exhibitionNo)}&exhibitionTitle=${encodeURIComponent(exhibitionTitle)}&useFee=${encodeURIComponent(useFee)}&mainImg=${encodeURIComponent(mainImg)}&endDate=${encodeURIComponent(endDate)}&strtDate=${encodeURIComponent(strtDate)}`;
             $.ajax({
                 url: '/ticketing/info',
                 type: 'get',

@@ -241,6 +241,7 @@ tr>td>#email-suffix {
 	cursor: pointer;
 	vertical-align: middle;
 	margin-bottom: 0.84rem;
+	margin: auto;
 }
 
 /* 체크박스 체크 상태일 때 스타일 */
@@ -261,7 +262,8 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 }
 
 #terms-and-condition-content {
-	line-height: 3.11rem;
+	padding-left: 0.5rem;
+	line-height: 3rem;
 	font-size: 1.26rem;
 }
 
