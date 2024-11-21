@@ -2,6 +2,14 @@ $(document).ready(function(){
    // 댓글 조회 함수 호출
    selectParentReply();
 
+   // 댓글 입력창에서 엔터 시 검색버튼 클릭 이벤트 호출
+   $('#community-parentReply-input').keyup(function(event){
+      if (event.key === "Enter") {
+         insertParentReply();
+      }
+   });
+
+
 });
 
 // 글삭제 메소드 요청 함수
@@ -130,6 +138,16 @@ function selectParentReply(){
                   
                   // 답글 버튼 아래에 답글 입력 폼 추가
                   commentItem.find('.communityPost-comment-btn-section').after(replyForm);
+                  
+                 const replySubmitBtn = $('.reply-submit-btn');
+
+                  // 답글 입력창에서 엔터 시 검색버튼 클릭 이벤트 호출
+                  $('.reply-input').keyup(function(event){
+                     if (event.key === "Enter") {
+                        insertChildrenReply(commentId, replySubmitBtn);
+                     }
+                  });
+
                }
            });
          }
@@ -373,6 +391,7 @@ $(document).on('click', '.community-comment-edit-btn', function(){
       // 답글 버튼 아래에 답글 입력 폼 추가
       commentItem.find('.communityPost-comment-btn-section').after(replyForm);
    }
+   
 });
 
 // 댓글 수정 요청 함수
@@ -468,3 +487,38 @@ function editChildrenReply(childrenReplyNo, button){
       alert("내용 입력 후 추가 가능합니다.");
    }
 }
+
+// 신고 요청 함수
+function increaseReportCount(){
+   
+      if(userNo && userNo !== ''){
+         $.ajax({
+            url: '/community/board/report', // 신고 테이블에 유저 추가
+            type: 'post',
+            data: {
+               userNo: userNo,
+               postNo: $('#postNo').val()
+            },
+            success: function(response){
+               if (response.status === "ok") {
+                  alert('게시물이 신고되었습니다.');
+                  if (response.isDeleted) {
+                      // 게시글이 삭제된 경우 리스트 페이지로 이동
+                      alert('게시글 신고 수가 초과되어 게시물이 삭제되었습니다.');
+                      window.location.href = '/community/list';
+                  } else {
+                      // 게시글이 삭제되지 않은 경우 별도 처리 없음
+                  }
+               } else {
+                     alert('이미 신고한 게시글입니다.');
+               }
+            },
+            error: function(err){
+               console.log("게시글 신고 요청 통신 실패!");
+               console.log(err);
+            }
+         });
+      } else{
+         alert('게시글 신고는 로그인 후에 이용해주세요.');
+      }
+};

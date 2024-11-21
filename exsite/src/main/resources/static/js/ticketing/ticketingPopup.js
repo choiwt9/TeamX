@@ -365,7 +365,7 @@ document.getElementById('next-month').addEventListener('click', function () {
             // 결제사 검증 ajax
             $.ajax({
                 type : 'post',
-                url: 'verifyPayment',
+                url: 'verifypayment',
                 data: {
                     impUid : rsp.imp_uid,
                     payMethod : rsp.pay_method,

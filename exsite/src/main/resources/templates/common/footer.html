@@ -32,43 +32,15 @@
 	
 	    <!-- 이용약관 모달 -->
 	    <div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
-	        <div class="modal-dialog modal-dialog-scrollable">
+	        <div class="modal-dialog modal-dialog-scrollable" id="termsModalWidth">
 	            <div class="modal-content">
 	                <div class="modal-header">
 	                    <h5 class="modal-title" id="termsModalLabel">이용약관</h5>
 	                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	                </div>
 	                <div class="modal-body">
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p><p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    <p>이용약관 내용이 여기에 들어갑니다...</p>
-	                    
+						<p th:insert="~{common/terms}">
+						</p>
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -79,14 +51,15 @@
 	
 	    <!-- 개인정보처리방침 모달-->
 	    <div class="modal fade" id="privacyModal" tabindex="-1" aria-labelledby="privacyModalLabel" aria-hidden="true">
-	        <div class="modal-dialog modal-dialog-scrollable">
+	        <div class="modal-dialog modal-dialog-scrollable" id="privacyModalWidth">
 	            <div class="modal-content">
 	                <div class="modal-header">
 	                    <h5 class="modal-title" id="privacyModalLabel">개인정보처리방침</h5>
 	                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	                </div>
-	                <div class="modal-body">
-	                    <p>개인정보처리방침 내용이 여기에 들어갑니다...</p>
+	                <div class="modal-body" id="privacyPolicyModal">
+	                    <p th:insert="~{common/privacyPolicy}">
+						</p>
 	                </div>
 	                <div class="modal-footer">
 	                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>

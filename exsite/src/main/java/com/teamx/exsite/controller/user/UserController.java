@@ -29,45 +29,45 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserController {
 
-	private final UserService userService;
-	private final AuthService authService;
-	private Map<String, String> userInfoCache = new HashMap<>();
+   private final UserService userService;
+   private final AuthService authService;
+   private Map<String, String> userInfoCache = new HashMap<>();
 
-	@GetMapping("/signup")
-	public String enrollForm() {
-		return "/user/enrollForm";
-	}
-	
-	/**
-	 * @param session
-	 * @param registerInfo 회원가입 폼에서 입력한 유저 정보
-	 * @return 메인 페이지로 리다이렉트
-	 */
-	@RequestMapping("/user/register")
-	public String userRegister(HttpSession session, Model model, UserDTO registerInfo) {
-		UserDTO registerUser = userService.userRegister(registerInfo);
-		if (registerUser != null) {
-			registerUser.setUserPw(null);
-			session.setAttribute("loginUser", registerUser);
-		} else {
-			model.addAttribute("alertMsg", "회원가입에 실패했습니다.");
-			return "/user/loginForm";
-		}
-		return "redirect:/";
-	}
+   @GetMapping("/signup")
+   public String enrollForm() {
+      return "/user/enrollForm";
+   }
+   
+   /**
+    * @param session
+    * @param registerInfo 회원가입 폼에서 입력한 유저 정보
+    * @return 메인 페이지로 리다이렉트
+    */
+   @RequestMapping("/user/register")
+   public String userRegister(HttpSession session, Model model, UserDTO registerInfo) {
+      UserDTO registerUser = userService.userRegister(registerInfo);
+      if (registerUser != null) {
+         registerUser.setUserPw(null);
+         session.setAttribute("loginUser", registerUser);
+      } else {
+         model.addAttribute("alertMsg", "회원가입에 실패했습니다.");
+         return "/user/loginForm";
+      }
+      return "redirect:/";
+   }
 
-	@GetMapping("/login")
-	public String loginForm(Model model, @RequestParam(value = "userId", required = false) String userId) {
-		if (userId != null)
-			model.addAttribute("userId", userId);
-		return "/user/loginForm";
-	}
+   @GetMapping("/login")
+   public String loginForm(Model model, @RequestParam(value = "userId", required = false) String userId) {
+      if (userId != null)
+         model.addAttribute("userId", userId);
+      return "/user/loginForm";
+   }
 
-	@GetMapping("/logout")
-	public String basicLogout(HttpSession session) {
-		session.invalidate();
-		return "redirect:/";
-	}
+   @GetMapping("/logout")
+   public String basicLogout(HttpSession session) {
+      session.invalidate();
+      return "redirect:/";
+   }
 
 	@ResponseBody
 	@PostMapping(value = "/login/normal", produces = "application/json; charset=utf-8")
@@ -186,275 +186,275 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@ResponseBody
-	@PostMapping(value = "/id/check", produces = "application/json; charset=utf-8")
-	public int idCheck(String userId) {
-		return userService.idCheck(userId);
-	}
+   @ResponseBody
+   @PostMapping(value = "/id/check", produces = "application/json; charset=utf-8")
+   public int idCheck(String userId) {
+      return userService.idCheck(userId);
+   }
 
-	/**
-	 * @param email 이메일 정보
-	 * @param phone 휴대폰 정보
-	 * @return "exist": 이미 사용중인 휴대폰, 이메일인 경우 / "ok": 해당 인증도구로 인증코드 발송한 경우
-	 * @throws Exception
-	 */
-	@ResponseBody
-	@PostMapping(value = "/signup/authcode", produces = "application/json; charset=utf-8")
-	public Map<String, String> signupAuth(@RequestParam(value="email", required=false) String email
-									  , @RequestParam(value="phone", required=false) String phone) throws Exception {
-		// 휴대폰 인증, 메일 인증 둘 다 사용 가능한 메서드, 두 값 중 없는 건 null 값 허용
-		// 있는것만 받아서 둘 중 하나를 key값으로, value로 6자리 인증코드를 LocalDateTime 객체를 같이 묶어서 
-		//authService의 verificationCodes Map에 임시저장
-		if(email == null) {
-			return authService.processAuth(phone, "phone");
-		} else {
-			return authService.processAuth(email, "email");
-		}
-	}
+   /**
+    * @param email 이메일 정보
+    * @param phone 휴대폰 정보
+    * @return "exist": 이미 사용중인 휴대폰, 이메일인 경우 / "ok": 해당 인증도구로 인증코드 발송한 경우
+    * @throws Exception
+    */
+   @ResponseBody
+   @PostMapping(value = "/signup/authcode", produces = "application/json; charset=utf-8")
+   public Map<String, String> signupAuth(@RequestParam(value="email", required=false) String email
+                             , @RequestParam(value="phone", required=false) String phone) throws Exception {
+      // 휴대폰 인증, 메일 인증 둘 다 사용 가능한 메서드, 두 값 중 없는 건 null 값 허용
+      // 있는것만 받아서 둘 중 하나를 key값으로, value로 6자리 인증코드를 LocalDateTime 객체를 같이 묶어서 
+      //authService의 verificationCodes Map에 임시저장
+      if(email == null) {
+         return authService.processAuth(phone, "phone");
+      } else {
+         return authService.processAuth(email, "email");
+      }
+   }
 
-	/**
-	 * @param email 이메일 정보
-	 * @param phone 휴대폰 정보
-	 * @param code 사용자가 보낸 인증코드
-	 * @return "timeout": 인증 유효시간 초과, "success": 인증 성공, "false": 인증 실패, 실패인 경우 verificationCode 맵에서 삭제하지 않음
-	 */
-	@ResponseBody
-	@PostMapping(value = "/signup/authcode/verify", produces = "application/json; charset=utf-8;")
-	public Map<String, String> returnSignupAuthResult(@RequestParam(value="email", required=false)String email
-													, @RequestParam(value="phone", required=false)String phone
-													, String code) {
-		//사용자가 인증 요청을 할 때 이메일이나 휴대폰 번호 중 하나를 받아서 verifyCode 메서드로 성공여부 반환
-		String key = email == null ? phone : email;
-		return authService.verifyCode(key, code);
-	}
-	
+   /**
+    * @param email 이메일 정보
+    * @param phone 휴대폰 정보
+    * @param code 사용자가 보낸 인증코드
+    * @return "timeout": 인증 유효시간 초과, "success": 인증 성공, "false": 인증 실패, 실패인 경우 verificationCode 맵에서 삭제하지 않음
+    */
+   @ResponseBody
+   @PostMapping(value = "/signup/authcode/verify", produces = "application/json; charset=utf-8;")
+   public Map<String, String> returnSignupAuthResult(@RequestParam(value="email", required=false)String email
+                                       , @RequestParam(value="phone", required=false)String phone
+                                       , String code) {
+      //사용자가 인증 요청을 할 때 이메일이나 휴대폰 번호 중 하나를 받아서 verifyCode 메서드로 성공여부 반환
+      String key = email == null ? phone : email;
+      return authService.verifyCode(key, code);
+   }
+   
 
 
-	/**
-	 * @param name 아이디/비밀번호 찾기 시 사용자가 입력한 실명
-	 * @param email 이메일 정보
-	 * @param phone 휴대폰 정보
-	 * @return "success": 성공인 경우 인증번호 발송 / "notfound": 실패인 경우 반환
-	 * @throws Exception
-	 */
-	@ResponseBody
-	@PostMapping(value = "/account/recover/auth")
-	public Map<String, String> AuthNumberTransfer(String name
-													 , @RequestParam(value="email", required=false) String email
-													 , @RequestParam(value="phone", required=false) String phone) throws Exception {
-		
-		Map<String, String> response = new HashMap<>();
-		int nameCheckResult = userService.nameCheck(name.trim());
-		if(phone == null) {
-			int mailCheckResult = authService.mailCheck(email.trim());
-			if (mailCheckResult == 1 && nameCheckResult == 1) {
-				authService.javaMailSender(name, email);
-				response.put("status", "success");
-			} else {
-				response.put("status", "notfound");
-			}
-		} else if(email == null) {
-			int phoneCheckResult = authService.phoneCheck(phone.trim());
-			if (phoneCheckResult == 1 && nameCheckResult == 1) {
-				authService.sendSMS(name, phone);
-				response.put("status", "success");
-			} else {
-				response.put("status", "notfound");
-			}
-		} else {
-			response.put("status", "notfound");
-		}
-		
-		return response;
-	}
+   /**
+    * @param name 아이디/비밀번호 찾기 시 사용자가 입력한 실명
+    * @param email 이메일 정보
+    * @param phone 휴대폰 정보
+    * @return "success": 성공인 경우 인증번호 발송 / "notfound": 실패인 경우 반환
+    * @throws Exception
+    */
+   @ResponseBody
+   @PostMapping(value = "/account/recover/auth")
+   public Map<String, String> AuthNumberTransfer(String name
+                                        , @RequestParam(value="email", required=false) String email
+                                        , @RequestParam(value="phone", required=false) String phone) throws Exception {
+      
+      Map<String, String> response = new HashMap<>();
+      int nameCheckResult = userService.nameCheck(name.trim());
+      if(phone == null) {
+         int mailCheckResult = authService.mailCheck(email.trim());
+         if (mailCheckResult == 1 && nameCheckResult == 1) {
+            authService.javaMailSender(name, email);
+            response.put("status", "success");
+         } else {
+            response.put("status", "notfound");
+         }
+      } else if(email == null) {
+         int phoneCheckResult = authService.phoneCheck(phone.trim());
+         if (phoneCheckResult == 1 && nameCheckResult == 1) {
+            authService.sendSMS(name, phone);
+            response.put("status", "success");
+         } else {
+            response.put("status", "notfound");
+         }
+      } else {
+         response.put("status", "notfound");
+      }
+      
+      return response;
+   }
 
-	/**
-	 * @param name 사용자가 입력한 실명
-	 * @param email 이메일 정보
-	 * @param phone 휴대폰 정보
-	 * @param code 사용자가 입력한 인증코드
-	 * @return
-	 */
-	@ResponseBody
-	@PostMapping(value = "/account/recover/auth/verify", produces = "application/json; charset=utf-8;")
-	public Map<String, String> returnAuthResult(String name
-											  , @RequestParam(value="email", required=false) String email
-											  , @RequestParam(value="phone", required=false) String phone
-											  , String code) {
-		
-		String authMethod = email == null ? phone : email;
-		Map<String, String> result = authService.verifyCode(name + authMethod, code);
-		UserDTO idInfo = userService.idSearch(authMethod);
-		if(idInfo == null) {
-			result.put("userId", "notFound");
-		} else if(idInfo.getUserStatus() == 'Y') {
-			result.put("userId", "withDraw");
-		} else {
-			result.put("userId", idInfo.getUserId());
-		}
-		
-		return result;
-	}
+   /**
+    * @param name 사용자가 입력한 실명
+    * @param email 이메일 정보
+    * @param phone 휴대폰 정보
+    * @param code 사용자가 입력한 인증코드
+    * @return
+    */
+   @ResponseBody
+   @PostMapping(value = "/account/recover/auth/verify", produces = "application/json; charset=utf-8;")
+   public Map<String, String> returnAuthResult(String name
+                                   , @RequestParam(value="email", required=false) String email
+                                   , @RequestParam(value="phone", required=false) String phone
+                                   , String code) {
+      
+      String authMethod = email == null ? phone : email;
+      Map<String, String> result = authService.verifyCode(name + authMethod, code);
+      UserDTO idInfo = userService.idSearch(authMethod);
+      if(idInfo == null) {
+         result.put("userId", "notFound");
+      } else if(idInfo.getUserStatus() == 'Y') {
+         result.put("userId", "withDraw");
+      } else {
+         result.put("userId", idInfo.getUserId());
+      }
+      
+      return result;
+   }
 
-	@GetMapping("/id/recover")
-	public String findIdForm() {
-		return "/user/findIdForm";
-	}
+   @GetMapping("/id/recover")
+   public String findIdForm() {
+      return "/user/findIdForm";
+   }
 
-	@GetMapping("/id/recover/result")
-	public String findIdResult() {
-		return "/user/findIdResultForm";
-	}
+   @GetMapping("/id/recover/result")
+   public String findIdResult() {
+      return "/user/findIdResultForm";
+   }
 
-	/**
-	 * @param userId 아이디 찾기로 id를 찾은 후 비밀번호 재설정 페이지로 넘어오는 경우, 해당 페이지에서 받은 userId값
-	 * @param model
-	 * @return
-	 */
-	@GetMapping("/password/recover/first")
-	public String findPasswordFirstForm(@RequestParam(value = "userId", required = false) String userId, Model model) {
-		if (userId != null) {
-			model.addAttribute("userId", userId);
-		}
-		return "/user/findPasswordFirstForm";
-	}
+   /**
+    * @param userId 아이디 찾기로 id를 찾은 후 비밀번호 재설정 페이지로 넘어오는 경우, 해당 페이지에서 받은 userId값
+    * @param model
+    * @return
+    */
+   @GetMapping("/password/recover/first")
+   public String findPasswordFirstForm(@RequestParam(value = "userId", required = false) String userId, Model model) {
+      if (userId != null) {
+         model.addAttribute("userId", userId);
+      }
+      return "/user/findPasswordFirstForm";
+   }
 
-	/**
-	 * @param userId 비밀번호 재설정 1차 페이지에서 idCheck 메서드로 확인된 userId
-	 * @param model
-	 * @return 비밀번호 재설정 2차 페이지
-	 */
-	@PostMapping("/password/recover/second")
-	public String findPasswordSecondForm(String userId, Model model) {
-		if (userId != null) {
-			model.addAttribute("userId", userId);
-		}
-		return "/user/findPasswordSecondForm";
-	}
+   /**
+    * @param userId 비밀번호 재설정 1차 페이지에서 idCheck 메서드로 확인된 userId
+    * @param model
+    * @return 비밀번호 재설정 2차 페이지
+    */
+   @PostMapping("/password/recover/second")
+   public String findPasswordSecondForm(String userId, Model model) {
+      if (userId != null) {
+         model.addAttribute("userId", userId);
+      }
+      return "/user/findPasswordSecondForm";
+   }
 
-	/**
-	 * @param userId 비밀번호 재설정 2차 페이지에서 넘긴 userId
-	 * @param name 비밀번호 재설정 2차 페이지에서 사용자가 입력한 실명
-	 * @param email 사용자가 입력한 이메일 정보
-	 * @param phone 사용자가 입력한 휴대폰 정보
-	 * @param model
-	 * @return
-	 */
-	@PostMapping("/password/change/form")
-	public String passwordchangeForm(String userId
-								   , String name
-								   , @RequestParam(value="email", required=false) String email
-								   , @RequestParam(value="phone", required=false) String phone
-								   , Model model) {
-		
-		String authMethod = email == null ? phone : email;
-		UserDTO userInfo = (UserDTO)userService.idSearch(authMethod);
-		if(userInfo.getUserStatus() == 'Y') {
-			model.addAttribute("userId", "withDraw");
-			return "/user/findIdResultForm";
-		} else {
-			model.addAttribute("userId", userId);
-			model.addAttribute("name", name);
-			model.addAttribute("authMethod", authMethod);
-			// 비밀번호 재설정 페이지로 같이 넘길 6자리 인증번호
-			String code = authService.generateAuthCode();
-			// email 또는 phone + name + userId를 key값으로, code를 value로 AuthService.verificationCodes에 저장
-			authService.generateAuthInfo(authMethod + name + userId, code);
-			// code를 비밀번호 재설정 페이지로 같이 넘김
-			model.addAttribute("code", code);
-			System.out.println(code);
-			return "/user/changePasswordForm";
-		}
-	}
-	
-	/**
-	 * @param userId 비밀번호 재설정 2차 페이지에서 javascript sessionStorage에 담아 넘긴 userId 
-	 * @param name 비밀번호 재설정 2차 페이지에서 javascript sessionStorage에 담아 넘긴 name
-	 * @param authMethod 비밀번호 재설정 2차 페이지에서 javascript sessionStorage에 담아 넘긴 authMethod
-	 * @param code 컨트롤러에서 비밀번호 재설정 페이지로 넘긴 code값 
-	 * @param changePassword 사용자가 입력한 재설정 비밀번호
-	 * @param model
-	 * @return "timeout": 코드 유효시간 초과 / "success": 초기화 성공 / "false": 인증 실패
-	 */
-	@PostMapping("/password/change")
-	public String passwordchange(String userId
-							   , String name
-							   , String authMethod
-							   , String code
-							   , String changePassword
-							   , Model model) {
-		String result = authService.verifyCode(authMethod + name + userId, code).get("status");
-		System.out.println(code);
-		if (result.equals("timeout")) {
-			model.addAttribute("alertMsg", "인증 유효시간이 초과되었습니다.");
-			return "redirect:/";
-		} else if (result.equals("success")) {
-			int passwordchangeResult = userService.passwordChange(userId, name, authMethod, changePassword);
-			if (passwordchangeResult == 1) {
-				model.addAttribute("alertMsg", "비밀번호가 초기화되었습니다.");
-			} else {
-				model.addAttribute("alertMsg", "오류가 발생했습니다. 관리자에게 문의 바랍니다.");
-			}
-		} else if (result.equals("false")) {
-			model.addAttribute("alertMsg", "오류가 발생했습니다. 관리자에게 문의 바랍니다.");
+   /**
+    * @param userId 비밀번호 재설정 2차 페이지에서 넘긴 userId
+    * @param name 비밀번호 재설정 2차 페이지에서 사용자가 입력한 실명
+    * @param email 사용자가 입력한 이메일 정보
+    * @param phone 사용자가 입력한 휴대폰 정보
+    * @param model
+    * @return
+    */
+   @PostMapping("/password/change/form")
+   public String passwordchangeForm(String userId
+                           , String name
+                           , @RequestParam(value="email", required=false) String email
+                           , @RequestParam(value="phone", required=false) String phone
+                           , Model model) {
+      
+      String authMethod = email == null ? phone : email;
+      UserDTO userInfo = (UserDTO)userService.idSearch(authMethod);
+      if(userInfo.getUserStatus() == 'Y') {
+         model.addAttribute("userId", "withDraw");
+         return "/user/findIdResultForm";
+      } else {
+         model.addAttribute("userId", userId);
+         model.addAttribute("name", name);
+         model.addAttribute("authMethod", authMethod);
+         // 비밀번호 재설정 페이지로 같이 넘길 6자리 인증번호
+         String code = authService.generateAuthCode();
+         // email 또는 phone + name + userId를 key값으로, code를 value로 AuthService.verificationCodes에 저장
+         authService.generateAuthInfo(authMethod + name + userId, code);
+         // code를 비밀번호 재설정 페이지로 같이 넘김
+         model.addAttribute("code", code);
+         System.out.println(code);
+         return "/user/changePasswordForm";
+      }
+   }
+   
+   /**
+    * @param userId 비밀번호 재설정 2차 페이지에서 javascript sessionStorage에 담아 넘긴 userId 
+    * @param name 비밀번호 재설정 2차 페이지에서 javascript sessionStorage에 담아 넘긴 name
+    * @param authMethod 비밀번호 재설정 2차 페이지에서 javascript sessionStorage에 담아 넘긴 authMethod
+    * @param code 컨트롤러에서 비밀번호 재설정 페이지로 넘긴 code값 
+    * @param changePassword 사용자가 입력한 재설정 비밀번호
+    * @param model
+    * @return "timeout": 코드 유효시간 초과 / "success": 초기화 성공 / "false": 인증 실패
+    */
+   @PostMapping("/password/change")
+   public String passwordchange(String userId
+                        , String name
+                        , String authMethod
+                        , String code
+                        , String changePassword
+                        , Model model) {
+      String result = authService.verifyCode(authMethod + name + userId, code).get("status");
+      System.out.println(code);
+      if (result.equals("timeout")) {
+         model.addAttribute("alertMsg", "인증 유효시간이 초과되었습니다.");
+         return "redirect:/";
+      } else if (result.equals("success")) {
+         int passwordchangeResult = userService.passwordChange(userId, name, authMethod, changePassword);
+         if (passwordchangeResult == 1) {
+            model.addAttribute("alertMsg", "비밀번호가 초기화되었습니다.");
+         } else {
+            model.addAttribute("alertMsg", "오류가 발생했습니다. 관리자에게 문의 바랍니다.");
+         }
+      } else if (result.equals("false")) {
+         model.addAttribute("alertMsg", "오류가 발생했습니다. 관리자에게 문의 바랍니다.");
 
-		}
+      }
 
-		return "redirect:/";
-	}
+      return "redirect:/";
+   }
 
-	// -------------------------------------------------------------------------
-	
-	// 관리자 페이지 전체 유저 정보 불러오기
-		@ResponseBody
-		@GetMapping("/api/members")
-		public List<UserDTO> getAllUsers() {
-			 
-			return userService.getAllUsers();
-		    
-		}
-		
-		// 관리자 페이지 회원 검색하기
-		@ResponseBody
-		@GetMapping("/api/members/search")
-		public List<UserDTO> searchUsers(@RequestParam String name) {
-			 
-			return userService.searchUsers(name);
-			 
-		}
-		
-		// 관리자 페이지 해당회원 정보 불러오기
-		@ResponseBody
-		@GetMapping("/api/members/info/{userNo}")
-		public ResponseEntity<UserDTO> getUserInfo(@PathVariable int userNo){
-			UserDTO user = userService.getUserByNo(userNo);
-			
-	        return ResponseEntity.ok(user);
-		
-		}
-		// 관리자 페이지 해당회원 정보 수정하기
-		@ResponseBody
-		@PutMapping("/api/members/{userNo}")
-	    public ResponseEntity<UserDTO> updateUserInfo(@PathVariable int userNo, @RequestBody UserDTO member) {
-			
-			UserDTO updatedMember = userService.updateUserInfo(userNo, member);
-			
-	        return ResponseEntity.ok(updatedMember);
-	    }
-		
-		// 관리자 페이지 해당회원 탈퇴 처리하기
-		@ResponseBody
-		@PostMapping("/api/members/withdraw")
-	    public ResponseEntity<String> withdraw(@RequestBody UserDTO withdrawMember) {
-			
-	        boolean isWithdrawn = userService.withdrawUserInfo(withdrawMember.getUserId());
-	        
-	        if (isWithdrawn) {
-	            return ResponseEntity.ok("탈퇴 처리되었습니다.");
-	        } else {
-	            return ResponseEntity.status(400).body("탈퇴 처리 중 오류가 발생했습니다.");
-	        }
-	        
-	    }
-		
+   // -------------------------------------------------------------------------
+   
+   // 관리자 페이지 전체 유저 정보 불러오기
+      @ResponseBody
+      @GetMapping("/api/members")
+      public List<UserDTO> getAllUsers() {
+          
+         return userService.getAllUsers();
+          
+      }
+      
+      // 관리자 페이지 회원 검색하기
+      @ResponseBody
+      @GetMapping("/api/members/search")
+      public List<UserDTO> searchUsers(@RequestParam String name) {
+          
+         return userService.searchUsers(name);
+          
+      }
+      
+      // 관리자 페이지 해당회원 정보 불러오기
+      @ResponseBody
+      @GetMapping("/api/members/info/{userNo}")
+      public ResponseEntity<UserDTO> getUserInfo(@PathVariable int userNo){
+         UserDTO user = userService.getUserByNo(userNo);
+         
+           return ResponseEntity.ok(user);
+      
+      }
+      // 관리자 페이지 해당회원 정보 수정하기
+      @ResponseBody
+      @PutMapping("/api/members/{userNo}")
+       public ResponseEntity<UserDTO> updateUserInfo(@PathVariable int userNo, @RequestBody UserDTO member) {
+         
+         UserDTO updatedMember = userService.updateUserInfo(userNo, member);
+         
+           return ResponseEntity.ok(updatedMember);
+       }
+      
+      // 관리자 페이지 해당회원 탈퇴 처리하기
+      @ResponseBody
+      @PostMapping("/api/members/withdraw")
+       public ResponseEntity<String> withdraw(@RequestBody UserDTO withdrawMember) {
+         
+           boolean isWithdrawn = userService.withdrawUserInfo(withdrawMember.getUserId());
+           
+           if (isWithdrawn) {
+               return ResponseEntity.ok("탈퇴 처리되었습니다.");
+           } else {
+               return ResponseEntity.status(400).body("탈퇴 처리 중 오류가 발생했습니다.");
+           }
+           
+       }
+      
 }

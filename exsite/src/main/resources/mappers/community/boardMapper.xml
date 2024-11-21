@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.teamx.exsite.model.mapper.community.BoardMapper">
-	<!-- 게시굴 관련 쿼리문 -->
+	<!-- 게시글 관련 쿼리문 -->
 	<!-- 게시글작성 쿼리문 -->
 	<insert id="insertBoard">
 		INSERT INTO COMMUNITY (POST_NO, POST_TITLE, POST_CONTENT, POST_CATEGORY, POST_DATETIME, POST_VIEW_COUNT, POST_STATUS, USER_NO)
@@ -37,12 +37,12 @@
 	     	 , USER_ID
 			FROM COMMUNITY
 	        JOIN USER_INFO USING (USER_NO)
-			WHERE POST_STATUS = 'N'
+			WHERE POST_STATUS = 'N' AND POST_CATEGORY != '공지'
 			ORDER BY POST_NO DESC
 	</select>
 	
 	<!-- 조회수 증가 쿼리문 -->
-	<update id="increaseCount">
+	<update id="increaseViewCount">
 		UPDATE COMMUNITY
 		   SET POST_VIEW_COUNT = POST_VIEW_COUNT+1
 		 WHERE POST_NO = #{ postNo } AND POST_STATUS='N'
@@ -79,6 +79,34 @@
 		WHERE POST_NO = #{postNo}
 		  AND USER_NO = #{userNo}
 	</update>
+	
+	<!-- 신고여부 체크 쿼리문 -->
+	<select id="checkReport">
+		SELECT COUNT(*)
+		FROM COMMUNITY_REPORT
+		WHERE USER_NO = #{userNo} AND POST_NO = #{postNo}
+	</select>
+	
+	
+	<!-- 신고회수 증가 쿼리문 -->
+    <insert id="increaseReportCount">
+	    INSERT INTO COMMUNITY_REPORT (USER_NO, POST_NO) 
+	    VALUES (#{userNo}, #{postNo})
+	</insert>
+
+	<!-- 신고회수 카운트 쿼리문 -->
+	<select id="checkReportCount">
+		SELECT COUNT(*) FROM COMMUNITY_REPORT
+		WHERE POST_NO = #{postNo}
+	</select>
+	
+	<!-- 신고누적 블라인드 쿼리문 -->
+	<update id="deleteReportedBoard">
+		UPDATE COMMUNITY
+		   SET POST_STATUS = 'Y'
+		WHERE POST_NO = #{postNo}
+	</update>
+	
 	
 
 	<!-- 카테고리별 게시글 갯수 조회 쿼리문 -->
@@ -210,4 +238,122 @@
 		 WHERE CHILDREN_REPLY_NO = #{ childrenReplyNo }
 		   AND USER_NO = #{ userNo }
 	</update>
+	
+	<!-- 관리자 페이지 게시글 조회 -->
+	<select id="selectPostList">
+		SELECT POST_NO
+				, POST_CATEGORY
+   	     		, POST_TITLE
+     	 		, USER_ID
+	 	 		, POST_DATETIME
+		FROM COMMUNITY
+        	JOIN USER_INFO USING (USER_NO)
+		WHERE POST_STATUS = 'N'
+		ORDER BY POST_NO DESC
+	</select>
+	
+	<!-- 관리자 페이지 카테고리 변경 -->
+	<update id="updateCategory" parameterType="map">
+		UPDATE COMMUNITY
+            SET POST_CATEGORY = #{category}
+        WHERE POST_NO = #{postNo}
+	</update>
+	
+	<!-- 관리자 페이지 게시글 삭제(상태 변경) -->
+	<update id="deletePosts">
+		UPDATE COMMUNITY
+			SET POST_STATUS = 'Y'
+		WHERE POST_NO IN
+	    <foreach item="postNo" collection="list" open="(" separator="," close=")">
+	        #{postNo}
+	    </foreach>
+	</update>
+	
+	<!-- 관리자 페이지 공지 작성 -->
+	<insert id="insertNotice">
+		INSERT INTO COMMUNITY (POST_NO, POST_TITLE, POST_CONTENT, POST_CATEGORY, POST_DATETIME,
+								POST_VIEW_COUNT, POST_STATUS, USER_NO)
+				VALUES (
+						SEQ_POST_NO.NEXTVAL, #{postTitle}, #{postContent}, '공지', SYSDATE,
+						0, 'N', #{userNo}
+				)
+	</insert>
+	
+	<!-- 관리자 페이지 공지 조회 -->
+	<select id="selectNotice">
+			SELECT POST_NO
+		   	     , POST_TITLE
+			 	 , POST_CONTENT
+			 	 , POST_CATEGORY
+			 	 , POST_DATETIME
+			 	 , POST_VIEW_COUNT
+		     	 , USER_ID
+			FROM COMMUNITY
+	        JOIN USER_INFO USING (USER_NO)
+			WHERE POST_STATUS = 'N' AND POST_CATEGORY = '공지'
+			ORDER BY POST_NO DESC
+	</select>
+	
+	<select id="searchPost">
+			SELECT POST_NO
+		   	     , POST_TITLE
+			 	 , POST_CONTENT
+			 	 , POST_CATEGORY
+			 	 , POST_DATETIME
+			 	 , POST_VIEW_COUNT
+		     	 , USER_ID
+			FROM COMMUNITY
+	        JOIN USER_INFO USING (USER_NO)
+	        WHERE POST_STATUS = 'N' AND
+	        		( POST_TITLE LIKE ('%' || #{keyword} || '%') OR
+	        		USER_ID LIKE ('%' || #{keyword} || '%') )
+	</select>
+	
+	<!-- 관리자페이지 댓글 관련 쿼리문 -->
+	<!-- 관리자페이지 부모 댓글 조회 쿼리문 -->
+	<select id="adminSelectParentReply">
+	    SELECT POST_NO, PARENT_REPLY_NO, PARENT_REPLY_CONTENT, PARENT_REPLY_DATETIME, USER_ID, PARENT_REPLY_STATUS
+	    FROM PARENT_REPLY
+	    JOIN USER_INFO USING (USER_NO)
+	    <where>
+	        <if test="searchKeyword != null and searchKeyword != ''">
+	            (PARENT_REPLY_CONTENT LIKE '%' || #{searchKeyword} || '%'
+	            OR USER_ID LIKE '%' || #{searchKeyword} || '%')
+	        </if>
+	    </where>
+	    ORDER BY POST_NO DESC, PARENT_REPLY_NO DESC
+	</select>
+	
+	<select id="adminSelectChildrenReply">
+	    SELECT POST_NO, PARENT_REPLY_NO, CHILDREN_REPLY_NO, CHILDREN_REPLY_CONTENT, CHILDREN_REPLY_DATETIME, USER_ID
+	    FROM CHILDREN_REPLY
+	    JOIN USER_INFO USING (USER_NO)
+	    JOIN PARENT_REPLY USING (PARENT_REPLY_NO)
+	    WHERE CHILDREN_REPLY_STATUS = 'N'
+	    <if test="searchKeyword != null and searchKeyword != ''">
+	        AND (CHILDREN_REPLY_CONTENT LIKE '%' || #{searchKeyword} || '%'
+	        OR USER_ID LIKE '%' || #{searchKeyword} || '%')
+	    </if>
+	    ORDER BY POST_NO DESC, PARENT_REPLY_NO DESC, CHILDREN_REPLY_NO DESC
+	</select>
+	
+	<!-- 관리자페이지 부모 댓글 삭제 쿼리문 -->
+	<delete id="adminDeleteParentReply">
+	    UPDATE PARENT_REPLY
+	    SET PARENT_REPLY_STATUS = 'Y'
+	    WHERE PARENT_REPLY_NO IN
+	    <foreach item="replyNo" collection="parentReplyNos" open="(" separator="," close=")">
+	        #{replyNo}
+	    </foreach>
+	</delete>
+	
+	<!-- 관리자페이지 자식 댓글 삭제 쿼리문 -->
+	<delete id="adminDeleteChildrenReply">
+	    UPDATE CHILDREN_REPLY
+	    SET CHILDREN_REPLY_STATUS = 'Y'
+	    WHERE CHILDREN_REPLY_NO IN
+	    <foreach item="replyNo" collection="childrenReplyNos" open="(" separator="," close=")">
+	        #{replyNo}
+	    </foreach>
+	</delete>
 </mapper>

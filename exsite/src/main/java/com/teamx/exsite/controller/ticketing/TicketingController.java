@@ -45,7 +45,7 @@ public class TicketingController {
 	/**
 	 * 예매 상세 페이지(팝업)을 여는 메소드
 	 */
-	@GetMapping("/ticketingPopup")
+	@GetMapping("/ticketingpopup")
 	public String openTicketingPopup(@RequestParam(value = "exhibitionNo", required = false) String exhibitionNo,
             @RequestParam(value = "exhibitionTitle",required = false) String exhibitionTitle,
             @RequestParam(value = "useFee",required = false) String useFee,
@@ -123,7 +123,7 @@ public class TicketingController {
 	 * @return
 	 */
 	@ResponseBody
-	@PostMapping(value="/verifyPayment")
+	@PostMapping(value="/verifypayment")
 	public ResponseEntity<String> verifyPayment (PaymentDTO verifyPayment, HttpSession session, String exhibitionNo,
 												String visitDate, int ticketCount) {
 		String indentifiedKey = verifyPayment.getMerchantUid();	// 포트원 고유 결제번호

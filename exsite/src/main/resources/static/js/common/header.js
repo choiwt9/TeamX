@@ -30,6 +30,18 @@ window.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+$(document).ready(function() {
+    // 모든 타이틀 EX-SITE로 초기화
+    document.title = 'EX-SITE';
+
+    // 검색 입력창에서 엔터 시 검색버튼 클릭 이벤트 호출
+    $('#header-search-input').keyup(function(event){
+        if (event.key === "Enter") {
+            redirectToSearchResultPage();
+        }
+    });
+ })
+
 // 검색버튼 클릭 시, 검색 결과 페이지로 이동하는 함수
 function redirectToSearchResultPage() {
     const searchTerm = $('#header-search-input').val().trim();  // 검색어 가져오기
@@ -43,6 +55,3 @@ function redirectToSearchResultPage() {
     window.location.href = "/search/results?page=1&query=" + encodeURIComponent(searchTerm);
 }
 
-onload = () => {
-    document.title = 'EX-SITE';
- }
