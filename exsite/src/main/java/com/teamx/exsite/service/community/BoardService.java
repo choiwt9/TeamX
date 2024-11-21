@@ -105,5 +105,29 @@ public class BoardService {
 		return mapper.editChildrenReply(childrenReply);
 	}
 
+	public List<Board> selectPostList() {
+		return mapper.selectPostList();
+	}
+
+	public int updateCategory(String category, int postNo) {
+		return mapper.updateCategory(category, postNo);
+	}
+
+	public int deletePosts(List<Integer> postNos) {
+		return mapper.deletePosts(postNos);
+	}
+
+	public int insertNotice(String postTitle, String postContent, int userNo) {
+		return mapper.insertNotice(postTitle, postContent, userNo);
+	}
+
+	public List<Board> selectNotice() {
+		return mapper.selectNotice();
+	}
+
+	public List<Board> searchPost(String keyword) {
+		return mapper.searchPost(keyword);
+	}
+
 
 }

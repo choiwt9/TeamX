@@ -45,15 +45,15 @@
                     </tr>
                 </thead>
                 <tbody class="community-notification">
-                    <tr>
+                    <tr th:each="notice : ${notice}">
                         <td>공지</td>
                         <td></td>
                         <td>
-                            <a href="/community/post">커뮤니티 게시판 게시글 작성 유의 사항 공지입니다.</a>
+                            <a th:href="'/community/post/' + ${notice.postNo}" th:text="${notice.postTitle}">공지사항 제목</a>
                         </td>
                         <td>관리자</td>
-                        <td>2024-10-16</td>
-                        <td>1</td>
+                        <td th:text="${notice.postDate}">2024-10-16</td>
+                        <td th:text="${notice.postViewCount}">1</td>
                     </tr>
                 </tbody>
                 <tbody class="community-content-list">
