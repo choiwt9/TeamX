@@ -49,4 +49,16 @@ public interface BoardMapper {
 
 	int editChildrenReply(ChildrenReply childrenReply);
 
+	List<Board> selectPostList();
+
+	int updateCategory(String category, int postNo);
+
+	int deletePosts(List<Integer> postNos);
+
+	int insertNotice(String postTitle, String postContent, int userNo);
+
+	List<Board> selectNotice();
+
+	List<Board> searchPost(String keyword);
+
 }
