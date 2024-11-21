@@ -161,25 +161,13 @@ public class BoardService {
 				allReply.add(parentReply);
 			}
 		
-//			for(ParentReplyDTO p : allReply) {
-//
-//				System.out.println("부+자"+p);
-//			}
-			
 			if(parentChildMap.get(parentReplyNo)!=null) {
 				for(ParentReplyDTO childrenReply : parentChildMap.get(parentReplyNo)) {
-//					System.out.println("자식:"+childrenReply);
 					allReply.add(childrenReply);
-//					System.out.println("부+자"+allReply);
-					
 				}
 			}
 		}
 		
-		for(ParentReplyDTO p : allReply) {
-
-			System.out.println("부+자"+p);
-		}
 		return allReply;
 	}
 
@@ -189,6 +177,14 @@ public class BoardService {
 
 	public int adminDeleteChildrenReply(List<Integer> childrenReplyNos) {
 		return mapper.adminDeleteChildrenReply(childrenReplyNos);
+	}
+
+	public int checkReportCount(int postNo) {
+		return mapper.checkReportCount(postNo);
+	}
+
+	public int deleteReportedBoard(int postNo) {
+		return mapper.deleteReportedBoard(postNo);
 	}
 
 

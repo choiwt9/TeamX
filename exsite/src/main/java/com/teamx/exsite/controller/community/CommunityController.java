@@ -201,18 +201,42 @@ public class CommunityController {
 		return result > 0 ? "ok" : "fail";
 	}
 	
+	/**
+	 * 게시글 신고 메소드
+	 * @param userNo
+	 * @param postNo
+	 * @return
+	 */
 	@ResponseBody
 	@PostMapping("/community/board/report")
-	public String increaseReportCount(@RequestParam int userNo, @RequestParam int postNo) {
+	public Map<String, Object> increaseReportCount(@RequestParam int userNo, @RequestParam int postNo) {
 		
-		int result = 0;
-		int checkResult = boardService.checkReport(userNo, postNo);
-		
-		if(checkResult == 0) {
-			result = boardService.increaseReportCount(userNo, postNo);
-		}
-		
-		return result > 0 ? "ok" : "fail";
+		// 게시글신고 성공여부, 게시글 삭제 여부 값을 담을 맵 변수
+		Map<String, Object> response = new HashMap<>();
+	    
+	    int result = 0;
+	    int checkResult = boardService.checkReport(userNo, postNo);	// 로그인한 회원의 해당 게시글 신고여부 체크
+	    boolean isDeleted = false; // 게시글 삭제 여부 상태값
+	    
+	    if (checkResult == 0) {
+	    	// 로그인한 회원이 해당 게시글을 신고하지 않았을 경우
+	    	
+	    	// 게시글 신고횟수 증가 처리
+	        result = boardService.increaseReportCount(userNo, postNo);
+	        
+	        // 게시글 신고횟수 카운팅
+	        int checkCountResult = boardService.checkReportCount(postNo);
+	        
+	        // 카운팅한 신고횟수가 10 이상일경우 게시글 상태값 Y로 변경
+	        if (checkCountResult >= 10) {
+	            boardService.deleteReportedBoard(postNo);
+	            isDeleted = true; // 게시글이 삭제된 상태로 상태값 변경
+	        }
+	    }
+	    
+	    response.put("status", result > 0 ? "ok" : "fail");
+	    response.put("isDeleted", isDeleted); // 삭제 여부를 클라이언트로 전달
+	    return response;
 	}
 	
 	/**
@@ -557,9 +581,9 @@ public class CommunityController {
 	public int insertNotice(@RequestBody Map<String, Object> requestData, HttpSession session) {
 		String postTitle = (String) requestData.get("postTitle");
 		String postContent = (String) requestData.get("postContent");
-		
-//		int userNo = (int) session.getAttribute("userNo");
-		int userNo = 1;
+
+		UserDTO loginUser = (UserDTO) session.getAttribute("loginUser");
+		int userNo = loginUser.getUserNo();
 		
 		return boardService.insertNotice(postTitle, postContent, userNo);
 	}
@@ -589,7 +613,7 @@ public class CommunityController {
 
 	/**
 	 * 관리자 댓글 조회메소드(부모댓글과 부모댓글에 종속된 자식댓글 조회)
-	 * @return
+	 * @return 검색 키워드가 있을 경우 키워드 기반 조회 결과 / 키워드 없을 경우 전체 댓글 조회 결과
 	 */
 	@ResponseBody
 	@GetMapping("/api/parent/reply/select")
@@ -600,18 +624,11 @@ public class CommunityController {
 
 	/**
 	 * 관리자 부모댓글 삭제 메소드
-	 * @param parentReplyNos
-	 * @return
+	 * @param parentReplyNos 선택된 부모댓글 번호 배열
+	 * @return 삭제 성공 여부
 	 */
 	@PostMapping("/api/parent/reply/delete")
 	public ResponseEntity<Integer> adminDeleteParentReply(@RequestBody List<Integer> parentReplyNos) {
-	    System.out.println("받은 데이터: " + parentReplyNos);
-	    if (parentReplyNos == null) {
-	        System.out.println("데이터가 null입니다.");
-	    } else if (parentReplyNos.isEmpty()) {
-	        System.out.println("데이터가 비어 있습니다.");
-	    }
-
 	    try {
 	        int updatedCount = boardService.adminDeleteParentReply(parentReplyNos);
 	        return ResponseEntity.ok(updatedCount);
@@ -623,8 +640,8 @@ public class CommunityController {
 	
 	/**
 	 * 관리자 자식댓글 삭제 메소드
-	 * @param childrenReplyNos
-	 * @return
+	 * @param childrenReplyNos 선택된 자식댓글 번호 배열
+	 * @return 삭제 성공 여부
 	 */
 	@PostMapping("/api/children/reply/delete")
 	public ResponseEntity<Integer> adminDeleteChildrenReply(@RequestBody List<Integer> childrenReplyNos) {
@@ -639,8 +656,5 @@ public class CommunityController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(0);
 	    }
 	}
-	
-	
-	
 	
 }

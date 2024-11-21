@@ -499,11 +499,18 @@ function increaseReportCount(){
                userNo: userNo,
                postNo: $('#postNo').val()
             },
-            success: function(result){
-               if(result == "ok"){
+            success: function(response){
+               if (response.status === "ok") {
                   alert('게시물이 신고되었습니다.');
-               } else{
-                  alert('이미 신고한 게시글입니다.');
+                  if (response.isDeleted) {
+                      // 게시글이 삭제된 경우 리스트 페이지로 이동
+                      alert('게시글 신고 수가 초과되어 게시물이 삭제되었습니다.');
+                      window.location.href = '/community/list';
+                  } else {
+                      // 게시글이 삭제되지 않은 경우 별도 처리 없음
+                  }
+               } else {
+                     alert('이미 신고한 게시글입니다.');
                }
             },
             error: function(err){

@@ -76,5 +76,8 @@ public interface BoardMapper {
 
 	int increaseReportCount(int userNo, int postNo);
 
+	int checkReportCount(int postNo);
+
+	int deleteReportedBoard(int postNo);
 
 }

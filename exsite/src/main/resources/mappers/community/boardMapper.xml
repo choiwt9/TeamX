@@ -94,6 +94,20 @@
 	    VALUES (#{userNo}, #{postNo})
 	</insert>
 
+	<!-- 신고회수 카운트 쿼리문 -->
+	<select id="checkReportCount">
+		SELECT COUNT(*) FROM COMMUNITY_REPORT
+		WHERE POST_NO = #{postNo}
+	</select>
+	
+	<!-- 신고누적 블라인드 쿼리문 -->
+	<update id="deleteReportedBoard">
+		UPDATE COMMUNITY
+		   SET POST_STATUS = 'Y'
+		WHERE POST_NO = #{postNo}
+	</update>
+	
+	
 
 	<!-- 카테고리별 게시글 갯수 조회 쿼리문 -->
 	<select id="selectListCountByCategory" resultType="_int">
@@ -262,9 +276,10 @@
 				VALUES (
 						SEQ_POST_NO.NEXTVAL, #{postTitle}, #{postContent}, '공지', SYSDATE,
 						0, 'N', #{userNo}
-				) 
+				)
 	</insert>
 	
+	<!-- 관리자 페이지 공지 조회 -->
 	<select id="selectNotice">
 			SELECT POST_NO
 		   	     , POST_TITLE
