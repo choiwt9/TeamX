@@ -60,19 +60,18 @@ public class CustomercenterService {
 	public List<Inquiry> searchUsers(String userId) {
 		
 		return customercenterMapper.searchUsers(userId);
-	}
-
-	// 관리자 페이지 관리자 답변 등록
-	public void updateInquiryResponse(int inquiryNo, Inquiry inquiryResponse, Inquiry responseContent) {
-
-		customercenterMapper.updateInquiryResponse(inquiryNo, inquiryResponse, responseContent);
 		
 	}
 
-//	public void updateInquiryResponse(int inquiryNo, String inquiryResponse) {
-//
-//		customercenterMapper.updateInquiryResponse(inquiryNo, inquiryResponse);
-//		
-//	}
+	// 관리자 페이지 관리자 답변 등록
+	public Inquiry updateInquiry(int inquiryNo, Inquiry inquiry) {
+		
+		inquiry.setInquiryNo(inquiryNo);
+		
+		customercenterMapper.updateInquiry(inquiry);
+		
+		return inquiry;
+		
+	}
 
 }

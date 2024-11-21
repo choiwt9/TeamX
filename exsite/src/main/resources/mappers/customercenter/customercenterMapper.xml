@@ -40,13 +40,14 @@
         SELECT I.*, U.USER_ID
         FROM INQUIRY I
         JOIN USER_INFO U ON (I.USER_NO = U.USER_NO)
-        WHERE U.USER_ID LIKE '%' || #{userId} || '%'
+        WHERE U.USER_ID LIKE '%' || #{userId} || '%' OR
+        	  I.INQUIRY_TITLE LIKE '%' || #{inquiryTitle} || '%'
     </select>
     
     <!-- 관리자 페이지 관리자 답변 등록 -->
-    <update id="updateInquiryResponse">
+    <update id="updateInquiry">
         UPDATE INQUIRY
-        SET RESPONSE_CONTENT = #{answerContent}, INQUIRY_RESPONSE = 'Y'
+        SET RESPONSE_CONTENT = #{responseContent}, INQUIRY_RESPONSE = 'Y'
         WHERE INQUIRY_NO = #{inquiryNo}
     </update>
     
