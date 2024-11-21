@@ -1,7 +1,6 @@
   ////////////// APP_NAVER_CLIENT_ID , APP_NAVER_REDIRECT_URL 넣는 자리////////////////////
-  
 
-  
+
   //////////////////////////////////////////////////////////////////////////////////////////
   var naver_id_login = new naver_id_login(APP_NAVER_CLIENT_ID, APP_NAVER_REDIRECT_URL);
   // 접근 토큰 값 출력
@@ -18,7 +17,7 @@
       $.ajax({
       url: '/login/naver',
       type: 'post',
-      data: {userId: userId, name: name, email: email, mobile: mobile},
+      data: {socialUserIdentifier: userId, name: name, email: email, mobile: mobile},
       success: function(result) {
         console.log(result);
         if(result.status === "success") {
@@ -35,6 +34,10 @@
             window.opener.location.href = "/login"; // 메인 창을 로그인 페이지로 이동
             window.close(); // 팝업 창 닫기
             alert('사이트에서 가입한 이메일입니다.');
+        } else if(result.status === 'withdraw') {
+          window.opener.location.href = "/login";
+            window.close();
+            alert('탈퇴된 회원입니다.');
         }
       },
       error: function(err) {
@@ -46,7 +49,7 @@
           $.ajax({
               url: '/user/register/naver',
               type: 'post',
-              data: { userId : userId
+              data: { socialUserIdentifier : userId
                     , name: name
                     , email: email
                     , mobile: mobile
