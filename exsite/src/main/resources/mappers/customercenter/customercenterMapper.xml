@@ -6,7 +6,7 @@
 
 	<insert id="saveInquiry" parameterType="com.teamx.exsite.model.vo.customercenter.Inquiry">
 	    INSERT INTO INQUIRY (INQUIRY_NO, USER_NO, INQUIRY_TITLE, INQUIRY_CONTENT, INQUIRY_DATE, INQUIRY_RESPONSE)
-	    VALUES (inquiry_seq.NEXTVAL, #{userNo}, #{inquiryTitle}, #{inquiryContent}, SYSDATE, 'N')
+	    VALUES (SEQ_INQUIRY_NO.NEXTVAL, #{userNo}, #{inquiryTitle}, #{inquiryContent}, SYSDATE, 'N')
 	</insert>
     
     <select id="getAllInquiries" resultType="com.teamx.exsite.model.vo.customercenter.Inquiry">
