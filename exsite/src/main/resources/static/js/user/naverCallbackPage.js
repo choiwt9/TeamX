@@ -1,7 +1,5 @@
   ////////////// APP_NAVER_CLIENT_ID , APP_NAVER_REDIRECT_URL 넣는 자리////////////////////
-  
 
->>>>>>> upstream/main
   //////////////////////////////////////////////////////////////////////////////////////////
   var naver_id_login = new naver_id_login(APP_NAVER_CLIENT_ID, APP_NAVER_REDIRECT_URL);
   // 접근 토큰 값 출력
