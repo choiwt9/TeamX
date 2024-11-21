@@ -41,7 +41,7 @@
         }
 
         button.active {
-            background-color: #EDF8F8;
+            background-color: #9DD7D7;
             border: none;
         }
 
@@ -124,5 +124,3 @@
             text-overflow: ellipsis;
             max-width: 18rem;
         }
-       
-}

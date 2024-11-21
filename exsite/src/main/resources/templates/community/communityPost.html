@@ -38,7 +38,7 @@
                 <button 
         				type="button" 
         				class="community-btn community-report-btn" 
-        				th:if="${boardDetail.postCategory != '공지'}">신고</button>
+        				th:if="${boardDetail.postCategory != '공지'}" onclick="increaseReportCount();">신고</button>
             </div>
             <div class="communityPost-btn-rightarea" th:if="${session.loginUser != null and session.loginUser.userId == boardDetail.userId}">
                 <a class="community-btn community-edit-btn"  th:href="'/community/edit/' + ${boardDetail.postNo}">수정</a>

@@ -31,6 +31,7 @@ public class AppConfig implements WebMvcConfigurer {
 			.addPathPatterns("/mypageMain")
 			.addPathPatterns("/ticketingpopup")
 			.addPathPatterns("/mypage/**")
+			.addPathPatterns("/community/write")
 			.excludePathPatterns("/login");
 	}
     

@@ -148,3 +148,9 @@ html {
 a:hover{
     color: #000;
 }
+
+
+/* 개인정보 처리방침 */
+#privacyModalWidth, #termsModalWidth{
+    max-width: 80rem;
+}
