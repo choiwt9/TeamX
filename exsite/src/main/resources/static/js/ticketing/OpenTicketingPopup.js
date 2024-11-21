@@ -28,10 +28,36 @@ window.onload = () => {
             const mainImg = document.getElementById("mainImg").value;
             const endDate = document.getElementById("endDate").value;
             const strtDate = document.getElementById("strtDate").value;
-
             const popupUrl = `/ticketingPopup?exhibitionNo=${encodeURIComponent(exhibitionNo)}&exhibitionTitle=${encodeURIComponent(exhibitionTitle)}&useFee=${encodeURIComponent(useFee)}&mainImg=${encodeURIComponent(mainImg)}&endDate=${encodeURIComponent(endDate)}&strtDate=${encodeURIComponent(strtDate)}`;
-
-            window.open(popupUrl, '예매', popupOptions);
+            $.ajax({
+                url: '/ticketing/info',
+                type: 'get',
+                data: {},
+                success: () => {
+                    window.open(popupUrl, '예매', popupOptions);
+                },
+                error: (err) => {
+                    console.log(err.responseText);
+                    if(err.responseText ==='개인정보') {
+                        console.log(err.responseText);
+                        let answer = confirm('휴대폰 번호와 이메일이 필요한 서비스입니다. 개인정보 수정 페이지로 이동하시겠습니까?');
+                        if(answer) {
+                            window.location.href="/mypage/view?view=modifyUserPasswordCheck";
+                        } else {
+                            window.close();
+                        }
+                    } else if(err.responseText === '로그인') {
+                        let answer = confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?');
+                        if(answer) {
+                        window.location.href="/login";
+                        }
+                        
+                    }
+                        
+                }
+                    
+            });
+            
         });
     }
 };

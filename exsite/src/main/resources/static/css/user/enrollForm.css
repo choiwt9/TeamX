@@ -3,17 +3,16 @@ html {
 }
 
 #enroll-form-main {
-	transform: scale(1.4);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	margin: 25rem 0rem;
+	margin: 15.00rem 0.00rem;
 }
 
 #enroll-form-main h5 {
-	margin: 2rem 0rem;
-	font-size: 1.5rem;
+	margin: 2.80rem 0.00rem;
+	font-size: 2.10rem;
 	font-weight: 900;
 }
 
@@ -26,31 +25,31 @@ form {
 
 #enroll-form {
 	box-sizing: border-box;
-	width: 27.18rem;
-	height: 36rem;
+	width: 38.05rem;
+	height: 50.40rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border: solid 0.2rem #9DD7D7;
-	border-radius: 2rem;
-	padding: 0rem;
+	border: solid 0.28rem #9DD7D7;
+	border-radius: 2.80rem;
+	padding: 0.00rem;
 }
 
 #enroll-form input {
 	border: none;
-	margin-left: 0.9rem;
-	padding: 0.6rem 0rem 0.6rem 0rem;
-	font-size: 0.9rem;
-	width: 14rem;
+	margin-left: 1.26rem;
+	padding: 0.84rem 0.00rem 0.84rem 0.00rem;
+	font-size: 1.26rem;
+	width: 19.60rem;
 }
 
 #enroll-form .new-input {
-	width: 6rem;
+	width: 8.40rem;
 }
 
 #enroll-form #email-auth-no {
-	width: 9.6rem;
+	width: 13.44rem;
 }
 
 #form-table {
@@ -59,14 +58,14 @@ form {
 	height: 100%; /* 테이블 높이를 200px로 설정 */
 	table-layout: fixed; /* 고정된 레이아웃으로 설정하여 셀 크기 제어 */
 	padding: 0px;
-	font-size: 1.4rem;
+	font-size: 1.96rem;
 	font-weight: 900;
 	width: 100%;
 }
 
 #form-table td {
-	border-bottom: 0.14rem solid #9DD7D7;
-	padding: 0rem 1rem;
+	border-bottom: 0.20rem solid #9DD7D7;
+	padding: 0.00rem 1.40rem;
 	align-items: center;
 }
 
@@ -76,26 +75,26 @@ td>.required {
 
 #form-table tr:last-child td {
 	border-bottom: none; /* 마지막 행의 셀에는 구분선을 추가하지 않음 */
-	height: 6rem;
+	height: 8.40rem;
 }
 
 #address-input {
-	width: 15rem;
+	width: 21.00rem;
 }
 
 #detail-address-span {
-	font-size: 0.9rem;
-	margin: 0rem;
-	padding: 0rem;
+	font-size: 1.26rem;
+	margin: 0.00rem;
+	padding: 0.00rem;
 }
 
 #detail-address-span+#detail-address-input {
-	margin: 0rem 0rem 0rem 1.2rem;
-	padding: 0rem;
+	margin: 0.00rem 0.00rem 0.00rem 1.68rem;
+	padding: 0.00rem;
 }
 
 #address-input {
-	width: 15rem;
+	width: 21.00rem;
 }
 
 input:focus {
@@ -104,16 +103,16 @@ input:focus {
 }
 
 #enroll-form #email-prefix {
-	margin-left: 0.9rem;
-	padding: 0.9rem 0rem 0.9rem 0rem;
-	width: 4.1rem;
+	margin-left: 1.26rem;
+	padding: 1.26rem 0.00rem 1.26rem 0.00rem;
+	width: 5.74rem;
 }
 
 tr>td>#email-suffix {
-	font-size: 0.9rem;
+	font-size: 1.26rem;
 	outline: none;
 	border: none;
-	width: 8rem;
+	width: 11.20rem;
 }
 
 #custom-input {
@@ -122,15 +121,15 @@ tr>td>#email-suffix {
 
 .check-button {
 	position: absolute;
-	right: 1.4rem;
-	padding: 0.6rem;
-	border-radius: 0.54rem;
+	right: 1.96rem;
+	padding: 0.84rem;
+	border-radius: 0.76rem;
 	color: #ffffff;
-	font-size: 0.72rem;
+	font-size: 1.01rem;
 	font-weight: 700;
 	background-color: #0b9b9b;
-	width: 4.5rem;
-	height: 2.16rem;
+	width: 6.30rem;
+	height: 3.02rem;
 	border: none;
 }
 
@@ -140,17 +139,17 @@ tr>td>#email-suffix {
 }
 
 #enroll-btn {
-	right: 1.4rem;
-	padding: 0.6rem;
+	right: 1.96rem;
+	padding: 0.84rem;
 	color: #ffffff;
-	font-size: 0.9rem;
+	font-size: 1.26rem;
 	font-weight: 700;
 	background-color: #0b9b9b;
-	border-radius: 0.54rem;
-	width: 9.72rem;
-	height: 2.76rem;
+	border-radius: 0.76rem;
+	width: 13.61rem;
+	height: 3.86rem;
 	border: none;
-	margin: 1.4rem;
+	margin: 1.96rem;
 }
 
 #enroll-btn:hover {
@@ -162,13 +161,13 @@ tr>td>#email-suffix {
 	display: flex;
 	align-items: center;
 	align-content: center;
-	gap: 2.7rem;
+	gap: 3.78rem;
 }
 
 #naver-signup-btn-img {
-	border-radius: 0.54rem;
-	width: 9.72rem;
-	height: 2.76rem;
+	border-radius: 0.76rem;
+	width: 13.61rem;
+	height: 3.86rem;
 }
 
 #naver-signup-btn-img:hover {
@@ -176,9 +175,9 @@ tr>td>#email-suffix {
 }
 
 #google-signup-btn-img {
-	border-radius: 0.54rem;
-	width: 9.72rem;
-	height: 2.76rem;
+	border-radius: 0.76rem;
+	width: 13.61rem;
+	height: 3.86rem;
 }
 
 #google-signup-btn-img:hover {
@@ -186,33 +185,33 @@ tr>td>#email-suffix {
 }
 
 span {
-	font-size: 0.72rem;
+	font-size: 1.01rem;
 }
 
 .error-message {
 	color: #FF0000; /* 오류 메시지를 빨간색으로 표시 */
-	font-size: 0.77rem; /* 작은 폰트 크기 */
-	content: 0.77rem; /* 위 요소와 간격 */
+	font-size: 1.08rem; /* 작은 폰트 크기 */
+	content: 1.08rem; /* 위 요소와 간격 */
 	align-self: flex-start; /* 부모 flex 컨테이너에서 왼쪽으로 정렬 */
-	height: 0rem;
-	line-height: 0.35rem;
+	height: 0.00rem;
+	line-height: 0.49rem;
 }
 
 .success-message {
 	color: #0000FF; /* 오류 메시지를 빨간색으로 표시 */
-	font-size: 0.77rem; /* 작은 폰트 크기 */
-	content: 0.77rem; /* 위 요소와 간격 */
+	font-size: 1.08rem; /* 작은 폰트 크기 */
+	content: 1.08rem; /* 위 요소와 간격 */
 	align-self: flex-start; /* 부모 flex 컨테이너에서 왼쪽으로 정렬 */
-	height: 0rem;
-	line-height: 0.35rem;
+	height: 0.00rem;
+	line-height: 0.49rem;
 }
 
 #terms-and-conditions-div {
-	margin-left: 0.9rem;
-	margin-top: 0.3rem;
-	padding: 0rem;
+	margin-left: 1.26rem;
+	margin-top: 0.42rem;
+	padding: 0.00rem;
 	display: flex;
-	width: 24rem;
+	width: 33.60rem;
 	justify-content: left;
 	align-items: center;
 }
@@ -222,27 +221,26 @@ span {
 }
 
 #terms-and-conditions-span {
-	
 	align-content:center;
-	margin-left: 0.9rem;
+	margin-left: 1.26rem;
 	padding: 0;
-	width: 0.9rem;
-	height: 0.9rem;
-	border: 0.06rem solid #9DD7D7;
+	width: 1.26rem;
+	height: 1.26rem;
+	border: 0.08rem solid #9DD7D7;
 	border-radius: 100%; /* 원형으로 변경 */
 }
 
 /* 커스텀 체크박스 스타일 */
 .custom-checkbox {
 	display: inline-block;
-	width: 0.9rem;
-	height: 0.9rem;
-	border: 0.14rem solid #9DD7D7;
+	width: 1.26rem;
+	height: 1.26rem;
+	border: 0.20rem solid #9DD7D7;
 	border-radius: 100%;
 	position: relative;
 	cursor: pointer;
 	vertical-align: middle;
-	margin-bottom: 0.6rem;
+	margin-bottom: 0.84rem;
 }
 
 /* 체크박스 체크 상태일 때 스타일 */
@@ -255,16 +253,16 @@ input[type="checkbox"]:checked + .custom-checkbox::after {
 	position: absolute;
 	top: 40%;
 	left: 57%;
-	width: 0.42rem;
-	height: 0.42rem;
-	border: solid 0.14rem #0b9b9b;
-	border-width: 0 0.14rem 0.14rem 0;
+	width: 0.59rem;
+	height: 0.59rem;
+	border: solid 0.20rem #0b9b9b;
+	border-width: 0 0.20rem 0.20rem 0;
 	transform: translate(-60%, -60%) rotate(45deg);
 }
 
 #terms-and-condition-content {
-	line-height: 2.22rem;
-	font-size: 0.9rem;
+	line-height: 3.11rem;
+	font-size: 1.26rem;
 }
 
 #naver_id_login {

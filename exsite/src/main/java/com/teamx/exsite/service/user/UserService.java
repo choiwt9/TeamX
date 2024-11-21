@@ -30,6 +30,7 @@ public class UserService {
 	        int userNo = userMapper.getGeneratedUserNo();
 	        registerInfo.setUserNo(userNo);
 	        registerInfo.setMethod("NORMAL");
+	        registerInfo.setGrade('U');
 	        return registerInfo;
 		}
 		return null;
