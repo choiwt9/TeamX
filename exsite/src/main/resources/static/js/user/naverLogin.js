@@ -1,9 +1,7 @@
 // 네이버 로그인 api 호출
-<<<<<<< HEAD
 /////////APP_NAVER_CLIENT_ID, APP_NAVER_REDIRECT_URL, APP_NAVER_SERVICE_URL 넣는 자리///////// 
  
 
-=======
 /////////APP_NAVER_CLIENT_ID, APP_NAVER_REDIRECT_URL, APP_NAVER_SERVICE_URL 넣는 자리/////////
  
 >>>>>>> upstream/main
