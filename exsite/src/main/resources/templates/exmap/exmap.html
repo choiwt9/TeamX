@@ -33,7 +33,7 @@
                 <!-- gunameList를 이용해 드롭다운을 동적으로 생성 -->
                 <div class="dropdown-menu custom-dropdown-menu">
                     <th:block th:each="guname : ${gunameList}">
-                        <a class="dropdown-item" href="#" th:text="${guname}" onclick="getCoordinates(this)"></a>
+                        <a class="dropdown-item" th:text="${guname}" onclick="getCoordinates(this)"></a>
                     </th:block>
                 </div>
             </div>
