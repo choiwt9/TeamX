@@ -56,6 +56,9 @@ $(function() {
     const options = [
       { value: 'gmail.com', text: 'naver.com' },
       { value: 'gmail.com', text: 'gmail.com' },
+      { value: 'gmail.com', text: 'hanmail.net' },
+      { value: 'gmail.com', text: 'nate.com' },
+      { value: 'gmail.com', text: 'hotmail.com' },
       { value: 'other', text: '기타 (직접 입력)' }
     ];
     options.forEach(function(optionData) {

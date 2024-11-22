@@ -85,9 +85,9 @@ public class AuthService {
         String code = generateAuthCode();
         MimeMessage mm = mailSender.createMimeMessage();
 		MimeMessageHelper helper = new MimeMessageHelper(mm, false, "UTF-8");
-		helper.setSubject("[EX-SITE] 아이디 찾기 인증 번호"); // 메일 제목
+		helper.setSubject("[EX-SITE] 본인확인 인증 번호"); // 메일 제목
 		helper.setText(String.valueOf(code)); // 메일 내용
-		helper.setFrom(fromEmail, "[EX-SITE] 아이디 찾기 인증번호입니다."); // 발신자(이메일, 별칭)
+		helper.setFrom(fromEmail, "[EX-SITE] 본인확인 인증번호입니다."); // 발신자(이메일, 별칭)
 		helper.setTo(mail);
 		generateAuthInfo(name+mail, code);
 		
