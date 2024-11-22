@@ -36,6 +36,9 @@
 							<select id="email-suffix" th:disabled="${session.loginUser.method == 'NAVER' OR session.loginUser.method == 'GOOGLE'}">
 									<option value="naver.com" th:selected="${#strings.substringAfter(session.loginUser.email, '@') == 'naver.com'}">naver.com</option>
 									<option value="gmail.com" th:selected="${#strings.substringAfter(session.loginUser.email, '@') == 'gmail.com'}">gmail.com</option>
+									<option value="gmail.com" th:selected="${#strings.substringAfter(session.loginUser.email, '@') == 'hanmail.net'}">hanmail.net</option>
+									<option value="gmail.com" th:selected="${#strings.substringAfter(session.loginUser.email, '@') == 'nate.com'}">nate.com</option>
+									<option value="gmail.com" th:selected="${#strings.substringAfter(session.loginUser.email, '@') == 'hotmail.com'}">hotmail.com</option>
 									<option value="other" th:selected="${#strings.substringAfter(session.loginUser.email, '@') != 'naver.com' and #strings.substringAfter(session.loginUser.email, '@') != 'gmail.com'}">기타(직접 입력)</option>
 							</select>
 							<button type="button" id="authentication-email" class="check-button" th:if="${session.loginUser.method != 'NAVER' AND session.loginUser.method != 'GOOGLE'}">인증받기</button>

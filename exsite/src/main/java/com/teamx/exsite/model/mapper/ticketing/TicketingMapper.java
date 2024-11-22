@@ -30,5 +30,7 @@ public interface TicketingMapper {
 	PaymentDTO findPaymentInfo(int userNo);
 
 	List<PaymentDTO> findPaymentInfoList(int userNo, int exhibitionNo);
+
+	PaymentDTO selectTicketingInfoNonePrice(String merchantUid);
 	
 }
