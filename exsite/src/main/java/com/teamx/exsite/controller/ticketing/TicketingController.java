@@ -1,7 +1,6 @@
 package com.teamx.exsite.controller.ticketing;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +28,19 @@ import lombok.extern.slf4j.Slf4j;
 public class TicketingController {
 	
 	private final PaymentService paymentService;
+	
+	@ResponseBody
+	@GetMapping(value="/ticketing/info")
+	public ResponseEntity<String> checkTicketingUserInfo(HttpSession session) {
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		if(loginUser == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("로그인");
+		} else if(loginUser.getPhone() == null || loginUser.getEmail() == null || loginUser.getAddress() == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("개인정보");
+		}
+		
+		return ResponseEntity.ok("정보 확인");
+	}
 
 	/**
 	 * 예매 상세 페이지(팝업)을 여는 메소드

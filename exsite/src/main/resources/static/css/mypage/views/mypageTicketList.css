@@ -41,27 +41,31 @@
   }
   
   /* 예매 목록 테이블 스타일 */
-  .mypage-view-ticket-list-section{
+  .mypage-view-ticket-list {
     width: 80%;
     max-width: 120rem;
     min-width: 90rem;
     margin-bottom: 2rem;
     display: flex;
     justify-content: center;
+    white-space: nowrap; /* 줄바꿈 방지 */
     /* border: 1px solid red; */
   }
-  
 
+  .mypage-view-ticket-list>table {
+    table-layout: fixed;
+    width: 100rem;
+  }
   
-  /* 예매 목록 관련 스타일 */
-
-  
-  .mypage-view-ticket-list-section th, .mypage-view-ticket-list-section td {
+  .mypage-view-ticket-list th, .mypage-view-ticket-list td {
     padding: 1rem;
     border: none;
   }
   
- 
+  .mypage-view-ticket-list>table td:nth-child(3) {
+    overflow: hidden; /* 넘치는 내용 숨김 */
+    text-overflow: ellipsis; /* 넘치는 내용을 생략(...) 표시 */
+  }
   
   .mypage-view-ticket-content-list tr td a {
     font-weight: 900;

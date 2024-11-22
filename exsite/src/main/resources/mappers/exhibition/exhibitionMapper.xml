@@ -31,8 +31,8 @@
         ORDER BY TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') ASC
     </select>
 
-    <select id="getExhibitionsSortedByReviews" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
-        SELECT 
+    <select id="getExhibitionSortedByReviews" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
+  		SELECT 
 		    A.EXHIBITION_NO, 
 		    A.TITLE, 
 		    A.PLACE, 
@@ -40,12 +40,17 @@
 		    A.EX_DATE, 
 		    A.CODENAME, 
 		    A.IS_FREE
-		FROM EXHIBITION A
-		    JOIN TICKETING B ON (A.EXHIBITION_NO = B.EXHIBITION_NO)
-		    JOIN REVIEW C ON (B.TICKET_NO = C.TICKET_NO)
-		WHERE CODENAME = '전시/미술' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
-		GROUP BY A.EXHIBITION_NO, A.TITLE, A.PLACE, A.MAIN_IMG, A.EX_DATE, A.CODENAME, A.IS_FREE
-		ORDER BY COUNT(C.TICKET_NO) DESC
+		FROM 
+		    EXHIBITION A
+		    JOIN TICKETING B ON A.EXHIBITION_NO = B.EXHIBITION_NO
+		    JOIN REVIEW C ON B.MERCHANT_UID = C.MERCHANT_UID
+		WHERE 
+		    A.CODENAME LIKE '전시/미술' 
+		    AND TO_DATE(SUBSTR(A.EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+		GROUP BY 
+		    A.EXHIBITION_NO, A.TITLE, A.PLACE, A.MAIN_IMG, A.EX_DATE, A.CODENAME, A.IS_FREE
+		ORDER BY 
+		    COUNT(C.MERCHANT_UID) DESC
     </select>
 
     <select id="getFreeExhibitions" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
@@ -107,8 +112,8 @@
         ORDER BY TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') ASC
     </select>
 
-    <select id="getEventsSortedByReviews" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
-        SELECT 
+    <select id="getEventSortedByReviews" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">
+  		SELECT 
 		    A.EXHIBITION_NO, 
 		    A.TITLE, 
 		    A.PLACE, 
@@ -116,12 +121,17 @@
 		    A.EX_DATE, 
 		    A.CODENAME, 
 		    A.IS_FREE
-		FROM EXHIBITION A
-		    JOIN TICKETING B ON (A.EXHIBITION_NO = B.EXHIBITION_NO)
-		    JOIN REVIEW C ON (B.TICKET_NO = C.TICKET_NO)
-		WHERE CODENAME  LIKE '축제%' AND TO_DATE(SUBSTR(EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
-		GROUP BY A.EXHIBITION_NO, A.TITLE, A.PLACE, A.MAIN_IMG, A.EX_DATE, A.CODENAME, A.IS_FREE
-		ORDER BY COUNT(C.TICKET_NO) DESC
+		FROM 
+		    EXHIBITION A
+		    JOIN TICKETING B ON A.EXHIBITION_NO = B.EXHIBITION_NO
+		    JOIN REVIEW C ON B.MERCHANT_UID = C.MERCHANT_UID
+		WHERE 
+		    A.CODENAME LIKE '축제%' 
+		    AND TO_DATE(SUBSTR(A.EX_DATE, 12), 'YYYY-MM-DD') >= CURRENT_DATE
+		GROUP BY 
+		    A.EXHIBITION_NO, A.TITLE, A.PLACE, A.MAIN_IMG, A.EX_DATE, A.CODENAME, A.IS_FREE
+		ORDER BY 
+		    COUNT(C.MERCHANT_UID) DESC
     </select>
 
     <select id="getFreeEvents" resultType="com.teamx.exsite.model.vo.exhibition.ExhibitionEvent">

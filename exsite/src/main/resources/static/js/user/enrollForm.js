@@ -99,6 +99,9 @@ $(function() {
     const options = [
       { value: 'gmail.com', text: 'naver.com' },
       { value: 'gmail.com', text: 'gmail.com' },
+      { value: 'gmail.com', text: 'hanmail.net' },
+      { value: 'gmail.com', text: 'nate.com' },
+      { value: 'gmail.com', text: 'hotmail.com' },
       { value: 'other', text: '기타 (직접 입력)' }
     ];
     options.forEach(function(optionData) {
@@ -518,5 +521,13 @@ $(function() {
   $(document).on("click", "#naver-signup-btn-img", function(){ 
     var btnNaverLogin = $("#naver_id_login").children().first();
     btnNaverLogin.trigger("click");
+  });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  // "이용 약관에 동의합니다" 텍스트를 클릭하면 모달 표시
+  document.getElementById("terms-and-condition-content").addEventListener("click", function () {
+    var termsModal = new bootstrap.Modal(document.getElementById("terms-modal"));
+    termsModal.show();
   });
 });
