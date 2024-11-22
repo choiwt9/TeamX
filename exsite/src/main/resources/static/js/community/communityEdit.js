@@ -35,7 +35,6 @@ $(document).ready(function(){
 
   // 텍스트 에디터 summernote 노출시키는 함수
   $('#summernote').summernote({
-    placeholder: '내용을 입력하세요',
     tabsize: 2,
     height: 120,
     toolbar: [
@@ -48,7 +47,19 @@ $(document).ready(function(){
       ['view', ['fullscreen', 'codeview', 'help']]
     ],
     callbacks: {
-      onImageUpload: imageUpload
+      onImageUpload: imageUpload,
+      onChange: (contents) => {
+        const maxLength = 1000; // 최대 길이
+        const textContent = $(contents).text(); // 태그를 제외한 순수 텍스트 길이 계산
+  
+        if (textContent.length > maxLength) {
+          alert(`최대 ${maxLength}자를 초과할 수 없습니다.`);
+          // 길이를 초과하면 마지막 입력을 제거
+          $('#summernote').summernote('code', contents.substring(0, maxLength));
+        } else {
+          setContent(contents); // 정상적인 경우에만 상태 업데이트
+        }
+      }
     }
   });
 

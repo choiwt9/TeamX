@@ -46,6 +46,7 @@ public class MypageController {
     						, @RequestParam(value="cpage", defaultValue="1") int currentPage
     						, @RequestParam(value="ticketingDateRange", defaultValue="전체기간") String ticketingDateRange
     						, @RequestParam(value="merchantUid", required=false) String merchantUid
+    						, @RequestParam(value="ticketingPrice", required=false) String ticektingPrice
     						, Model model
     						, HttpSession session) {
         // view 파라미터에 따라 상태값을 true로 설정
@@ -84,8 +85,16 @@ public class MypageController {
                     model.addAttribute("showTicketList", true);
                     break;
                 case "ticketDetail":
-                	PaymentDTO paymentInfo = mypageService.selectTicketingInfo(merchantUid);
+                	PaymentDTO paymentInfo = null;
+                	
+                	if(ticektingPrice != null ) {
+                		paymentInfo = mypageService.selectTicketingInfo(merchantUid);
+                	} else {
+                		paymentInfo = mypageService.selectTicketingInfoNonePrice(merchantUid);
+                	}
+                	
                 	model.addAttribute("paymentInfo", paymentInfo);
+                	log.info("{}", paymentInfo);
                 	model.addAttribute("pageInfo", pageInfo);
                     model.addAttribute("showTicketDetail", true);
                     break;
