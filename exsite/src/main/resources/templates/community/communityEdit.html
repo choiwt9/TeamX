@@ -43,7 +43,7 @@
         <!-- 제목 입력 -->
         <div class="community-input-title-section">
             <label for="title">제목 <span class="required">*</span></label>
-            <input class="community-input-title" type="text" id="title" name="title" th:value="${boardDetail.postTitle}" required>
+            <input class="community-input-title" type="text" id="title" name="title" maxlength="49" th:value="${boardDetail.postTitle}" required>
         </div>
 
         <!-- 내용 입력 -->
