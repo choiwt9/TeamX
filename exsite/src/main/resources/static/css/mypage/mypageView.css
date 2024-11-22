@@ -47,7 +47,7 @@
 
 /* 우측 view 섹션 */
 .mypage-view-section{
-    width: 65%;
+    width: 100%;
     min-width: 95rem;
     /* border: 1px solid rgb(9, 97, 17); */
     display: flex;

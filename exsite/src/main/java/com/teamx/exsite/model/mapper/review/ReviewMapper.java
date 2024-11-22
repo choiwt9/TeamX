@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
 
-import com.teamx.exsite.common.model.vo.PageInfo;
 import com.teamx.exsite.model.vo.review.ReviewDTO;
 
 @Mapper
@@ -23,10 +22,12 @@ public interface ReviewMapper {
 
 	public List<ReviewDTO> selectWritedReviewList(int userNo);
 
-	public int deleteReview(ReviewDTO deleteReview);
+	public int deleteReview(String merchantUid);
 
 	public List<ReviewDTO> selectMyPageReviewList(int userNo, RowBounds rowBounds);
 
 	public int selectMyPageReviewCount(int userNo);
+
+	public List<ReviewDTO> getReviewList();
 
 }

@@ -69,122 +69,122 @@ public class UserController {
       return "redirect:/";
    }
 
-   @ResponseBody
-   @PostMapping(value = "/login/normal", produces = "application/json; charset=utf-8")
-   public Map<String, String> basicLogin(HttpSession session, UserDTO loginInfo) {
-      Map<String, String> result = new HashMap<>();
-      if ((loginInfo = userService.basicLogin(loginInfo)) != null) {
-         // 로그인 성공 시 "success"를 반환
-         log.info("{}", loginInfo);
-         session.setAttribute("loginUser", loginInfo);
-         
-         result.put("response", "success");
-         return result;
-      }
-      // 실패 시 "false"를 반환
-      result.put("response", "false");
-      return result;
-   }
-   
-   @GetMapping("/login/naver/callback")
-   public String naverLoginCallback() {
-      return "/user/naverCallbackPage";
-   }
-   
-   /**
-    * @param naverSignupUser 네이버에서 제공하는 유저 개인정보를 담음
-    * @param mobile 네이버 제공 휴대폰 번호가 "-" 포함되어 오므로, 따로 받아서 "-" 제거 후 UserDTO 병합
-    * @param session
-    * @return 성공 여부를 Map<String, String> 으로 반환 "success", "false"
-    */
-   @ResponseBody
-   @PostMapping(value="/user/register/naver", produces="application/json; charset=utf-8")
-   public Map<String, String> signupWithNaver(UserDTO naverSignupUser, String mobile, HttpSession session) {
-      // 네이버에서 주는 휴대폰 정보에 "-"가 포함되어 제거함
-      naverSignupUser.setPhone(mobile.replace("-", ""));
-      naverSignupUser.setMethod("NAVER");
-      return userService.naverUserRegistration(naverSignupUser, session);
-   }
-   
-   /**
-    * @param naverLoginUser 네이버에서 제공하는 유저 개인정보를 담음
-    * @param mobile 네이버 제공 휴대폰 번호가 "-" 포함되어 오므로, 따로 받아서 "-" 제거 후 UserDTO 병합
-    * @param session
-    * @return 성공 여부를 Map<String, String> 으로 반환 "success", "exist", "false"
-    */
-   @ResponseBody
-   @PostMapping(value="/login/naver", produces="application/json; charset=utf-8")
-   public Map<String, String> naverLogin(UserDTO naverLoginUser, String mobile, HttpSession session) {
-      naverLoginUser.setPhone(mobile.replace("-", ""));
-      naverLoginUser.setMethod("NAVER");
-      return userService.naverUserLogin(naverLoginUser, session);
-   }
-   
-   /**
-    * @param registerKey 로그인 시도 후 미가입한 회원인 경우, 로그인 메서드에서 받아온 유저정보를 해당 값을 키값으로 Map에 임시 저장
-    * @param session
-    * @return Google 회원가입 의사 확인 후 맞으면 회원가입 처리 후 메인페이지로, 아니면 임시정보 삭제 후 로그인 페이지로 리다이렉트
-    */
-   @PostMapping(value="/user/register/google", produces="application/json; charset=utf-8")
-   public String signupWithGoogle(String registerKey, HttpSession session) {
-      // key
-      String IntentionToJoin = registerKey.substring(6);
-      if(IntentionToJoin.equals("not")) {
-         //"not"
-         userInfoCache.remove(registerKey.substring(0, 6));
-         return "/user/loginForm";
-      }
-      JSONObject userInfo = new JSONObject(userInfoCache.get(registerKey));
-      UserDTO registerationInfo = new UserDTO();
-      registerationInfo.setName(userInfo.getString("name"));
-      registerationInfo.setSocialUserIdentifier(userInfo.getString("socialUserIdentifier"));
-      registerationInfo.setEmail(userInfo.getString("email"));
-      registerationInfo.setMethod("GOOGLE");
-      userService.googleUserRegistration(registerationInfo, session);
-      userInfoCache.remove(registerKey);
-      return "redirect:/";
-   }
-   
-   /**
-    * @param error 유저가 google로그인 동의 후 실패되면 오는 값
-    * @param code 유저가 google 로그인 동의 시 google 서버에서 전달하는 유저 정보 accessToken code
-    * @param scope 유저 정보 조회 범위
-    * @param session
-    * @param model
-    * @return 성공이면 메인페이지, 존재하는 경우 로그인 페이지, 실패인 경우 가입 여부 확인하는 googleCallbackPage 리다이렉트
-    */
-   @RequestMapping("/login/google")
-   public String googleLogin(@RequestParam(value="error", defaultValue="") String error
-                           , @RequestParam(value="code", defaultValue="") String code
-                           , @RequestParam(value="scope", defaultValue="") String scope
-                           , HttpSession session
-                           , Model model) {
-      
-      
-      if(code != null && !code.isEmpty()) {
-         // UserService.googleUserLogin => 구글 Login 메서드, ApiService쪽에 googleLogin 처리 관련 메서드 모아놓음
-         Map<String, String> result = userService.googleUserLogin(code, session);
-         if(result.get("status").equals("success")) {
-            return "redirect:/";
-         } else if(result.get("status").equals("exist")) {
-            model.addAttribute("alertMsg", "사이트에서 가입한 이메일입니다."); 
-            return "/user/loginForm";
-         } else if(result.get("status").equals("false")) {
-            String registerKey = authService.generateAuthCode();
-            model.addAttribute("registerKey", registerKey);
-            userInfoCache.put(registerKey, result.get("registrationInfo"));
-            result.remove("registrationInfo");
-            
-            model.addAttribute("alertMsg", "가입하지 않은 회원입니다. 가입하시겠습니까?");
-            return "/user/googleCallbackPage";
-         } else if(result.get("status").equals("withdraw")) {
-            model.addAttribute("alertMsg", "탈퇴된 회원입니다.");
-            return "/user/loginForm";
-         }
-      
-      }
-      return "redirect:/";
-   }
+	@ResponseBody
+	@PostMapping(value = "/login/normal", produces = "application/json; charset=utf-8")
+	public Map<String, String> basicLogin(HttpSession session, UserDTO loginInfo) {
+		Map<String, String> result = new HashMap<>();
+		if ((loginInfo = userService.basicLogin(loginInfo)) != null) {
+			// 로그인 성공 시 "success"를 반환
+			log.info("{}", loginInfo);
+			session.setAttribute("loginUser", loginInfo);
+			
+			result.put("response", "success");
+			return result;
+		}
+		// 실패 시 "false"를 반환
+		result.put("response", "false");
+		return result;
+	}
+	
+	@GetMapping("/login/naver/callback")
+	public String naverLoginCallback() {
+		return "/user/naverCallbackPage";
+	}
+	
+	/**
+	 * @param naverSignupUser 네이버에서 제공하는 유저 개인정보를 담음
+	 * @param mobile 네이버 제공 휴대폰 번호가 "-" 포함되어 오므로, 따로 받아서 "-" 제거 후 UserDTO 병합
+	 * @param session
+	 * @return 성공 여부를 Map<String, String> 으로 반환 "success", "false"
+	 */
+	@ResponseBody
+	@PostMapping(value="/user/register/naver", produces="application/json; charset=utf-8")
+	public Map<String, String> signupWithNaver(UserDTO naverSignupUser, String mobile, HttpSession session) {
+		// 네이버에서 주는 휴대폰 정보에 "-"가 포함되어 제거함
+		naverSignupUser.setPhone(mobile.replace("-", ""));
+		naverSignupUser.setMethod("NAVER");
+		return userService.naverUserRegistration(naverSignupUser, session);
+	}
+	
+	/**
+	 * @param naverLoginUser 네이버에서 제공하는 유저 개인정보를 담음
+	 * @param mobile 네이버 제공 휴대폰 번호가 "-" 포함되어 오므로, 따로 받아서 "-" 제거 후 UserDTO 병합
+	 * @param session
+	 * @return 성공 여부를 Map<String, String> 으로 반환 "success", "exist", "false"
+	 */
+	@ResponseBody
+	@PostMapping(value="/login/naver", produces="application/json; charset=utf-8")
+	public Map<String, String> naverLogin(UserDTO naverLoginUser, String mobile, HttpSession session) {
+		naverLoginUser.setPhone(mobile.replace("-", ""));
+		naverLoginUser.setMethod("NAVER");
+		return userService.naverUserLogin(naverLoginUser, session);
+	}
+	
+	/**
+	 * @param registerKey 로그인 시도 후 미가입한 회원인 경우, 로그인 메서드에서 받아온 유저정보를 해당 값을 키값으로 Map에 임시 저장
+	 * @param session
+	 * @return Google 회원가입 의사 확인 후 맞으면 회원가입 처리 후 메인페이지로, 아니면 임시정보 삭제 후 로그인 페이지로 리다이렉트
+	 */
+	@PostMapping(value="/user/register/google", produces="application/json; charset=utf-8")
+	public String signupWithGoogle(String registerKey, HttpSession session) {
+		// key
+		String IntentionToJoin = registerKey.substring(6);
+		if(IntentionToJoin.equals("not")) {
+			//"not"
+			userInfoCache.remove(registerKey.substring(0, 6));
+			return "/user/loginForm";
+		}
+		JSONObject userInfo = new JSONObject(userInfoCache.get(registerKey));
+		UserDTO registerationInfo = new UserDTO();
+		registerationInfo.setName(userInfo.getString("name"));
+		registerationInfo.setSocialUserIdentifier(userInfo.getString("socialUserIdentifier"));
+		registerationInfo.setEmail(userInfo.getString("email"));
+		registerationInfo.setMethod("GOOGLE");
+		userService.googleUserRegistration(registerationInfo, session);
+		userInfoCache.remove(registerKey);
+		return "redirect:/";
+	}
+	
+	/**
+	 * @param error 유저가 google로그인 동의 후 실패되면 오는 값
+	 * @param code 유저가 google 로그인 동의 시 google 서버에서 전달하는 유저 정보 accessToken code
+	 * @param scope 유저 정보 조회 범위
+	 * @param session
+	 * @param model
+	 * @return 성공이면 메인페이지, 존재하는 경우 로그인 페이지, 실패인 경우 가입 여부 확인하는 googleCallbackPage 리다이렉트
+	 */
+	@RequestMapping("/login/google")
+	public String googleLogin(@RequestParam(value="error", defaultValue="") String error
+									, @RequestParam(value="code", defaultValue="") String code
+									, @RequestParam(value="scope", defaultValue="") String scope
+									, HttpSession session
+									, Model model) {
+		
+		
+		if(code != null && !code.isEmpty()) {
+			// UserService.googleUserLogin => 구글 Login 메서드, ApiService쪽에 googleLogin 처리 관련 메서드 모아놓음
+			Map<String, String> result = userService.googleUserLogin(code, session);
+			if(result.get("status").equals("success")) {
+				return "redirect:/";
+			} else if(result.get("status").equals("exist")) {
+				model.addAttribute("alertMsg", "사이트에서 가입한 이메일입니다."); 
+				return "/user/loginForm";
+			} else if(result.get("status").equals("false")) {
+				String registerKey = authService.generateAuthCode();
+				model.addAttribute("registerKey", registerKey);
+				userInfoCache.put(registerKey, result.get("registrationInfo"));
+				result.remove("registrationInfo");
+				
+				model.addAttribute("alertMsg", "가입하지 않은 회원입니다. 가입하시겠습니까?");
+				return "/user/googleCallbackPage";
+			} else if(result.get("status").equals("withdraw")) {
+				model.addAttribute("alertMsg", "탈퇴된 회원입니다.");
+				return "/user/loginForm";
+			}
+		
+		}
+		return "redirect:/";
+	}
 
    @ResponseBody
    @PostMapping(value = "/id/check", produces = "application/json; charset=utf-8")

@@ -16,41 +16,41 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-   
-   private final UserMapper userMapper;
-   private final PasswordEncoder passwordEncoder;
-   private final AuthService authService;
-   private final APIService apiService;
-   
-   public UserDTO userRegister(UserDTO registerInfo) {
-      String encodePass = passwordEncoder.encode(registerInfo.getUserPw());
-      registerInfo.setUserPw(encodePass);
-      int registerResult = userMapper.registerUser(registerInfo);
-      if(registerResult  == 1) {
-           int userNo = userMapper.getGeneratedUserNo();
-           registerInfo.setUserNo(userNo);
-           registerInfo.setMethod("NORMAL");
-           registerInfo.setGrade('U');
-           return registerInfo;
-      }
-      return null;
-   }
-   
-   public int idCheck(String id) {
-      return userMapper.idCheck(id);
-   }
-   
-   public UserDTO basicLogin(UserDTO loginInfo) {
-      UserDTO loginResult = userMapper.basicLogin(loginInfo);
-      if(loginResult == null) {
-         return null;
-      }
-      if(passwordEncoder.matches(loginInfo.getUserPw(), loginResult.getUserPw())) {
-         loginResult.setUserPw(null);
-         return loginResult;
-      }
-      return null;
-   }
+	
+	private final UserMapper userMapper;
+	private final PasswordEncoder passwordEncoder;
+	private final AuthService authService;
+	private final APIService apiService;
+	
+	public UserDTO userRegister(UserDTO registerInfo) {
+		String encodePass = passwordEncoder.encode(registerInfo.getUserPw());
+		registerInfo.setUserPw(encodePass);
+		int registerResult = userMapper.registerUser(registerInfo);
+		if(registerResult  == 1) {
+	        int userNo = userMapper.getGeneratedUserNo();
+	        registerInfo.setUserNo(userNo);
+	        registerInfo.setMethod("NORMAL");
+	        registerInfo.setGrade('U');
+	        return registerInfo;
+		}
+		return null;
+	}
+	
+	public int idCheck(String id) {
+		return userMapper.idCheck(id);
+	}
+	
+	public UserDTO basicLogin(UserDTO loginInfo) {
+		UserDTO loginResult = userMapper.basicLogin(loginInfo);
+		if(loginResult == null) {
+			return null;
+		}
+		if(passwordEncoder.matches(loginInfo.getUserPw(), loginResult.getUserPw())) {
+			loginResult.setUserPw(null);
+			return loginResult;
+		}
+		return null;
+	}
 
    public int nameCheck(String name) {
       int result = userMapper.searchUserName(name);
