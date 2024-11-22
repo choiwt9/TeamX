@@ -50,6 +50,10 @@ public class MypageController {
     						, HttpSession session) {
         // view 파라미터에 따라 상태값을 true로 설정
 		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		
+		if(loginUser == null) {
+			return "user/loginForm";
+		}
 		PageInfo pageInfo = null;
         if (view != null) {
             switch (view) {
@@ -128,6 +132,7 @@ public class MypageController {
 		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
 		modifyInfo.setUserNo(loginUser.getUserNo());
 		modifyInfo.setSocialUserIdentifier(loginUser.getSocialUserIdentifier());
+		log.info("{}", modifyInfo);
 		UserDTO afterModifyInfo = loginUser.getMethod().equals("NORMAL") 
 								 ? userService.normalUserModifyInfo(modifyInfo) 
 								 : userService.socialUserModifyInfo(modifyInfo); 

@@ -48,11 +48,13 @@ $(function() {
 
   // 리뷰 수정 버튼 클릭 시 리뷰 수정에 필요한 merchantUid, 기존 리뷰 제목, 기존 내용
   // 을 sessionStorage에 담아 수정 페이지로 이동
+  
   let exhibitionNo = $('#exhibitionNo').val();
-  let merchantUid = $('#replace').data("merchant-uid");
-  let reviewTitle = $('#review-title').text();
-  let reviewContent = $('#review-content').html().replace(/<br\s*\/?>/g, '\n');
-  $('#replace').on('click', function() {
+  $('.replace').on('click', function() {
+    let merchantUid = $(this).data("merchant-uid");
+    let parentArea = $(this).closest('.review-action-buttons').siblings('.review-content-area'); // 클릭한 버튼의 상위 영역 선택
+    let reviewTitle = parentArea.find('.review-title').text(); // 리뷰 제목 가져오기
+    let reviewContent = parentArea.find('.review-content').html().replace(/<br\s*\/?>/g, '\n'); // 리뷰 내용 가져오기
       sessionStorage.setItem("reviewTitle", reviewTitle);
       sessionStorage.setItem("merchantUid", merchantUid);
       sessionStorage.setItem("reviewContent", reviewContent);
@@ -62,7 +64,7 @@ $(function() {
      
   });
 
-  $('#delete').on('click', function() {
+  $('.delete').on('click', function() {
     let answer = confirm('리뷰를 삭제하시겠습니까? 삭제한 리뷰는 다시 작성할 수 없습니다.');
     console.log(answer);
     if(answer === true) {
@@ -70,7 +72,7 @@ $(function() {
             url: '/review/delete',
             type: 'put',
             data: {
-                merchantUid: merchantUid
+                merchantUid: $(this).data('merchant-uid')
             },
             success: (result) => {
                 alert(result);

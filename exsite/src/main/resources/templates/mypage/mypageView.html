@@ -6,6 +6,7 @@
 
 <link rel="stylesheet" href="/css/mypage/mypageView.css">
 <script src="/lib/jQuery/jquery-3.7.1.min.js"></script>
+<script src="/js/mypage/mypageView.js"></script>
 </head>
 <body>
     <div th:insert="~{common/header}"></div>
@@ -13,7 +14,7 @@
     <div class="mypage-view-container">
         <div class="mypage-nav-section">
             <div class="mypage-head-section">
-                <div class="mypage-nav-head-title">마이페이지</div>
+                <div class="mypage-nav-head-title" id="mypage-nav-data" th:data-alert-msg="${alertMsg}">마이페이지</div>
             </div>
 			<div class="mypage-nav-btns">
 			    <a href="/mypage/view?view=modifyUserPasswordCheck">회원 정보 수정</a>
@@ -36,40 +37,9 @@
             <div th:if="${showReviewList}" th:insert="~{mypage/views/mypageReviewList}"></div>
             <div th:if="${showWithdraw}" th:insert="~{mypage/views/mypageWithdraw}"></div>
             
-    
-             
-             <!-- 회원정보수정 -->
-            <!-- <div th:insert="~{mypage/views/mypageModifyUserPasswordCheck}"></div>  -->
-            <!-- <div th:insert="~{mypage/views/mypageModifyUser}"></div> -->
-
-            <!-- 비밀번호변경 -->
-            <!-- <div th:insert="~{mypage/views/mypagePasswordChange}"></div> -->
-
-            <!-- 예매정보확인/취소 -->
-            <!-- <div th:insert="~{mypage/views/mypageTicketList}"></div> -->
-            <!-- <div th:insert="~{mypage/views/mypageTicketDetail}"></div> -->
-             <!-- <div th:insert="~{mypage/views/mypageTicketPasswordCheck}"></div> -->
-
-            <!-- 나의관심목록 -->
-            <!-- <div th:insert="~{mypage/views/mypageLikeList}"></div> -->
-
-            <!-- 나의리뷰목록 -->
-            <!-- <div th:insert="~{mypage/views/mypageReviewList}"></div> -->
-             
-            <!-- 회원탈퇴 -->
-            <!-- <div th:insert="~{mypage/views/mypageWithdraw}"></div> -->
-    
-             <!-- <div class="mypage-view-inquiry-list">
-                <div class="mypage-head-section">
-                    <div class="mypage-view-head-title">
-                        1:1 문의 내역
-                     </div>
-                </div>
-             </div> -->
-
         </div>
     </div>
-
+    
     <div th:insert="~{common/footer}"></div>
 </body>
 </html>

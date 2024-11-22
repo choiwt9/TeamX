@@ -37,8 +37,7 @@ $(function() {
         reviewTitle: $('#review-title').val(),
         reviewContent: $('#review-content').val()
       },
-      success: (result) => {
-        alert(result);
+      success: () => {
         location.href="/exhibition/detail?id="+selectedExhibitionNo;
       },
       error:(err)=> {

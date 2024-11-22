@@ -5,6 +5,7 @@
   min-width: 90rem;
   display: flex;
   justify-content: center;
+  white-space: nowrap; /* 줄바꿈 방지 */
   /* border: 1px solid red; */
 }
   
@@ -23,6 +24,15 @@
   /* border: 1px solid red; */
 }
 
+.mypage-view-review-list-section>table {
+  table-layout: fixed;
+  width: 100rem;
+}
+
+.mypage-view-review-list-section>table td {
+  overflow: hidden; /* 넘치는 내용 숨김 */
+  text-overflow: ellipsis; /* 넘치는 내용을 생략(...) 표시 */
+}
 
 .mypage-view-review-container{
   display: flex;
