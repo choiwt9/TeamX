@@ -54,4 +54,8 @@ public class MypageService {
 		return reviewMapper.selectMyPageReviewCount(userNo);
 	}
 
+	public PaymentDTO selectTicketingInfoNonePrice(String merchantUid) {
+		return ticketingMapper.selectTicketingInfoNonePrice(merchantUid);
+	}
+
 }
