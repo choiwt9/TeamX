@@ -131,7 +131,7 @@ function selectParentReply(){
                   // 답글 입력 폼 추가 HTML
                   const replyForm = `
                      <div class="reply-form">
-                           <input type="text" class="community-btn community-comment-input reply-input" placeholder="답글 입력">
+                           <input type="text" class="community-btn community-comment-input reply-input" maxlength="499" placeholder="답글 입력">
                            <button type="button" class="community-btn community-submit-btn reply-submit-btn" onclick="insertChildrenReply(${commentId}, this);">등록</button>
                      </div>
                   `;
@@ -383,7 +383,7 @@ $(document).on('click', '.community-comment-edit-btn', function(){
       // 수정 입력 폼 추가 HTML
       const replyForm = `
          <div class="reply-form">
-               <input type="text" class="community-btn community-comment-input reply-input" id="community-edit-parent-reply-input">
+               <input type="text" class="community-btn community-comment-input reply-input" id="community-edit-parent-reply-input" maxlength="499">
                <button type="button" class="community-btn community-submit-btn" onclick="editParentReply(${commentId}, this);">수정</button>
          </div>
       `;
@@ -448,7 +448,7 @@ $(document).on('click', '.community-reply-edit-btn', function(){
       // 수정 입력 폼 추가 HTML
       const replyForm = `
          <div class="reply-form" id="reply-edit-form">
-               <input type="text" class="community-btn community-comment-input reply-input" id="community-edit-children-reply-input">
+               <input type="text" class="community-btn community-comment-input reply-input" id="community-edit-children-reply-input" maxlength="499">
                <button type="button" class="community-btn community-submit-btn" onclick="editChildrenReply(${replyId}, this);">수정</button>
          </div>
       `;
