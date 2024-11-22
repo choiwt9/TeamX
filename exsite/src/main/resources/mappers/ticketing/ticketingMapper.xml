@@ -131,4 +131,10 @@
 	WHERE USER_NO = ${userNo} AND EXHIBITION_NO = #{exhibitionNo}
 </select>
 
+<select id ="selectTicketingInfoNonePrice">
+	SELECT * 
+	FROM TICKETING
+		JOIN EXHIBITION USING(EXHIBITION_NO)
+	WHERE MERCHANT_UID = #{merchantUid}	
+	</select>
 </mapper>
